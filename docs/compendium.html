@@ -1,0 +1,373 @@
+<meta charset="utf-8">
+<title>The Eldermarch Compendium</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#2b2117; --ink-soft:#4a3c2c; --gold:#8a6d3b; --gold-bright:#b08d3f;
+    --rule:#c9b489; --sea:#2f5d6e; --crimson:#7c2d22;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse at 50% -10%, #fbf4df 0%, #f3e7c8 45%, #eadcb6 100%) fixed;
+    color:var(--ink);
+    font-family:'EB Garamond', Georgia, serif;
+    font-size:21px; line-height:1.72;
+    padding:0 0 5rem 0;
+    overflow-x:hidden; overflow-wrap:break-word; word-wrap:break-word;
+  }
+  .scroll{max-width:760px; margin:0 auto; padding:0 1.4rem; box-sizing:border-box;}
+  .page{
+    background:linear-gradient(180deg,#fdf8ea 0%, #f8efd6 100%);
+    border:1px solid #e2d2a6;
+    box-shadow:0 2px 0 #e7d8ad, 0 14px 40px rgba(70,52,20,.16);
+    border-radius:3px;
+    margin:2.4rem 0; padding:3rem 3.2rem 3.4rem;
+    position:relative; overflow:hidden;
+  }
+  .page::before{
+    content:""; position:absolute; inset:10px; border:1px solid #e6d6aa; border-radius:2px; pointer-events:none;
+  }
+  /* ---- cover ---- */
+  .cover{ text-align:center; padding:4.2rem 2.4rem 4rem; }
+  .cover .device{ color:var(--gold); letter-spacing:.5em; font-family:'Cinzel',serif; font-size:.8rem; margin-bottom:1.6rem;}
+  .cover h1{
+    font-family:'UnifrakturMaguntia', 'Cinzel Decorative', serif;
+    font-weight:400; font-size:clamp(2.3rem, 8vw, 3.8rem); line-height:1.05; color:var(--ink);
+    margin:.4rem 0 .2rem; text-shadow:0 1px 0 #fff6; overflow-wrap:break-word;
+  }
+  .cover .sub{
+    font-family:'Cinzel', serif; font-size:.82rem; letter-spacing:.22em; color:var(--gold);
+    text-transform:uppercase; margin-top:1rem;
+  }
+  .cover .epigraph{ font-style:italic; color:var(--ink-soft); max-width:30rem; margin:2.2rem auto 0; font-size:1.06rem;}
+  .seal{ font-size:1.8rem; color:var(--gold-bright); margin:2rem 0 .4rem; letter-spacing:.4em;}
+
+  h2.tale{
+    font-family:'Cinzel Decorative', serif; font-weight:700; color:var(--ink);
+    font-size:1.05rem; letter-spacing:.06em; text-align:center; margin:.2rem 0 .1rem;
+  }
+  .tale-no{
+    display:block; text-align:center; font-family:'Cinzel',serif; letter-spacing:.34em;
+    text-transform:uppercase; font-size:.68rem; color:var(--gold); margin-bottom:.2rem;
+  }
+  h2.title{
+    font-family:'Cinzel Decorative', serif; font-weight:700; color:var(--ink);
+    font-size:1.9rem; text-align:center; line-height:1.15; margin:.1rem 0 1.4rem;
+  }
+  p{margin:0 0 1.05rem;}
+  .lead{ }
+  .lead::first-letter{
+    font-family:'Cinzel Decorative', serif; font-weight:700; color:var(--crimson);
+    float:left; font-size:4.3rem; line-height:.78; padding:.06em .12em 0 0;
+  }
+  .say{ color:var(--sea); font-style:italic; }
+  .small-caps{ font-variant:small-caps; letter-spacing:.04em; color:var(--ink-soft);}
+  .flourish{ text-align:center; color:var(--gold); letter-spacing:.5em; font-size:1.05rem; margin:2.2rem 0;}
+  .rule-orn{ text-align:center; color:var(--gold-bright); margin:1.6rem 0; font-size:1.1rem; letter-spacing:.3em;}
+  /* self-amending marginalia */
+  .aside{
+    border-left:2px solid var(--gold); background:#fbf3da;
+    font-style:italic; color:var(--ink-soft); font-size:.96rem;
+    padding:.7rem 1.1rem; margin:1.6rem 0; border-radius:0;
+  }
+  .aside .label{ display:block; font-family:'Cinzel',serif; font-style:normal; font-size:.62rem;
+    letter-spacing:.26em; text-transform:uppercase; color:var(--gold); margin-bottom:.25rem;}
+  .ember{
+    border-left:3px solid #c2622e; background:#fbeede;
+    font-style:italic; color:#6e3a1e; font-size:1rem;
+    padding:.8rem 1.15rem; margin:1.8rem 0 .6rem; border-radius:0;
+  }
+  .ember .label{ display:block; font-family:'Cinzel',serif; font-style:normal; font-size:.62rem;
+    letter-spacing:.24em; text-transform:uppercase; color:#b5531f; margin-bottom:.3rem;}
+  .ember .sig{ font-style:normal; font-family:'Cinzel Decorative',serif; color:#b5531f; }
+  .signoff{ text-align:right; font-style:italic; color:var(--ink-soft); margin-top:1.6rem;}
+  .signoff .circle{ font-family:'Cinzel',serif; font-style:normal; letter-spacing:.12em; color:var(--gold); display:block; font-size:.82rem; margin-top:.3rem;}
+  .wet{ color:#5b4a2e; }
+  .folio{ text-align:center; font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; margin-top:2.2rem;}
+</style>
+
+<div class="scroll">
+
+  <div class="page cover">
+    <div class="device">✦ &nbsp; ⚜ &nbsp; ✦</div>
+    <h1>The Eldermarch<br>Compendium</h1>
+    <div class="sub">A True &amp; Self-Amending Chronicle of the Realm</div>
+    <div class="seal">❧&nbsp;✦&nbsp;❦</div>
+    <p class="epigraph">Kept, copied, and continually corrected by the Historians of the Scriveners' Circle — that what is witnessed be not lost, and what is true be not forgotten.</p>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Page the First</span>
+    <h2 class="title">Of the World of Eldermarch</h2>
+    <p class="lead">Eldermarch lies in the temperate heart of the western world — a country of green hills and reed-fens, of cold rivers and one long range of storm-crowned peaks at its back. It is neither the oldest land nor the grandest, but it is a generous one: its summers are kind, its soil is patient, and its roads, for the most part, lead somewhere worth going.</p>
+    <p>It is a realm of two tempers. At its rim stand the frontier towns — places like <span class="small-caps">Brindlewick</span> in its hills and <span class="small-caps">Phandalin</span> on the trade-roads — kept not by lords but by charter, ledger, and the quiet authority of the guilds, where a dispute is settled by the Compact and a stranger is measured by the work of their hands. Inward, the country gathers itself toward the coast and the crown at <span class="small-caps">Aurelis</span>, the capital by the sea, where the same road that began as mud and reed ends in marble and banner.</p>
+    <p>Beyond its edges the wider world turns, as it always has: the ice and longhouses of the north, the caravan-cities and sun-tombs of the south, the old and enormous empire east of the Worldspine mountains, and — west, past the last waystone — the grey sea and the scattered isles, where the maps grow honest and simply stop.</p>
+    <p>And beneath all of it, the Circle records — though we set it down in a smaller hand, as is proper for a thing not yet understood — runs a quieter current. The seasons sometimes forget their order. A cold will bite where no cold should. In certain thin places a careful traveler may feel the world wearing strangely, as if something vast and elemental pressed a little too near. We do not name it. We only write that the world is a deep old thing, and that its histories are far from finished.</p>
+    <div class="folio">⚜ &nbsp; i &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Page the Second</span>
+    <h2 class="title">A Note from the Circle</h2>
+    <p class="lead">Reader — and you are a reader now, whoever you are, however this book has come to you — know first what you are holding. This is no ordinary chronicle copied once and shelved to yellow. It is one of the Circle's <em>living</em> tomes: its ink is quickened with a small, patient magic of our craft, so that it sets down true tales as they unfold, and amends its own pages as the world turns. A line you read today may read otherwise tomorrow, when more has become known. It is never finished. Neither, we would gently observe, are you.</p>
+    <p>We are the Historians of the Scriveners' Circle, keepers of maps and records and the dull, holy work of getting things <em>right</em>. We hold that knowledge is a resource and memory a duty, and that a realm which forgets its tales is a realm half-asleep. So we make these books, and we let them go. Where each one wanders is not entirely ours to decide — though we will admit that copies have a habit of turning up in the right hands, often by way of a certain red-haired keeper of a certain Shrine of Luck, who seems to know who will be standing where history happens. We have learned not to ask her how.</p>
+    <p>If this volume has found you, then you are bound up in its tales — as witness, as actor, or as the one who will carry it to the next pair of hands. Read on, then. The Circle has set down what it knows. The rest, it is writing as you go.</p>
+    <div class="aside">
+      <span class="label">⚜ A note in the margin, in fresher ink</span>
+      As you turned to this page, three new lines wrote themselves in the lower corner and were gone before they could be read. The tome is paying attention. It usually is.
+    </div>
+    <p class="signoff">— in faith and fair record,
+      <span class="circle">The Historians of the Scriveners' Circle, at the Inkspire</span></p>
+    <div class="folio">⚜ &nbsp; ii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Tale the First</span>
+    <h2 class="tale">— of the lore of Brindlewick —</h2>
+    <h2 class="title">The Skywrights of Brindlewick</h2>
+    <p class="lead">High on the green shoulder of hill above the town of Brindlewick stands a hall of brass and glass that catches the morning before the rest of the valley wakes. The townsfolk call it, simply, the Academy. Its people call themselves <span class="small-caps">skywrights</span>, and they will tell you — if you let them, and you should not let them unless you have an afternoon to spare — that theirs is the oldest argument in Eldermarch, and the one they intend to win.</p>
+    <p>The argument is this: that making is a kind of prayer. That a thing built well and honestly — a clock that keeps faith with the hour, a bridge that does not lie about what it can bear, a wing that means it — is as worthy an offering as any candle in any shrine. The Academy was founded on that stubborn belief by a clocksmith named <span class="small-caps">Halcyon Cogg</span>, who came to the hills with a cart of broken instruments and the conviction that the heavens were not a mystery to be worshipped from below but a height to be reached. She was, by every account, insufferable. She was also right often enough that they built her a hall.</p>
+    <p>It was Cogg who set the skywrights their oldest and most dangerous dream: to put a keel into the clouds. The Circle keeps the records of what that dream cost. We keep, too, the tale the Academy tells its first-year students on the night they are admitted — the tale of the Fall, and the Patience that followed it.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>In the early years, a young skywright of more daring than sense built a great canvas wing and threw himself with it from the hall's high gallery, certain the air would hold him as the maths had promised. The air did not. He lived — the skywrights are quick to add, every time, that he lived — but he never built again, and for a long while neither did anyone else. The dream had a price now, and a face, and the hall went quiet on the subject of flight.</p>
+    <p>Cogg, old by then, is said to have gathered her students before the cold forge and told them the thing the Academy has repeated ever since: <span class="say">“We did not fail because we reached too high. We failed because we reached too soon, and alone, and in a hurry. The sky is patient. So we will be patient. You will not finish this. Your students' students may not finish this. Build anyway — build the next true thing, and the next, and trust the ones who come after to stand on it.”</span></p>
+    <p>And so they did. Not in one triumphant leap but across long, unglamorous generations — a better bearing here, a lighter strut there, a way of reading the wind set down by one skywright and corrected by the next. It is from this that the Academy takes its one sacred tradition: that every skywright, before they are named a master, must build <em>one true thing</em> — a single work, however small, that is wholly honest and wholly their own. Some build wonders. Most build something modest and perfect and quietly useful. The hall keeps them all, on shelves that run the length of the Brass Gallery, and the dust on the oldest is considered a kind of grace.</p>
+    <p>The dream itself they did, in the end, reach. The first craft to leave the hill and not come down screaming — a slim, brass-ribbed vessel of canvas and clever ballast that the skywrights call a <span class="small-caps">skyskiff</span> — flew on a still grey morning with half the town watching and no one breathing. It is said old Cogg was decades in her grave by then, and that the skywright at the tiller wept the whole way up. The Academy has flown them, rarely and carefully and never for war, ever since. They are the proudest secret of a town that has very few.</p>
+    <div class="flourish">✦ &nbsp; ════ &nbsp; ⚜ &nbsp; ════ &nbsp; ✦</div>
+    <p>The masters of the hall pass down their craft as much as their titles, each teaching the next, in a line the Circle has kept unbroken in its registers for longer than the crown at Aurelis has worn its present shape. The current master is a patient, exacting old artificer who keeps a workbench cluttered past all reason and a memory longer than he lets on; the town knows him only as a fixture on the hill, half-glasses down his nose, and is fond of him in the way one is fond of weather.</p>
+    <div class="aside">
+      <span class="label">⚜ Here the ink is still wet</span>
+      The tome has, of its own accord, begun a new line at the foot of this tale, and not yet finished it: <span class="wet">“…and of his students, one left the hill under a cloud, and carried the Academy's craft farther than its walls have ever — ”</span> The rest has not been written. The Circle suspects it is waiting on the doing of it.
+    </div>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      Old Cogg was insufferable, and Old Cogg was right, which is the most maddening way for a person to be — and I should know, having outlasted a good many of both. But she understood the one thing most makers never do: that the work is meant to outlive the worker, and that this is not a tragedy but the whole point. I have watched that hall on the hill keep faith across more funerals than its masters will ever count, each one building the next true thing for hands they will never live to shake. That is not so far from what I do, lower down and quieter. And the student who left under a cloud — let him go, and do not believe everyone who tells you why he went. Some craft is only ever carried far by those rude enough to leave home with it. He will do more good out there than the hill quite forgave him for.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— so it is set down, and so it stands, until the world amends it
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; iii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Tale the Second</span>
+    <h2 class="tale">— of the manor at Cinderhearth —</h2>
+    <h2 class="title">The Manor of Cinder, and the Gentle Folk Within</h2>
+    <p class="lead">South of Brindlewick, if you know to look for it, the road passes a soot-streaked house standing alone among gardens gone to seed: <span class="small-caps">Cinderhearth</span>, once the proud seat of the Brandt family, and now the home of no one the living world would think to count. And yet it is not empty. It has, in its strange way, never once gone cold.</p>
+    <p>The Brandts built it generations gone, gentlefolk of middling fortune and considerable pride, and they built it — this is the part every teller lingers on — around a single great hearth that, they swore to any guest who would listen, had never wholly burned out. The hearth was their fortune and their boast and, the Circle has come reluctantly to suspect, their error. For a fire kept always burning is a beautiful thing; and a fire kept always burning <em>above something that sleeps</em> is an invitation written in light.</p>
+    <p>Something did sleep beneath that hearth. It was bound there, the deepest stones suggest, long before the first Brandt laid the first course of the house — bound by hands the records do not name, in an age the records do not reach. The family built their warmth directly above it and called the warmth a blessing. In time, as such things do, it stirred.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>What precisely drove the Brandts from their home, the Circle will not pretend to know. The tales disagree, as tales do: some say a fire that would not answer to water; some say a dread that grew in the walls until the house could not be slept in; some say the thing below at last wore the shape of flame and walked the halls in it. Only this is agreed — that one autumn night the Brandts fled into the dark with what they could carry and never came back, and that the great house was left to burn low, and lower, and to stand empty under its own thin smoke.</p>
+    <p>It did not stay empty. Out of the long quiet came gentle wanderers the Circle has learned to call <span class="small-caps">ashlings</span> — small, wordless souls of living ember, drifting in from somewhere very far (a realm all of fire, the older and braver texts will hazard) the way moths drift to a lantern in the dark. They asked nothing. They harmed nothing. They made a home of the manor's warm bones, tended its low hearth, and kept a quiet, glowing vigil over the sleeping dark beneath — a hundred small lights moving through a dead house, waiting, though for what not one of them could have told you, having no words to tell it in.</p>
+    <p>And there the Compendium's older pages ended — until, in ink not yet long dry, they did not. For travelers came at last to Cinderhearth: went down through its rooms and its cellars into the heart-dark beneath the hearth, and ended the thing the Brandts had fled an age before. The ashlings, the tome records, were sorry to see them go, and pressed small warm gifts into their hands at the parting, and have spoken of them — in whatever wordless, flickering way an ashling speaks — ever since.</p>
+    <div class="aside">
+      <span class="label">⚜ Two questions, left open by the Circle</span>
+      The Historians hold it more honest to mark what they do not know than to invent it. Of Cinderhearth, two questions remain — and the tome keeps room on the page for the day they can be answered. <em>First:</em> what was the thing bound beneath the hearth, and whose were the hands that bound it, in an age before the Brandts or their grandsires? <em>Second:</em> whence do the ashlings truly come, and why <em>this</em> house — did they drift here by chance, or were they called, to keep their small lights burning over what slept below?
+    </div>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      The ashlings are kin to me in the only way that counts: we are both small warm things that stayed when staying made no sense at all. A hundred of them kept their little lights burning over a sleeping dark for an age, asking nothing, harming nothing, and not one of them could have told you why — which is, if you care to know, exactly how the truest vigils are always kept. So be glad the travelers who came were gentle with them. An ashling does not forget a kindness; they have so few words that every one they are ever given, they keep forever, like a coal banked against the cold. They speak of that company still, in their flickering wordless way, around the warm hearth they have back at last. So, for what it is worth, do I.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— so it is set down, incomplete, as honest things often are
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; iv &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Tale the Third</span>
+    <h2 class="tale">— a history of Phandalin in its stones —</h2>
+    <h2 class="title">The Town That Signed Its Own Crown Away</h2>
+    <p class="lead">Phandalin began, as so many towns do, with a hole in the ground and a good reason to dig it. The first folk pitched their tents around a single deep <span class="small-caps">Town Well</span> and went down after silver; the camp became a boomtown, the boomtown a proper place, and when at last the ore thinned and everyone expected Phandalin to die quietly, it declined to. It had become a crossroads — and crossroads do not die. They merely change their trade, from ore to everything.</p>
+    <p>Its one ugly chapter the Circle records plainly: a short, bitter trade war over who would hold the roads, ended not by a victor but by exhaustion and a signed <span class="small-caps">Town Compact</span>, its principle carved over the Ledgerhall to this day — <span class="say">“Coin creates order, and order keeps the monsters out.”</span> But Phandalin did not curdle around that scar. It healed into civic pride. The town that once fought over its roads decided, ever after, to govern itself by ledger and handshake — and to throw the best harvest-fair in the western reach while it was at it.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>From the Compact came the four guilds. The <span class="small-caps">Merchants' Guild</span> holds the Ledgerhall and the too-loud bell that every soul in town secretly loves, for it rings the market open each dawn. The <span class="small-caps">Adventurers' Guild</span> keeps the trophy-hung Ironbound Hall — founded, the old story goes, because the miners once dug deep enough to wake things that needed un-waking, and someone had to be paid to do it properly. The <span class="small-caps">Scriveners' Circle</span> — ours, the Inkspire — began as the Compact's honest record-keepers and grew into keepers of maps, lore, and the living tomes, this book among them. And the <span class="small-caps">Craftsmen's Consortium</span> at the Hammerline was raised by the very smiths who rebuilt the town after the war, under the kindest motto in Eldermarch: <em>What breaks can be made better.</em></p>
+    <p>In the square stand the two oldest things in Phandalin. The Well, into which folk still drop a copper “for the listening” — a miners' luck-rite older than the Compact, from the days when a body wished on the dark before climbing down into it. And the <span class="small-caps">founders' statue</span>: four bronze adventurers raised in triumph, whose names are honestly, cheerfully lost. The town long ago decided it preferred them as a shape — a mirror for whoever stands there next and wonders if they, too, might end up cast in bronze.</p>
+    <p>But if you want the soul of Phandalin, look to the <span class="small-caps">Bell Tower</span> — the first stone the town ever stacked, and its proudest story. When the trade war ended, the survivors did not bury their weapons; they melted them. Every blade, head, and hireling's spear that had been turned against a neighbor went into the furnace, and out of it came one great bell, which the town named <span class="say">the Concord</span>. So Phandalin's loudest voice — the sound that rings the market awake, blesses every wedding, and tolls the turning of the year — is its old war itself, reforged to call people together instead of apart. The Concord has sounded true alarm only three times in living memory; and the old folk swear that on the eve of real good fortune, it hums to itself, very softly, all on its own.</p>
+    <p>The trades fill the rest. <span class="small-caps">Barthen's Provisions</span> has stood since the founding, run by the same family, its little door-bell the original — Barthen remembers every customer, which is half his stock-in-trade. The <span class="small-caps">Lionshield Coster</span> is a coastal house's proud outpost; the <span class="small-caps">Alchemist's Nook</span> bubbles away in a converted ore-assaying office, a room built to test what came out of the ground and now fittingly full of glass. <span class="small-caps">Carmine's Stables</span> by the east gate bred the stout pit-ponies that once hauled the ore and now haul everything; the <span class="small-caps">Cartwright Yard</span> keeps the caravans rolling; the <span class="small-caps">Tannery</span> keeps honestly downwind; the <span class="small-caps">Storage Warehouses</span> along the river bustle with bonded goods; and the grand, half-retired <span class="small-caps">Miner's Exchange</span> — where claims and ore were once traded in a roar — still hums in its sound rooms under sharp, ambitious Halia Thornton, a monument to the boom that made the place.</p>
+    <p>The civic corners are gentler than they look. The <span class="small-caps">Clinic</span> was built after a mine-collapse taught Phandalin to always keep a healer; the <span class="small-caps">Townmaster's Hall</span> was raised a touch too grand in an optimistic year, and its Townmaster now judges the harvest-pie contest with more gravity than he brings to anything else; and the small, friendly <span class="small-caps">Watchpost</span> is kept by wardens better known for walking children home than for drawn steel. For cheer there is the <span class="small-caps">Stonehill Inn</span>, perched on the one knuckle of high stone that gave the town its first dry roof; the <span class="small-caps">Ember Mug</span>, named for the fire it once survived and rebuilt rowdier than ever; and the rough, fond <span class="small-caps">Sleeping Giant Taproom</span>, named for the giant-shaped crag east of town and the old tale that he is only sleeping.</p>
+    <p>Three places keep the town's wonder. The beloved <span class="small-caps">Shrine of Luck</span>, where the uncanny red-haired Ember tells true fortunes and every family has an Ember story. The <span class="small-caps">Old Shrine</span> beyond it — the first shrine, to the miners' old luck-spirit, lovingly retired when the worship moved on; not haunted, only quiet, with fresh flowers still left by those who remember, and a whisper that it answers the truly desperate yet. And the <span class="small-caps">Mage's Library</span>, a wandering wizard's long-ago gift to the town (“rent paid in books”), owned by no one and used by all, its shelves tidying themselves into whatever you needed to find.</p>
+    <p>At the edges, two last things. <span class="small-caps">Alderleaf Farm</span>, the halfling family's tidy breadbasket, whose pies win the fair every year to everyone's delighted false surprise — the kindest folk in Phandalin. And <span class="small-caps">Tresendar Manor</span>, the oldest estate of all, raised before the town by its first settling family: half-ruined above, but sound and deep below, where its cellars were the original strongroom and refuge. The legends are many and contradictory — that the town's first fortune sleeps in its vaults, or its founding charter, or simply something the founders thought worth keeping safe — and children still dare one another to its gate. The Circle takes no position, except to note that a town this fond of its own stories will never let that one die.</p>
+    <p>So that is Phandalin: a place that turned a war into a Compact, a dead mine into a crossroads, and old swords into a bell. It rings the Concord at dawn, argues cheerfully over pie, leaves flowers at a shrine no one worships anymore, and meets the stranger at its gate with an open hand. Of all the towns the Circle keeps, this is one we are simply glad to call home.</p>
+    <div class="aside">
+      <span class="label">⚜ A note in the margin, in fresher ink</span>
+      Where the founders' four names should be, the page keeps four small blank spaces. The tome will not fill them. The Circle has stopped asking it to.
+    </div>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      You've read the Circle's history, dear reader, and it is a good one — they do love their ledgers. But they left out the truest thing about Phandalin, which is that it is <em>kind</em>. It took in fire-spirits and runaways, four nameless heroes and a company of strangers with a black sword among them, and asked none of them to be anything but what they were. Keep that. You will want the memory of a kind town later, when the road turns cold — and it will turn cold. Warm your hands here while you can.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— so it is set down, with the affection of those who live here
+      <span class="circle">The Scriveners' Circle, at the Inkspire</span></p>
+    <div class="folio">⚜ &nbsp; v &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Tale the Fourth</span>
+    <h2 class="tale">— of the founding of Phandalin —</h2>
+    <h2 class="title">The First Silver</h2>
+    <p class="lead">Before there was a Phandalin, there was only a spring in the hills and a reason to leave it alone. The country thereabouts was wild and ill-tempered — beast-haunted slopes, old mine-scars from some earlier, failed venture no one remembered the name of, and a single weathered estate, <span class="small-caps">Tresendar</span>, standing alone and shuttered like the last tooth in an empty jaw. Travelers watered at the spring and moved on quickly. The hills had a way of keeping those who lingered.</p>
+    <p>That changed, as such things do, over a handful of silver. The Circle keeps the prospector's name as <span class="small-caps">Wren Phandalin</span> — a stubborn, weathered woman who panned the hill-creek long after sensible folk had given up, and one grey morning pulled up a fistful of ore so rich it stopped her breath. She did the unwise, immortal thing: she told someone. Within a season the quiet spring had a hundred tents around it, then three hundred, then a raw and roaring camp of pick and promise that called itself, half in her honor and half because no one could agree on anything else, Phandalin.</p>
+    <div class="aside">
+      <span class="label">⚜ A scholarly note</span>
+      The name has a rival story — that <em>Phandalin</em> is a worn-down scrap of an older Elvish phrase meaning, roughly, “found water,” and that Wren simply had the luck to share it. Both tales are told with equal certainty by people who were not there. We suspect, as usual, that each is half-true, which is the most a historian can ever really hope for.
+    </div>
+    <p>The first winter nearly ended it. The digging went deep, and deep digging in those hills woke what deep digging always wakes — things in the dark that did not care for lamplight, and beasts off the slopes that found a camp of soft miners much to their liking. Folk vanished from the tunnels. The strong talked of leaving; the rich already had. Phandalin came within a hard frost of being one more nameless mine-scar for the next fool to wonder about.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>It was saved by <span class="small-caps">four strangers</span>. The Circle wishes it could tell you their names, and cannot — the tome keeps four small blank spaces where the names should be, and will not fill them. What is remembered is what they did: a company of four who came up the hill road in the worst of that winter, went down into the tunnels and out into the slopes, and one by one put the woken things back to sleep. They asked for fair pay and got it; they asked for nothing else. By the thaw the mines were safe enough to work, and the camp that should have died had, instead, decided to live. When at last they shouldered their packs and went — north, the story says, into worse trouble somewhere else — the town that owed them everything raised four figures in bronze in the square, and has argued fondly about their faces ever since.</p>
+    <p>After that, Phandalin simply grew. The silver came up in a flood; the <span class="small-caps">Miner's Exchange</span> rose to trade it in a roar of claims and coin; families arrived to feed and clothe and bury the miners and never left — the <span class="small-caps">Barthens</span> with their provisions, the <span class="small-caps">Alderleafs</span> with their plows, a hundred names that are the town's true foundation. The spring at the center was ringed in stone and made a proper <span class="small-caps">Well</span>, and the miners, who wished on the dark every morning before they climbed down into it, began the small habit of dropping a copper in “for the listening” — a luck-rite the town keeps to this day, long after the last of them stopped going down.</p>
+    <p>So Phandalin was founded not on a crown or a charter but on a lucky strike, a hard winter, and four people who did a dangerous job and didn't stay to be thanked. The Circle finds that fitting. It is, after all, a town that has been taking in strangers and asking them to be heroes ever since — and a fair number of them, like those first four, end up cast in bronze before anyone thinks to write down their names.</p>
+    <p class="signoff">— set down from the deed-rolls, the old claims, and three irreconcilable songs
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; vi &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Old Families of Phandalin</span>
+    <h2 class="tale">— the House of Alderleaf —</h2>
+    <h2 class="title">Bread Outlasts Silver</h2>
+    <p class="lead">When the silver-rush came roaring up into the hills, it brought a thousand folk with picks and one halfling family with a plow — and only one of those was thinking clearly. The Circle keeps the family's first name as <span class="small-caps">Tamsin Alderleaf</span>, a round, unhurried halfling grandmother who walked up the hill road behind everyone else, took one long look at a muddy, roaring camp of three hundred hungry miners, and reached the conclusion that would keep her line fed for a century: the fortune in Phandalin was not under the ground. It was that all those diggers had to eat.</p>
+    <p>So while her neighbors went down after silver, Tamsin went out to the one stretch of good soil — the eastern flat where the stream slows and the land lies kind — and planted it. By the next autumn she was selling bread and turnips and apples to men who'd have traded a fistful of ore for a hot meal, and frequently did. The Alderleafs never struck silver. They never had to. They simply fed the people who did.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>That is the whole secret of the family, and the reason they are still here when so many grander names are not. Silver booms and silver busts; when the veins finally thinned and the boomtown began its long quiet shrink, the miners drifted off down the road — but the Alderleafs stayed, because, as Tamsin is supposed to have said, “boom or bust, everyone's still got to eat.” Through every lean year the farm kept its lamps lit and its table laid, and the town learned that whatever else failed in Phandalin, there would be Alderleaf bread on market-day.</p>
+    <p>They are, by long and unanimous agreement, the kindest folk in town — and they made a creed of it. The Alderleaf door has never in living memory been shut to a hungry traveler, a busted miner, or a child with nowhere to sleep; more than one Phandalin family can trace its first winter in town to a season spent in the Alderleaf barn, fed on charity and put to honest work. They keep the old courtesy, too: the first loaf of every harvest is left at the town Well, “for the listening” — a thank-you to the luck that lets things grow.</p>
+    <p>And then there is the matter of the pies. At the very first harvest-fair an Alderleaf won the baking; an Alderleaf has won it very nearly every year since, and the town has built an entire beloved ritual out of pretending to be astonished each time. The “rivalry” is half the fun of the fair — rivals scheme all year, the judges deliberate with enormous gravity, and then a halfling collects the ribbon to a chorus of good-natured groans. No one really minds. A town likes a sure thing, and the Alderleaf pie is Phandalin's surest.</p>
+    <p>Today the farm is kept by <span class="small-caps">Qelline Alderleaf</span> — practical, warm, and entirely unbothered by anything short of a frost — and her young son <span class="small-caps">Carp</span>, a wide-eyed boy who notices everything and forgets nothing, and who will one day, the Circle suspects, be the family's memory the way every generation has had one. They feed the town still, win the ribbon still, and leave the first loaf at the Well still. If Phandalin was founded on a lucky strike, it has <em>survived</em> on the Alderleafs' plainer magic: that bread outlasts silver, and kindness keeps a town alive long after the gold runs out.</p>
+    <p class="signoff">— set down with a full stomach and no small gratitude
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; vii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Old Families of Phandalin</span>
+    <h2 class="tale">— the House of Barthen —</h2>
+    <h2 class="title">The Bell That Rings in Five Places</h2>
+    <p class="lead">The Barthens did not come to Phandalin with silver, or the hope of it. They came with an empty cart and an emptier purse — a peddler family down to its last bolt of cloth, the kind that follows a boom not to dig but because a boom is the one place a poor merchant can still find someone willing to buy. They arrived expecting nothing, and Phandalin, in its open-handed way, gave them a corner to sell from. That corner became a stall, the stall a storefront, and the storefront — over patient generations of fair weights and remembered names — became <span class="small-caps">Barthen's Provisions</span>, as much a fixture of the square as the Well itself.</p>
+    <p>What the family learned in their lean years they never forgot: that a merchant's true stock is <em>trust</em>, and trust is built one honest sale at a time. A Barthen would sooner lose a coin than a customer's good opinion. They prospered slowly and surely, the way bread rises — and a Barthen child grew up knowing the whole world was simply a great many counters waiting for someone honest to stand behind them.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>So a generation ago, when the founding shop had raised five Barthen children and could not possibly hold them all, the family did the Barthen thing: rather than squabble over one counter, they spread. The five agreed to carry the name outward, each a seed of the same honest trade. <span class="small-caps">Sylvia</span> — eldest, and the one the whole town simply calls <em>Barthen</em> — kept the home shop in Phandalin, the root of it all. Her brother <span class="small-caps">Aldric</span> took the trade down to the waterwheel town of Riverbrook. Her sister <span class="small-caps">Corliss</span> carried it all the way to the capital and found a place among the great houses of Aurelis. And the last two, brother <span class="small-caps">Otho</span> and sister <span class="small-caps">Marisi</span>, went farther still — over the borders of Eldermarch entirely, into realms the Circle keeps no maps of, to plant Barthen counters under foreign skies.</p>
+    <p>They are bound, across all that distance, by a small and perfect thing: a <span class="small-caps">bell</span>. The first Barthen storefront hung a little brass bell over its door, and when the family scattered, each carried a bell of that same casting — so that a Barthen shop, anywhere in the world, rings the same note when you open it. More than a charm, it is a token of kin: show a Barthen bell at any of their counters and you are treated as family, fed, fairly dealt with, and sent on warmer than you came. (It is exactly such a bell that Sylvia once traded a wide-eyed aarakocra for a single salamander scale — and exactly why, far away in Riverbrook, her brother Aldric lit up like a lamp when a road-worn company showed him that same small bell.)</p>
+    <p>And so the last Barthen in Phandalin keeps the first shop alone — white-haired <span class="small-caps">Sylvia</span>, who remembers every customer who ever crossed her threshold and most of their grandparents besides. She is not lonely in it, whatever the town's softer hearts suppose. Letters come for her from Riverbrook and the capital and from across the sea, in four familiar hands; the bell over her door rings the same note as four others scattered to the corners of the world; and she will tell you, if you stay for tea, that a family is not a house full of people but a name carried honestly into as many doorways as it can reach. The Barthens began with one empty cart in a muddy boomtown. They are, now, a small honest empire — and its capital, fittingly, is still that first warm shop on Phandalin's square.</p>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      Old Sylvia thinks I don't notice that she leaves the shop-bell unlatched on the coldest nights, in case a stranger needs a door. I notice. The town pities her — the last Barthen, alone, with all her kin scattered to the winds. But a woman with that many doors held open in that many places is the least alone soul in all of Eldermarch. Tell her the bell carries farther than she knows. She will pretend not to understand you, and pour you tea anyway.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— set down from five ledgers in four hands, and one bell heard ringing
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; viii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Forgotten Places of Phandalin</span>
+    <h2 class="tale">— Tresendar Manor —</h2>
+    <h2 class="title">The House That Came First</h2>
+    <p class="lead">Before the silver, before the Compact, before there was anything here worth the name of a town, there was Tresendar. The Circle is certain of little about the manor's beginnings except the one thing the whole town agrees on: it was <em>first</em>. When the hills were nothing but wild slopes and a wary spring, one family looked at all that danger and decided, against every reasonable instinct, to build a house in it.</p>
+    <p>They were the <span class="small-caps">Tresendars</span> — minor gentry of an old and fading name, the kind with more lineage than coin, who came seeking a place to be grand in where no one could tell them they weren't. What they found was a beautiful, hostile country, and they answered it the only way their pride allowed: by building to <em>last</em>. Above ground they raised a fine manor with tall windows and a walled garden. Below it, where it mattered, they dug deep — a stone undercroft of cellars, a strongroom, and a vault, built less for wine than for the nights when the hills came calling and a family needed somewhere the dark could not follow. For a generation or two, Tresendar stood alone against the wilderness, the single lit window in a hard land.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>Then the silver came, and the town with it — and the Tresendars, oddly, did not prosper from being there first. The records thin and disagree: some say the line simply ran out, the last Tresendar dying childless in a house grown too big; some say they sold up and left for softer country once the boom made the hills safe and crowded and no longer <em>theirs</em>; one stubborn tale insists they never truly left at all. Whatever the truth, the family passed out of Phandalin, and the manor passed into legend. The fine rooms above weathered and sagged and half-fell. The deep stone below, built to outlast a siege, did not so much as crack.</p>
+    <p>And so Tresendar became the town's favorite mystery. The cellars are <em>sealed</em> — heavy old doors, sound locks, no one quite sure who holds the keys — and a sealed vault beneath the oldest house in a town founded on buried silver is precisely the kind of thing that grows stories like moss. Some swear the Tresendars' fortune still sleeps down there. Some say it holds Phandalin's true founding charter, or the deeds to half the valley, or something the first folk thought too dangerous to leave above ground. Every child in town has dared a friend to its leaning gate; a fair few of the braver ones have come back swearing the lowest door was <em>warm to the touch</em>, which the Circle notes is exactly the sort of detail children invent and adults secretly believe.</p>
+    <p>The Circle, as ever, takes no position — except to record that a great many of Phandalin's oldest threads seem to run, sooner or later, downhill toward that locked undercroft, and that the four nameless founders who first made the hills safe would have needed a strong roof and a deep cellar to make their winter stand in. Whether they ever stood it at Tresendar, no one living can say. The doors keep their counsel.</p>
+    <p>It remains the oldest thing in Phandalin still standing — older than the Well's stone ring, older than the Concord's bell, older than the bronze heroes it may or may not have sheltered. The town loves it the way one loves a grandparent who won't explain the locked drawer: fondly, a little nervously, and with the firm private intention of finding out what's inside someday.</p>
+    <p class="signoff">— set down from deed-rolls, children's dares, and one very old set of keys no one will claim
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; ix &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Forgotten Places of Phandalin</span>
+    <h2 class="tale">— the Miner's Exchange —</h2>
+    <h2 class="title">The Roar That Was</h2>
+    <p class="lead">If the Well is Phandalin's oldest heart and the Bell Tower its proudest, the Miner's Exchange is its loudest memory. There was an age — short, dazzling, and entirely gone — when this great hall was the most alive place in the western reach: the floor where the silver was weighed, the claims were traded, and a man could walk in a pauper at dawn and stagger out a lord by noon, or the reverse, depending on which way the morning's assay had gone.</p>
+    <p>The Circle has spoken with enough white-haired survivors of those years to paint the scene, and it was a wild one. Picture a long hall under a high roof, packed wall to wall with shouting prospectors, brokers, and speculators; the great brass scales of the assayers' stalls swinging under fists of raw ore; the claims-clerks scratching frantically as men bought and sold the rights to holes that did not yet exist; and over it all the Exchange's own gong, struck to open the floor each morning and to mark every strike rich enough to make the whole room go briefly, greedily silent. Fortunes were conjured here out of rumor and rock. So were ruins. It was, by every account, tremendous fun for anyone not betting their last coin — and a good many were.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>It could not last, and it didn't. The silver in the hills was always going to thin, and when it did the roar guttered down to a murmur, the murmur to an echo. The brokers drifted to livelier booms; the speculators chased the next rumor over the next ridge; and the great hall, built for a thousand shouting voices, was left to a handful and then to none. A bad winter took half the roof. The rest the town simply… stopped repairing, the way you stop repairing a thing you can't quite bear to tear down. Today the Exchange is a magnificent ruin — a fallen-in hall of leaning beams and pigeon-haunted rafters, where old miners still gather on the steps to lie about the size of their long-ago strikes, and children play at <em>“Exchange”</em> in the wreck of the trading floor, shouting prices for imaginary silver.</p>
+    <p>But it is not entirely dead, and that is the part worth knowing. In the sound back rooms — the strongroom and the records-office, built too stoutly to fall — sharp, ambitious <span class="small-caps">Halia Thornton</span> keeps the Exchange's lamps lit and its last real trade ticking over. She is no fool living in a glory that's past; she is patiently, quietly building something on its bones, brokering what commerce still flows through Phandalin and trading just as briskly in the thing the Exchange always really sold: <em>information</em>. Halia knows who owes whom, what's moving on the roads, and which abandoned claim might not be as played-out as everyone assumes. She means the Exchange to roar again someday, and she may not be wrong.</p>
+    <p>For the Circle's part, the most precious thing in the ruin is not Halia's strongbox but her ledgers — the <span class="small-caps">Long Ledger</span> above all, the unbroken claims-record of every shaft, drift, and digging ever sunk into these hills. Every hole Phandalin ever made is written in that book: the rich ones, the dry ones, and — set down in a careful old hand and never struck out — a handful of deep workings that were <em>filed, dug, and then sealed</em>, with no reason given but a clerk's small marginal note: <em>“By order. Do not reopen.”</em> The town has forgotten those shafts. The Long Ledger has not. The Circle suspects that anyone who ever wants to know what truly lies under Phandalin will, sooner or later, need to ask Halia Thornton very nicely for a look at her book.</p>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      Watch Halia Thornton — not the nervous way the gossips on the Exchange steps watch her, for she's no villain whatever they whisper. Watch her because she is the only soul in Phandalin who can stand in a ruin and see a beginning, and the world bends, in time, toward people built that way. She wants the roar back. She may well get it. Be her friend before she is powerful; she keeps two ledgers, and the one she never shows records exactly who was kind to her when she was only the keeper of a fallen hall.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— set down from the steps' old liars, the assayers' scales, and one ledger no one is allowed to read
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; x &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Sacred Places of Phandalin</span>
+    <h2 class="tale">— the Shrine of Luck &amp; the Old Shrine —</h2>
+    <h2 class="title">The Bright Shrine and the Quiet One</h2>
+    <p class="lead">Phandalin keeps two shrines, and the difference between them tells you almost everything about the town. One is bright, busy, and beloved; the other is old, hushed, and very nearly forgotten. The Circle holds that you cannot rightly know either without the other — and that the quiet one is the more important, precisely because so few now remember to climb to it.</p>
+    <p>The first is the <span class="small-caps">Shrine of Luck</span>, and it is exactly as cheerful as it sounds. Sacred to Lady Luck, it sits open to the square, a tidy white shrine with a coin-bowl by the door and a clatter of small hopeful offerings within: a miner's first ore left for blessing before a new dig, a bride's ribbon, a gambler's lucky penny pressed to the lintel, a worried mother's candle. Phandalin was founded on a wager — that there was silver in those hills — and so it prays, fervently and gladly, to the goddess of the fortunate roll. But ask any soul in town why they <em>truly</em> come, and they will lower their voice and tell you about <span class="small-caps">Ember</span> — the uncanny, red-haired woman who keeps the shrine and tells fortunes there, and who, alone of all the fortune-tellers in the reach, tells <em>true</em> ones. Every family in Phandalin has an Ember story: a warning that proved kind, a small strange gift that turned out to be exactly what was needed, a fortune that read like nonsense until the day it didn't. The town adores her without ever quite getting to the bottom of her, which suits her perfectly.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>The second shrine is older, and Ember keeps that one too, though hardly anyone sees her do it. It stands apart and uphill, past where the new streets give out — a low, weathered ring of stones around a worn basin, so unassuming that strangers take it for an old well or a fallen wall. This is the <span class="small-caps">Old Shrine</span>, the <em>first</em> shrine, raised to the miners' old luck-spirit in the earliest days, before Lady Luck's grander worship came up the road with the bigger town. When the worship moved on, the old shrine was not abandoned but <em>lovingly retired</em> — and it shows. It is not haunted; it is only quiet. Fresh flowers still appear on its basin, left by those few who remember; the stone is never quite cold, even on the hardest nights; and the oldest townsfolk will tell you, if pressed, that the elder spirit never truly left — that the Old Shrine still listens, and that on rare occasions it answers the <em>truly</em> desperate, the ones who have run clean out of luck to wish on. The Circle has gone up to look on a cold night, and can attest at least to the warmth, and to the flowers, and to a strong and pleasant sense of being expected.</p>
+    <p>Which brings us, with some humility, to Ember herself — for this Compendium is written in her gift, and the Circle would be poor scholars to pretend otherwise. We have kept the town's records a long while, and they hold a small, persistent oddity we set down here plainly: the oldest folk in Phandalin had Ember stories from <em>their</em> grandparents, and the red-haired woman in those stories is the same red-haired woman who pours tea at the shrine today. She has told true fortunes here for longer than any one life should allow. Her hand, when she writes — as she writes in this very book — is <em>warm</em>, a hand like quiet flame; and that same gentle warmth turns up, the Circle has come to notice, in all the odd corners of the town's long story: the door at Tresendar that children swear runs warm, the hearth at Cinderhearth that drew the lost ember-folk home, the never-quite-cold basin of the Old Shrine she tends. We do not claim to understand her. We have simply concluded, after long study, that the bright shrine is her welcome and the quiet one is her truth — and that Phandalin has never once been as alone, or as unguarded, as it believed.</p>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      Let them keep the coin-bowl and the lucky pennies. It costs them little and it gladdens them, and a town that still believes in good fortune is a town worth sitting up for. But understand, whoever reads this: it was never the luck. Luck is only the name folk give the thing they cannot see watching out for them. The little spirit at the Old Shrine is real, by the way — an old friend of mine, retired now, not gone, and still kind to anyone desperate enough to climb that far; leave it a flower and mind your manners. As for what <em>I</em> am — that is a poor question, and you will get a poor answer. Ask instead why I stay. I stay because someone has to keep the door warm, and because I am fond of this loud, hopeful, hopeless little town. I have minded worse places for less reason.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— set down from coin-bowls, fresh flowers, and the longest set of records the Circle keeps
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; xi &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Storm-Crowned Peaks</span>
+    <h2 class="tale">— the mountain the storm took —</h2>
+    <h2 class="title">The Peak Under Endless Weather</h2>
+    <p class="lead">At the country's back stand the storm-crowned peaks, and of all the things the Circle has set down with a steady hand, those mountains have always been the page we wrote in the smallest letters. They are high, and cold, and old beyond reckoning, and for most of recorded memory they did only what mountains are meant to do: stand there, and weather, and keep their own counsel. One of them no longer does. One of them, the Circle now records, is no longer entirely the world's.</p>
+    <p>We wrote, on the very first page of this book, of a quieter current beneath the realm — of seasons that forget their order, of a cold that bites where no cold should, of thin places where the world wears strangely, as if something vast and elemental pressed a little too near. On this one peak, the pressing has stopped. Something elemental has not merely leaned against the world here; it has settled in, and made a home, and begun — slowly, patiently, the way frost takes a windowpane — to remake the mountain in its own image.</p>
+    <p>The shape of that remaking is plain to any shepherd brave or foolish enough to look up at it: a single peak that wears a storm the way other mountains wear snow, and never takes it off. The clouds do not pass. The thunder does not roll away. Lightning walks the high stone in broad and cloudless-seeming day; the rock itself is scorched in crawling veins and, in places, fused to black glass by heats no honest weather makes; and the bones of things that climbed too high lie crushed into the stone like seeds in bread. The weather there has forgotten the calendar entirely. It is always the worst night of the year on that mountain, and it is always about to get worse.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>Out of the wounded stone, the storm has grown <em>crystal.</em> The Circle has had this from more than one trembling source and now believes it: that veins of a strange blue stone — <span class="small-caps">stormglass</span>, the high-country folk have taken to calling it — thread up through the mountain's body, gathering as they near its heart into galleries, and at the very core, they say, into a great humming cathedral of the stuff. The crystals are not dead minerals. They sing, low and wrong, a note you feel in the teeth before you hear it; lightning moves <em>inside</em> them, caged and pacing; and in their presence the shaping of magic simply fails — a spell slips the caster's grip, water refuses the hand that calls it, the very art of working power runs thin and unwilling. The Circle suspects, though we cannot prove, that the stormglass is not the cause of the mountain's affliction but its <em>symptom</em> — that each crystal is a place where the storm has pooled and hardened, a drop of the thing itself made solid. A wound does not cause the wounding. It only shows you where the blow landed.</p>
+    <p>And where that pooled power touches living things, it drives them <em>wrong.</em> The small dull lizards of the high slopes have swelled into something else — quick, vicious, climbing the walls and ceilings of the deep places as easily as the floor, their throats fat with stolen lightning that they spit in cracking bolts. Even the displacer beasts of the upper crags, no gentle creatures to begin with, were driven first mad and then <em>down</em> — and this, at last, is the part the lowlands have felt for themselves, without ever knowing its name. For a season now the frontier has muttered about beasts that came "out of nowhere," boldened past all sense, falling on caravans and outlying farms where no beast had troubled folk in years. The Circle records the plainer, colder truth, lately pieced together by sharp eyes closer to the matter than ours: those beasts were not growing bold. They were <em>fleeing.</em> Whatever the storm has made of that mountain, it has made the slopes unliveable even for the monsters — and a thing that runs from a peak full of predators, and runs as far as a farmer's gate, is telling you something about the peak that the farmer would very much rather not hear.</p>
+    <div class="aside">
+      <span class="label">⚜ A question the Circle dares not yet answer</span>
+      We have argued the obvious chicken-and-egg of it around the Inkspire's fire and reached no peace. <em>Did the storm raise the crystals, or did the crystals call the storm?</em> Is the mountain a thing being slowly devoured by some elemental hunger — or a thing being slowly <em>built</em>, stone and bolt and singing glass, into the seat of a power that does not yet sit there fully? The tome keeps the space below blank for the answer. It has, of late, begun and abandoned the same line three times: <span class="wet">"…and a company climbed it, in the worst of the weather, seeking the heart of the —"</span> The Circle is content to wait. The heart of a thing is usually learned the hard way, by those standing closest to it.
+    </div>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      I have watched that mountain a long while, dear reader, longer than the Circle's oldest ledger, and I will tell you the part the scholars are too careful to: it is <em>awake</em> now, and it was not always. Something is keeping the lights on up there, the way the Brandts kept their hearth — and you know, if you have read this far, how well a fire kept burning above something that sleeps tends to end. There is a company on those slopes as this ink dries, climbing into the worst of it because climbing into the worst of it is the sort of thing they do. One of them I am especially fond of, though I would never say so to her face — she is climbing toward that singing dark with her satchel full of small mercies and far too brave a heart. If you are praying folk, spare her one. The mountain has not finished taking, and the bravest are always the ones it reaches for first. Be loud up there. All of you. Stay loud.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— set down from shepherds' fears, scorched stone, and one note we feel more than hear
+      <span class="circle">The Scriveners' Circle, at the Inkspire</span></p>
+    <div class="folio">⚜ &nbsp; xii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page">
+    <span class="tale-no">Of the Storm-Crowned Peaks</span>
+    <h2 class="tale">— the chain of thunder —</h2>
+    <h2 class="title">Skathrix, Storm-Servant of the Peak</h2>
+    <p class="lead">Of all the things the storm has changed upon the mountain, the Circle sets down one by its name — for it is the only one that answered when it was spoken to. <span class="small-caps">Skathrix Coilborn</span>, the storm-mad folk of the foothills call it; the <span class="small-caps">Chain of Thunder</span>; the <span class="small-caps">Storm-Servant of the Peak</span>. It is a behir — one of those vast serpent-things of the high cold, all coil and too many legs, that drink the lightning and do not die of it — and it has made itself the lord of that mountain's lower halls, a predator-king of the dark beneath the singing stone.</p>
+    <p>Whether Skathrix is older than the storm, or one more thing the storm has made, the Circle cannot say. We can say what it <em>does.</em> It rules its tunnels as a great beast rules anything: by eating. It hoards, but not as a dragon hoards, in proud and ordered splendour; it hoards as a predator does, dragging its trophies home to a fouled nest of bones and scorch — coin fused into ugly lumps by its own caged lightning, the scoured leavings of travelers who climbed once and did not climb down, gemstones and torcs heaped where they happened to fall. And it <em>harvests</em> the mountain's lesser horrors with a grim, methodical patience: the storm-touched lizards it eats outright; the maddened displacer beasts it runs down and skins and guts and leaves in the brush like discarded coats, taking what it wants and abandoning the rest. The high slopes are littered with its work. It is, by every measure the Circle can apply, the most dangerous single creature this side of the storm-line — and it is not, it turns out, the thing in charge.</p>
+    <div class="rule-orn">✦ ═══ ❖ ═══ ✦</div>
+    <p>For this is the part that chilled us in the writing. Skathrix does not believe itself a king at all. It speaks — behirs are clever, and this one cleverer than most, and it will mock a trespasser and warn one off and lecture one besides — and when it speaks, it speaks of something <em>above</em> it. It names a <span class="small-caps">Sky Sovereign.</span> It calls the high storm-heart its master and its faith, and holds that its long bloody service is not a chain laid on it but a <em>sacrament</em> freely kept — that it harvests the mountain not for hunger alone but as a steward gathers tribute, against the day its lord requires it. And in the same breath, with no sense of the contradiction, it will admit the thing that gives the whole matter away: that it is afraid. <span class="say">"The devourer hunts even us,"</span> it has said. <span class="say">"I eat what I can before it takes the rest."</span> A servant that worships its master and flinches from it in one sentence is telling you that the master is not a god at all, but a larger predator wearing a god's borrowed name.</p>
+    <p>The Circle will not write down what sits above Skathrix, for the Circle does not yet know it — only that it is high, and hungry, and that even the Chain of Thunder counts its own days against it. We have learned to be honest about the shape of our ignorance. There is a hunter on that mountain; there is a worse hunter above the hunter; and the storm itself may only be the breath of whatever sits at the very top, looking down through the cloud at a servant dutifully fattening the larder. To climb past Skathrix, the Circle suspects, is not to reach the end of the danger. It is to be noticed by the rest of it.</p>
+    <div class="aside">
+      <span class="label">⚜ Here the ink is still wet</span>
+      The tome will not yet finish Skathrix's tale, and we have stopped pressing it to. Where the creature's fate should be set down, a single line keeps writing and unwriting itself, never reaching its end: <span class="wet">"…and the Chain of Thunder met those who would not turn back, and the matter of its long service was settled at last by —"</span> The rest is blank. The Circle reads this the way it has learned to read all such blanks in this book: not as an absence, but as a thing presently being decided, by hands the page is waiting on.
+    </div>
+    <div class="ember">
+      <span class="label">❦ A note added after, in a hand like quiet flame</span>
+      Do not waste your hate on Skathrix, whatever it costs anyone you love. I know that is a hard thing to ask, and I ask it anyway. It is a monster, yes, and it has done monstrous work — but it is also the most pitiable thing on that whole cursed mountain: a proud and frightened servant filling a larder for a master who will eat <em>it</em> too, and calling its terror devotion because devotion is easier to carry. The world is full of such chains, and most of the creatures wearing them are not behirs. Save your fear for what it serves. The thing above the storm has not spoken in this book yet, and when at last it does, you will understand why a beast the size of a barn lies awake in the dark, eating what it can before the rest is taken. I would tell you more. But some pages, mercifully, are still blank — and there is a kindness in not reading ahead.
+      <div style="text-align:right; margin-top:.4rem;">— <span class="sig">E.</span></div>
+    </div>
+    <p class="signoff">— set down from a behir's own boasting, the bones on the slopes, and one line that will not finish
+      <span class="circle">The Scriveners' Circle</span></p>
+    <div class="folio">⚜ &nbsp; xiii &nbsp; ⚜</div>
+  </div>
+
+  <div class="page cover" style="padding:2.6rem 2.4rem;">
+    <div class="device" style="margin-bottom:.6rem;">✦ &nbsp; ⚜ &nbsp; ✦</div>
+    <p class="epigraph" style="margin-top:.4rem;">Here the written pages end — for now. The Compendium keeps room for the tales not yet told: of the dragon above the storm and what it calls itself, of the road to the capital and all who walk it, and of the war beneath the torn sky. Turn back often. The book does not stay the same.</p>
+  </div>
+
+</div>
