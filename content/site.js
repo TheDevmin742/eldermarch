@@ -11,8 +11,9 @@ window.ELDERMARCH.site = {
   nextSession: "Sunday, July 12 — the mountain still has you.",
   footer: "Kept by the DM. Ember checks the margins.",
   // Where the Messages tab delivers feedback (via formsubmit.co).
-  // Leave "" to hide the form and show the Discord note instead.
-  feedbackEmail: "devinli201018@gmail.com",
+  // This is the DM's FormSubmit alias — it forwards to her inbox without
+  // exposing the address. Leave "" to hide the form entirely.
+  feedbackEmail: "e08097321c37584ba4d001703d1616e1",
 };
 
 /* Extra tools shown on the Dice & Tools tab (the roller is built in). */
