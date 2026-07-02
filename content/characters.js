@@ -9,14 +9,20 @@ window.ELDERMARCH.characters = [
     tags: ["Aarakocra", "Rogue — Scout"],
     color: "#4a6741",
     blurb: "A magpie-hearted skirmisher with a thief's eye and a hoard of shinies. Fast, feathered, and never where the counterattack lands.",
-    links: [{ label: "Hearthsheet", href: "sheets/kree.html" }],
+    links: [
+      { label: "Hearthsheet", href: "sheets/kree.html" },
+      { label: "Tip Sheet", href: "docs/tips-kree.html" },
+    ],
   },
   {
     name: "Wilhelm",
     tags: ["Human", "Artificer"],
     color: "#8a6d3b",
     blurb: "The company's toolbox — Academy-trained, endlessly tinkering, and quietly the reason half the party's gear works at all.",
-    links: [{ label: "Hearthsheet", href: "sheets/wilhelm.html" }],
+    links: [
+      { label: "Hearthsheet", href: "sheets/wilhelm.html" },
+      { label: "Tip Sheet", href: "docs/tips-wilhelm.html" },
+    ],
   },
   {
     name: "Thalasstheos",
@@ -26,6 +32,7 @@ window.ELDERMARCH.characters = [
     links: [
       { label: "Hearthsheet", href: "sheets/thalasstheos.html" },
       { label: "Wild Shape Codex", href: "sheets/thalasstheos-wildshape.html" },
+      { label: "Tip Sheet", href: "docs/tips-thalasstheos.html" },
     ],
   },
   {
@@ -33,10 +40,14 @@ window.ELDERMARCH.characters = [
     tags: ["Kenku", "Druid — Moon"],
     color: "#5e3b86",
     blurb: "A mimic of borrowed voices and borrowed shapes. Underestimate the quiet bird at your peril — the moon doesn't.",
-    links: [{ label: "Hearthsheet", href: "sheets/kenra.html" }],
+    links: [
+      { label: "Hearthsheet", href: "sheets/kenra.html" },
+      { label: "Tip Sheet", href: "docs/tips-kenra.html" },
+    ],
   },
   {
-    /* Flip hidden to false when Lloyd makes his entrance! */
+    /* Flip hidden to false when Lloyd makes his entrance!
+       (His tip sheet & battle card get added to the site then too.) */
     hidden: true,
     name: "Lloyd",
     tags: ["Orc", "Paladin — Devotion"],

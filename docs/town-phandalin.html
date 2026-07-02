@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phandalin — Town Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6ecd9; --panel:#fdf6e9; --panel2:#efe2c8;
+  --ink:#4a4233; --ink-soft:#7a6f5b; --muted:#a99d80;
+  --rust:#a8453a; --rust-deep:#7c2f26; --gold:#e0c97e; --gold-deep:#b89a4e;
+  --edge:#d8c49a; --blue:#2e5496; --green:#3c6e47;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#e8dcc0;}
+body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);font-size:17px;line-height:1.6;}
+a{color:var(--rust);}
+.wrap{max-width:880px;margin:0 auto;padding:18px 16px 70px;}
+.back{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;display:inline-block;margin-bottom:12px;}
+.sheet{background:var(--paper);border:1.5px solid var(--gold);border-radius:14px;box-shadow:0 6px 22px rgba(60,40,15,.22);padding:30px 34px;}
+.eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.34em;color:var(--gold-deep);text-transform:uppercase;text-align:center;}
+h1{font-family:'Cinzel',serif;font-weight:700;font-size:34px;line-height:1.05;color:var(--rust);margin:6px 0 2px;text-align:center;}
+.subtitle{font-style:italic;color:var(--ink-soft);margin:0 0 18px;text-align:center;}
+h2{font-family:'Cinzel',serif;color:var(--rust-deep);font-size:17px;margin:26px 0 10px;letter-spacing:.06em;border-bottom:1.5px solid var(--edge);padding-bottom:5px;}
+h2 .o{color:var(--gold-deep);margin-right:.4em;}
+p{margin:0 0 12px;}
+.statline{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 6px;}
+.stat{background:var(--panel);border:1.5px solid var(--edge);border-radius:10px;padding:8px 14px;text-align:center;min-width:74px;}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:20px;color:var(--rust);}
+.stat span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+ul.moves{list-style:none;margin:0;padding:0;}
+ul.moves li{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:9px 14px;margin:0 0 8px;}
+ul.moves li b{color:var(--rust-deep);}
+ul.moves li .meta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);margin-left:6px;}
+.callout{background:linear-gradient(180deg,#f7edd6,#f0e0bd);border:1.5px solid var(--gold-deep);border-radius:12px;padding:14px 18px;margin:18px 0;}
+.callout .ct{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:6px;}
+.good{border-left:5px solid var(--green);}
+.bad{border-left:5px solid var(--rust);}
+.npc-table{width:100%;border-collapse:collapse;margin:0 0 12px;}
+.npc-table td{border:1px solid var(--edge);padding:8px 12px;vertical-align:top;background:var(--panel);}
+.npc-table td:first-child{font-family:'Cinzel',serif;font-size:13px;color:var(--rust-deep);white-space:nowrap;font-weight:700;width:170px;}
+hr.flourish{border:none;text-align:center;margin:26px 0 10px;}
+hr.flourish:after{content:"\2726 \269C \2726";color:var(--gold-deep);letter-spacing:.6em;font-size:12px;}
+footer{color:var(--muted);text-align:center;font-style:italic;margin-top:20px;font-size:13px;}
+@media(max-width:640px){ .sheet{padding:20px 16px;} h1{font-size:26px;} .npc-table td:first-child{width:auto;} }
+@media print{ body{background:#fff;} .back{display:none;} .sheet{box-shadow:none;border-color:#bbb;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">&larr; Back to the Hub</a>
+<div class="sheet">
+<div class="eyebrow">The Eldermarch Gazetteer</div>
+<h1>Phandalin</h1>
+<p class="subtitle">A frontier trade town run by guilds rather than lords — practical, hopeful, and suspiciously peaceful. The company's home base.</p>
+<p>Phandalin sits where old roads meet new ones — once a mining settlement, now a trade waypoint that survives by organization rather than glory. Guild signs hang from weathered beams; notices are nailed over older notices; everyone here is working toward something, or away from something. There is no noble in charge. Instead the guilds govern, and the peace holds — quietly, and almost suspiciously well.</p><p>This is the company's home base: where they registered as adventurers, met Ember, were robbed in broad daylight, and took the displacer-beast contract that sent them into the woods.</p><h2><span class="o">&#10022;</span>The Guilds &amp; the Compact</h2><p>Phandalin runs on a guild-charter system, with disputes settled by the Town Compact — an agreement signed decades ago after a brief, ugly trade war. Membership isn't mandatory, but life is harder without it. Four guilds matter:</p><ul class="moves">
+<li><b>The Merchants' Guild</b> <span class="meta">“Profit Endures”</span> &mdash; The real power in town: trade, caravans, warehousing, coin, and contracts. Headquartered at the Ledgerhall (stone, barred windows, a too-loud bell), where trade factor Harlan Voss treats everything as a transaction.</li>
+<li><b>The Adventurers' Guild</b> <span class="meta">“Risk, Properly Accounted For”</span> &mdash; Monster contracts, ruins, escorts, and bounties, run from the Ironbound Hall — old timber braced with steel, trophies everywhere, a bronze statue of four triumphant adventurers out front. House rules: one job a month or you're disbanded; “don't die”; “your funeral.” The job board is the town's pulse.</li>
+<li><b>The Scriveners' Circle</b> <span class="meta">“Knowledge Is a Resource”</span> &mdash; Maps, records, identification of magic, and lore, kept at the Inkspire — narrow, tall, smelling of dust and vellum.</li>
+<li><b>The Craftsmen's Consortium</b> <span class="meta">“What Breaks Can Be Made Better”</span> &mdash; Smiths, tinkers, masons, and alchemists at the Hammerline — constant noise, flying sparks.</li>
+</ul><h2><span class="o">&#10022;</span>Faces of Note</h2><table class="npc-table"><tr><td>Ember</td><td>The heart of Phandalin's mystery: a red-haired woman in a tilted pointed hat, voice like quiet flame, who keeps the Shrine of Luck and appears wherever she pleases. She tells true fortunes — and she handed Kree a book that writes itself.</td></tr><tr><td>Guildmaster Rorek Stonehand</td><td>The dwarf head of the Adventurers' Guild — gruff but fair; holds court at the Ironbound Hall.</td></tr><tr><td>Casey</td><td>The dry, tired Adventurers' Guild desk clerk who registered the company and issued the Tablet of Vigor. Neat handwriting; little patience.</td></tr><tr><td>Harlan Voss</td><td>Meticulous Merchants' Guild trade factor at the Ledgerhall; treats everything as a transaction.</td></tr><tr><td>Eldric Vale</td><td>Elderly half-elf scholar of the Scriveners' Circle; soft-spoken and deeply curious about old maps and older stories.</td></tr><tr><td>Branna Coalhand</td><td>Dwarf master smith of the Craftsmen's Consortium; gruff but warm, and very interested in salamander scales and ember-silk. Trades favors for rare materials.</td></tr><tr><td>Frun</td><td>The sleek-furred tabaxi innkeeper of the Stonehill Inn; warm but weary. Broke the news of the robbery and waived the company's bill.</td></tr><tr><td>Sylvia Barthen</td><td>The kind, white-haired shopkeeper of Barthen's Provisions — the last Barthen in Phandalin, keeping the family's founding shop. Traded Kree a small bell for a salamander scale.</td></tr><tr><td>Doctor Henning</td><td>The hunched, cane-leaning clinic doctor who hired Thalasstheos on the spot.</td></tr><tr><td>Nysa Grell</td><td>A cautious tiefling who runs the Alchemist's Nook: potions, salves, fire-resistant oils.</td></tr><tr><td>Linene Graywind</td><td>Sharp-eyed proprietor of the Lionshield Coster: weapons, armor, shields.</td></tr><tr><td>Qelline Alderleaf</td><td>The practical halfling matron of Alderleaf Farm, who sent Thalasstheos off with parting gifts. Her wide-eyed son Carp notices everything.</td></tr><tr><td>Carmine</td><td>The gruff older stable-master, no patience for noise — he's thrown Kenra out at least once.</td></tr><tr><td>Warden-Captain Maro</td><td>The overworked head of the town wardens, honestly baffled that daylight robberies keep happening on his watch.</td></tr><tr><td>Marta Brin</td><td>The merchant the company first worked for (rescued from bandits), passing through with her goods delivered safe.</td></tr><tr><td>Seb</td><td>A young adventurer at the Guild Hall who warned the company off the displacer-beast contract. (“You take that, you better be ready.”)</td></tr></table><h2><span class="o">&#10022;</span>Places of Note</h2><ul class="moves">
+<li><b>The Square</b> &mdash; The town's heart: a trickling fountain, the worn statue of Phandalin's founder, and — before the Adventurers' Guild — a bronze statue of four adventurers raised in triumph.</li>
+<li><b>The Shrine of Luck</b> &mdash; Ember's candlelit nook tucked between buildings; charms on strings, true fortunes within.</li>
+<li><b>The Mage's Library</b> &mdash; A tall, quiet building lined with old books, the air humming faintly with something arcane.</li>
+<li><b>The Guild Halls</b> &mdash; The Ledgerhall (Merchants'), the Ironbound Hall (Adventurers'), the Inkspire (Scriveners'), and the Hammerline (Craftsmen's).</li>
+<li><b>Barthen's Provisions · Lionshield Coster · the Alchemist's Nook</b> &mdash; General goods; arms and armor; potions and oils.</li>
+<li><b>The Stonehill Inn · the Ember Mug</b> &mdash; The town's main lodging (Frun's place); and the rowdier tavern — dice, smoke, rumors, and shady contacts.</li>
+<li><b>The Sleeping Giant Taproom</b> &mdash; The rough miners' tavern, all spilled ale and harder looks — the shady counterpart to the cozy Stonehill.</li>
+<li><b>Carmine's Stables · the Clinic</b> &mdash; Where the cart-team is kept; and the modest, respected clinic near the shrine where Thalasstheos works.</li>
+<li><b>Townmaster's Hall</b> &mdash; The civic hall under the Compact — permits, proclamations, and the official “nothing to see here.”</li>
+<li><b>Tresendar Manor</b> &mdash; A half-ruined old manor on the east edge with deep cellars. Locals steer clear of it.</li>
+<li><b>Alderleaf Farm</b> &mdash; The halfling Alderleafs' tidy farmstead at the east edge — a warm meal and an open barn door for strays of every kind.</li>
+<li><b>The Miner's Exchange (ruined)</b> &mdash; The old mining-trade hall, half-fallen now the boom is over — the faded story of why Phandalin exists at all.</li>
+<li><b>The Bell Tower</b> &mdash; Phandalin's old alarm-bell, rung for fire or raid; a lonely warden keeps it.</li>
+<li><b>The Old Shrine (abandoned)</b> &mdash; A forgotten shrine that predates the Shrine of Luck — shunned, overgrown, and quietly avoided. No one remembers why.</li>
+<li><b>The East &amp; West Gates</b> &mdash; The controlled crossings over the stream, watch-logs and all. The east gate opens toward the mountains.</li>
+</ul><h2><span class="o">&#10022;</span>Lore &amp; Sayings</h2><ul class="moves">
+<li><b>The Town Compact</b> &mdash; Guild self-rule born from an old trade war — why Phandalin has no lord, and why everyone defers to charters and ledgers. Coin creates order; order keeps the monsters out.</li>
+<li><b>Bread outlasts silver</b> &mdash; The Alderleaf saying that survived the mine — from the winter the family fed the miners when the silver ran thin.</li>
+<li><b>The founding four</b> &mdash; The bronze adventurers before the Guild Hall represent a celebrated company from Phandalin's past. Nobody agrees on their names — a story waiting to be dug up.</li>
+</ul><h2><span class="o">&#10022;</span>Talk of the Town</h2><p>Heard on the job board and in the taverns lately:</p><ul class="moves">
+<li><b>The Quiet Thief</b> &mdash; Daylight robberies with no forced entry and no culprit — the company's own coin among the takings. “Not the first this week,” they say. The wardens are stumped.</li>
+<li><b>A missing trapper</b> &mdash; Haran Oakstump, overdue from the wood.</li>
+<li><b>Vanishing caravans</b> &mdash; Wagons keep going missing on the Triboard Trail.</li>
+<li><b>Strange lights</b> &mdash; Seen at an old manor outside town — though the company may know more about that than most.</li>
+<li><b>Odd jobs</b> &mdash; An herbalist wants an escort to gather rare moss; a collector seeks pre-Phandalin map fragments; whispers of brigands on the roads; a hunter who never came back from the hills.</li>
+</ul></div>
+<footer>Compiled from the Scriveners' Circle records. The margins, as ever, belong to Ember.</footer>
+</div>
+</body>
+</html>

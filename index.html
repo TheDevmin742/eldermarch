@@ -119,6 +119,24 @@ hr.flourish:after{content:"✦ ⚜ ✦";color:var(--gold-deep);letter-spacing:.6
 .hist{margin-top:12px;font-size:14px;color:var(--ink-soft);max-height:180px;overflow-y:auto;}
 .hist div{border-bottom:1px dotted var(--edge);padding:3px 0;}
 
+/* ---------- messages / courier ---------- */
+.msg-field{margin:0 0 14px;}
+.msg-field label{display:block;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
+.msg-field input,.msg-field textarea{
+  width:100%;font-family:inherit;font-size:16px;color:var(--ink);
+  background:var(--panel);border:1.5px solid var(--edge);border-radius:10px;padding:10px 14px;resize:vertical;
+}
+.msg-field input:focus,.msg-field textarea:focus{outline:none;border-color:var(--gold-deep);}
+.msg-send{
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--rust);color:#fff;border:1.5px solid var(--rust-deep);border-radius:10px;
+  padding:11px 24px;cursor:pointer;box-shadow:0 3px 10px rgba(120,40,20,.3);
+}
+.msg-send:hover{background:var(--rust-deep);}
+.msg-send:disabled{opacity:.6;cursor:wait;}
+.msg-status{margin-top:10px;font-style:italic;color:var(--green);}
+.msg-status.err{color:var(--rust);}
+
 footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;font-size:13.5px;}
 @media(max-width:640px){ h1.title{font-size:32px;} main{padding:18px;} }
 </style>
@@ -143,7 +161,9 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
   <button data-tab="characters">The Company</button>
   <button data-tab="recaps">Recaps</button>
   <button data-tab="lore">Lore &amp; Legends</button>
+  <button data-tab="gazetteer">Gazetteer</button>
   <button data-tab="tools">Dice &amp; Tools</button>
+  <button data-tab="messages">Messages</button>
 </nav>
 
 <main>
@@ -185,6 +205,15 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
     </div>
   </section>
 
+  <!-- ============ GAZETTEER ============ -->
+  <section class="tab" id="tab-gazetteer">
+    <h2>The Eldermarch Gazetteer</h2>
+    <p class="lede">Every town, hold, and haunted manor the company has walked — mapped as they go. New places appear when the road reaches them.</p>
+    <div class="grid" id="gaz-grid"></div>
+    <hr class="flourish">
+    <p class="lede" style="text-align:center">…and beyond these, the map fades to parchment. The road ahead will fill it in.</p>
+  </section>
+
   <!-- ============ TOOLS ============ -->
   <section class="tab" id="tab-tools">
     <h2>Dice &amp; Tools</h2>
@@ -212,6 +241,33 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
     <h3>More tools</h3>
     <div class="grid" id="tools-grid"></div>
   </section>
+
+  <!-- ============ MESSAGES ============ -->
+  <section class="tab" id="tab-messages">
+    <h2>The Courier's Desk</h2>
+    <p class="lede">Leave a note for the DM — feedback, requests, theories, compliments for Ember. The courier delivers everything, eventually.</p>
+    <form id="msg-form" autocomplete="off">
+      <div class="msg-field">
+        <label for="msg-name">Your name (or your hero's)</label>
+        <input type="text" id="msg-name" maxlength="60" required placeholder="Kree, probably">
+      </div>
+      <div class="msg-field">
+        <label for="msg-text">Your message</label>
+        <textarea id="msg-text" rows="5" maxlength="2000" required placeholder="Speak, and the page listens…"></textarea>
+      </div>
+      <input type="text" id="msg-trap" tabindex="-1" autocomplete="off" style="position:absolute;left:-5000px" aria-hidden="true">
+      <button type="submit" class="msg-send" id="msg-send">✉ Send by Courier</button>
+      <div id="msg-status" class="msg-status"></div>
+    </form>
+    <div id="msg-fallback" style="display:none">
+      <p class="lede">The courier is still saddling up — for now, drop your feedback in the club Discord.</p>
+    </div>
+    <hr class="flourish">
+    <h3>📋 Surveys &amp; Polls</h3>
+    <p class="lede" style="margin-bottom:10px">When the DM needs the company's opinion, the scrolls appear here.</p>
+    <div class="grid" id="survey-grid"></div>
+    <p class="lede" id="survey-empty" style="display:none">No scrolls await — the DM has no questions for you. Enjoy it while it lasts.</p>
+  </section>
 </main>
 
 <footer id="site-footer"></footer>
@@ -222,6 +278,8 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
 <script src="content/characters.js"></script>
 <script src="content/recaps.js"></script>
 <script src="content/lore.js"></script>
+<script src="content/gazetteer.js"></script>
+<script src="content/surveys.js"></script>
 <script src="content/ember.js"></script>
 <script>
 const D = window.ELDERMARCH || {};
@@ -299,6 +357,60 @@ document.getElementById('home-ember-teaser').innerHTML = teaser
      <div class="body" style="white-space:pre-line">${esc(teaser.body.slice(0,220))}…</div>
      <div style="margin-top:8px"><a href="#" onclick="document.querySelector('[data-tab=lore]').click();return false">Read the full page →</a></div>`
   : '<em>The book is quiet today.</em>';
+
+/* ----- gazetteer ----- */
+document.getElementById('gaz-grid').innerHTML = (D.gazetteer || []).map(g => `
+  <div class="card">
+    <div class="cname" style="font-size:18px">${esc(g.title)}</div>
+    ${g.tag ? `<div class="ctags"><span class="ctag" style="background:var(--gold-deep)">${esc(g.tag)}</span></div>` : ""}
+    <div class="blurb">${esc(g.blurb)}</div>
+    <div class="links"><a href="${esc(g.href)}" target="_blank" rel="noopener">Open the guide →</a></div>
+  </div>`).join("");
+
+/* ----- surveys ----- */
+const surveys = (D.surveys || []).filter(s => !s.closed);
+document.getElementById('survey-grid').innerHTML = surveys.map(s => `
+  <div class="card">
+    <div class="cname" style="font-size:16px">${esc(s.title)}</div>
+    <div class="blurb">${esc(s.blurb)}</div>
+    <div class="links"><a href="${esc(s.href)}" target="_blank" rel="noopener">Take the survey →</a></div>
+  </div>`).join("");
+if (!surveys.length) document.getElementById('survey-empty').style.display = 'block';
+
+/* ----- courier (feedback form via formsubmit.co) ----- */
+const msgForm = document.getElementById('msg-form');
+if (!D.site?.feedbackEmail) {
+  msgForm.style.display = 'none';
+  document.getElementById('msg-fallback').style.display = 'block';
+}
+msgForm.addEventListener('submit', async e => {
+  e.preventDefault();
+  if (document.getElementById('msg-trap').value) return; // bots only
+  const btn = document.getElementById('msg-send');
+  const status = document.getElementById('msg-status');
+  btn.disabled = true;
+  status.className = 'msg-status';
+  status.textContent = 'The courier mounts up…';
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/' + encodeURIComponent(D.site.feedbackEmail), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        _subject: 'Eldermarch — message from ' + document.getElementById('msg-name').value,
+        name: document.getElementById('msg-name').value,
+        message: document.getElementById('msg-text').value,
+        _template: 'box',
+      }),
+    });
+    if (!res.ok) throw new Error('courier lost');
+    status.textContent = '✓ Delivered. The DM reads everything (Ember reads it first).';
+    msgForm.reset();
+  } catch {
+    status.className = 'msg-status err';
+    status.textContent = 'The courier got lost on the road — try again in a moment, or post it in the Discord.';
+  }
+  btn.disabled = false;
+});
 
 /* ----- tools grid ----- */
 document.getElementById('tools-grid').innerHTML = (D.tools || []).map(t => `

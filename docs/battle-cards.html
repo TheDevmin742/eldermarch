@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Battle Cards — How to Win Your Turn</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6ecd9; --panel:#fdf6e9; --panel2:#efe2c8;
+  --ink:#4a4233; --ink-soft:#7a6f5b; --muted:#a99d80;
+  --rust:#a8453a; --rust-deep:#7c2f26; --gold:#e0c97e; --gold-deep:#b89a4e;
+  --edge:#d8c49a; --blue:#2e5496; --green:#3c6e47;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#e8dcc0;}
+body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);font-size:17px;line-height:1.6;}
+a{color:var(--rust);}
+.wrap{max-width:880px;margin:0 auto;padding:18px 16px 70px;}
+.back{font-family:'Cinzel',serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;display:inline-block;margin-bottom:12px;}
+.sheet{background:var(--paper);border:1.5px solid var(--gold);border-radius:14px;box-shadow:0 6px 22px rgba(60,40,15,.22);padding:30px 34px;}
+.eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.34em;color:var(--gold-deep);text-transform:uppercase;text-align:center;}
+h1{font-family:'Cinzel',serif;font-weight:700;font-size:34px;line-height:1.05;color:var(--rust);margin:6px 0 2px;text-align:center;}
+.subtitle{font-style:italic;color:var(--ink-soft);margin:0 0 18px;text-align:center;}
+h2{font-family:'Cinzel',serif;color:var(--rust-deep);font-size:17px;margin:26px 0 10px;letter-spacing:.06em;border-bottom:1.5px solid var(--edge);padding-bottom:5px;}
+h2 .o{color:var(--gold-deep);margin-right:.4em;}
+p{margin:0 0 12px;}
+.statline{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 6px;}
+.stat{background:var(--panel);border:1.5px solid var(--edge);border-radius:10px;padding:8px 14px;text-align:center;min-width:74px;}
+.stat b{display:block;font-family:'Cinzel',serif;font-size:20px;color:var(--rust);}
+.stat span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
+ul.moves{list-style:none;margin:0;padding:0;}
+ul.moves li{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:9px 14px;margin:0 0 8px;}
+ul.moves li b{color:var(--rust-deep);}
+ul.moves li .meta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);margin-left:6px;}
+.callout{background:linear-gradient(180deg,#f7edd6,#f0e0bd);border:1.5px solid var(--gold-deep);border-radius:12px;padding:14px 18px;margin:18px 0;}
+.callout .ct{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:6px;}
+.good{border-left:5px solid var(--green);}
+.bad{border-left:5px solid var(--rust);}
+.npc-table{width:100%;border-collapse:collapse;margin:0 0 12px;}
+.npc-table td{border:1px solid var(--edge);padding:8px 12px;vertical-align:top;background:var(--panel);}
+.npc-table td:first-child{font-family:'Cinzel',serif;font-size:13px;color:var(--rust-deep);white-space:nowrap;font-weight:700;width:170px;}
+hr.flourish{border:none;text-align:center;margin:26px 0 10px;}
+hr.flourish:after{content:"\2726 \269C \2726";color:var(--gold-deep);letter-spacing:.6em;font-size:12px;}
+footer{color:var(--muted);text-align:center;font-style:italic;margin-top:20px;font-size:13px;}
+@media(max-width:640px){ .sheet{padding:20px 16px;} h1{font-size:26px;} .npc-table td:first-child{width:auto;} }
+@media print{ body{background:#fff;} .back{display:none;} .sheet{box-shadow:none;border-color:#bbb;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="back" href="../index.html">&larr; Back to the Hub</a>
+<div class="sheet">
+<div class="eyebrow">Eldermarch — Combat Crib Sheet</div>
+<h1>How to Win Your Turn</h1>
+<p class="subtitle">Every turn, every character — and the rookie mistakes that cost fights</p>
+<h2><span class="o">&#10022;</span>Each of your turns you get ALL of these</h2><ul class="moves">
+<li><b>Move</b> &mdash; Up to your Speed; you may split it (move, act, move again).</li>
+<li><b>One Action</b> &mdash; The big thing: Attack, cast a spell, Dash, Dodge, Hide, Help…</li>
+<li><b>One Bonus Action</b> &mdash; Only if a feature grants one (most of you have one — USE IT).</li>
+<li><b>One Reaction</b> &mdash; Between turns (opportunity attack, Shield, Uncanny Dodge…).</li>
+<li><b>One free object interaction</b> &mdash; Draw a weapon, open a door.</li>
+</ul><h2><span class="o">&#10022;</span>Common actions anyone can take</h2><ul class="moves">
+<li><b>Attack</b> &mdash; One attack (more with Extra Attack). Shove &amp; Grapple are options of this action.</li>
+<li><b>Dash</b> &mdash; Double your movement this turn.</li>
+<li><b>Disengage</b> &mdash; Your movement won't provoke opportunity attacks this turn.</li>
+<li><b>Dodge</b> &mdash; Attacks against you have disadvantage; you make Dex saves with advantage (until your next turn). Use it when low or holding ground.</li>
+<li><b>Help</b> &mdash; Give an ally advantage — on a check, or on an attack against a creature within 5 ft of you.</li>
+<li><b>Hide</b> &mdash; Stealth check to become hidden (needs cover/obscurement); attacking from hiding has advantage.</li>
+<li><b>Ready</b> &mdash; Set a trigger now (“when X happens, I do Y”) and spend your reaction to do it.</li>
+<li><b>Search</b> &mdash; Actively look for something (Perception or Investigation).</li>
+<li><b>Shove</b> <span class="meta">attack option</span> &mdash; Athletics vs their Athletics/Acrobatics: push 5 ft or knock prone.</li>
+<li><b>Grapple</b> <span class="meta">attack option</span> &mdash; Athletics contest: target's Speed becomes 0.</li>
+<li><b>Improvise a weapon</b> &mdash; Hit with a chair/rock/torch: usually 1d4 + your mod (or use a similar weapon's stats).</li>
+<li><b>Use an Object</b> &mdash; Pull a lever, drink a potion, throw oil or holy water.</li>
+</ul><h2><span class="o">&#10022;</span>⚠ Common mistakes (and the rule behind them)</h2><ul class="moves">
+<li><b>Provoking opportunity attacks</b> &mdash; Moving out of an enemy's reach lets it swing for free. Leave melee with Disengage, flight, or Misty Step — never a plain walk.</li>
+<li><b>Ranged attacks in melee</b> &mdash; Firing a bow / thrown weapon / ranged spell attack while a hostile creature is within 5 ft of you is at DISADVANTAGE. Step away first, or switch to a melee weapon.</li>
+<li><b>Catching friends in your spells</b> &mdash; Area spells (Ice Knife's burst, Faerie Fire, Entangle, Thunderwave…) hit EVERYONE in the area, allies included. Check the shape and where your friends are first.</li>
+<li><b>Double concentration</b> &mdash; You can keep only ONE Concentration spell at a time (Bless, Shield of Faith, Flame Blade, Heroism, Faerie Fire…). Taking damage forces a CON save — DC 10 or half the damage, whichever's higher.</li>
+<li><b>Forgetting your bonus action &amp; reaction</b> &mdash; Half your power lives there. Spend them every round.</li>
+</ul><div class="callout"><div class="ct">Golden rule</div>Pick a lane and commit. Melee fighters get in and STAY; ranged folk start at the back and never enter melee.</div><hr class="flourish"><h2 style="font-size:22px;border:none;margin-bottom:0"><span class="o">&#9876;</span>Kree</h2><p class="subtitle" style="text-align:left;margin-bottom:8px">Rogue 5 · Scout (Aarakocra) — the Skirmisher</p><div class="callout"><div class="ct">Your job</div>Flit to a safe angle, land ONE big hit, never get surrounded. You can FLY (50 ft) — take the high ground.</div><h2 style="font-size:14px">Attacks</h2><ul class="moves">
+<li><b>Shortbow</b> <span class="meta">+5 · 1d6+2 · 80/320</span> &mdash; From range, not in melee (point-blank = disadvantage).</li>
+<li><b>Rapier / Black Sword (Riftshard)</b> <span class="meta">+5 · 1d6–1d8+2 · finesse</span> &mdash; For diving in beside an ally. The Black Sword works like a shortsword (1d6+2, finesse).</li>
+<li><b>Dagger</b> <span class="meta">+5 · 1d4+2</span> &mdash; Thrown 20/60.</li>
+</ul><h2 style="font-size:14px">Sneak Attack — +3d6 (your main damage)</h2><ul class="moves">
+<li><b>Once per turn</b> &mdash; Add 3d6 when you hit with a finesse/ranged weapon AND you have advantage, OR an ally is within 5 ft of your target (and you don't have disadvantage). Set this up EVERY turn.</li>
+</ul><h2 style="font-size:14px">Bonus action — use it every turn</h2><ul class="moves">
+<li><b>Steady Aim</b> <span class="meta">Bonus</span> &mdash; Advantage on your next attack (your Speed = 0 this turn) → guaranteed Sneak Attack with the bow.</li>
+<li><b>Cunning Action</b> <span class="meta">Bonus</span> &mdash; Dash, Disengage, or Hide. Disengage = leave melee with NO opportunity attack.</li>
+</ul><h2 style="font-size:14px">Reaction &amp; Gear</h2><ul class="moves">
+<li><b>Uncanny Dodge</b> <span class="meta">Reaction</span> &mdash; Halve the damage of one attack that hits you.</li>
+<li><b>Potion of Healing ×2</b> <span class="meta">Action</span> &mdash; Regain 2d4+2 HP. Also Fire-Resistance potion; Red Amulet attuned.</li>
+</ul><h2 style="font-size:14px">Your race — Aarakocra</h2><ul class="moves">
+<li><b>Flight</b> <span class="meta">Speed 50 ft</span> &mdash; Not in medium/heavy armor. Stay airborne above melee reach — only fliers &amp; ranged foes can touch you. Dive to strike, climb back up.</li>
+<li><b>Talons</b> <span class="meta">Unarmed 1d4 slashing</span> &mdash; A natural weapon even with your hands full.</li>
+</ul><div class="callout good"><div class="ct">✓ A good turn</div>Steady Aim (bonus) → shoot with advantage → Sneak Attack. OR fly down beside whatever the front line is fighting, stab (ally = Sneak Attack), fly off next turn.</div><div class="callout bad"><div class="ct">✗ Don&rsquo;t</div>Bow someone right next to you (disadvantage) or run off on foot through melee — Cunning Action: Disengage, or fly straight up.</div><hr class="flourish"><h2 style="font-size:22px;border:none;margin-bottom:0"><span class="o">&#9876;</span>Wilhelm</h2><p class="subtitle" style="text-align:left;margin-bottom:8px">Artificer 5 — the Toolbox</p><div class="callout"><div class="ct">Your job</div>Stay at the back, make everyone better, never be in melee. You also build &amp; tinker — lean on it.</div><h2 style="font-size:14px">Attacks (from range)</h2><ul class="moves">
+<li><b>Flintlock (Repeating Shot)</b> <span class="meta">+6 · 1d8+3</span> &mdash; Makes its own ammo; fire from 60+ ft. Not point-blank (disadvantage).</li>
+<li><b>Spear (Returning)</b> <span class="meta">+6 · 1d6+3</span> &mdash; Throw it; it flies back each turn.</li>
+<li><b>Ray of Frost</b> <span class="meta">cantrip · Action · 60 ft</span> &mdash; Ranged spell atk, 1d8 cold, target's Speed −10 ft.</li>
+</ul><h2 style="font-size:14px">Spells — buff &amp; control (1st ×4, 2nd ×2)</h2><ul class="moves">
+<li><b>Faerie Fire</b> <span class="meta">1st · Action · Conc 1 min</span> &mdash; 20-ft cube, Dex save or outlined → everyone attacks them with advantage. Best opener. (Mind allies in the cube.)</li>
+<li><b>Shield</b> <span class="meta">1st · Reaction</span> &mdash; When hit / hit by Magic Missile: +5 AC, can turn the hit into a miss.</li>
+<li><b>Heroism</b> <span class="meta">1st · Action · Conc 1 min</span> &mdash; Target can't be frightened, gains +3 temp HP each turn.</li>
+<li><b>Arcane Weapon</b> <span class="meta">1st · Bonus · Conc 1 hr</span> &mdash; A weapon gains +1d6 of a chosen energy type and counts as magical.</li>
+</ul><h2 style="font-size:14px">Tinkering — you make stuff</h2><ul class="moves">
+<li><b>Magical Tinkering</b> &mdash; Imbue tiny objects with light, a recorded 6-word message, an odor, or a sound.</li>
+<li><b>Infuse Item</b> &mdash; Enhanced Weapon (+1), Repeating Shot, Returning Weapon, Replicate Magic Item — Goggles of Night, Pot of Alchemy.</li>
+<li><b>The Right Tool for the Job</b> <span class="meta">1 hr</span> &mdash; Conjure any artisan's tools. Cinderwarden Coat = fire resistance.</li>
+</ul><div class="callout good"><div class="ct">✓ A good turn</div>Faerie Fire on the enemy clump → whole party hits them with advantage → fire the flintlock. Keep Shield in your pocket.</div><div class="callout bad"><div class="ct">✗ Don&rsquo;t</div>Walk into melee or shoot point-blank. Stay back, buff, and plink.</div><hr class="flourish"><h2 style="font-size:22px;border:none;margin-bottom:0"><span class="o">&#9876;</span>Kenra</h2><p class="subtitle" style="text-align:left;margin-bottom:8px">Druid 5 · Circle of the Moon (Kenku) — the Shapeshifter</p><div class="callout"><div class="ct">Your job</div>Wild Shape into a beast and tank up front (a second health bar), OR stand back and burn enemies with Flame Blade &amp; Ice Knife. Commit to one.</div><h2 style="font-size:14px">Wild Shape — tank mode (Bonus, 2/short rest)</h2><ul class="moves">
+<li><b>Become a beast (CR ≤ 1)</b> <span class="meta">Bonus</span> &mdash; Bear = tough + multiattack; Wolf = knock prone + pack tactics. Beast HP shields yours. (No casting while shaped.)</li>
+<li><b>Wild Shape Healing</b> <span class="meta">Bonus, while shaped</span> &mdash; Spend a slot to heal 1d8 / 2d8 / 3d8.</li>
+</ul><h2 style="font-size:14px">Spells — caster mode (1st ×4, 2nd ×3, 3rd ×2)</h2><ul class="moves">
+<li><b>Flame Blade</b> <span class="meta">2nd · Bonus · Conc 10 min</span> &mdash; A flaming scimitar; Action to attack for 3d6 fire each turn. Single-target — safe near allies.</li>
+<li><b>Ice Knife</b> <span class="meta">1st · Action · 60 ft</span> &mdash; Ranged spell atk 1d10; then a 2d6 cold burst — everyone within 5 ft of the target (allies too!) makes a Dex save DC 16.</li>
+<li><b>Summon Beast</b> <span class="meta">2nd · Action · Conc 1 hr</span> &mdash; A bestial spirit that fights for you.</li>
+<li><b>Primal Savagery</b> <span class="meta">cantrip · Action</span> &mdash; Melee spell atk, 1d10 acid (it's an Action, not a bonus action).</li>
+</ul><h2 style="font-size:14px">Your race — Kenku</h2><ul class="moves">
+<li><b>Mimicry</b> &mdash; Reproduce any sound/voice you've heard (Deception/Performance to convince). Throw a voice to misdirect or lure foes.</li>
+<li><b>Expert Duplication · Kenku Recall</b> &mdash; Advantage to copy writing or craft; an edge when an ally Helps you.</li>
+</ul><div class="callout good"><div class="ct">✓ A good turn</div>Bonus-action Wild Shape into the bear → maul something and stay in their face. OR stay back: Flame Blade up, attack with it each turn, lob Ice Knife at clustered foes (mind allies).</div><div class="callout bad"><div class="ct">✗ Don&rsquo;t</div>Hit-and-run as squishy 38-HP Kenra. Commit as a beast (you've got the HP) or fight from the back.</div><hr class="flourish"><h2 style="font-size:22px;border:none;margin-bottom:0"><span class="o">&#9876;</span>Thalasstheos</h2><p class="subtitle" style="text-align:left;margin-bottom:8px">Druid · Circle of the Coast (Water Genasi) — the Tide (NPC, run by the DM)</p><div class="callout"><div class="ct">Your job</div>Back-line healer &amp; controller. Keep the party standing, lock enemies down, never melee-dash.</div><h2 style="font-size:14px">Healing &amp; Support</h2><ul class="moves">
+<li><b>Healing Word</b> <span class="meta">1st · Bonus · 60 ft</span> &mdash; Heal 1d4+mod at range WITHOUT using your action.</li>
+<li><b>Cure Wounds · Goodberry</b> <span class="meta">1st</span> &mdash; Heal 1d8+mod (touch) · 10 berries, each 1 HP. Aqua Affinity: drink water to heal + recover slots.</li>
+</ul><h2 style="font-size:14px">Control &amp; Escape</h2><ul class="moves">
+<li><b>Entangle · Faerie Fire</b> <span class="meta">1st · Conc</span> &mdash; Restrain / expose foes in an area (mind allies).</li>
+<li><b>Misty Step</b> <span class="meta">2nd · Bonus</span> &mdash; Teleport 30 ft — escape WITHOUT provoking. Mirror Image to survive.</li>
+</ul><h2 style="font-size:14px">Your race — Water Genasi</h2><ul class="moves">
+<li><b>Amphibious · Swim 30</b> &mdash; Breathe air &amp; water; never drowns. Fights freely in/under water.</li>
+<li><b>Acid Resistance · Shape Water</b> &mdash; Resists acid; shapes &amp; creates water to control the battlefield.</li>
+</ul><div class="callout good"><div class="ct">✓ A good turn</div>Heal whoever's lowest, drop control on the enemies, Misty Step out instead of walking.</div><div class="callout bad"><div class="ct">✗ Don&rsquo;t</div>Wade into melee. She's the lifeline — keep her back and mobile.</div><hr class="flourish"></div>
+<footer>More cards appear as new heroes join the company.</footer>
+</div>
+</body>
+</html>

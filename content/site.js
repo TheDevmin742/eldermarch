@@ -10,10 +10,14 @@ window.ELDERMARCH.site = {
   // Shown under the Roll20 button. Leave "" to hide.
   nextSession: "Sunday, July 12 — the mountain still has you.",
   footer: "Kept by the DM. Ember checks the margins.",
+  // Where the Messages tab delivers feedback (via formsubmit.co).
+  // Leave "" to hide the form and show the Discord note instead.
+  feedbackEmail: "jane.iphone.66@gmail.com",
 };
 
 /* Extra tools shown on the Dice & Tools tab (the roller is built in). */
 window.ELDERMARCH.tools = [
   { title: "Battle Cards — How to Win Your Turn",
-    blurb: "One-page combat crib sheet per class. Ask the DM for your printed copy — web version coming soon." },
+    blurb: "The combat crib sheet, now on the web: what you get every turn, the classic mistakes, and a card for every hero.",
+    href: "docs/battle-cards.html" },
 ];

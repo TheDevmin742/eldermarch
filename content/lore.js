@@ -5,6 +5,11 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.lore = [
   {
+    title: "The Road Ahead — a Traveler's Timeline",
+    blurb: "Where the tale goes next — no spoilers, only the shape of the journey: down the mountain, along the long road, and to the gates of the capital at last.",
+    href: "docs/road-ahead.html",
+  },
+  {
     title: "The Eldermarch Compendium — the Book Itself",
     blurb: "The full text of the worn tome Ember pressed on Kree, as far as it has written itself: the Skywrights, Cinderhearth, Phandalin's founding houses, and the mountain the storm took. Margin notes included.",
     href: "docs/compendium.html",
