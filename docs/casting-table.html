@@ -13,6 +13,7 @@
   --ink-900:#2C2417; --ink-700:#3A2E1D; --ink-500:#6A5836; --ink-400:#9A824F;
   --rust-700:#7A2D20; --rust-600:#9C3D2E; --rust-100:#F0D8CC;
   --brass-700:#8A6320; --brass-500:#B6964A; --brass-400:#C7A14E; --brass-200:#E6D8B4;
+  --health-600:#9A3B2E;
   --surface-card:var(--parchment-50);
   --text-heading:var(--ink-900); --text-body:var(--ink-700); --text-muted:var(--ink-500); --text-faint:var(--ink-400);
   --accent:var(--rust-600); --accent-hover:var(--rust-700); --accent-soft:var(--rust-100);
@@ -31,42 +32,36 @@ body{
   font-family:var(--font-body);color:var(--text-body);
   padding:clamp(20px,4vw,56px) 20px 64px;
 }
-a.back{font-family:var(--font-display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:block;max-width:1080px;margin:0 auto 10px;}
+a.back{font-family:var(--font-display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:block;max-width:1120px;margin:0 auto 10px;}
 
-header.ct{max-width:1080px;margin:0 auto 36px;text-align:center;}
+header.ct{max-width:1120px;margin:0 auto 36px;text-align:center;}
 .flavor-line{font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:.95rem;letter-spacing:.04em;margin-bottom:6px;}
 h1{font-family:var(--font-display);font-weight:700;color:var(--text-heading);font-size:clamp(2rem,5vw,3rem);margin:0;letter-spacing:.04em;}
 .rule-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px;color:var(--brass-700);}
 .rule-row .line{height:1px;width:70px;background:var(--brass-500);opacity:.6;}
 .rule-row .label{font-family:var(--font-display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
 
-.layout{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
-main.col{flex:1 1 460px;min-width:320px;display:flex;flex-direction:column;gap:20px;}
+.layout{max-width:1120px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
+main.col{flex:1 1 520px;min-width:320px;display:flex;flex-direction:column;gap:20px;}
 aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direction:column;gap:18px;}
 
 .die-types{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
 .die-types button{
   font-family:var(--font-display);font-size:.9rem;letter-spacing:.04em;padding:9px 15px;
-  border-radius:var(--radius-md);cursor:pointer;transition:all .12s ease;min-width:54px;
+  border-radius:var(--radius-md);cursor:pointer;min-width:54px;
+  transition:background-color .12s ease,border-color .12s ease,color .12s ease;
   background:var(--surface-card);color:var(--text-body);border:1.5px solid var(--border-default);
 }
 .die-types button:hover{border-color:var(--accent);color:var(--accent);}
 .die-types button.active{background:var(--accent);color:var(--parchment-50);border-color:var(--accent);box-shadow:var(--shadow-sm);}
 
-.stage{
+.tray{
   position:relative;background:var(--surface-card);border:1px solid var(--border-strong);
-  border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:28px;
-  display:flex;flex-direction:column;align-items:center;gap:18px;overflow:hidden;
+  border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:16px 16px 8px;
 }
-.stage .arena{position:relative;z-index:2;width:clamp(220px,52vw,300px);height:clamp(220px,52vw,300px);display:flex;align-items:center;justify-content:center;}
-#die-wrap{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
-#die-wrap svg{display:block;width:100%;height:100%;}
-#die-num{
-  position:absolute;left:50%;top:50%;z-index:3;pointer-events:none;transform:translate(-50%,-50%);
-  font-family:var(--font-display);font-weight:700;
-}
-#breakdown{position:relative;z-index:2;min-height:26px;text-align:center;font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:1rem;}
-#deco-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;}
+.tray .canvas-wrap{position:relative;width:100%;aspect-ratio:25/16;}
+.tray canvas{position:absolute;left:0;top:0;width:100%;height:100%;display:block;}
+#breakdown{min-height:30px;padding:4px 0 6px;text-align:center;font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:1rem;}
 
 .controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;}
 .qty-wrap{display:flex;align-items:center;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-xs);}
@@ -78,7 +73,7 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 #roll-btn{
   font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;
   color:var(--parchment-50);background:var(--accent);border:none;border-radius:var(--radius-md);
-  padding:13px 40px;cursor:pointer;transition:background .12s ease,transform .08s ease;box-shadow:var(--shadow-sm);
+  padding:13px 40px;cursor:pointer;transition:transform .08s ease;box-shadow:var(--shadow-sm);
 }
 #roll-btn:hover{background:var(--accent-hover);}
 #roll-btn:active{transform:translateY(1px);}
@@ -94,6 +89,8 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 .hist-row .lab{font-family:var(--font-display);font-size:.72rem;letter-spacing:.06em;color:var(--brass-700);min-width:64px;text-transform:uppercase;}
 .hist-row .det{font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:.9rem;flex:1;}
 .hist-row .tot{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text-heading);}
+.hist-row .tot.nat20{color:var(--brass-700);}
+.hist-row .tot.nat1{color:var(--health-600);}
 #hist-empty{font-family:var(--font-flavor);font-style:italic;color:var(--text-faint);font-size:.9rem;}
 
 .panel .head{background:var(--ink-900);color:var(--parchment-50);padding:10px 16px;font-family:var(--font-display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
@@ -103,38 +100,14 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 .decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
 .decos button{
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
-  padding:9px 13px;border-radius:var(--radius-md);cursor:pointer;transition:all .12s ease;
+  padding:9px 13px;border-radius:var(--radius-md);cursor:pointer;
+  transition:background-color .12s ease,border-color .12s ease,color .12s ease;
   background:var(--surface-card);border:1.5px solid var(--border-default);color:var(--text-body);
 }
 .decos button.active{background:var(--accent-soft);border-color:var(--accent);color:var(--rust-700);}
 .decos .dl{font-family:var(--font-display);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;}
 .decos .dn{font-family:var(--font-flavor);font-style:italic;font-size:.9rem;opacity:.8;}
-
-@keyframes ct-tumble{
-  0%{transform:rotate(0deg) scale(1)}
-  20%{transform:rotate(-26deg) scale(1.08)}
-  45%{transform:rotate(22deg) scale(.93)}
-  70%{transform:rotate(-14deg) scale(1.05)}
-  88%{transform:rotate(7deg) scale(.99)}
-  100%{transform:rotate(0deg) scale(1)}
-}
-@keyframes ct-coin{
-  0%{transform:rotateY(0deg)}
-  100%{transform:rotateY(1620deg)}
-}
-@keyframes ct-pop{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}
-  60%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}
-  100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-}
-@keyframes ct-glow{
-  0%,100%{opacity:.55}
-  50%{opacity:.9}
-}
-#die-wrap.tumble{animation:ct-tumble .82s ease-in-out;}
-#die-wrap.flip{animation:ct-coin 1s cubic-bezier(.3,.1,.2,1);}
-#die-num.rolling{opacity:.85;filter:blur(0.6px);}
-#die-num.pop{animation:ct-pop .42s cubic-bezier(.2,1.3,.4,1);}
+.aside-note{padding:2px 6px;font-family:var(--font-flavor);font-style:italic;color:var(--text-faint);font-size:.9rem;text-align:center;}
 </style>
 </head>
 <body>
@@ -154,12 +127,9 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
   <main class="col">
     <div class="die-types" id="die-types"></div>
 
-    <div class="stage">
-      <div id="deco-overlay"></div>
-      <div class="arena">
-        <div id="die-wrap"></div>
-        <div id="die-num"></div>
-      </div>
+    <!-- the casting tray -->
+    <div class="tray">
+      <div class="canvas-wrap"><canvas id="tray-canvas"></canvas></div>
       <div id="breakdown"></div>
     </div>
 
@@ -188,24 +158,18 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
       <div class="swatches" id="swatches"></div>
     </div>
     <div class="panel">
-      <div class="head">Decoration</div>
+      <div class="head">Dice mat</div>
       <div class="decos" id="decos"></div>
     </div>
+    <div class="aside-note">A natural twenty flashes like dawn. A natural one&hellip; bring a broom.</div>
   </aside>
 </div>
 
-<script>
-const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
+<script src="js/cannon.js"></script>
+<script type="module">
+import { createDiceStage } from './js/dice-engine.js';
 
-/* polygon outlines + light facet polylines, viewBox 0 0 120 120 */
-const SHAPES = {
-  d4:  { o:'60,12 111,102 9,102',                   f:['60,12 60,102','9,102 60,58 111,102'] },
-  d8:  { o:'60,8 112,60 60,112 8,60',               f:['8,60 112,60','60,8 60,112','30,60 60,30 90,60 60,90 30,60'] },
-  d10: { o:'60,6 98,52 60,116 22,52',               f:['22,52 60,38 98,52','60,38 60,116'] },
-  d12: { o:'60,8 108,44 90,104 30,104 12,44',       f:['60,40 86,58 76,90 44,90 34,58 60,40','60,8 60,40','108,44 86,58','12,44 34,58','30,104 44,90','90,104 76,90'] },
-  d20: { o:'60,9 104,34 104,86 60,111 16,86 16,34', f:['34,80 86,80 60,36 34,80','60,9 60,36','16,34 34,80','104,34 86,80','16,86 34,80','104,86 86,80'] },
-};
-SHAPES.d100 = SHAPES.d10;
+const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
 
 const SWATCHES = [
   { id:'rust',  name:'Terracotta', body:'#9C3D2E', light:false },
@@ -226,102 +190,61 @@ const DECOS = [
   { id:'heraldic',label:'Heraldic',    note:'a double frame' }
 ];
 
-const RUNES = ['ᚠ','ᚱ','ᚦ','ᚨ','ᚷ','ᚹ','ᛁ','ᛟ','ᛏ','ᛒ','ᛗ','ᛚ'];
+/* physics feel */
+const THROW_STRENGTH = 1.2, SLOW_MOTION = false, KEEP_DICE = false;
 
-const state = { type:'d20', qty:1, color:'rust', deco:'glow', display:'20', rolling:false };
-let flick = null, settleTimer = null;
-
+const state = { type:'d20', qty:1, color:'rust', deco:'glow', rolling:false };
+const history = [];
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-
-function shade(hex, pct){
-  const h = hex.replace('#','');
-  let r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
-  const t = pct < 0 ? 0 : 255, p = Math.abs(pct);
-  r = Math.round((t-r)*p + r); g = Math.round((t-g)*p + g); b = Math.round((t-b)*p + b);
-  return '#' + [r,g,b].map(v => Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')).join('');
-}
-
 const curSwatch = () => SWATCHES.find(s => s.id === state.color) || SWATCHES[0];
-const faceText = (type, v) => type === 'coin' ? (v === 1 ? 'Heads' : 'Tails') : String(v);
+const cap = type => type === 'coin' ? 1 : (type === 'd100' ? 4 : 8);
 
-/* ---------- die graphics (plain inline SVG — nothing to ghost) ---------- */
-function dieSVG(){
-  const sw = curSwatch(), type = state.type, body = sw.body;
-  const ink = sw.light ? '#3A2E1D' : '#1c150c';
-  const facet = sw.light ? 'rgba(58,46,29,0.28)' : 'rgba(255,248,235,0.30)';
-  if (type === 'd6'){
-    const top = shade(body, .20), right = shade(body, -.22);
-    const numColor = sw.light ? '#2C2417' : '#FBF6E9';
-    const txt = state.display, fs = txt.length >= 3 ? 24 : (txt.length === 2 ? 32 : 40);
-    const shadow = sw.light ? '0 1px 1px rgba(255,255,255,0.4)' : '0 1px 3px rgba(0,0,0,0.35)';
-    return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 8px 12px rgba(43,31,20,0.30))">
-      <polygon points="14,48 40,24 112,24 86,48" fill="${top}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
-      <polygon points="86,48 112,24 112,90 86,114" fill="${right}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
-      <polygon points="14,48 86,48 86,114 14,114" fill="${body}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
-      <text id="d6-face" x="50" y="84" text-anchor="middle" dominant-baseline="central" fill="${numColor}"
-        style="font-family:'Cinzel',serif;font-weight:700;font-size:${fs}px;text-shadow:${shadow}">${esc(txt)}</text>
-    </svg>`;
-  }
-  if (type === 'coin'){
-    return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 6px 10px rgba(43,31,20,0.25))">
-      <circle cx="60" cy="60" r="52" fill="${body}" stroke="${ink}" stroke-width="3"/>
-      <circle cx="60" cy="60" r="43" fill="none" stroke="${facet}" stroke-width="2"/>
-      <circle cx="60" cy="60" r="38" fill="none" stroke="${facet}" stroke-width="1" stroke-dasharray="2 5"/>
-    </svg>`;
-  }
-  const s = SHAPES[type] || SHAPES.d20;
-  const lines = s.f.map(p => `<polyline points="${p}" fill="none" stroke="${facet}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>`).join('');
-  return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 7px 12px rgba(43,31,20,0.28))">
-    <polygon points="${s.o}" fill="${body}" stroke="${ink}" stroke-width="3.5" stroke-linejoin="round"/>${lines}
-  </svg>`;
+let stage = null;
+try {
+  stage = createDiceStage($('tray-canvas'), { type: state.type, color: curSwatch(), theme: state.deco });
+  window.__casting = stage; // handy for poking at it from the console
+} catch (e) {
+  console.error('dice engine failed to start', e);
 }
 
-function decoHTML(){
-  const d = state.deco;
-  if (d === 'glow') return `<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%, rgba(199,161,78,0.55) 0%, rgba(199,161,78,0.18) 34%, rgba(199,161,78,0) 62%);animation:ct-glow 4s ease-in-out infinite"></div>`;
-  if (d === 'filigree'){
-    const c = (pos, tf) => `<span style="position:absolute;${pos};font-family:'Cinzel',serif;font-size:30px;color:var(--brass-500);opacity:.75;line-height:1;transform:${tf}">&#10087;</span>`;
-    return c('top:12px;left:14px','none') + c('top:12px;right:14px','scaleX(-1)') + c('bottom:12px;left:14px','scaleY(-1)') + c('bottom:12px;right:14px','scale(-1,-1)');
+/* ---------- describe outcomes (same words as the design) ---------- */
+function describe(out){
+  const type = out.type;
+  if (type === 'coin'){
+    const heads = out.total === 'Heads';
+    return { label:'COIN', totalText: out.total,
+      breakdown: heads ? 'the coin lands face up' : 'the coin lands face down',
+      detail: heads ? 'heads' : 'tails' };
   }
-  if (d === 'runes'){
-    return RUNES.map((r,i) => {
-      const a = (i / RUNES.length) * Math.PI * 2, R = 46;
-      return `<span style="position:absolute;left:calc(50% + ${(Math.cos(a)*R).toFixed(2)}%);top:calc(50% + ${(Math.sin(a)*R).toFixed(2)}%);transform:translate(-50%,-50%);font-family:'Cinzel',serif;font-size:18px;color:var(--brass-700);opacity:.32">${r}</span>`;
-    }).join('');
+  if (type === 'd100'){
+    const n = out.dice.length;
+    const label = n > 1 ? n + 'd100' : 'd100';
+    if (n === 1){
+      const d0 = out.dice[0];
+      const bd = String(d0.tens).padStart(2,'0') + ' + ' + d0.units + ' = ' + d0.value;
+      return { label, totalText: String(out.total), breakdown: bd, detail: 'percentile: ' + bd };
+    }
+    return { label, totalText: String(out.total),
+      breakdown: out.values.join(' + ') + ' = ' + out.total,
+      detail: out.values.join(', ') };
   }
-  if (d === 'heraldic') return `<div style="position:absolute;inset:10px;border:2px solid var(--brass-500);border-radius:6px;box-shadow:inset 0 0 0 4px var(--surface-card), inset 0 0 0 5px var(--ink-700)"></div>`;
-  return '';
+  const n = out.values.length;
+  const label = n > 1 ? n + type : type;
+  let critNote = '';
+  if (out.crit === 'nat20') critNote = ' — natural twenty!';
+  if (out.crit === 'nat1') critNote = ' — the die shatters';
+  if (n === 1){
+    return { label, totalText: String(out.total),
+      breakdown: type + ' → ' + out.total + critNote,
+      detail: out.crit === 'nat20' ? 'a natural 20' : out.crit === 'nat1' ? 'a natural 1 — swept from the felt' : 'a single ' + type };
+  }
+  return { label, totalText: String(out.total),
+    breakdown: out.values.join(' + ') + ' = ' + out.total + critNote,
+    detail: out.values.join(', ') + (out.crit === 'nat20' ? ' · a twenty among them' : out.crit === 'nat1' ? ' · one die shattered' : '') };
 }
 
 /* ---------- rendering ---------- */
-function renderDie(){ $('die-wrap').innerHTML = dieSVG(); }
-function renderDeco(){ $('deco-overlay').innerHTML = decoHTML(); }
-
-function renderNum(pop){
-  const num = $('die-num'), sw = curSwatch(), coin = state.type === 'coin';
-  if (state.type === 'd6'){ num.style.display = 'none'; return; }
-  num.style.display = '';
-  num.textContent = state.display;
-  num.style.color = sw.light ? '#2C2417' : '#FBF6E9';
-  num.style.textShadow = sw.light ? '0 1px 1px rgba(255,255,255,0.4)' : '0 2px 4px rgba(0,0,0,0.35)';
-  num.style.fontSize = coin ? 'clamp(1.5rem,5.5vw,2.4rem)'
-    : (state.display.length >= 3 ? 'clamp(2.6rem,9vw,4.4rem)' : 'clamp(3.4rem,12vw,5.6rem)');
-  num.classList.toggle('rolling', state.rolling);
-  if (pop){ num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop'); }
-}
-
-function renderFace(){
-  /* during the flicker: d6 updates the number painted on its face; others update the overlay */
-  if (state.type === 'd6'){
-    const t = document.getElementById('d6-face');
-    if (t){
-      t.textContent = state.display;
-      t.style.fontSize = (state.display.length >= 3 ? 24 : (state.display.length === 2 ? 32 : 40)) + 'px';
-    } else renderDie();
-  } else renderNum(false);
-}
-
 function renderTypes(){
   $('die-types').innerHTML = ['d4','d6','d8','d10','d12','d20','d100','coin'].map(id =>
     `<button data-type="${id}" class="${id === state.type ? 'active' : ''}">${id === 'coin' ? 'Coin' : id}</button>`).join('');
@@ -334,114 +257,100 @@ function renderDecos(){
   $('decos').innerHTML = DECOS.map(d =>
     `<button data-deco="${d.id}" class="${d.id === state.deco ? 'active' : ''}"><span class="dl">${d.label}</span><span class="dn">${d.note}</span></button>`).join('');
 }
-
-const history = [];
 function renderHistory(){
   $('hist-list').innerHTML = history.map(h =>
-    `<div class="hist-row"><span class="lab">${esc(h.label)}</span><span class="det">${esc(h.detail)}</span><span class="tot">${esc(h.total)}</span></div>`).join('');
+    `<div class="hist-row"><span class="lab">${esc(h.label)}</span><span class="det">${esc(h.detail)}</span><span class="tot ${h.crit || ''}">${esc(h.total)}</span></div>`).join('');
   $('hist-empty').style.display = history.length ? 'none' : '';
 }
+function renderControls(){
+  const coin = state.type === 'coin';
+  $('qty-val').textContent = state.qty;
+  $('qty-wrap').classList.toggle('disabled', coin || state.rolling);
+  $('roll-btn').classList.toggle('rolling', state.rolling);
+  $('roll-btn').textContent = state.rolling ? (coin ? 'Flipping…' : 'Casting…') : (coin ? 'Flip' : 'Roll');
+  $('die-types').style.pointerEvents = state.rolling ? 'none' : '';
+}
 
-function setControlsDisabled(on){
-  $('roll-btn').classList.toggle('rolling', on);
-  $('qty-wrap').classList.toggle('disabled', on || state.type === 'coin');
-  $('die-types').style.pointerEvents = on ? 'none' : '';
+/* ---------- fallback if the engine could not start ---------- */
+function fallbackRoll(){
+  const coin = state.type === 'coin';
+  const sides = coin ? 2 : SIDES[state.type];
+  const n = coin ? 1 : state.qty;
+  const rolls = [];
+  for (let i = 0; i < n; i++) rolls.push(1 + Math.floor(Math.random() * sides));
+  const total = rolls.reduce((a,b) => a + b, 0);
+  const display = coin ? (rolls[0] === 1 ? 'Heads' : 'Tails') : String(total);
+  $('breakdown').textContent = coin ? '' : rolls.join(' + ') + ' = ' + total;
+  history.unshift({ label: coin ? 'COIN' : (n > 1 ? n + state.type : state.type), detail: rolls.join(', '), total: display, crit:'' });
+  if (history.length > 10) history.pop();
+  renderHistory();
 }
 
 /* ---------- actions ---------- */
-function selectType(type){
+let watchdog = null;
+async function roll(){
   if (state.rolling) return;
-  state.type = type;
-  if (type === 'coin') state.qty = 1;
-  state.display = faceText(type, type === 'coin' ? 1 : SIDES[type]);
-  $('breakdown').textContent = '';
-  $('qty-val').textContent = state.qty;
-  $('roll-btn').textContent = type === 'coin' ? 'Flip' : 'Roll';
-  renderTypes(); renderDie(); renderNum(false); setControlsDisabled(false);
-}
-
-function roll(){
-  if (state.rolling) return;
-  const type = state.type, coin = type === 'coin';
-  const sides = coin ? 2 : SIDES[type];
-  const n = coin ? 1 : state.qty;
+  if (!stage){ fallbackRoll(); return; }
+  const coin = state.type === 'coin';
   state.rolling = true;
-  setControlsDisabled(true);
-  $('die-wrap').classList.remove('tumble','flip');
-  void $('die-wrap').offsetWidth;
-  $('die-wrap').classList.add(coin ? 'flip' : 'tumble');
-  renderNum(false);
-
-  if (flick) clearInterval(flick);
-  flick = setInterval(() => {
-    state.display = faceText(type, 1 + Math.floor(Math.random()*sides));
-    renderFace();
-  }, 70);
-
-  if (settleTimer) clearTimeout(settleTimer);
-  settleTimer = setTimeout(() => {
-    clearInterval(flick); flick = null;
-    const rolls = [];
-    for (let i = 0; i < n; i++) rolls.push(1 + Math.floor(Math.random()*sides));
-    const total = rolls.reduce((a,b) => a+b, 0);
-    const label = coin ? 'COIN' : (n > 1 ? n + type : type);
-    let breakdown, detail;
-    if (coin){
-      state.display = rolls[0] === 1 ? 'Heads' : 'Tails';
-      breakdown = rolls[0] === 1 ? 'the coin lands face up' : 'the coin lands face down';
-      detail = state.display.toLowerCase();
-    } else if (n === 1){
-      state.display = String(total);
-      breakdown = type + ' → ' + total;
-      detail = 'a single ' + type;
-    } else {
-      state.display = String(total);
-      breakdown = rolls.join(' + ') + ' = ' + total;
-      detail = rolls.join(', ');
-    }
-    state.rolling = false;
-    $('die-wrap').classList.remove('tumble','flip');
-    $('breakdown').textContent = breakdown;
-    if (type === 'd6') renderDie(); else renderFace();
-    renderNum(true);
-    history.unshift({ label, detail, total: state.display });
-    if (history.length > 7) history.pop();
+  $('breakdown').textContent = coin ? 'the coin is in the air…' : 'the dice are cast…';
+  renderControls();
+  clearTimeout(watchdog);
+  watchdog = setTimeout(() => { if (state.rolling){ state.rolling = false; renderControls(); } }, 18000);
+  try {
+    const out = await stage.roll({
+      type: state.type, qty: state.qty, color: curSwatch(),
+      throwStrength: THROW_STRENGTH, slowMotion: SLOW_MOTION, keepDice: KEEP_DICE
+    });
+    const d = describe(out);
+    history.unshift({ label: d.label, detail: d.detail, total: d.totalText, crit: out.crit || '' });
+    if (history.length > 10) history.pop();
+    $('breakdown').textContent = d.breakdown;
     renderHistory();
-    setControlsDisabled(false);
-  }, coin ? 1000 : 820);
+  } catch(e){
+    console.error(e);
+  }
+  state.rolling = false;
+  renderControls();
 }
 
-/* ---------- wiring ---------- */
 $('die-types').addEventListener('click', e => {
   const b = e.target.closest('button[data-type]');
-  if (b) selectType(b.dataset.type);
+  if (!b || state.rolling) return;
+  state.type = b.dataset.type;
+  state.qty = Math.min(state.qty, cap(state.type));
+  $('breakdown').textContent = '';
+  if (stage) stage.setIdleDie({ type: state.type, color: curSwatch() });
+  renderTypes(); renderControls();
 });
 $('swatches').addEventListener('click', e => {
   const b = e.target.closest('button[data-color]');
   if (!b) return;
   state.color = b.dataset.color;
-  renderSwatches(); renderDie(); renderNum(false);
+  if (stage && !stage.isRolling()) stage.setIdleDie({ type: state.type, color: curSwatch() });
+  renderSwatches();
 });
 $('decos').addEventListener('click', e => {
   const b = e.target.closest('button[data-deco]');
   if (!b) return;
   state.deco = b.dataset.deco;
-  renderDecos(); renderDeco();
+  if (stage) stage.setTheme(state.deco);
+  renderDecos();
 });
 $('qty-inc').addEventListener('click', () => {
-  if (state.type === 'coin' || state.rolling) return;
-  state.qty = Math.min(8, state.qty + 1);
-  $('qty-val').textContent = state.qty;
+  if (state.rolling) return;
+  state.qty = Math.min(cap(state.type), state.qty + 1);
+  renderControls();
 });
 $('qty-dec').addEventListener('click', () => {
-  if (state.type === 'coin' || state.rolling) return;
+  if (state.rolling) return;
   state.qty = Math.max(1, state.qty - 1);
-  $('qty-val').textContent = state.qty;
+  renderControls();
 });
 $('roll-btn').addEventListener('click', roll);
 $('hist-clear').addEventListener('click', () => { history.length = 0; renderHistory(); });
 
-renderTypes(); renderSwatches(); renderDecos(); renderDeco(); renderDie(); renderNum(false); renderHistory();
+renderTypes(); renderSwatches(); renderDecos(); renderControls(); renderHistory();
 </script>
 </body>
 </html>
