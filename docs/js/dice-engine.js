@@ -300,9 +300,14 @@ const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', '�
 /* ---- the Rising Tide set (Thalasstheos) ---- */
 const TIDE = {
   teal: '#2FA093', abyss: '#16324F', ink: '#0E2A33', foam: '#F5FBF8',
+  num: '#1B5C88',
   water: 'rgba(16,58,92,0.50)', waterEdge: 'rgba(120,210,200,0.30)',
   pearlBase: '#EAE4D8', pearlInk: '#8C8378', pearlNum: '#2C7D7A'
 };
+function hexRgba(hex, a) {
+  const h = hex.replace('#', '');
+  return `rgba(${parseInt(h.slice(0, 2), 16)},${parseInt(h.slice(2, 4), 16)},${parseInt(h.slice(4, 6), 16)},${a})`;
+}
 function mixHex(a, b, t) {
   const pa = a.replace('#', ''), pb = b.replace('#', '');
   const c = k => Math.round(lerp(parseInt(pa.slice(k, k + 2), 16), parseInt(pb.slice(k, k + 2), 16), clamp(t, 0, 1)));
@@ -906,19 +911,119 @@ export function createDiceStage(canvas, initial) {
     }
     return { below, edge };
   }
+  /* a segmented, gently animated waterline between two world points —
+     pinned at the ends so it never leaves the face it belongs to */
+  function wavyLine(pA, pB, t, phase, amp) {
+    const sA = proj(pA), sB = proj(pB);
+    const dx = sB.x - sA.x, dy = sB.y - sA.y;
+    const L = Math.hypot(dx, dy) || 1;
+    const nx = -dy / L, ny = dx / L;
+    const K = Math.max(5, Math.min(9, Math.round(L / 9)));
+    ctx.beginPath();
+    for (let k = 0; k <= K; k++) {
+      const u = k / K;
+      const env = Math.sin(u * Math.PI);
+      const off = amp * env * (Math.sin(u * 9.5 + t / 260 + phase) + 0.5 * Math.sin(u * 17 - t / 170 + phase * 2));
+      const x = sA.x + dx * u + nx * off, y = sA.y + dy * u + ny * off;
+      k === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+    }
+    ctx.stroke();
+    return { sA, sB, nx, ny };
+  }
   function drawDie(die, now) {
     const { geo, color } = die;
     const tide = color && color.special === 'tide';
     const pearl = tide && die.pearl;
+    const glassy = tide && !pearl && !die.cracked && die.slosh;
     const ink = pearl ? TIDE.pearlInk : tide ? TIDE.ink : (color.light ? '#4A3B24' : '#241A0E');
-    const numColor = pearl ? TIDE.pearlNum : tide ? TIDE.foam : (color.light ? '#2C2417' : '#FBF6E9');
+    const numColor = tide ? TIDE.num : (color.light ? '#2C2417' : '#FBF6E9');
     ctx.globalAlpha = die.alpha;
     const wv = geo.verts.map(v => vAdd(qRotate(v, die.quat), die.pos));
     const sv = wv.map(proj);
-    const faces = geo.faces
-      .map(f => ({ f, nW: qRotate(f.n, die.quat), cW: vAdd(qRotate(f.c, die.quat), die.pos) }))
-      .filter(o => vDot(o.nW, vSub(o.cW, CAM.eye)) < -1e-4);
+    const allFaces = geo.faces.map(f => ({ f, nW: qRotate(f.n, die.quat), cW: vAdd(qRotate(f.c, die.quat), die.pos) }));
+    const facing = o => vDot(o.nW, vSub(o.cW, CAM.eye)) < -1e-4;
+    const faces = allFaces.filter(facing);
     const sl = die.slosh;
+    const facePath = f => {
+      ctx.beginPath();
+      f.idx.forEach((vi, i) => { i === 0 ? ctx.moveTo(sv[vi].x, sv[vi].y) : ctx.lineTo(sv[vi].x, sv[vi].y); });
+      ctx.closePath();
+    };
+
+    /* ---- transparent sea-glass: the bottle treatment ---- */
+    if (glassy) {
+      const t = now || performance.now();
+      const px = die.pos[0], pz = die.pos[2];
+      const wl = die.pos[1] + geo.R * (sl.lvl != null ? sl.lvl : -0.04);
+      const back = allFaces.filter(o => !facing(o));
+      const glassTint = (o, a) => {
+        const d = vDot(o.nW, LIGHT);
+        const h = clamp((o.cW[1] - die.pos[1]) / geo.R, -1, 1);
+        return hexRgba(shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.08, 0.30, (d + 1) / 2)), a);
+      };
+      const crossings = [];
+      // the far wall of the glass, seen through the body
+      back.forEach(o => { facePath(o.f); ctx.fillStyle = glassTint(o, 0.16); ctx.fill(); });
+      // water lying against the far wall
+      back.forEach(o => {
+        const cut = clipBelowWater(o.f.idx.map(vi => wv[vi]), px, pz, wl, sl.tx, sl.tz);
+        if (cut.below.length >= 3) {
+          ctx.beginPath();
+          cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+          ctx.closePath();
+          ctx.fillStyle = 'rgba(22,74,104,0.42)'; ctx.fill();
+        }
+        cut.edge.forEach(p => crossings.push(p));
+      });
+      // the water's open surface — the cross-section of the whole die
+      const frontCuts = faces.map(o => clipBelowWater(o.f.idx.map(vi => wv[vi]), px, pz, wl, sl.tx, sl.tz));
+      frontCuts.forEach(c => c.edge.forEach(p => crossings.push(p)));
+      if (crossings.length >= 3) {
+        const c0 = crossings.reduce((a, p) => vAdd(a, p), [0, 0, 0]).map(v => v / crossings.length);
+        const pts = crossings.slice().sort((A, B) =>
+          Math.atan2(A[2] - c0[2], A[0] - c0[0]) - Math.atan2(B[2] - c0[2], B[0] - c0[0]));
+        ctx.beginPath();
+        pts.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(150,225,215,0.36)'; ctx.fill();
+      }
+      // water against the near glass
+      frontCuts.forEach(cut => {
+        if (cut.below.length < 3) return;
+        ctx.beginPath();
+        cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+        ctx.closePath();
+        ctx.fillStyle = 'rgba(16,62,96,0.34)'; ctx.fill();
+      });
+      // the near glass itself — a breath of tint, like the bottle
+      faces.forEach(o => { facePath(o.f); ctx.fillStyle = glassTint(o, 0.13); ctx.fill(); });
+      // sun through glass: a soft sheen on the face turned to the light
+      let lit = null;
+      faces.forEach(o => { const d = vDot(o.nW, LIGHT); if (!lit || d > lit.d) lit = { o, d }; });
+      if (lit && lit.d > 0.15) { facePath(lit.o.f); ctx.fillStyle = `rgba(255,255,250,${0.10 * lit.d})`; ctx.fill(); }
+      // the segmented foam line riding the waterline
+      ctx.strokeStyle = 'rgba(250,255,252,0.8)'; ctx.lineWidth = 1.6;
+      frontCuts.forEach((cut, i) => {
+        if (cut.edge.length < 2) return;
+        const r = wavyLine(cut.edge[0], cut.edge[1], t, i * 1.7 + (sl.phase || 0), 1.7);
+        for (let k = 0; k < 2; k++) {
+          const u = 0.28 + 0.4 * k + 0.1 * Math.sin(t / 340 + k * 2.2 + i);
+          ctx.beginPath();
+          ctx.arc(lerp(r.sA.x, r.sB.x, u) + r.nx * 1.6, lerp(r.sA.y, r.sB.y, u) + r.ny * 1.6,
+            1.1 + 0.5 * Math.sin(t / 230 + k * 3 + i), 0, TAU);
+          ctx.fillStyle = 'rgba(250,255,252,0.7)'; ctx.fill();
+        }
+        ctx.strokeStyle = 'rgba(250,255,252,0.8)'; ctx.lineWidth = 1.6;
+      });
+      // glass edges — light, so the water stays the star
+      ctx.strokeStyle = hexRgba(TIDE.ink, 0.38); ctx.lineWidth = 1.4;
+      faces.forEach(o => { facePath(o.f); ctx.stroke(); });
+      drawDieLabels(faces, geo, die, sv, wv, numColor);
+      ctx.globalAlpha = 1;
+      return;
+    }
+
+    /* ---- opaque pipeline: the pearl and every ordinary set ---- */
     faces.forEach(({ f, nW, cW }) => {
       const d = vDot(nW, LIGHT);
       let fill;
@@ -927,43 +1032,20 @@ export function createDiceStage(canvas, initial) {
         const irid = mixHex(mixHex('#EBD9D6', '#DAE8DC', (nW[0] + 1) / 2), '#DAE1EE', (nW[2] + 1) / 2);
         fill = shadeHex(mixHex(TIDE.pearlBase, irid, 0.62), lerp(-0.10, 0.24, (d + 1) / 2));
       } else if (tide) {
-        // sea-glass: teal above, abyssal blue below
         const h = clamp((cW[1] - die.pos[1]) / geo.R, -1, 1);
         fill = shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.18, 0.22, (d + 1) / 2));
       } else {
         fill = shadeHex(color.body, lerp(-0.24, 0.26, (d + 1) / 2));
       }
-      ctx.beginPath();
-      f.idx.forEach((vi, i) => { i === 0 ? ctx.moveTo(sv[vi].x, sv[vi].y) : ctx.lineTo(sv[vi].x, sv[vi].y); });
-      ctx.closePath();
+      facePath(f);
       ctx.fillStyle = fill; ctx.fill();
-      // the water sloshing inside the glass
-      if (tide && !pearl && sl && !die.cracked) {
-        const wl = die.pos[1] + geo.R * (sl.lvl != null ? sl.lvl : -0.04);
-        const cut = clipBelowWater(f.idx.map(vi => wv[vi]), die.pos[0], die.pos[2], wl, sl.tx, sl.tz);
-        if (cut.below.length >= 3) {
-          ctx.beginPath();
-          cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
-          ctx.closePath();
-          ctx.fillStyle = TIDE.water; ctx.fill();
-          ctx.strokeStyle = TIDE.waterEdge; ctx.lineWidth = 1; ctx.stroke();
-          if (cut.edge.length >= 2) {
-            const s0 = proj(cut.edge[0]), s1 = proj(cut.edge[1]);
-            ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y);
-            ctx.strokeStyle = 'rgba(250,255,252,0.85)'; ctx.lineWidth = 2; ctx.stroke();
-            // foam pips riding the waterline
-            const t = now || performance.now();
-            for (let k = 0; k < 3; k++) {
-              const u = 0.2 + 0.3 * k + 0.08 * Math.sin(t / 300 + k * 2.4 + (sl.phase || 0));
-              ctx.beginPath();
-              ctx.arc(lerp(s0.x, s1.x, u), lerp(s0.y, s1.y, u) - 1.2, 1.5 + 0.7 * Math.sin(t / 210 + k * 3.1), 0, TAU);
-              ctx.fillStyle = 'rgba(250,255,252,0.75)'; ctx.fill();
-            }
-          }
-        }
-      }
       ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.stroke();
-      // labels
+    });
+    drawDieLabels(faces, geo, die, sv, wv, numColor);
+    ctx.globalAlpha = 1;
+  }
+  function drawDieLabels(faces, geo, die, sv, wv, numColor) {
+    faces.forEach(({ f }) => {
       if (geo.type === 'd4') {
         f.idx.forEach(vi => {
           const vLoc = geo.verts[vi];
