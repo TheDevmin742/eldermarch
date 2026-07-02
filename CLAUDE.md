@@ -15,6 +15,7 @@ This site is read by PLAYERS. Never add content from the campaign's `DM Notes` f
 - `content/characters.js` — character cards linking to `sheets/`
 - `content/gazetteer.js` — town cards for the Gazetteer tab. ⚠ Only towns the party has VISITED. The Town Guides docx files contain DM-only sections (SECRETS, OPEN THREADS, DM NOTE, MAP PROMPTS) — strip all of those when converting one to a `docs/town-*.html` page.
 - `content/surveys.js` — survey/poll cards on the Messages tab (paste Google Form links)
+- `content/appendix.js` — the Appendix tab: NPCs (with factions + player-safe lore), items (rarity: common/uncommon/rare/veryrare/legendary, colored grey/green/blue/purple/orange; `magic: true` adds the ✦ label), and the spellbook. Lloyd's spells/items stay out until his debut. Invented NPC lore is fine but must stay warm, public flavor — no DM secrets.
 - `index.html` — the whole shell (tabs, styling, dice roller, Courier feedback form). Touch only for feature work.
 - `sheets/` — COPIES of the Hearthsheets (source of truth lives in the campaign folder: `Player Notes/Character Sheets/Hearthsheets (HTML)`). Never copy any file marked NPC or DM Version.
 - `docs/` — player-safe HTML documents. `img/` — cover art.

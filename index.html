@@ -119,6 +119,42 @@ hr.flourish:after{content:"✦ ⚜ ✦";color:var(--gold-deep);letter-spacing:.6
 .hist{margin-top:12px;font-size:14px;color:var(--ink-soft);max-height:180px;overflow-y:auto;}
 .hist div{border-bottom:1px dotted var(--edge);padding:3px 0;}
 
+/* ---------- appendix ---------- */
+nav.pills{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px;}
+nav.pills button{
+  font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--panel2);color:var(--ink-soft);border:1.5px solid var(--edge);
+  border-radius:14px;padding:8px 16px;cursor:pointer;
+}
+nav.pills button.active{background:var(--rust);color:#fff;border-color:var(--rust-deep);}
+.apx-part{display:none;} .apx-part.active{display:block;}
+.rarity-key{font-size:13.5px;color:var(--ink-soft);font-style:italic;margin:0 0 14px;}
+.rar-common{color:#7a7161;font-weight:700;}
+.rar-uncommon{color:var(--green);font-weight:700;}
+.rar-rare{color:var(--blue);font-weight:700;}
+.rar-veryrare{color:var(--purple);font-weight:700;}
+.rar-legendary{color:#b95f14;font-weight:700;}
+.magic-badge{
+  font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;
+  background:linear-gradient(180deg,#f3e3ba,#e6d095);color:#7a5a14;border:1px solid var(--gold-deep);
+  border-radius:8px;padding:2px 8px;vertical-align:middle;white-space:nowrap;
+}
+.npc{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:14px 18px;margin:0 0 10px;}
+.npc .nname{font-family:'Cinzel',serif;font-weight:700;font-size:17px;color:var(--rust);}
+.npc .nplace{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:10px;}
+.npc .nrole{color:var(--ink-soft);margin:3px 0 6px;font-size:14.5px;}
+.npc .nlore{font-size:15px;border-left:3px solid var(--edge);padding-left:12px;font-style:italic;color:var(--ink);}
+.apx-item{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:12px 18px;margin:0 0 10px;}
+.apx-item .iname{font-family:'Cinzel',serif;font-weight:700;font-size:16px;}
+.apx-item .imeta{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:2px 0 5px;}
+.apx-item .idesc{font-size:14.5px;color:var(--ink-soft);}
+.spell{background:var(--panel);border:1px solid var(--edge);border-radius:12px;padding:11px 18px;margin:0 0 8px;}
+.spell .sname{font-family:'Cinzel',serif;font-weight:700;font-size:15.5px;color:var(--rust-deep);}
+.spell .smeta{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-left:10px;}
+.spell .scasters{float:right;display:flex;gap:4px;}
+.spell .scaster{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:#fff;border-radius:8px;padding:2px 8px;}
+.spell .sdesc{font-size:14.5px;color:var(--ink-soft);margin-top:4px;}
+
 /* ---------- messages / courier ---------- */
 .msg-field{margin:0 0 14px;}
 .msg-field label{display:block;font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
@@ -162,6 +198,7 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
   <button data-tab="recaps">Recaps</button>
   <button data-tab="lore">Lore &amp; Legends</button>
   <button data-tab="gazetteer">Gazetteer</button>
+  <button data-tab="appendix">Appendix</button>
   <button data-tab="tools">Dice &amp; Tools</button>
   <button data-tab="messages">Messages</button>
 </nav>
@@ -212,6 +249,23 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
     <div class="grid" id="gaz-grid"></div>
     <hr class="flourish">
     <p class="lede" style="text-align:center">…and beyond these, the map fades to parchment. The road ahead will fill it in.</p>
+  </section>
+
+  <!-- ============ APPENDIX ============ -->
+  <section class="tab" id="tab-appendix">
+    <h2>The Appendix</h2>
+    <p class="lede">Everyone the company has met, everything they carry, and every spell in their books — the campaign's back pages.</p>
+    <nav class="pills" id="appendix-pills">
+      <button data-part="npcs" class="active">Folk &amp; Factions</button>
+      <button data-part="items">Items &amp; Treasures</button>
+      <button data-part="spells">The Spellbook</button>
+    </nav>
+    <div class="apx-part active" id="apx-npcs"></div>
+    <div class="apx-part" id="apx-items">
+      <p class="rarity-key">Rarity: <span class="rar-common">common</span> · <span class="rar-uncommon">uncommon</span> · <span class="rar-rare">rare</span> · <span class="rar-veryrare">very rare</span> · <span class="rar-legendary">legendary</span> &nbsp;·&nbsp; <span class="magic-badge">✦ Magic</span> marks enchanted things</p>
+      <div id="apx-items-list"></div>
+    </div>
+    <div class="apx-part" id="apx-spells"></div>
   </section>
 
   <!-- ============ TOOLS ============ -->
@@ -279,6 +333,7 @@ footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;fo
 <script src="content/recaps.js"></script>
 <script src="content/lore.js"></script>
 <script src="content/gazetteer.js"></script>
+<script src="content/appendix.js"></script>
 <script src="content/surveys.js"></script>
 <script src="content/ember.js"></script>
 <script>
@@ -366,6 +421,55 @@ document.getElementById('gaz-grid').innerHTML = (D.gazetteer || []).map(g => `
     <div class="blurb">${esc(g.blurb)}</div>
     <div class="links"><a href="${esc(g.href)}" target="_blank" rel="noopener">Open the guide →</a></div>
   </div>`).join("");
+
+/* ----- appendix ----- */
+const APX = D.appendix || { factions:{}, npcs:[], items:[], spells:[] };
+document.getElementById('appendix-pills').addEventListener('click', e => {
+  const btn = e.target.closest('button'); if (!btn) return;
+  document.querySelectorAll('#appendix-pills button').forEach(b => b.classList.toggle('active', b === btn));
+  document.querySelectorAll('.apx-part').forEach(p => p.classList.toggle('active', p.id === 'apx-' + btn.dataset.part));
+});
+
+/* folk & factions — grouped by faction */
+const factionOrder = Object.keys(APX.factions);
+document.getElementById('apx-npcs').innerHTML = factionOrder.map(fk => {
+  const fac = APX.factions[fk];
+  const members = (APX.npcs || []).filter(n => n.faction === fk);
+  if (!members.length) return "";
+  return `<h3><span class="ctag" style="background:${esc(fac.color)};font-size:9.5px;vertical-align:middle;margin-right:8px">${esc(fac.name)}</span></h3>`
+    + members.map(n => `
+      <div class="npc">
+        <span class="nname">${esc(n.name)}</span><span class="nplace">${esc(n.place || "")}</span>
+        <div class="nrole">${esc(n.role)}</div>
+        <div class="nlore">${esc(n.lore)}</div>
+      </div>`).join("");
+}).join("");
+
+/* items — rarity-colored names, magic badge */
+const RARITY = { common:'rar-common', uncommon:'rar-uncommon', rare:'rar-rare', veryrare:'rar-veryrare', legendary:'rar-legendary' };
+document.getElementById('apx-items-list').innerHTML = (APX.items || []).map(it => `
+  <div class="apx-item">
+    <span class="iname ${RARITY[it.rarity] || 'rar-common'}">${esc(it.name)}</span>
+    ${it.magic ? ' <span class="magic-badge">✦ Magic</span>' : ''}
+    <div class="imeta">${esc(it.kind || '')}${it.holder ? ' · ' + esc(it.holder) : ''}</div>
+    <div class="idesc">${esc(it.desc)}</div>
+  </div>`).join("");
+
+/* spellbook — grouped by level */
+const CASTER_COLORS = { Wilhelm:'#8a6d3b', Kenra:'#5e3b86', Thalasstheos:'#6f8aa3' };
+const levels = [];
+(APX.spells || []).forEach(s => { if (!levels.includes(s.level)) levels.push(s.level); });
+document.getElementById('apx-spells').innerHTML = levels.map(lv => {
+  const group = APX.spells.filter(s => s.level === lv);
+  return `<h3>${esc(lv === 'Cantrip' ? 'Cantrips' : lv + '-Level Spells')}</h3>`
+    + group.map(s => `
+      <div class="spell">
+        <div class="scasters">${(s.casters || []).map(c => `<span class="scaster" style="background:${esc(CASTER_COLORS[c] || '#8aa1b4')}">${esc(c)}</span>`).join("")}</div>
+        <span class="sname">${esc(s.name)}</span>
+        <span class="smeta">${esc(s.school)} · ${esc(s.meta)}</span>
+        <div class="sdesc">${esc(s.desc)}</div>
+      </div>`).join("");
+}).join("");
 
 /* ----- surveys ----- */
 const surveys = (D.surveys || []).filter(s => !s.closed);
