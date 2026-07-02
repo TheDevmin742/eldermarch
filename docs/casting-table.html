@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Casting Table</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root{
+  --parchment-50:#FBF6E9; --parchment-100:#F6EFDC; --parchment-200:#F1E7CF; --parchment-300:#E8DCC0; --parchment-400:#D9C79A;
+  --ink-900:#2C2417; --ink-700:#3A2E1D; --ink-500:#6A5836; --ink-400:#9A824F;
+  --rust-700:#7A2D20; --rust-600:#9C3D2E; --rust-100:#F0D8CC;
+  --brass-700:#8A6320; --brass-500:#B6964A; --brass-400:#C7A14E; --brass-200:#E6D8B4;
+  --surface-card:var(--parchment-50);
+  --text-heading:var(--ink-900); --text-body:var(--ink-700); --text-muted:var(--ink-500); --text-faint:var(--ink-400);
+  --accent:var(--rust-600); --accent-hover:var(--rust-700); --accent-soft:var(--rust-100);
+  --border-default:var(--parchment-400); --border-soft:var(--brass-200); --border-strong:#A88A5E;
+  --font-display:'Cinzel','Times New Roman',serif;
+  --font-body:'EB Garamond',Georgia,serif;
+  --font-flavor:'IM Fell English',Georgia,serif;
+  --radius-md:5px; --radius-lg:8px;
+  --shadow-xs:0 1px 2px rgba(43,31,20,.10); --shadow-sm:0 2px 6px rgba(43,31,20,.12); --shadow-md:0 6px 18px rgba(43,31,20,.14);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  min-height:100vh;
+  background:radial-gradient(120% 80% at 50% -10%, var(--brass-200) 0%, var(--parchment-100) 42%, var(--parchment-300) 100%);
+  font-family:var(--font-body);color:var(--text-body);
+  padding:clamp(20px,4vw,56px) 20px 64px;
+}
+a.back{font-family:var(--font-display);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);text-decoration:none;display:block;max-width:1080px;margin:0 auto 10px;}
+
+header.ct{max-width:1080px;margin:0 auto 36px;text-align:center;}
+.flavor-line{font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:.95rem;letter-spacing:.04em;margin-bottom:6px;}
+h1{font-family:var(--font-display);font-weight:700;color:var(--text-heading);font-size:clamp(2rem,5vw,3rem);margin:0;letter-spacing:.04em;}
+.rule-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:14px;color:var(--brass-700);}
+.rule-row .line{height:1px;width:70px;background:var(--brass-500);opacity:.6;}
+.rule-row .label{font-family:var(--font-display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;}
+
+.layout{max-width:1080px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start;}
+main.col{flex:1 1 460px;min-width:320px;display:flex;flex-direction:column;gap:20px;}
+aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direction:column;gap:18px;}
+
+.die-types{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;}
+.die-types button{
+  font-family:var(--font-display);font-size:.9rem;letter-spacing:.04em;padding:9px 15px;
+  border-radius:var(--radius-md);cursor:pointer;transition:all .12s ease;min-width:54px;
+  background:var(--surface-card);color:var(--text-body);border:1.5px solid var(--border-default);
+}
+.die-types button:hover{border-color:var(--accent);color:var(--accent);}
+.die-types button.active{background:var(--accent);color:var(--parchment-50);border-color:var(--accent);box-shadow:var(--shadow-sm);}
+
+.stage{
+  position:relative;background:var(--surface-card);border:1px solid var(--border-strong);
+  border-radius:var(--radius-lg);box-shadow:var(--shadow-md);padding:28px;
+  display:flex;flex-direction:column;align-items:center;gap:18px;overflow:hidden;
+}
+.stage .arena{position:relative;z-index:2;width:clamp(220px,52vw,300px);height:clamp(220px,52vw,300px);display:flex;align-items:center;justify-content:center;}
+#die-wrap{position:relative;width:100%;height:100%;transform-style:preserve-3d;}
+#die-wrap svg{display:block;width:100%;height:100%;}
+#die-num{
+  position:absolute;left:50%;top:50%;z-index:3;pointer-events:none;transform:translate(-50%,-50%);
+  font-family:var(--font-display);font-weight:700;
+}
+#breakdown{position:relative;z-index:2;min-height:26px;text-align:center;font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:1rem;}
+#deco-overlay{position:absolute;inset:0;z-index:1;pointer-events:none;}
+
+.controls{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:center;}
+.qty-wrap{display:flex;align-items:center;background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-md);box-shadow:var(--shadow-xs);}
+.qty-wrap.disabled{opacity:.4;pointer-events:none;}
+.qty-wrap button{width:38px;height:38px;border:none;background:transparent;font-family:var(--font-display);font-size:1.3rem;color:var(--ink-700);cursor:pointer;}
+.qty-num{min-width:64px;text-align:center;}
+.qty-num b{font-family:var(--font-display);font-weight:500;font-size:1.4rem;color:var(--text-heading);}
+.qty-num span{font-family:var(--font-display);font-size:.6rem;letter-spacing:.18em;color:var(--text-muted);display:block;text-transform:uppercase;}
+#roll-btn{
+  font-family:var(--font-display);font-weight:700;font-size:1.1rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--parchment-50);background:var(--accent);border:none;border-radius:var(--radius-md);
+  padding:13px 40px;cursor:pointer;transition:background .12s ease,transform .08s ease;box-shadow:var(--shadow-sm);
+}
+#roll-btn:hover{background:var(--accent-hover);}
+#roll-btn:active{transform:translateY(1px);}
+#roll-btn.rolling{opacity:.7;pointer-events:none;}
+
+.panel{background:var(--surface-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm);}
+.hist{padding:18px 20px;}
+.hist-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+.hist-head .t{font-family:var(--font-display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);}
+.hist-head button{background:transparent;border:none;font-family:var(--font-display);font-size:.6rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-faint);cursor:pointer;}
+#hist-list{display:flex;flex-direction:column;gap:8px;}
+.hist-row{display:flex;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--border-soft);}
+.hist-row .lab{font-family:var(--font-display);font-size:.72rem;letter-spacing:.06em;color:var(--brass-700);min-width:64px;text-transform:uppercase;}
+.hist-row .det{font-family:var(--font-flavor);font-style:italic;color:var(--text-muted);font-size:.9rem;flex:1;}
+.hist-row .tot{font-family:var(--font-display);font-weight:700;font-size:1.1rem;color:var(--text-heading);}
+#hist-empty{font-family:var(--font-flavor);font-style:italic;color:var(--text-faint);font-size:.9rem;}
+
+.panel .head{background:var(--ink-900);color:var(--parchment-50);padding:10px 16px;font-family:var(--font-display);font-size:.72rem;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
+.swatches{padding:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+.swatches button{width:100%;aspect-ratio:1;border-radius:50%;cursor:pointer;border:2px solid rgba(43,31,20,.25);box-shadow:var(--shadow-xs);}
+.swatches button.active{border:2px solid var(--ink-900);box-shadow:0 0 0 3px var(--brass-400),var(--shadow-xs);}
+.decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
+.decos button{
+  display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
+  padding:9px 13px;border-radius:var(--radius-md);cursor:pointer;transition:all .12s ease;
+  background:var(--surface-card);border:1.5px solid var(--border-default);color:var(--text-body);
+}
+.decos button.active{background:var(--accent-soft);border-color:var(--accent);color:var(--rust-700);}
+.decos .dl{font-family:var(--font-display);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;}
+.decos .dn{font-family:var(--font-flavor);font-style:italic;font-size:.9rem;opacity:.8;}
+
+@keyframes ct-tumble{
+  0%{transform:rotate(0deg) scale(1)}
+  20%{transform:rotate(-26deg) scale(1.08)}
+  45%{transform:rotate(22deg) scale(.93)}
+  70%{transform:rotate(-14deg) scale(1.05)}
+  88%{transform:rotate(7deg) scale(.99)}
+  100%{transform:rotate(0deg) scale(1)}
+}
+@keyframes ct-coin{
+  0%{transform:rotateY(0deg)}
+  100%{transform:rotateY(1620deg)}
+}
+@keyframes ct-pop{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.55)}
+  60%{opacity:1;transform:translate(-50%,-50%) scale(1.12)}
+  100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+}
+@keyframes ct-glow{
+  0%,100%{opacity:.55}
+  50%{opacity:.9}
+}
+#die-wrap.tumble{animation:ct-tumble .82s ease-in-out;}
+#die-wrap.flip{animation:ct-coin 1s cubic-bezier(.3,.1,.2,1);}
+#die-num.rolling{opacity:.85;filter:blur(0.6px);}
+#die-num.pop{animation:ct-pop .42s cubic-bezier(.2,1.3,.4,1);}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr; Back to the Hub</a>
+
+<header class="ct">
+  <div class="flavor-line">The dice remember nothing. Only the table does.</div>
+  <h1>The Casting Table</h1>
+  <div class="rule-row">
+    <span class="line"></span>
+    <span class="label">A kinder set of dice</span>
+    <span class="line"></span>
+  </div>
+</header>
+
+<div class="layout">
+  <main class="col">
+    <div class="die-types" id="die-types"></div>
+
+    <div class="stage">
+      <div id="deco-overlay"></div>
+      <div class="arena">
+        <div id="die-wrap"></div>
+        <div id="die-num"></div>
+      </div>
+      <div id="breakdown"></div>
+    </div>
+
+    <div class="controls">
+      <div class="qty-wrap" id="qty-wrap">
+        <button id="qty-dec" aria-label="fewer dice">&minus;</button>
+        <div class="qty-num"><b id="qty-val">1</b><span>dice</span></div>
+        <button id="qty-inc" aria-label="more dice">+</button>
+      </div>
+      <button id="roll-btn">Roll</button>
+    </div>
+
+    <div class="panel hist">
+      <div class="hist-head">
+        <span class="t">The table remembers</span>
+        <button id="hist-clear">Clear</button>
+      </div>
+      <div id="hist-list"></div>
+      <div id="hist-empty">None yet &mdash; the dice are still in the cup.</div>
+    </div>
+  </main>
+
+  <aside class="col">
+    <div class="panel">
+      <div class="head">Dice colour</div>
+      <div class="swatches" id="swatches"></div>
+    </div>
+    <div class="panel">
+      <div class="head">Decoration</div>
+      <div class="decos" id="decos"></div>
+    </div>
+  </aside>
+</div>
+
+<script>
+const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
+
+/* polygon outlines + light facet polylines, viewBox 0 0 120 120 */
+const SHAPES = {
+  d4:  { o:'60,12 111,102 9,102',                   f:['60,12 60,102','9,102 60,58 111,102'] },
+  d8:  { o:'60,8 112,60 60,112 8,60',               f:['8,60 112,60','60,8 60,112','30,60 60,30 90,60 60,90 30,60'] },
+  d10: { o:'60,6 98,52 60,116 22,52',               f:['22,52 60,38 98,52','60,38 60,116'] },
+  d12: { o:'60,8 108,44 90,104 30,104 12,44',       f:['60,40 86,58 76,90 44,90 34,58 60,40','60,8 60,40','108,44 86,58','12,44 34,58','30,104 44,90','90,104 76,90'] },
+  d20: { o:'60,9 104,34 104,86 60,111 16,86 16,34', f:['34,80 86,80 60,36 34,80','60,9 60,36','16,34 34,80','104,34 86,80','16,86 34,80','104,86 86,80'] },
+};
+SHAPES.d100 = SHAPES.d10;
+
+const SWATCHES = [
+  { id:'rust',  name:'Terracotta', body:'#9C3D2E', light:false },
+  { id:'health',name:'Blood',      body:'#7A2D20', light:false },
+  { id:'brass', name:'Brass',      body:'#B6964A', light:true  },
+  { id:'sage',  name:'Moss',       body:'#5C6B4E', light:false },
+  { id:'mana',  name:'Arcane',     body:'#3E5C6B', light:false },
+  { id:'ink',   name:'Obsidian',   body:'#2C2417', light:false },
+  { id:'parch', name:'Bone',       body:'#E8DCC0', light:true  },
+  { id:'plum',  name:'Nightshade', body:'#5A3A52', light:false }
+];
+
+const DECOS = [
+  { id:'plain',   label:'Plain',       note:'just the felt' },
+  { id:'glow',    label:'Candlelight', note:'a warm halo' },
+  { id:'filigree',label:'Filigree',    note:'brass flourishes' },
+  { id:'runes',   label:'Runes',       note:'an arcane ring' },
+  { id:'heraldic',label:'Heraldic',    note:'a double frame' }
+];
+
+const RUNES = ['ᚠ','ᚱ','ᚦ','ᚨ','ᚷ','ᚹ','ᛁ','ᛟ','ᛏ','ᛒ','ᛗ','ᛚ'];
+
+const state = { type:'d20', qty:1, color:'rust', deco:'glow', display:'20', rolling:false };
+let flick = null, settleTimer = null;
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function shade(hex, pct){
+  const h = hex.replace('#','');
+  let r = parseInt(h.slice(0,2),16), g = parseInt(h.slice(2,4),16), b = parseInt(h.slice(4,6),16);
+  const t = pct < 0 ? 0 : 255, p = Math.abs(pct);
+  r = Math.round((t-r)*p + r); g = Math.round((t-g)*p + g); b = Math.round((t-b)*p + b);
+  return '#' + [r,g,b].map(v => Math.max(0,Math.min(255,v)).toString(16).padStart(2,'0')).join('');
+}
+
+const curSwatch = () => SWATCHES.find(s => s.id === state.color) || SWATCHES[0];
+const faceText = (type, v) => type === 'coin' ? (v === 1 ? 'Heads' : 'Tails') : String(v);
+
+/* ---------- die graphics (plain inline SVG — nothing to ghost) ---------- */
+function dieSVG(){
+  const sw = curSwatch(), type = state.type, body = sw.body;
+  const ink = sw.light ? '#3A2E1D' : '#1c150c';
+  const facet = sw.light ? 'rgba(58,46,29,0.28)' : 'rgba(255,248,235,0.30)';
+  if (type === 'd6'){
+    const top = shade(body, .20), right = shade(body, -.22);
+    const numColor = sw.light ? '#2C2417' : '#FBF6E9';
+    const txt = state.display, fs = txt.length >= 3 ? 24 : (txt.length === 2 ? 32 : 40);
+    const shadow = sw.light ? '0 1px 1px rgba(255,255,255,0.4)' : '0 1px 3px rgba(0,0,0,0.35)';
+    return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 8px 12px rgba(43,31,20,0.30))">
+      <polygon points="14,48 40,24 112,24 86,48" fill="${top}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="86,48 112,24 112,90 86,114" fill="${right}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
+      <polygon points="14,48 86,48 86,114 14,114" fill="${body}" stroke="${ink}" stroke-width="3" stroke-linejoin="round"/>
+      <text id="d6-face" x="50" y="84" text-anchor="middle" dominant-baseline="central" fill="${numColor}"
+        style="font-family:'Cinzel',serif;font-weight:700;font-size:${fs}px;text-shadow:${shadow}">${esc(txt)}</text>
+    </svg>`;
+  }
+  if (type === 'coin'){
+    return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 6px 10px rgba(43,31,20,0.25))">
+      <circle cx="60" cy="60" r="52" fill="${body}" stroke="${ink}" stroke-width="3"/>
+      <circle cx="60" cy="60" r="43" fill="none" stroke="${facet}" stroke-width="2"/>
+      <circle cx="60" cy="60" r="38" fill="none" stroke="${facet}" stroke-width="1" stroke-dasharray="2 5"/>
+    </svg>`;
+  }
+  const s = SHAPES[type] || SHAPES.d20;
+  const lines = s.f.map(p => `<polyline points="${p}" fill="none" stroke="${facet}" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>`).join('');
+  return `<svg viewBox="0 0 120 120" style="filter:drop-shadow(0 7px 12px rgba(43,31,20,0.28))">
+    <polygon points="${s.o}" fill="${body}" stroke="${ink}" stroke-width="3.5" stroke-linejoin="round"/>${lines}
+  </svg>`;
+}
+
+function decoHTML(){
+  const d = state.deco;
+  if (d === 'glow') return `<div style="position:absolute;inset:0;background:radial-gradient(circle at 50% 46%, rgba(199,161,78,0.55) 0%, rgba(199,161,78,0.18) 34%, rgba(199,161,78,0) 62%);animation:ct-glow 4s ease-in-out infinite"></div>`;
+  if (d === 'filigree'){
+    const c = (pos, tf) => `<span style="position:absolute;${pos};font-family:'Cinzel',serif;font-size:30px;color:var(--brass-500);opacity:.75;line-height:1;transform:${tf}">&#10087;</span>`;
+    return c('top:12px;left:14px','none') + c('top:12px;right:14px','scaleX(-1)') + c('bottom:12px;left:14px','scaleY(-1)') + c('bottom:12px;right:14px','scale(-1,-1)');
+  }
+  if (d === 'runes'){
+    return RUNES.map((r,i) => {
+      const a = (i / RUNES.length) * Math.PI * 2, R = 46;
+      return `<span style="position:absolute;left:calc(50% + ${(Math.cos(a)*R).toFixed(2)}%);top:calc(50% + ${(Math.sin(a)*R).toFixed(2)}%);transform:translate(-50%,-50%);font-family:'Cinzel',serif;font-size:18px;color:var(--brass-700);opacity:.32">${r}</span>`;
+    }).join('');
+  }
+  if (d === 'heraldic') return `<div style="position:absolute;inset:10px;border:2px solid var(--brass-500);border-radius:6px;box-shadow:inset 0 0 0 4px var(--surface-card), inset 0 0 0 5px var(--ink-700)"></div>`;
+  return '';
+}
+
+/* ---------- rendering ---------- */
+function renderDie(){ $('die-wrap').innerHTML = dieSVG(); }
+function renderDeco(){ $('deco-overlay').innerHTML = decoHTML(); }
+
+function renderNum(pop){
+  const num = $('die-num'), sw = curSwatch(), coin = state.type === 'coin';
+  if (state.type === 'd6'){ num.style.display = 'none'; return; }
+  num.style.display = '';
+  num.textContent = state.display;
+  num.style.color = sw.light ? '#2C2417' : '#FBF6E9';
+  num.style.textShadow = sw.light ? '0 1px 1px rgba(255,255,255,0.4)' : '0 2px 4px rgba(0,0,0,0.35)';
+  num.style.fontSize = coin ? 'clamp(1.5rem,5.5vw,2.4rem)'
+    : (state.display.length >= 3 ? 'clamp(2.6rem,9vw,4.4rem)' : 'clamp(3.4rem,12vw,5.6rem)');
+  num.classList.toggle('rolling', state.rolling);
+  if (pop){ num.classList.remove('pop'); void num.offsetWidth; num.classList.add('pop'); }
+}
+
+function renderFace(){
+  /* during the flicker: d6 updates the number painted on its face; others update the overlay */
+  if (state.type === 'd6'){
+    const t = document.getElementById('d6-face');
+    if (t){
+      t.textContent = state.display;
+      t.style.fontSize = (state.display.length >= 3 ? 24 : (state.display.length === 2 ? 32 : 40)) + 'px';
+    } else renderDie();
+  } else renderNum(false);
+}
+
+function renderTypes(){
+  $('die-types').innerHTML = ['d4','d6','d8','d10','d12','d20','d100','coin'].map(id =>
+    `<button data-type="${id}" class="${id === state.type ? 'active' : ''}">${id === 'coin' ? 'Coin' : id}</button>`).join('');
+}
+function renderSwatches(){
+  $('swatches').innerHTML = SWATCHES.map(s =>
+    `<button data-color="${s.id}" title="${s.name}" class="${s.id === state.color ? 'active' : ''}" style="background:${s.body}"></button>`).join('');
+}
+function renderDecos(){
+  $('decos').innerHTML = DECOS.map(d =>
+    `<button data-deco="${d.id}" class="${d.id === state.deco ? 'active' : ''}"><span class="dl">${d.label}</span><span class="dn">${d.note}</span></button>`).join('');
+}
+
+const history = [];
+function renderHistory(){
+  $('hist-list').innerHTML = history.map(h =>
+    `<div class="hist-row"><span class="lab">${esc(h.label)}</span><span class="det">${esc(h.detail)}</span><span class="tot">${esc(h.total)}</span></div>`).join('');
+  $('hist-empty').style.display = history.length ? 'none' : '';
+}
+
+function setControlsDisabled(on){
+  $('roll-btn').classList.toggle('rolling', on);
+  $('qty-wrap').classList.toggle('disabled', on || state.type === 'coin');
+  $('die-types').style.pointerEvents = on ? 'none' : '';
+}
+
+/* ---------- actions ---------- */
+function selectType(type){
+  if (state.rolling) return;
+  state.type = type;
+  if (type === 'coin') state.qty = 1;
+  state.display = faceText(type, type === 'coin' ? 1 : SIDES[type]);
+  $('breakdown').textContent = '';
+  $('qty-val').textContent = state.qty;
+  $('roll-btn').textContent = type === 'coin' ? 'Flip' : 'Roll';
+  renderTypes(); renderDie(); renderNum(false); setControlsDisabled(false);
+}
+
+function roll(){
+  if (state.rolling) return;
+  const type = state.type, coin = type === 'coin';
+  const sides = coin ? 2 : SIDES[type];
+  const n = coin ? 1 : state.qty;
+  state.rolling = true;
+  setControlsDisabled(true);
+  $('die-wrap').classList.remove('tumble','flip');
+  void $('die-wrap').offsetWidth;
+  $('die-wrap').classList.add(coin ? 'flip' : 'tumble');
+  renderNum(false);
+
+  if (flick) clearInterval(flick);
+  flick = setInterval(() => {
+    state.display = faceText(type, 1 + Math.floor(Math.random()*sides));
+    renderFace();
+  }, 70);
+
+  if (settleTimer) clearTimeout(settleTimer);
+  settleTimer = setTimeout(() => {
+    clearInterval(flick); flick = null;
+    const rolls = [];
+    for (let i = 0; i < n; i++) rolls.push(1 + Math.floor(Math.random()*sides));
+    const total = rolls.reduce((a,b) => a+b, 0);
+    const label = coin ? 'COIN' : (n > 1 ? n + type : type);
+    let breakdown, detail;
+    if (coin){
+      state.display = rolls[0] === 1 ? 'Heads' : 'Tails';
+      breakdown = rolls[0] === 1 ? 'the coin lands face up' : 'the coin lands face down';
+      detail = state.display.toLowerCase();
+    } else if (n === 1){
+      state.display = String(total);
+      breakdown = type + ' → ' + total;
+      detail = 'a single ' + type;
+    } else {
+      state.display = String(total);
+      breakdown = rolls.join(' + ') + ' = ' + total;
+      detail = rolls.join(', ');
+    }
+    state.rolling = false;
+    $('die-wrap').classList.remove('tumble','flip');
+    $('breakdown').textContent = breakdown;
+    if (type === 'd6') renderDie(); else renderFace();
+    renderNum(true);
+    history.unshift({ label, detail, total: state.display });
+    if (history.length > 7) history.pop();
+    renderHistory();
+    setControlsDisabled(false);
+  }, coin ? 1000 : 820);
+}
+
+/* ---------- wiring ---------- */
+$('die-types').addEventListener('click', e => {
+  const b = e.target.closest('button[data-type]');
+  if (b) selectType(b.dataset.type);
+});
+$('swatches').addEventListener('click', e => {
+  const b = e.target.closest('button[data-color]');
+  if (!b) return;
+  state.color = b.dataset.color;
+  renderSwatches(); renderDie(); renderNum(false);
+});
+$('decos').addEventListener('click', e => {
+  const b = e.target.closest('button[data-deco]');
+  if (!b) return;
+  state.deco = b.dataset.deco;
+  renderDecos(); renderDeco();
+});
+$('qty-inc').addEventListener('click', () => {
+  if (state.type === 'coin' || state.rolling) return;
+  state.qty = Math.min(8, state.qty + 1);
+  $('qty-val').textContent = state.qty;
+});
+$('qty-dec').addEventListener('click', () => {
+  if (state.type === 'coin' || state.rolling) return;
+  state.qty = Math.max(1, state.qty - 1);
+  $('qty-val').textContent = state.qty;
+});
+$('roll-btn').addEventListener('click', roll);
+$('hist-clear').addEventListener('click', () => { history.length = 0; renderHistory(); });
+
+renderTypes(); renderSwatches(); renderDecos(); renderDeco(); renderDie(); renderNum(false); renderHistory();
+</script>
+</body>
+</html>
