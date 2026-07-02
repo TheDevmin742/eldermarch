@@ -292,9 +292,52 @@ const THEMES = {
   glow:     { felt: '#69503B', candle: true },
   filigree: { felt: '#61352A', fleurons: true, brassLine: true },
   runes:    { felt: '#3D4E56', runes: true },
-  heraldic: { felt: '#453B2C', frames: true, brassLine: true }
+  heraldic: { felt: '#453B2C', frames: true, brassLine: true },
+  beach:    { felt: '#C4AD82', beach: true, animated: true, noStitch: true }
 };
 const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', 'ᛒ', 'ᛗ', 'ᛚ'];
+
+/* ---- the Rising Tide set (Thalasstheos) ---- */
+const TIDE = {
+  teal: '#2FA093', abyss: '#16324F', ink: '#0E2A33', foam: '#F5FBF8',
+  water: 'rgba(16,58,92,0.50)', waterEdge: 'rgba(120,210,200,0.30)',
+  pearlBase: '#EAE4D8', pearlInk: '#8C8378', pearlNum: '#2C7D7A'
+};
+function mixHex(a, b, t) {
+  const pa = a.replace('#', ''), pb = b.replace('#', '');
+  const c = k => Math.round(lerp(parseInt(pa.slice(k, k + 2), 16), parseInt(pb.slice(k, k + 2), 16), clamp(t, 0, 1)));
+  return '#' + [0, 2, 4].map(k => c(k).toString(16).padStart(2, '0')).join('');
+}
+/* deterministic pebbles for the rocky beach (fixed LCG seed → same beach every visit) */
+const BEACH_PEBBLES = (() => {
+  let s = 1373;
+  const rand = () => (s = (s * 48271) % 2147483647) / 2147483647;
+  const pebbles = [];
+  const put = (x, z, rMin, rMax) => {
+    const r = rMin + rand() * (rMax - rMin);
+    pebbles.push({
+      x, z, r,
+      squish: 0.55 + rand() * 0.3,
+      rot: rand() * TAU,
+      tone: mixHex('#8F8272', '#6C6154', rand()),
+      wob: Array.from({ length: 8 }, () => 0.86 + rand() * 0.28)
+    });
+  };
+  // strewn along the near (dry) edge and sides
+  for (let i = 0; i < 11; i++) put(-TABLE.INW + 0.7 + rand() * (TABLE.INW * 2 - 1.4), TABLE.IND - 0.55 - rand() * 1.1, 0.13, 0.34);
+  for (let i = 0; i < 5; i++)  put(-TABLE.INW + 0.55 + rand() * 1.3, -0.6 + rand() * 2.6, 0.11, 0.27);
+  for (let i = 0; i < 5; i++)  put(TABLE.INW - 0.55 - rand() * 1.3, -0.6 + rand() * 2.6, 0.11, 0.27);
+  // a few out in the surf
+  for (let i = 0; i < 6; i++)  put(-TABLE.INW + 1 + rand() * (TABLE.INW * 2 - 2), -TABLE.IND + 0.5 + rand() * 1.4, 0.14, 0.3);
+  return pebbles;
+})();
+/* the animated waterline of the surf (world z for a given x) */
+function surfLine(x, t) {
+  return -TABLE.IND + TABLE.IND * 0.62
+    + 0.22 * Math.sin(t / 2400)                 // the slow breathing of the tide
+    + 0.16 * Math.sin(x * 1.15 + t / 860)
+    + 0.09 * Math.sin(x * 2.3 - t / 540);
+}
 
 function roundRectPts(w, d, r, y, segs = 7) {
   const pts = [];
@@ -516,7 +559,7 @@ export function createDiceStage(canvas, initial) {
       theme: (initial && initial.theme) || 'glow',
       mode: 'showcase', ghost: null, keptDice: null
     },
-    anim: null, raf: null, sc: 1, destroyed: false
+    anim: null, raf: null, sc: 1, destroyed: false, ripples: [], idleRaf: null
   };
 
   /* camera basis */
@@ -609,10 +652,13 @@ export function createDiceStage(canvas, initial) {
     vg.addColorStop(0, 'rgba(0,0,0,0)'); vg.addColorStop(1, 'rgba(15,10,5,0.24)');
     ctx.fillStyle = vg; ctx.fill();
     // stitched border
-    pathW(roundRectPts(TABLE.INW - 0.42, TABLE.IND - 0.42, TABLE.CR - 0.28, 0.01));
-    ctx.setLineDash([9, 7]);
-    ctx.strokeStyle = 'rgba(216,186,124,0.5)'; ctx.lineWidth = 1.7; ctx.stroke();
-    ctx.setLineDash([]);
+    if (!th.noStitch) {
+      pathW(roundRectPts(TABLE.INW - 0.42, TABLE.IND - 0.42, TABLE.CR - 0.28, 0.01));
+      ctx.setLineDash([9, 7]);
+      ctx.strokeStyle = 'rgba(216,186,124,0.5)'; ctx.lineWidth = 1.7; ctx.stroke();
+      ctx.setLineDash([]);
+    }
+    if (th.beach) drawBeach(now);
     // theme decorations
     if (th.candle) {
       const fl = stage.anim ? (0.05 * Math.sin(now / 160) + 0.03 * Math.sin(now / 47)) : 0;
@@ -655,6 +701,138 @@ export function createDiceStage(canvas, initial) {
       ctx.strokeStyle = 'rgba(240,230,210,0.22)'; ctx.lineWidth = 1.2; ctx.stroke();
     }
   }
+  /* ---------- the rocky beach ---------- */
+  function surfPath(t, inset) {
+    // polygon covering the water: far wall down to the animated surf line
+    ctx.beginPath();
+    const N = 26;
+    for (let i = 0; i <= N; i++) {
+      const x = -TABLE.INW - 1 + (i / N) * (TABLE.INW * 2 + 2);
+      const s = proj([x, 0.012, surfLine(x, t) + (inset || 0)]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    }
+    const c1 = proj([TABLE.INW + 1, 0.012, -TABLE.IND - 1.5]);
+    const c2 = proj([-TABLE.INW - 1, 0.012, -TABLE.IND - 1.5]);
+    ctx.lineTo(c1.x, c1.y); ctx.lineTo(c2.x, c2.y);
+    ctx.closePath();
+  }
+  function drawPebble(pb, t) {
+    const wet = pb.z < surfLine(pb.x, t);
+    // foam collar where a stone breaks the surf
+    if (wet) {
+      ctx.beginPath();
+      for (let i = 0; i <= 10; i++) {
+        const a = i / 10 * TAU;
+        const s = proj([pb.x + Math.cos(a) * pb.r * 1.45, 0.014, pb.z + Math.sin(a) * pb.r * 1.45 * pb.squish]);
+        i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+      }
+      ctx.closePath();
+      ctx.strokeStyle = `rgba(250,255,252,${0.35 + 0.15 * Math.sin(t / 640 + pb.rot * 4)})`;
+      ctx.lineWidth = 2; ctx.stroke();
+    }
+    ctx.beginPath();
+    pb.wob.forEach((w, i) => {
+      const a = pb.rot + i / 8 * TAU;
+      const s = proj([pb.x + Math.cos(a) * pb.r * w, 0.02, pb.z + Math.sin(a) * pb.r * w * pb.squish]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = wet ? shadeHex(pb.tone, -0.22) : pb.tone;
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(40,30,18,0.45)'; ctx.lineWidth = 1.1; ctx.stroke();
+    // sunlit top edge
+    const hl = proj([pb.x - pb.r * 0.25, 0.03, pb.z - pb.r * 0.3 * pb.squish]);
+    ctx.beginPath();
+    ctx.arc(hl.x, hl.y, Math.max(1.4, pb.r * 9), 0, TAU);
+    ctx.fillStyle = wet ? 'rgba(235,245,240,0.20)' : 'rgba(248,240,220,0.28)';
+    ctx.fill();
+  }
+  function drawBeach(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // wet sand — a darker band the retreating water has soaked, lagging past the surf
+    surfPath(now, 0.55);
+    ctx.fillStyle = 'rgba(96,74,48,0.32)'; ctx.fill();
+    // the water itself
+    surfPath(now, 0);
+    ctx.fillStyle = 'rgba(24,84,106,0.46)'; ctx.fill();
+    surfPath(now, 0);
+    const cw = proj([0, 0, -TABLE.IND]);
+    const wg = ctx.createLinearGradient(cw.x, cw.y, cw.x, cw.y + 150);
+    wg.addColorStop(0, 'rgba(14,50,79,0.34)'); wg.addColorStop(1, 'rgba(47,160,147,0.10)');
+    ctx.fillStyle = wg; ctx.fill();
+    // sea-light: refracted caustic webs wandering over the flooded sand
+    ctx.save();
+    surfPath(now, 0); ctx.clip();
+    let cs = 977;
+    const crand = () => (cs = (cs * 48271) % 2147483647) / 2147483647;
+    for (let i = 0; i < 16; i++) {
+      const bx = -TABLE.INW + crand() * TABLE.INW * 2;
+      const bz = -TABLE.IND + 0.25 + crand() * (TABLE.IND * 0.75);
+      const len = 0.5 + crand() * 0.9, ph = crand() * TAU;
+      const drift = 0.14 * Math.sin(now / 1300 + ph * 2);
+      ctx.beginPath();
+      for (let k = 0; k <= 8; k++) {
+        const x = bx + (k / 8 - 0.5) * len + drift;
+        const z = bz + 0.16 * Math.sin(k * 1.4 + ph + now / 700);
+        const s = proj([x, 0.014, z]);
+        k === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+      }
+      ctx.strokeStyle = `rgba(198,240,228,${0.07 + 0.07 * Math.abs(Math.sin(now / 620 + ph))})`;
+      ctx.lineWidth = 1.6; ctx.stroke();
+    }
+    ctx.restore();
+    // the foam line of the surf
+    ctx.beginPath();
+    const N = 26;
+    for (let i = 0; i <= N; i++) {
+      const x = -TABLE.INW - 1 + (i / N) * (TABLE.INW * 2 + 2);
+      const s = proj([x, 0.016, surfLine(x, now)]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    }
+    ctx.strokeStyle = 'rgba(250,255,252,0.75)'; ctx.lineWidth = 2.6; ctx.stroke();
+    // scattered foam flecks trailing the line
+    for (let i = 0; i < 14; i++) {
+      const x = -TABLE.INW + 0.4 + (i / 13) * (TABLE.INW * 2 - 0.8);
+      const jig = Math.sin(i * 3.7 + now / 720);
+      const s = proj([x + jig * 0.12, 0.016, surfLine(x, now) + 0.14 + 0.09 * Math.abs(jig)]);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, 1.4 + Math.abs(jig) * 1.6, 0, TAU);
+      ctx.fillStyle = `rgba(250,255,252,${0.28 + 0.2 * Math.abs(Math.sin(i + now / 900))})`;
+      ctx.fill();
+    }
+    // the stones
+    BEACH_PEBBLES.forEach(pb => drawPebble(pb, now));
+    ctx.restore();
+  }
+
+  /* ---------- ripples (the Rising Tide) ---------- */
+  function spawnRipple(x, z, strength) {
+    stage.ripples.push({ x, z, t0: performance.now(), s: clamp(strength, 0.3, 1.2) });
+    if (stage.ripples.length > 14) stage.ripples.shift();
+  }
+  function drawRipples(now) {
+    if (!stage.ripples.length) return;
+    stage.ripples = stage.ripples.filter(r => now - r.t0 < 1300);
+    stage.ripples.forEach(r => {
+      const p = (now - r.t0) / 1300;
+      [0, 0.22].forEach(off => {
+        const pp = clamp(p - off, 0, 1);
+        if (pp <= 0) return;
+        const rad = (0.28 + 2.1 * pp) * r.s;
+        ctx.beginPath();
+        for (let i = 0; i <= 22; i++) {
+          const a = i / 22 * TAU;
+          const s = proj([r.x + Math.cos(a) * rad, 0.015, r.z + Math.sin(a) * rad * 0.92]);
+          i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+        }
+        ctx.strokeStyle = `rgba(170,228,220,${0.38 * (1 - pp) * r.s})`;
+        ctx.lineWidth = 2.2 * (1 - pp) + 0.6;
+        ctx.stroke();
+      });
+    });
+  }
+
   function drawFrontRim() {
     const P = tablePaths();
     const zi = TABLE.IND - TABLE.CR * 0.45;
@@ -679,8 +857,12 @@ export function createDiceStage(canvas, initial) {
   /* ---------- dice drawing ---------- */
   function drawShadow(die) {
     const [px, py, pz] = die.pos;
+    const tide = die.color && die.color.special === 'tide';
+    const pearl = tide && die.pearl;
     const a = 0.3 * clamp(1 - py / 5.5, 0.05, 1) * die.alpha;
     const r = die.geo.R * 0.78 * (1 + py * 0.04);
+    // translucent sea-glass passes blue-green light: its shadow runs cold
+    const base = pearl ? 'rgba(66,62,84,' : tide ? 'rgba(14,46,82,' : 'rgba(26,17,8,';
     [[1.25, 0.45], [0.8, 1]].forEach(([rs, as]) => {
       ctx.beginPath();
       for (let i = 0; i <= 14; i++) {
@@ -688,27 +870,98 @@ export function createDiceStage(canvas, initial) {
         const s = proj([px + Math.cos(ang) * r * rs, 0.02, pz + Math.sin(ang) * r * rs]);
         i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
       }
-      ctx.fillStyle = `rgba(26,17,8,${a * as})`;
+      ctx.fillStyle = `${base}${a * as * (tide ? 1.25 : 1)})`;
       ctx.fill();
     });
+    if (tide) {
+      // refraction caustic: the lens of the die focuses light to a bright
+      // spot inside its own shadow, displaced along the light's slant
+      const off = vScale(vNorm([-LIGHT[0], 0, -LIGHT[2]]), r * 0.34);
+      const c = proj([px + off[0], 0.021, pz + off[2]]);
+      const e = proj([px + off[0] + r * 0.5, 0.021, pz + off[2]]);
+      const sr = Math.max(3, Math.hypot(e.x - c.x, e.y - c.y));
+      const g = ctx.createRadialGradient(c.x, c.y, 0, c.x, c.y, sr);
+      const glow = pearl ? '255,244,228' : '150,232,214';
+      g.addColorStop(0, `rgba(${glow},${0.5 * a * 2.2})`);
+      g.addColorStop(0.55, `rgba(${glow},${0.18 * a * 2.2})`);
+      g.addColorStop(1, `rgba(${glow},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(c.x - sr, c.y - sr, sr * 2, sr * 2);
+    }
   }
-  function drawDie(die) {
+  /* clip one face's world polygon to the half-space below the die's water
+     plane; returns the submerged part and the waterline crossing points */
+  function clipBelowWater(pts, px, pz, wl, tx, tz) {
+    const inside = v => (wl + tx * (v[0] - px) + tz * (v[2] - pz)) - v[1];
+    const below = [], edge = [];
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], b = pts[(i + 1) % pts.length];
+      const fa = inside(a), fb = inside(b);
+      if (fa >= 0) below.push(a);
+      if ((fa >= 0) !== (fb >= 0)) {
+        const t = fa / (fa - fb);
+        const p = vLerp(a, b, t);
+        below.push(p); edge.push(p);
+      }
+    }
+    return { below, edge };
+  }
+  function drawDie(die, now) {
     const { geo, color } = die;
-    const ink = color.light ? '#4A3B24' : '#241A0E';
-    const numColor = color.light ? '#2C2417' : '#FBF6E9';
+    const tide = color && color.special === 'tide';
+    const pearl = tide && die.pearl;
+    const ink = pearl ? TIDE.pearlInk : tide ? TIDE.ink : (color.light ? '#4A3B24' : '#241A0E');
+    const numColor = pearl ? TIDE.pearlNum : tide ? TIDE.foam : (color.light ? '#2C2417' : '#FBF6E9');
     ctx.globalAlpha = die.alpha;
     const wv = geo.verts.map(v => vAdd(qRotate(v, die.quat), die.pos));
     const sv = wv.map(proj);
     const faces = geo.faces
       .map(f => ({ f, nW: qRotate(f.n, die.quat), cW: vAdd(qRotate(f.c, die.quat), die.pos) }))
       .filter(o => vDot(o.nW, vSub(o.cW, CAM.eye)) < -1e-4);
+    const sl = die.slosh;
     faces.forEach(({ f, nW, cW }) => {
       const d = vDot(nW, LIGHT);
-      const fill = shadeHex(color.body, lerp(-0.24, 0.26, (d + 1) / 2));
+      let fill;
+      if (pearl) {
+        // mother-of-pearl: the sheen drifts hue with the facet's direction
+        const irid = mixHex(mixHex('#EBD9D6', '#DAE8DC', (nW[0] + 1) / 2), '#DAE1EE', (nW[2] + 1) / 2);
+        fill = shadeHex(mixHex(TIDE.pearlBase, irid, 0.62), lerp(-0.10, 0.24, (d + 1) / 2));
+      } else if (tide) {
+        // sea-glass: teal above, abyssal blue below
+        const h = clamp((cW[1] - die.pos[1]) / geo.R, -1, 1);
+        fill = shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.18, 0.22, (d + 1) / 2));
+      } else {
+        fill = shadeHex(color.body, lerp(-0.24, 0.26, (d + 1) / 2));
+      }
       ctx.beginPath();
       f.idx.forEach((vi, i) => { i === 0 ? ctx.moveTo(sv[vi].x, sv[vi].y) : ctx.lineTo(sv[vi].x, sv[vi].y); });
       ctx.closePath();
       ctx.fillStyle = fill; ctx.fill();
+      // the water sloshing inside the glass
+      if (tide && !pearl && sl && !die.cracked) {
+        const wl = die.pos[1] + geo.R * (sl.lvl != null ? sl.lvl : -0.04);
+        const cut = clipBelowWater(f.idx.map(vi => wv[vi]), die.pos[0], die.pos[2], wl, sl.tx, sl.tz);
+        if (cut.below.length >= 3) {
+          ctx.beginPath();
+          cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+          ctx.closePath();
+          ctx.fillStyle = TIDE.water; ctx.fill();
+          ctx.strokeStyle = TIDE.waterEdge; ctx.lineWidth = 1; ctx.stroke();
+          if (cut.edge.length >= 2) {
+            const s0 = proj(cut.edge[0]), s1 = proj(cut.edge[1]);
+            ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y);
+            ctx.strokeStyle = 'rgba(250,255,252,0.85)'; ctx.lineWidth = 2; ctx.stroke();
+            // foam pips riding the waterline
+            const t = now || performance.now();
+            for (let k = 0; k < 3; k++) {
+              const u = 0.2 + 0.3 * k + 0.08 * Math.sin(t / 300 + k * 2.4 + (sl.phase || 0));
+              ctx.beginPath();
+              ctx.arc(lerp(s0.x, s1.x, u), lerp(s0.y, s1.y, u) - 1.2, 1.5 + 0.7 * Math.sin(t / 210 + k * 3.1), 0, TAU);
+              ctx.fillStyle = 'rgba(250,255,252,0.75)'; ctx.fill();
+            }
+          }
+        }
+      }
       ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.stroke();
       // labels
       if (geo.type === 'd4') {
@@ -742,13 +995,13 @@ export function createDiceStage(canvas, initial) {
     });
     ctx.globalAlpha = 1;
   }
-  function drawDiceList(dice) {
+  function drawDiceList(dice, now) {
     const vis = dice.filter(d => !d.hidden && d.alpha > 0.01);
     vis.forEach(drawShadow);
     vis
       .map(d => ({ d, z: vDot(vSub(d.pos, CAM.eye), fwd) }))
       .sort((a, b) => b.z - a.z)
-      .forEach(o => drawDie(o.d));
+      .forEach(o => drawDie(o.d, now));
   }
 
   /* ---------- effects ---------- */
@@ -768,7 +1021,10 @@ export function createDiceStage(canvas, initial) {
     const a = env * pulse;
     const c = proj(die.pos);
     const R = die.geo.R * (CAM.f / Math.max(vDot(vSub(die.pos, CAM.eye), fwd), 1));
-    const gold = g.color === 'red' ? '168,43,32' : (g.strong ? '255,214,120' : '214,168,74');
+    const gold = g.color === 'red' ? '168,43,32'
+      : g.color === 'ebb' ? '64,104,152'
+      : g.color === 'tide' ? (g.strong ? '190,245,232' : '140,225,208')
+      : (g.strong ? '255,214,120' : '214,168,74');
     const grad = ctx.createRadialGradient(c.x, c.y, R * 0.3, c.x, c.y, R * (g.strong ? 3 : 2.4));
     grad.addColorStop(0, `rgba(${gold},${0.5 * a})`);
     grad.addColorStop(1, `rgba(${gold},0)`);
@@ -779,7 +1035,9 @@ export function createDiceStage(canvas, initial) {
       ctx.beginPath();
       poly.forEach((p, i) => { i === 0 ? ctx.moveTo(p.x, p.y) : ctx.lineTo(p.x, p.y); });
       ctx.closePath();
-      ctx.fillStyle = `rgba(255,232,160,${0.3 * a})`;
+      ctx.fillStyle = g.color === 'tide' ? `rgba(214,250,240,${0.3 * a})`
+        : g.color === 'ebb' ? `rgba(150,190,228,${0.3 * a})`
+        : `rgba(255,232,160,${0.3 * a})`;
       ctx.fill();
       ctx.save();
       ctx.shadowColor = `rgba(${gold},${0.9 * a})`;
@@ -951,9 +1209,10 @@ export function createDiceStage(canvas, initial) {
     }
     return best;
   }
-  function showcaseDice() {
+  function showcaseDice(now) {
     const { type, color } = stage.scene;
-    const mk = (t, col, x) => {
+    const isTide = color && color.special === 'tide';
+    const mk = (t, col, x, i) => {
       const geo = getGeo(t);
       let idx, q;
       if (t === 'd4') {
@@ -964,21 +1223,52 @@ export function createDiceStage(canvas, initial) {
         idx = best;
         q = quatShowingFace(geo, idx, uprightYaw(geo, idx));
       }
-      return { geo, color: col, pos: [x, restY(geo, q), 0.1], quat: q, alpha: 1, hidden: false, glow: null, crack: null };
+      return {
+        geo, color: col, pos: [x, restY(geo, q), 0.1], quat: q, alpha: 1, hidden: false, glow: null, crack: null,
+        pearl: isTide && t === 'd20',
+        slosh: isTide ? {
+          tx: 0.09 * Math.sin((now || 0) / 880 + i), tz: 0.07 * Math.cos((now || 0) / 760 + i),
+          lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i
+        } : null
+      };
     };
-    if (type === 'd100') return [mk('d10t', { body: shadeHex(color.body, -0.18), light: color.light }, -1.5), mk('d10u', color, 1.5)];
-    if (type === 'coin') return [mk('coin', color, 0)];
-    return [mk(type, color, 0)];
+    if (type === 'd100') return [mk('d10t', Object.assign({}, color, { body: shadeHex(color.body, -0.18) }), -1.5, 0), mk('d10u', color, 1.5, 1)];
+    if (type === 'coin') return [mk('coin', color, 0, 0)];
+    return [mk(type, color, 0, 0)];
   }
   function drawStatic() {
     if (stage.destroyed) return;
+    const now = performance.now();
     begin();
-    drawTable(performance.now());
+    drawTable(now);
     const m = stage.scene.mode;
     if (m === 'ghost') drawGhost();
-    if (m === 'keep' && stage.scene.keptDice) { drawDiceList(stage.scene.keptDice); }
-    if (m === 'showcase') drawDiceList(showcaseDice());
+    if (m === 'keep' && stage.scene.keptDice) { drawDiceList(stage.scene.keptDice, now); }
+    if (m === 'showcase') drawDiceList(showcaseDice(now), now);
     drawFrontRim();
+  }
+
+  /* idle animation — keeps the surf breathing and the showcase water
+     sloshing between rolls, only when something on screen actually moves */
+  function needsIdle() {
+    if (stage.anim || stage.destroyed) return false;
+    const th = THEMES[stage.scene.theme] || {};
+    const tideShown = (stage.scene.mode === 'showcase' && stage.scene.color && stage.scene.color.special === 'tide')
+      || (stage.scene.mode === 'keep' && (stage.scene.keptDice || []).some(d => d.color && d.color.special === 'tide'));
+    return !!(th.animated || tideShown);
+  }
+  function idleTick(t) {
+    stage.idleRaf = null;
+    if (!needsIdle()) return;
+    // the idle surf runs at ~30fps — easy on school laptops
+    if (t - (stage._idleLast || 0) >= 32) { drawStatic(); stage._idleLast = t; }
+    stage.idleRaf = requestAnimationFrame(idleTick);
+  }
+  function ensureIdle() {
+    if (stage.idleRaf == null && needsIdle()) stage.idleRaf = requestAnimationFrame(idleTick);
+  }
+  function stopIdle() {
+    if (stage.idleRaf != null) { cancelAnimationFrame(stage.idleRaf); stage.idleRaf = null; }
   }
 
   /* ---------- roll ---------- */
@@ -1019,6 +1309,7 @@ export function createDiceStage(canvas, initial) {
 
   function roll(spec) {
     if (stage.destroyed) return Promise.reject(new Error('destroyed'));
+    stopIdle();
     resize();
     // gracefully finish anything still playing (settled → keep its ghost; mid-air → just clear)
     if (stage.anim && stage.anim.settled) finishRoll();
@@ -1051,11 +1342,15 @@ export function createDiceStage(canvas, initial) {
     if (!rec) rec = simulateCanned(geos, spec, spec.force);
     const outcome = buildOutcome(spec, rec.results);
 
+    const isTide = spec.color && spec.color.special === 'tide';
     const dice = geos.map((geo, i) => ({
       geo, color: colors[i],
       pos: [0, 0, 0], quat: [0, 0, 0, 1],
-      alpha: 1, hidden: true, glow: null, crack: null, cracked: false
+      alpha: 1, hidden: true, glow: null, crack: null, cracked: false,
+      pearl: isTide && spec.type === 'd20' && i === 0, // her Pearl of Tides — just the one
+      slosh: isTide ? { tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9 } : null
     }));
+    stage.ripples = [];
     let resolveFn;
     const p = new Promise(res => { resolveFn = res; });
     stage.anim = {
@@ -1076,7 +1371,13 @@ export function createDiceStage(canvas, initial) {
     a.dice.forEach((d, i) => {
       const val = a.results[i] ? a.results[i].value : null;
       const isD20 = d.geo.type === 'd20';
-      d.glow = { t0: now, dur: 1150, color: isD20 && val === 1 ? 'red' : 'gold', strong: isD20 && val === 20 };
+      const tideDie = d.color && d.color.special === 'tide';
+      d.glow = {
+        t0: now, dur: 1150,
+        color: isD20 && val === 1 ? (tideDie ? 'ebb' : 'red') : (tideDie ? 'tide' : 'gold'),
+        strong: isD20 && val === 20
+      };
+      if (tideDie) spawnRipple(d.pos[0], d.pos[2], 0.9);
       if (isD20 && val === 20) {
         a.effects.push(makeFlash(d, now + 140));
         done = Math.max(done, 140 + 900);
@@ -1134,6 +1435,35 @@ export function createDiceStage(canvas, initial) {
       d.pos = vLerp(p0, p1, ft);
       d.quat = qSlerp(q0, q1, ft);
     });
+    // water sloshing: a damped spring on each die, driven by its own motion
+    {
+      const dtms = a._slNow == null ? 0 : now - a._slNow;
+      a._slNow = now;
+      const dt = clamp(dtms / 1000, 0, 0.05);
+      if (dt > 0) a.dice.forEach(d => {
+        const sl = d.slosh;
+        const prev = d._pp || d.pos;
+        const vel = vScale(vSub(d.pos, prev), 1 / dt);
+        const pv = d._pv || vel;
+        const acc = vScale(vSub(vel, pv), 1 / dt);
+        d._pp = d.pos.slice(); d._pv = vel;
+        // ripples where a watery die strikes the tray
+        if (sl && d._pvy != null && d._pvy < -3 && vel[1] > -0.4 && d.pos[1] < 1.1) {
+          spawnRipple(d.pos[0], d.pos[2], clamp(Math.abs(d._pvy) / 9, 0.35, 1.2));
+        }
+        d._pvy = vel[1];
+        if (!sl) return;
+        const K = 42, C = 7.5, DRIVE = 0.024;
+        const ax = clamp(acc[0], -80, 80), az = clamp(acc[2], -80, 80), ay = clamp(acc[1], -80, 80);
+        const restx = 0.06 * Math.sin(now / 840 + sl.phase);
+        const restz = 0.05 * Math.cos(now / 760 + sl.phase);
+        sl.vx += (-K * (sl.tx - restx) - C * sl.vx - DRIVE * ax) * dt;
+        sl.vz += (-K * (sl.tz - restz) - C * sl.vz - DRIVE * az) * dt;
+        sl.tx = clamp(sl.tx + sl.vx * dt, -0.6, 0.6);
+        sl.tz = clamp(sl.tz + sl.vz * dt, -0.6, 0.6);
+        sl.lvl = clamp(-0.04 + 0.035 * Math.sin(now / 640 + sl.phase) - 0.0022 * ay, -0.16, 0.10);
+      });
+    }
     if (!a.settled && F >= a.settleFrame) { a.settled = true; a.tSettle = now; onSettle(a, now); }
     // fade
     if (a.settled && !a.spec.keepDice) {
@@ -1154,7 +1484,8 @@ export function createDiceStage(canvas, initial) {
     ctx.save();
     ctx.translate(shakeX, shakeY);
     drawTable(now);
-    drawDiceList(a.dice);
+    drawRipples(now);
+    drawDiceList(a.dice, now);
     drawFrontRim();
     if (a.settled) {
       a.dice.forEach(d => drawGlow(d, now));
@@ -1181,14 +1512,16 @@ export function createDiceStage(canvas, initial) {
       stage.scene.ghost = a.outcome.ghostText;
       stage.scene.keptDice = null;
     }
+    stage.ripples = [];
     drawStatic();
+    ensureIdle();
   }
 
   /* ---------- public API ---------- */
   stage.roll = roll;
   stage.setTheme = id => {
     stage.scene.theme = id;
-    if (!stage.anim) drawStatic();
+    if (!stage.anim) { drawStatic(); ensureIdle(); }
   };
   stage.setIdleDie = ({ type, color }) => {
     if (type) stage.scene.type = type;
@@ -1196,7 +1529,7 @@ export function createDiceStage(canvas, initial) {
     stage.scene.mode = 'showcase';
     stage.scene.ghost = null;
     stage.scene.keptDice = null;
-    if (!stage.anim) drawStatic();
+    if (!stage.anim) { drawStatic(); ensureIdle(); }
   };
   stage.isRolling = () => !!stage.anim;
   stage.redraw = () => { if (!stage.anim) drawStatic(); };
@@ -1204,11 +1537,13 @@ export function createDiceStage(canvas, initial) {
     stage.destroyed = true;
     stage.anim = null;
     if (stage.raf) cancelAnimationFrame(stage.raf);
+    stopIdle();
     clearTimeout(stage.tmo);
     ro.disconnect();
   };
 
   resize();
+  ensureIdle();
   if (document.fonts && document.fonts.load) {
     Promise.all([
       document.fonts.load('700 40px Cinzel'),

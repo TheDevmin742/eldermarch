@@ -97,6 +97,16 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 .swatches{padding:18px;display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
 .swatches button{width:100%;aspect-ratio:1;border-radius:50%;cursor:pointer;border:2px solid rgba(43,31,20,.25);box-shadow:var(--shadow-xs);}
 .swatches button.active{border:2px solid var(--ink-900);box-shadow:0 0 0 3px var(--brass-400),var(--shadow-xs);}
+.swatches button.swatch-tide{
+  position:relative;
+  background:linear-gradient(155deg,#3FA8A0 0%,#1E5F7A 55%,#12395E 100%) !important;
+}
+.swatches button.swatch-tide::after{
+  content:"";position:absolute;right:16%;top:16%;width:34%;height:34%;border-radius:50%;
+  background:radial-gradient(circle at 38% 32%, #FFFDF6 0%, #EFE8DC 45%, #C9C4BC 80%, #B5B2AE 100%);
+  box-shadow:0 1px 2px rgba(10,30,40,.4);
+}
+.swatches button.swatch-tide.active{box-shadow:0 0 0 3px #7fd0c4,var(--shadow-xs);}
 .decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
 .decos button{
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
@@ -179,7 +189,10 @@ const SWATCHES = [
   { id:'mana',  name:'Arcane',     body:'#3E5C6B', light:false },
   { id:'ink',   name:'Obsidian',   body:'#2C2417', light:false },
   { id:'parch', name:'Bone',       body:'#E8DCC0', light:true  },
-  { id:'plum',  name:'Nightshade', body:'#5A3A52', light:false }
+  { id:'plum',  name:'Nightshade', body:'#5A3A52', light:false },
+  /* The Rising Tide — Thalasstheos's set: sea-glass dice with real water
+     inside, one pearl-toned d20, blue refraction shadows, ripples. */
+  { id:'tide',  name:'The Rising Tide — Thalasstheos', body:'#2FA093', light:false, special:'tide' }
 ];
 
 const DECOS = [
@@ -187,7 +200,8 @@ const DECOS = [
   { id:'glow',    label:'Candlelight', note:'a warm halo' },
   { id:'filigree',label:'Filigree',    note:'brass flourishes' },
   { id:'runes',   label:'Runes',       note:'an arcane ring' },
-  { id:'heraldic',label:'Heraldic',    note:'a double frame' }
+  { id:'heraldic',label:'Heraldic',    note:'a double frame' },
+  { id:'beach',   label:'Rocky Beach', note:'surf, stones, and sea-light' }
 ];
 
 /* physics feel */
@@ -231,17 +245,21 @@ function describe(out){
   }
   const n = out.values.length;
   const label = n > 1 ? n + type : type;
+  const tide = state.color === 'tide';
   let critNote = '';
-  if (out.crit === 'nat20') critNote = ' — natural twenty!';
-  if (out.crit === 'nat1') critNote = ' — the die shatters';
+  if (out.crit === 'nat20') critNote = tide ? ' — “The tide always comes back.”' : ' — natural twenty!';
+  if (out.crit === 'nat1') critNote = tide ? ' — “…the tide went out.”' : ' — the die shatters';
   if (n === 1){
     return { label, totalText: String(out.total),
       breakdown: type + ' → ' + out.total + critNote,
-      detail: out.crit === 'nat20' ? 'a natural 20' : out.crit === 'nat1' ? 'a natural 1 — swept from the felt' : 'a single ' + type };
+      detail: out.crit === 'nat20' ? (tide ? 'a natural 20 — the tide always comes back' : 'a natural 20')
+        : out.crit === 'nat1' ? (tide ? 'a natural 1 — the tide went out' : 'a natural 1 — swept from the felt')
+        : 'a single ' + type };
   }
   return { label, totalText: String(out.total),
     breakdown: out.values.join(' + ') + ' = ' + out.total + critNote,
-    detail: out.values.join(', ') + (out.crit === 'nat20' ? ' · a twenty among them' : out.crit === 'nat1' ? ' · one die shattered' : '') };
+    detail: out.values.join(', ') + (out.crit === 'nat20' ? (tide ? ' · the tide always comes back' : ' · a twenty among them')
+      : out.crit === 'nat1' ? (tide ? ' · one die went out with the tide' : ' · one die shattered') : '') };
 }
 
 /* ---------- rendering ---------- */
@@ -251,7 +269,7 @@ function renderTypes(){
 }
 function renderSwatches(){
   $('swatches').innerHTML = SWATCHES.map(s =>
-    `<button data-color="${s.id}" title="${s.name}" class="${s.id === state.color ? 'active' : ''}" style="background:${s.body}"></button>`).join('');
+    `<button data-color="${s.id}" title="${s.name}" class="${s.special === 'tide' ? 'swatch-tide ' : ''}${s.id === state.color ? 'active' : ''}" style="background:${s.body}"></button>`).join('');
 }
 function renderDecos(){
   $('decos').innerHTML = DECOS.map(d =>
