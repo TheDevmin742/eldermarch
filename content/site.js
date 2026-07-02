@@ -12,7 +12,7 @@ window.ELDERMARCH.site = {
   footer: "Kept by the DM. Ember checks the margins.",
   // Where the Messages tab delivers feedback (via formsubmit.co).
   // Leave "" to hide the form and show the Discord note instead.
-  feedbackEmail: "jane.iphone.66@gmail.com",
+  feedbackEmail: "devinli201018@gmail.com",
 };
 
 /* Extra tools shown on the Dice & Tools tab (the roller is built in). */
