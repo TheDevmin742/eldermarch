@@ -402,7 +402,16 @@ msgForm.addEventListener('submit', async e => {
         _template: 'box',
       }),
     });
-    if (!res.ok) throw new Error('courier lost');
+    const out = await res.json().catch(() => ({}));
+    if (!res.ok || String(out.success) !== 'true') {
+      if (/activat/i.test(out.message || '')) {
+        status.className = 'msg-status err';
+        status.textContent = 'The courier stands ready, but the DM hasn’t broken the seal yet (form not activated). Tell the DM — and use Discord in the meantime.';
+        btn.disabled = false;
+        return;
+      }
+      throw new Error(out.message || 'courier lost');
+    }
     status.textContent = '✓ Delivered. The DM reads everything (Ember reads it first).';
     msgForm.reset();
   } catch {
