@@ -1,0 +1,44 @@
+ELDERMARCH HUB — GETTING THE SITE LIVE (one-time setup)
+=========================================================
+
+WHAT YOU DO (the parts a robot can't):
+
+  1. Make a free account at https://github.com  (remember the username)
+  2. Install Claude Code: follow https://code.claude.com  (one command, needs Node)
+  3. Open a terminal IN THIS "Website" FOLDER and run:  claude
+  4. Paste the prompt below. When it asks you to log in to GitHub,
+     it will open a browser — click approve. That's the whole job.
+  5. It ends by giving you a live URL like
+     https://YOURNAME.github.io/eldermarch/  → pin it in the club Discord.
+
+---------------- COPY-PASTE THIS PROMPT ----------------
+
+Read CLAUDE.md in this folder first and follow it. Then publish this
+site for the first time:
+1. Initialize a git repo here (main branch) if there isn't one.
+2. Check whether the gh CLI is installed and authenticated; if not,
+   help me install it and walk me through "gh auth login" step by step.
+3. Create a PUBLIC GitHub repo named "eldermarch" under my account and
+   push this folder to it.
+4. Enable GitHub Pages: deploy from branch main, root folder.
+5. Wait until the site actually loads, then give me the live URL and a
+   one-line summary of the update workflow.
+Do not change any site content in this session — setup only.
+
+--------------------------------------------------------
+
+AFTER SETUP — EVERYDAY UPDATES (open claude in this folder, say things like):
+
+  "Announce that the July 12 session is moved to 6pm, pin it as the
+   banner, and push."
+  "Unlock the next page of Ember's Book and push."
+  "Lloyd debuted last night — reveal his character card and push."
+  "Here's the new recap file (drag it in) — add it to the Recaps tab
+   as Volume Three and push."
+  "Set the Roll20 link to <paste link> and push."
+
+RULES OF THUMB:
+  - If you didn't say "push" (or it didn't push), the live site didn't change.
+  - This folder is the source of truth — edit here (or via Claude in
+    Cowork), never directly on github.com, so nothing gets out of sync.
+  - Players only ever see this folder. DM Notes never come in here.

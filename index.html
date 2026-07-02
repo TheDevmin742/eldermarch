@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eldermarch — Campaign Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f6ecd9; --panel:#fdf6e9; --panel2:#efe2c8;
+  --ink:#4a4233; --ink-soft:#7a6f5b; --muted:#a99d80;
+  --rust:#a8453a; --rust-deep:#7c2f26; --gold:#e0c97e; --gold-deep:#b89a4e;
+  --edge:#d8c49a; --edge-soft:#e6d7b4;
+  --blue:#2e5496; --green:#3c6e47; --purple:#5e3b86; --rose:#8e3b6b;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#e8dcc0;}
+body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);font-size:16px;line-height:1.5;}
+a{color:var(--rust);}
+
+.wrap{max-width:1000px;margin:0 auto;padding:18px 16px 60px;}
+
+/* ---------- header ---------- */
+header.site{
+  background:var(--paper);border:1.5px solid var(--gold);border-radius:14px;
+  box-shadow:0 6px 22px rgba(60,40,15,.22);
+  padding:26px 26px 18px;text-align:center;position:relative;overflow:hidden;
+}
+.eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.34em;color:var(--gold-deep);text-transform:uppercase;}
+h1.title{font-family:'Cinzel',serif;font-weight:700;font-size:44px;line-height:1.02;color:var(--rust);margin:6px 0 4px;}
+.subtitle{font-style:italic;color:var(--ink-soft);margin:0 0 14px;}
+.roll20{
+  display:inline-block;font-family:'Cinzel',serif;font-size:13px;letter-spacing:.14em;text-transform:uppercase;
+  background:var(--rust);color:#fff;text-decoration:none;padding:12px 26px;border-radius:10px;
+  border:1.5px solid var(--rust-deep);box-shadow:0 3px 10px rgba(120,40,20,.35);
+}
+.roll20:hover{background:var(--rust-deep);}
+.next-session{margin-top:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
+.next-session b{color:var(--rust);}
+
+/* ---------- announcement banner ---------- */
+.banner{
+  margin:14px 0 0;background:#fbf3dd;border:1.5px solid var(--gold);border-left:6px solid var(--gold-deep);
+  border-radius:10px;padding:10px 16px;display:flex;gap:10px;align-items:baseline;
+}
+.banner .tag{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;color:var(--gold-deep);text-transform:uppercase;white-space:nowrap;}
+
+/* ---------- tabs ---------- */
+nav.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 14px;}
+nav.tabs button{
+  font-family:'Cinzel',serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--panel2);color:var(--ink-soft);border:1.5px solid var(--edge);
+  border-radius:10px 10px 0 0;padding:10px 18px;cursor:pointer;
+}
+nav.tabs button.active{background:var(--paper);color:var(--rust);border-color:var(--gold);border-bottom-color:var(--paper);font-weight:700;}
+main{background:var(--paper);border:1.5px solid var(--gold);border-radius:0 14px 14px 14px;
+  box-shadow:0 6px 22px rgba(60,40,15,.18);padding:26px;}
+section.tab{display:none;} section.tab.active{display:block;}
+
+h2{font-family:'Cinzel',serif;color:var(--rust);font-size:24px;margin:0 0 4px;}
+h3{font-family:'Cinzel',serif;color:var(--rust-deep);font-size:17px;margin:22px 0 8px;}
+.lede{font-style:italic;color:var(--ink-soft);margin:0 0 18px;}
+hr.flourish{border:none;text-align:center;margin:22px 0;}
+hr.flourish:after{content:"✦ ⚜ ✦";color:var(--gold-deep);letter-spacing:.6em;font-size:12px;}
+
+/* ---------- cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.card{
+  background:var(--panel);border:1.5px solid var(--edge);border-radius:12px;padding:16px 18px;
+  display:flex;flex-direction:column;gap:6px;
+}
+.card:hover{border-color:var(--gold);}
+.card .cname{font-family:'Cinzel',serif;font-weight:700;font-size:19px;color:var(--rust);}
+.card .ctags{display:flex;gap:5px;flex-wrap:wrap;}
+.ctag{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;padding:3px 9px;border-radius:10px;color:#fff;background:#8aa1b4;}
+.card .blurb{font-size:14.5px;color:var(--ink-soft);flex:1;}
+.card .links{margin-top:6px;display:flex;gap:12px;flex-wrap:wrap;}
+.card .links a{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--edge);}
+.cover{width:100%;border-radius:8px;border:1px solid var(--edge);display:block;}
+
+/* ---------- announcements list ---------- */
+.ann{border-left:4px solid var(--gold);background:var(--panel);border-radius:0 10px 10px 0;padding:10px 16px;margin:0 0 10px;}
+.ann .d{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.18em;color:var(--muted);text-transform:uppercase;}
+.ann .t{font-weight:600;color:var(--rust-deep);}
+
+/* ---------- ember's book ---------- */
+.ember{
+  background:linear-gradient(180deg,#f7edd6,#f0e0bd);border:2px solid var(--gold-deep);border-radius:14px;
+  padding:22px 26px;box-shadow:inset 0 0 40px rgba(184,154,78,.15);
+}
+.ember h3{margin-top:0;}
+.ember-entry{border-top:1px dashed var(--gold-deep);padding:16px 2px 6px;margin-top:14px;}
+.ember-entry:first-of-type{border-top:none;margin-top:0;}
+.ember-entry .et{font-family:'Cinzel',serif;font-size:16px;color:var(--rust);font-weight:700;}
+.ember-entry .new{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.16em;background:var(--rust);color:#fff;border-radius:8px;padding:2px 8px;margin-left:8px;vertical-align:middle;}
+.ember-entry .body{white-space:pre-line;margin-top:6px;}
+.ember-entry .margin-note{font-style:italic;color:#9c6b1f;margin-top:10px;padding-left:14px;border-left:2px solid var(--gold-deep);}
+.ember-locked{opacity:.55;font-style:italic;padding:14px 2px 4px;border-top:1px dashed var(--gold-deep);margin-top:14px;}
+
+/* ---------- dice roller ---------- */
+.dice-row{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0;}
+.die{
+  font-family:'Cinzel',serif;font-size:14px;font-weight:700;background:var(--panel);border:2px solid var(--rust);
+  color:var(--rust);border-radius:12px;padding:14px 18px;cursor:pointer;min-width:64px;
+}
+.die:hover{background:var(--rust);color:#fff;}
+.dice-opts{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:8px 0 14px;}
+.dice-opts label{font-family:'Cinzel',serif;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);}
+.dice-opts input[type=number]{width:64px;font-family:inherit;font-size:15px;padding:5px 8px;border:1.5px solid var(--edge);border-radius:8px;background:var(--panel);}
+.dice-opts select{font-family:inherit;font-size:14px;padding:5px 8px;border:1.5px solid var(--edge);border-radius:8px;background:var(--panel);}
+.roll-out{
+  min-height:74px;background:var(--panel);border:1.5px solid var(--gold);border-radius:12px;padding:12px 18px;
+  display:flex;align-items:center;gap:18px;
+}
+.roll-out .big{font-family:'Cinzel',serif;font-size:44px;font-weight:700;color:var(--rust);min-width:80px;text-align:center;}
+.roll-out .detail{color:var(--ink-soft);}
+.hist{margin-top:12px;font-size:14px;color:var(--ink-soft);max-height:180px;overflow-y:auto;}
+.hist div{border-bottom:1px dotted var(--edge);padding:3px 0;}
+
+footer{color:var(--muted);text-align:center;font-style:italic;margin-top:22px;font-size:13.5px;}
+@media(max-width:640px){ h1.title{font-size:32px;} main{padding:18px;} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <div class="eyebrow">The Chronicles of</div>
+  <h1 class="title">ELDERMARCH</h1>
+  <p class="subtitle" id="site-tagline"></p>
+  <a class="roll20" id="roll20-link" href="#" target="_blank" rel="noopener">⚔ Join the Session on Roll20</a>
+  <div class="next-session" id="next-session"></div>
+</header>
+
+<div class="banner" id="banner" style="display:none">
+  <span class="tag">📜 Notice</span><span id="banner-text"></span>
+</div>
+
+<nav class="tabs" id="tabs">
+  <button data-tab="home" class="active">Home</button>
+  <button data-tab="characters">The Company</button>
+  <button data-tab="recaps">Recaps</button>
+  <button data-tab="lore">Lore &amp; Legends</button>
+  <button data-tab="tools">Dice &amp; Tools</button>
+</nav>
+
+<main>
+  <!-- ============ HOME ============ -->
+  <section class="tab active" id="tab-home">
+    <h2>Welcome, adventurer.</h2>
+    <p class="lede" id="home-welcome"></p>
+    <h3>Announcements</h3>
+    <div id="announcements"></div>
+    <hr class="flourish">
+    <h3>Freshly written in Ember's book…</h3>
+    <div id="home-ember-teaser" class="ember" style="padding:16px 20px"></div>
+  </section>
+
+  <!-- ============ CHARACTERS ============ -->
+  <section class="tab" id="tab-characters">
+    <h2>The Company</h2>
+    <p class="lede">Five travelers, one road. Open a Hearthsheet to see everything your hero can do.</p>
+    <div class="grid" id="char-grid"></div>
+  </section>
+
+  <!-- ============ RECAPS ============ -->
+  <section class="tab" id="tab-recaps">
+    <h2>The Eldermarch Chronicle</h2>
+    <p class="lede">The story so far, volume by volume — as the Scriveners tell it.</p>
+    <div class="grid" id="recap-grid"></div>
+  </section>
+
+  <!-- ============ LORE ============ -->
+  <section class="tab" id="tab-lore">
+    <h2>Lore &amp; Legends</h2>
+    <p class="lede">Field guides, town lore, and the book that writes itself.</p>
+    <div class="grid" id="lore-grid"></div>
+    <hr class="flourish">
+    <div class="ember">
+      <h3>📖 Ember's Book</h3>
+      <p class="lede" style="margin-bottom:6px">The worn book Ember pressed on Kree keeps writing new pages. When one appears, it appears here.</p>
+      <div id="ember-entries"></div>
+    </div>
+  </section>
+
+  <!-- ============ TOOLS ============ -->
+  <section class="tab" id="tab-tools">
+    <h2>Dice &amp; Tools</h2>
+    <p class="lede">Roll here when the table needs a witness.</p>
+    <div class="dice-opts">
+      <label>How many <input type="number" id="dcount" value="1" min="1" max="20"></label>
+      <label>Modifier <input type="number" id="dmod" value="0" min="-20" max="20"></label>
+      <label>d20 mode
+        <select id="dadv">
+          <option value="normal">Normal</option>
+          <option value="adv">Advantage</option>
+          <option value="dis">Disadvantage</option>
+        </select>
+      </label>
+    </div>
+    <div class="dice-row">
+      <button class="die" data-d="4">d4</button><button class="die" data-d="6">d6</button>
+      <button class="die" data-d="8">d8</button><button class="die" data-d="10">d10</button>
+      <button class="die" data-d="12">d12</button><button class="die" data-d="20">d20</button>
+      <button class="die" data-d="100">d100</button>
+    </div>
+    <div class="roll-out"><div class="big" id="roll-total">—</div><div class="detail" id="roll-detail">Choose a die.</div></div>
+    <div class="hist" id="roll-hist"></div>
+    <hr class="flourish">
+    <h3>More tools</h3>
+    <div class="grid" id="tools-grid"></div>
+  </section>
+</main>
+
+<footer id="site-footer"></footer>
+</div>
+
+<script src="content/site.js"></script>
+<script src="content/announcements.js"></script>
+<script src="content/characters.js"></script>
+<script src="content/recaps.js"></script>
+<script src="content/lore.js"></script>
+<script src="content/ember.js"></script>
+<script>
+const D = window.ELDERMARCH || {};
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ----- header / config ----- */
+document.getElementById('site-tagline').textContent = D.site?.tagline || "";
+document.getElementById('home-welcome').textContent = D.site?.welcome || "";
+document.getElementById('site-footer').textContent = D.site?.footer || "";
+const r20 = document.getElementById('roll20-link');
+r20.href = D.site?.roll20Url || "#";
+if (!D.site?.roll20Url) r20.textContent = "⚔ Roll20 link coming soon";
+if (D.site?.nextSession) document.getElementById('next-session').innerHTML =
+  'Next session — <b>' + esc(D.site.nextSession) + '</b>';
+
+/* ----- tabs ----- */
+document.getElementById('tabs').addEventListener('click', e => {
+  const btn = e.target.closest('button'); if (!btn) return;
+  document.querySelectorAll('nav.tabs button').forEach(b => b.classList.toggle('active', b === btn));
+  document.querySelectorAll('section.tab').forEach(s => s.classList.toggle('active', s.id === 'tab-' + btn.dataset.tab));
+});
+
+/* ----- announcements ----- */
+const anns = (D.announcements || []).slice().sort((a,b)=> (b.date||"").localeCompare(a.date||""));
+if (anns.length && anns[0].banner) {
+  document.getElementById('banner').style.display = 'flex';
+  document.getElementById('banner-text').textContent = anns[0].text;
+}
+document.getElementById('announcements').innerHTML = anns.length
+  ? anns.map(a => `<div class="ann"><div class="d">${esc(a.date)}</div><span class="t">${esc(a.title)}.</span> ${esc(a.text)}</div>`).join("")
+  : '<p class="lede">Nothing posted yet — check back after the next session.</p>';
+
+/* ----- characters ----- */
+document.getElementById('char-grid').innerHTML = (D.characters || []).filter(c => !c.hidden).map(c => `
+  <div class="card">
+    <div class="cname">${esc(c.name)}</div>
+    <div class="ctags">${(c.tags||[]).map(t=>`<span class="ctag" style="background:${esc(c.color||'#8aa1b4')}">${esc(t)}</span>`).join("")}</div>
+    <div class="blurb">${esc(c.blurb)}</div>
+    <div class="links">${(c.links||[]).map(l=>`<a href="${esc(l.href)}" target="_blank" rel="noopener">${esc(l.label)} →</a>`).join("")}</div>
+  </div>`).join("");
+
+/* ----- recaps ----- */
+document.getElementById('recap-grid').innerHTML = (D.recaps || []).map(r => `
+  <div class="card">
+    ${r.cover ? `<a href="${esc(r.href)}" target="_blank" rel="noopener"><img class="cover" src="${esc(r.cover)}" alt=""></a>` : ""}
+    <div class="cname" style="font-size:16px"><a href="${esc(r.href)}" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">${esc(r.title)}</a></div>
+    <div class="blurb">${esc(r.blurb)}</div>
+    <div class="links"><a href="${esc(r.href)}" target="_blank" rel="noopener">Read the full illustrated chronicle →</a></div>
+  </div>`).join("");
+
+/* ----- lore docs ----- */
+document.getElementById('lore-grid').innerHTML = (D.lore || []).map(l => `
+  <div class="card">
+    ${l.cover ? `<a href="${esc(l.href)}" target="_blank" rel="noopener"><img class="cover" src="${esc(l.cover)}" alt=""></a>` : ""}
+    <div class="cname" style="font-size:16px">${esc(l.title)}</div>
+    <div class="blurb">${esc(l.blurb)}</div>
+    <div class="links"><a href="${esc(l.href)}" target="_blank" rel="noopener">Open →</a></div>
+  </div>`).join("");
+
+/* ----- ember's book ----- */
+const embers = (D.ember || []);
+const unlocked = embers.filter(e => e.unlocked);
+document.getElementById('ember-entries').innerHTML =
+  unlocked.map((e, i) => `
+    <div class="ember-entry">
+      <span class="et">${esc(e.title)}</span>${i === unlocked.length-1 ? '<span class="new">A new page</span>' : ''}
+      <div class="body">${esc(e.body)}</div>
+      ${e.marginNote ? `<div class="margin-note">${esc(e.marginNote)} — E.</div>` : ""}
+    </div>`).join("")
+  + embers.filter(e => !e.unlocked).map(() =>
+      `<div class="ember-locked">…a page here refuses to be read. The ink isn't dry yet.</div>`).join("");
+const teaser = unlocked[unlocked.length-1];
+document.getElementById('home-ember-teaser').innerHTML = teaser
+  ? `<span class="et" style="font-family:'Cinzel',serif;color:var(--rust);font-weight:700">${esc(teaser.title)}</span>
+     <div class="body" style="white-space:pre-line">${esc(teaser.body.slice(0,220))}…</div>
+     <div style="margin-top:8px"><a href="#" onclick="document.querySelector('[data-tab=lore]').click();return false">Read the full page →</a></div>`
+  : '<em>The book is quiet today.</em>';
+
+/* ----- tools grid ----- */
+document.getElementById('tools-grid').innerHTML = (D.tools || []).map(t => `
+  <div class="card">
+    <div class="cname" style="font-size:16px">${esc(t.title)}</div>
+    <div class="blurb">${esc(t.blurb)}</div>
+    ${t.href ? `<div class="links"><a href="${esc(t.href)}" target="_blank" rel="noopener">Open →</a></div>` : ""}
+  </div>`).join("");
+
+/* ----- dice roller ----- */
+const hist = [];
+document.querySelectorAll('.die').forEach(btn => btn.addEventListener('click', () => {
+  const d = +btn.dataset.d;
+  const n = Math.min(20, Math.max(1, +document.getElementById('dcount').value || 1));
+  const mod = +document.getElementById('dmod').value || 0;
+  const mode = document.getElementById('dadv').value;
+  let rolls = [], note = "";
+  if (d === 20 && mode !== 'normal' && n === 1) {
+    const a = 1 + Math.floor(Math.random()*20), b = 1 + Math.floor(Math.random()*20);
+    const keep = mode === 'adv' ? Math.max(a,b) : Math.min(a,b);
+    rolls = [keep];
+    note = `(${mode === 'adv' ? 'advantage' : 'disadvantage'}: rolled ${a} & ${b}) `;
+  } else {
+    for (let i = 0; i < n; i++) rolls.push(1 + Math.floor(Math.random()*d));
+  }
+  const sum = rolls.reduce((x,y)=>x+y,0) + mod;
+  const detail = `${n}d${d}${mod ? (mod>0?'+':'')+mod : ''} ${note}→ [${rolls.join(', ')}]${mod ? ` ${mod>0?'+':''}${mod}` : ''}`;
+  document.getElementById('roll-total').textContent = sum;
+  let flavor = "";
+  if (d === 20 && rolls.length === 1) {
+    if (rolls[0] === 20) flavor = " ✦ NATURAL TWENTY — the bards will sing of this.";
+    if (rolls[0] === 1)  flavor = " ✦ Natural one. Ember's book quietly turns a page.";
+  }
+  document.getElementById('roll-detail').textContent = detail + flavor;
+  hist.unshift(new Date().toLocaleTimeString() + " — " + detail + " = " + sum);
+  document.getElementById('roll-hist').innerHTML = hist.slice(0, 30).map(h => `<div>${esc(h)}</div>`).join("");
+}));
+</script>
+</body>
+</html>

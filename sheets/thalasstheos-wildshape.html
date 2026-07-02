@@ -1,0 +1,114 @@
+<meta charset="utf-8">
+<title>Hearthsheet · Thalasstheos — Wild Shape Codex</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23211c; --soft:#4a4338; --sea:#23566a; --seabr:#2f5d6e; --foam:#cfe3e6;
+    --gold:#8a6d3b; --goldbr:#b08d3f; --rule:#c9b489; --crim:#7c2d22; --faint:#7d6f50;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0; padding:0 0 4rem; font-family:'EB Garamond',Georgia,serif; font-size:16px; line-height:1.55; color:var(--ink);
+    background:radial-gradient(ellipse at 50% -8%, #f3f8f8 0%, #e9f1f0 45%, #dde9e7 100%) fixed;}
+  .wrap{max-width:860px; margin:0 auto; padding:0 1.2rem;}
+  .sheet{background:linear-gradient(180deg,#fdfbf4,#f5f1e3); border:1px solid #d8cfa9; border-radius:5px;
+    box-shadow:0 2px 0 #e7dcbf,0 14px 40px rgba(40,60,60,.16); margin:2rem 0; padding:2rem 2.2rem 2.6rem; position:relative;}
+  .sheet::before{content:""; position:absolute; inset:9px; border:1px solid #e0d6b2; border-radius:3px; pointer-events:none;}
+  .eyebrow{font-family:'Cinzel',serif; letter-spacing:.32em; font-size:.66rem; text-transform:uppercase; color:var(--gold);}
+  h1{font-family:'Cinzel',serif; font-weight:700; font-size:1.9rem; color:var(--sea); margin:.2rem 0 .1rem; line-height:1.1;}
+  .sub{font-style:italic; color:var(--soft); margin-bottom:1rem;}
+  h2{font-family:'Cinzel',serif; font-weight:700; font-size:1rem; letter-spacing:.04em; color:var(--sea); text-transform:uppercase;
+    border-bottom:1.5px solid var(--sea); padding-bottom:2px; margin:1.6rem 0 .7rem;}
+  .rules{background:#eef5f4; border-left:3px solid var(--seabr); border-radius:0 4px 4px 0; padding:.7rem 1rem; margin:.4rem 0;}
+  .rules p{margin:.25rem 0; font-size:.96rem;}
+  .rules b{color:var(--sea);}
+  /* statblock */
+  .stat{background:#fbf5e6; border:1px solid var(--goldbr); border-top:4px solid var(--crim); border-radius:4px; padding:1rem 1.2rem; margin:.6rem 0 1rem;}
+  .stat h3{font-family:'Cinzel',serif; color:var(--crim); font-size:1.25rem; margin:.1rem 0 0; line-height:1;}
+  .stat .type{font-style:italic; color:var(--soft); font-size:.92rem; margin:.1rem 0 .5rem;}
+  .stat .bar{color:var(--crim); border-top:1px solid var(--rule); border-bottom:1px solid var(--rule); padding:.35rem 0; margin:.4rem 0; font-size:.95rem;}
+  .stat .ab{display:flex; gap:1.1rem; flex-wrap:wrap; font-size:.9rem; margin:.3rem 0;}
+  .stat .ab span b{color:var(--sea);}
+  .stat p{margin:.32rem 0; font-size:.95rem;}
+  .stat .h{font-family:'Cinzel',serif; color:var(--crim); font-size:.82rem; letter-spacing:.06em; text-transform:uppercase; margin:.7rem 0 .2rem; border-bottom:1px solid var(--rule);}
+  .stat .feat b{color:var(--sea);}
+  .star{color:var(--goldbr);}
+  /* forms grid */
+  .grouphead{font-family:'Cinzel',serif; color:var(--seabr); font-weight:700; letter-spacing:.05em; margin:1rem 0 .3rem; font-size:.95rem;}
+  table.forms{width:100%; border-collapse:collapse; margin:.2rem 0 .6rem; font-size:.9rem;}
+  table.forms th{background:#dbeae9; color:var(--sea); font-family:'Cinzel',serif; font-size:.66rem; letter-spacing:.08em; text-transform:uppercase; text-align:left; padding:.3rem .5rem; border:1px solid #bcd3d2;}
+  table.forms td{padding:.32rem .5rem; border:1px solid #d7e2e0; vertical-align:top;}
+  table.forms td:first-child{font-weight:600; color:var(--sea); white-space:nowrap;}
+  table.forms tr:nth-child(even) td{background:#f3f8f7;}
+  .lvl8{background:#f6efe2 !important;}
+  .note{font-size:.86rem; color:var(--faint); font-style:italic; margin:.4rem 0;}
+  .tip{background:#f7f0dd; border-left:3px solid var(--goldbr); border-radius:0 4px 4px 0; padding:.7rem 1rem; margin:1rem 0; font-size:.95rem;}
+  .tip b{color:var(--gold);}
+</style>
+
+<div class="wrap"><div class="sheet">
+  <div class="eyebrow">Hearthsheet · Companion Reference</div>
+  <h1>Thalasstheos — Wild Shape Codex</h1>
+  <div class="sub">Water Genasi · Druid 5 (Circle of the Land — Coast) — her shapes, her rules, and the Water Form</div>
+
+  <h2>How Your Wild Shape Works</h2>
+  <div class="rules">
+    <p><b>Transform:</b> an <b>Action</b> (you're not a Circle of the Moon druid). You have <b>2 uses</b>, regained on a short or long rest.</p>
+    <p><b>What you can become:</b> a Beast you have seen before. At your level the cap is <b>CR ½ or lower</b>, with a <b>swim speed allowed but NO flying speed</b> — flying forms (your "bird") unlock at <b>druid level 8</b>. (At level 8: CR 1 and flight.)</p>
+    <p><b>How long:</b> hours equal to half your druid level — <b>2 hours at level 5, 3 at level 6</b>. Revert as a <b>bonus action</b>, or automatically when the form drops to 0 HP (leftover damage carries to your true body).</p>
+    <p><b>In a form:</b> you use the beast's <b>physical stats &amp; HP</b> (your own HP is set aside); you keep your INT, WIS, CHA, personality, and memories. You <b>can't cast spells</b>, but you can keep concentration going. Your gear melds away.</p>
+    <p><b>The exception is your Water Form</b> — by your Pure Water Genasi gift it can <b>heal itself</b> like a Moon druid (see below), making it your durable "tank" shape.</p>
+  </div>
+
+  <h2>★ The Water Form <span class="star">(your signature shape)</span></h2>
+  <div class="stat">
+    <h3>The Water Form — “Tideshape”</h3>
+    <div class="type">Medium beast (Wild Shape · homebrew), amphibious — a living, amorphous body of seawater</div>
+    <div class="bar"><b>AC</b> 13 &nbsp;·&nbsp; <b>HP</b> 22 &nbsp;·&nbsp; <b>Speed</b> 30 ft, swim 40 ft</div>
+    <div class="ab">
+      <span><b>STR</b> 14 (+2)</span><span><b>DEX</b> 14 (+2)</span><span><b>CON</b> 14 (+2)</span>
+      <span class="note" style="margin:0;">(you keep your own WIS / INT / CHA)</span>
+    </div>
+    <p class="feat"><b>Amphibious.</b> You breathe air and water.</p>
+    <p class="feat"><b>Amorphous.</b> You can move through a space as narrow as 1 inch without squeezing, and flow through other creatures' spaces (their space is difficult terrain for you).</p>
+    <p class="feat"><b>Watery Body.</b> Resistance to nonmagical bludgeoning, piercing, and slashing; immunity to poison and the poisoned condition; you <b>can't be grappled or restrained</b> (you simply flow free). <b>Vulnerable to cold</b> damage — cold can freeze you solid.</p>
+    <p class="feat"><b>Tidal Mending.</b> <i>(Like a Circle of the Moon druid.)</i> As a <b>bonus action</b>, spend a spell slot to regain <b>1d8 HP per level of the slot</b> while in this form.</p>
+    <div class="h">Actions</div>
+    <p><b>Surge (slam).</b> <i>Melee, +4 to hit, reach 5 ft.</i> Hit: <b>1d8 + 2 bludgeoning</b>, and you may push the target 5 ft (a breaking wave).</p>
+    <p><b>Douse.</b> Sweep over and extinguish nonmagical fire in a 5-ft space, or smother the flames on a burning creature.</p>
+    <p class="note">Revert with a bonus action, or automatically at 0 HP. The self-heal makes this your front-line / survival shape; everything else below is for scouting, swimming, and escape.</p>
+  </div>
+
+  <h2>Beast Forms You Can Take (CR ½ or lower)</h2>
+  <p class="note">Grounded in creatures she's met on the road. Reskin freely — a "blue serpent," a "great blue bear" — but use the listed beast's statistics.</p>
+
+  <div class="grouphead">~ Water &amp; Sea (her element) ~</div>
+  <table class="forms">
+    <tr><th>Form</th><th>CR</th><th>AC / HP</th><th>Speed</th><th>What it's good for</th></tr>
+    <tr><td>Reef Shark</td><td>½</td><td>12 / 22</td><td>swim 40</td><td>Apex swimmer; bite 1d8+2, Pack Tactics, Blood Frenzy. Your toughest sea form.</td></tr>
+    <tr><td>Constrictor Snake <span class="note">(the “blue serpent”)</span></td><td>¼</td><td>12 / 13</td><td>30, swim 10</td><td>Bite + Constrict (grapple &amp; restrain). Her signature slip-away / pin form.</td></tr>
+    <tr><td>Octopus</td><td>0</td><td>12 / 3</td><td>swim 30</td><td>Ink Cloud (obscure &amp; dash), squeeze through 1-in gaps. The perfect underwater scout/escape.</td></tr>
+    <tr><td>Giant Crab</td><td>⅛</td><td>15 / 13</td><td>30, swim 30</td><td>High AC; claw &amp; grapple; amphibious. A pinching little tank.</td></tr>
+    <tr><td>Giant Frog</td><td>¼</td><td>11 / 18</td><td>30, swim 30</td><td>Grapple &amp; swallow (Small prey), Standing Leap, amphibious.</td></tr>
+  </table>
+
+  <div class="grouphead">~ Land (utility, scouting &amp; travel) ~</div>
+  <table class="forms">
+    <tr><th>Form</th><th>CR</th><th>AC / HP</th><th>Speed</th><th>What it's good for</th></tr>
+    <tr><td>Black Bear <span class="note">(the “great blue bear”)</span></td><td>½</td><td>11 / 19</td><td>40, climb 30</td><td>Multiattack (bite + claws), keen smell. Her iconic sturdy land form.</td></tr>
+    <tr><td>Wolf</td><td>¼</td><td>13 / 11</td><td>40</td><td>Bite (knock prone), Pack Tactics, keen hearing &amp; smell. Scout / skirmish.</td></tr>
+    <tr><td>Panther</td><td>¼</td><td>12 / 13</td><td>50, climb 40</td><td>Stealthy; Pounce (knock prone). A quiet striker.</td></tr>
+    <tr><td>Boar</td><td>¼</td><td>11 / 11</td><td>40</td><td>Charge (knock prone), Relentless. A battering ram.</td></tr>
+    <tr><td>Giant Badger / Cat / Rat / Spider</td><td>0–¼</td><td>—</td><td>burrow / climb</td><td>Diggers and tiny scouts — squeeze, climb walls, keen senses. Pure utility &amp; spying.</td></tr>
+    <tr><td>Riding Horse / Mule</td><td>¼ / ⅛</td><td>—</td><td>40–60</td><td>Travel and hauling when the road is long.</td></tr>
+  </table>
+
+  <div class="grouphead">~ Air (NOT yet — unlocks at druid level 8) ~</div>
+  <table class="forms">
+    <tr class="lvl8"><td>Raven · Hawk · Eagle · Giant Owl</td><td>0–¼</td><td>—</td><td>fly</td><td>Your “bird” form. Flying Wild Shapes are <b>locked until druid level 8</b> — until then the sky is off-limits.</td></tr>
+  </table>
+
+  <div class="tip"><b>How to use it:</b> drop into the <b>Water Form</b> when you need to soak hits or hold a line (it heals itself); become the <b>Octopus</b> or <b>Constrictor Snake</b> to slip a trap, scout, or escape underwater; the <b>Reef Shark</b> or <b>Black Bear</b> when you need a sturdier body in a pinch. Remember: in any form you can't cast spells — so shape up when it's time to move, hide, or tank, and shift back to heal and control.</div>
+
+  <p class="note">Reference sheet — keep alongside your character sheet &amp; tip sheet. DM may adjust the Water Form's exact numbers to taste.</p>
+</div></div>

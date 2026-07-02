@@ -1,0 +1,249 @@
+<meta charset="utf-8">
+<title>The Ironbound Field Guide</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#23211c; --soft:#4a4338; --paper:#efe6d2; --paper2:#e7dcc2;
+    --iron:#3a3f44; --iron2:#2a2e33; --brass:#9a7b33; --brass-br:#c39a3e;
+    --rule:#cdbb90;
+    --immune:#2f4858; --resist:#6a6258; --vuln:#a23b22; --ally:#3f6b3a; --hostile:#7c2d22;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:radial-gradient(ellipse at 50% -8%, #f6efdd 0%, #ece1c6 55%, #ddceaa 100%) fixed;
+    color:var(--ink); font-family:'EB Garamond',Georgia,serif; font-size:19px; line-height:1.62;
+    padding:0 0 5rem; overflow-x:hidden; overflow-wrap:break-word;
+  }
+  .wrap{max-width:780px; margin:0 auto; padding:0 1.2rem;}
+
+  /* ---- masthead ---- */
+  .masthead{
+    background:linear-gradient(180deg,var(--iron) 0%, var(--iron2) 100%);
+    color:#f3ead4; text-align:center; margin:2rem 0 1.4rem; padding:2.2rem 1.5rem 1.9rem;
+    border-radius:5px; position:relative; box-shadow:0 10px 30px rgba(30,22,8,.28);
+    border:1px solid #1c2024;
+  }
+  .masthead::before, .masthead::after{
+    content:""; position:absolute; left:14px; right:14px; height:2px; background:var(--brass);
+    opacity:.55;
+  }
+  .masthead::before{top:10px;} .masthead::after{bottom:10px;}
+  .rivets{position:absolute; left:0; right:0; display:flex; justify-content:space-between; padding:0 22px;}
+  .rivets.top{top:16px;} .rivets.bot{bottom:16px;}
+  .rivets span{width:7px; height:7px; border-radius:50%; background:radial-gradient(circle at 35% 30%, #d8b259, #6b5118); box-shadow:0 1px 1px #000a;}
+  .masthead .guild{font-family:'Cinzel',serif; letter-spacing:.42em; font-size:.66rem; color:var(--brass-br); text-transform:uppercase;}
+  .masthead h1{font-family:'Cinzel Decorative',serif; font-weight:700; font-size:clamp(1.8rem,6vw,2.7rem); margin:.5rem 0 .2rem; line-height:1.05; color:#f7efd9;}
+  .masthead .sub{font-family:'Cinzel',serif; font-size:.74rem; letter-spacing:.2em; text-transform:uppercase; color:#cdbb90; margin-top:.5rem;}
+  .masthead .seal{color:var(--brass-br); font-size:1.3rem; letter-spacing:.4em; margin-top:1rem;}
+
+  .preamble{background:linear-gradient(180deg,#fbf4e2,#f1e7cd); border:1px solid #ddcca0;
+    border-radius:5px; padding:1.3rem 1.5rem; margin:0 0 1.2rem; font-style:italic; color:var(--soft);
+    box-shadow:0 2px 0 #e3d4a9;}
+  .preamble b{font-style:normal; color:var(--ink);}
+
+  /* ---- legend ---- */
+  .legend{display:flex; flex-wrap:wrap; gap:.5rem .9rem; align-items:center; justify-content:center;
+    background:#2a2e33; color:#e9ddbf; border-radius:5px; padding:.8rem 1rem; margin:0 0 1.8rem; font-size:.82rem;}
+  .legend .li{display:flex; align-items:center; gap:.4rem;}
+  .chip{display:inline-block; font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase;
+    padding:.18em .55em; border-radius:3px; color:#fff; white-space:nowrap; vertical-align:middle;}
+  .c-immune{background:var(--immune);} .c-resist{background:var(--resist);} .c-vuln{background:var(--vuln);}
+
+  /* ---- section divider ---- */
+  .vol{font-family:'Cinzel',serif; letter-spacing:.3em; text-transform:uppercase; font-size:.72rem;
+    color:var(--brass); text-align:center; margin:2.4rem 0 1.1rem; position:relative;}
+  .vol::before,.vol::after{content:"✦"; color:var(--rule); margin:0 .8rem; font-size:.7rem;}
+
+  /* ---- entry card ---- */
+  .beast{background:linear-gradient(180deg,#fbf5e4,#f3e9cf); border:1px solid #d8c79b; border-radius:6px;
+    padding:1.25rem 1.4rem 1.35rem; margin:0 0 1.25rem; box-shadow:0 2px 0 #e3d4a9, 0 10px 26px rgba(60,44,16,.10);
+    position:relative; overflow:hidden;}
+  .beast::before{content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--hostile);}
+  .beast.ally::before{background:var(--ally);}
+  .bhead{display:flex; align-items:baseline; flex-wrap:wrap; gap:.5rem .7rem; margin-bottom:.15rem;}
+  .bname{font-family:'Cinzel Decorative',serif; font-weight:700; font-size:1.3rem; color:var(--ink); line-height:1.1;}
+  .btype{font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.16em; text-transform:uppercase; color:var(--soft);}
+  .tag{margin-left:auto; font-family:'Cinzel',serif; font-size:.6rem; letter-spacing:.14em; text-transform:uppercase;
+    color:#fff; padding:.2em .65em; border-radius:3px; align-self:center;}
+  .tag.hostile{background:var(--hostile);} .tag.ally{background:var(--ally);}
+  .blurb{font-style:italic; color:var(--soft); margin:.1rem 0 .8rem; font-size:.98rem;}
+  .row{margin:.5rem 0; font-size:.96rem;}
+  .row .lab{font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brass);
+    display:block; margin-bottom:.18rem;}
+  .defs .chip{margin:.12rem .3rem .12rem 0;}
+  .none{color:var(--soft); font-style:italic;}
+  .tip{background:#efe7d2; border-left:3px solid var(--brass); border-radius:0 4px 4px 0; padding:.6rem .85rem; margin-top:.7rem; font-size:.95rem;}
+  .tip .lab{color:var(--brass);}
+  .gnote{font-size:.86rem; color:var(--soft); font-style:italic; margin-top:.6rem; padding-top:.5rem; border-top:1px dashed #d3c298;}
+  .gnote b{font-style:normal;}
+
+  .footer{text-align:center; font-family:'Cinzel',serif; font-size:.62rem; letter-spacing:.26em; text-transform:uppercase;
+    color:var(--brass); margin-top:2.6rem;}
+</style>
+
+<div class="wrap">
+
+  <div class="masthead">
+    <div class="rivets top"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+    <div class="guild">Phandalin Adventurers' Guild · Ironbound Hall</div>
+    <h1>The Ironbound Field Guide</h1>
+    <div class="sub">Beasts, Foes &amp; Friendly Folk of the Road</div>
+    <div class="seal">⚔ &nbsp; ❖ &nbsp; ⚔</div>
+    <div class="rivets bot"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+  </div>
+
+  <div class="preamble">
+    Pinned up in the Ironbound Hall for every chartered company that walks out the door. The Guild keeps the heavy ledgers — the exact teeth and tallies — but a body in the field rarely has time to read a ledger with something chewing on it. So this is the short version: <b>what shrugs off your blows, what hurts it worst, the one nasty trick to watch for, and how the folk who lived through it say to fight it.</b> Add to it as you learn. The best entries in this guide were written in somebody's bad handwriting, right after they nearly died.
+  </div>
+
+  <div class="legend">
+    <div class="li"><span class="chip c-immune">Immune</span> don't bother — it does nothing</div>
+    <div class="li"><span class="chip c-resist">Resists</span> only half gets through</div>
+    <div class="li"><span class="chip c-vuln">Vulnerable</span> hit it here, hit it hard</div>
+  </div>
+
+  <div class="vol">Volume One — The Hills, the Road &amp; the Manor</div>
+
+  <!-- WOLVES -->
+  <div class="beast ally">
+    <div class="bhead">
+      <span class="bname">Wolves</span><span class="btype">Beast</span>
+      <span class="tag hostile">Foe / Friend</span>
+    </div>
+    <div class="blurb">Lean, smart, and almost never alone. The danger was never one wolf — it's the other four you didn't count.</div>
+    <div class="row defs"><span class="lab">Defenses</span><span class="none">No notable resistances or weaknesses — beat it like any beast.</span></div>
+    <div class="row"><span class="lab">Watch for</span>They hunt as a pack: while two of them flank you, both strike with the upper hand, and a solid bite will put you flat on your back.</div>
+    <div class="tip"><span class="lab">Field tip</span>Deny them the flank — fight in a doorway or with your back to stone so they can't circle. Thin the pack fast; most break and scatter once enough of them are down. And remember Kenra wears this shape more often than not — count noses before you loose an arrow.</div>
+  </div>
+
+  <!-- BANDITS -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">Bandits &amp; Brigands</span><span class="btype">Humanoid</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">Desperate folk with stolen steel. No tougher than you are — which is precisely why they travel in mobs and shoot from cover.</div>
+    <div class="row defs"><span class="lab">Defenses</span><span class="none">None — they bleed like anyone.</span></div>
+    <div class="row"><span class="lab">Watch for</span>Numbers, crossbows loosed from the treeline, and the occasional captain who hits twice and can turn a blade aside.</div>
+    <div class="tip"><span class="lab">Field tip</span>Put the leader down or rattle their nerve and the rest usually lose theirs. These are also the foes you can <em>talk</em> — bluff, bribe, intimidate, or take them alive. Not every fight has to be a fight.</div>
+  </div>
+
+  <!-- ASHLINGS -->
+  <div class="beast ally">
+    <div class="bhead">
+      <span class="bname">Ashlings</span><span class="btype">Ember-Spirit (Elemental)</span>
+      <span class="tag ally">Friend</span>
+    </div>
+    <div class="blurb">Small wordless souls of living ember, drifting through the warm bones of Cinderhearth. They ask nothing and harm no one.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-immune">Immune · Fire</span>
+      <span class="chip c-vuln">Vulnerable · Cold</span>
+      <span class="chip c-vuln">Vulnerable · Water</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>Nothing hostile — this entry is here so no one swings first. They are gentle, curious, and easily hurt.</div>
+    <div class="tip"><span class="lab">Field tip</span>The only "tactic" is kindness. Keep them warm, keep cold and water well away, and they'll light your path and press small gifts into your hands. An ashling never forgets a mercy.</div>
+  </div>
+
+  <!-- TROLL -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">Troll</span><span class="btype">Giant</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">The reason every clever party keeps a torch lit. You can cut it down all day; it simply gets back up, wounds closing as you watch.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-resist">Heals every round</span>
+      <span class="chip c-vuln">Vulnerable · Fire</span>
+      <span class="chip c-vuln">Vulnerable · Acid</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>Its flesh knits back together each round — blades and arrows barely matter on their own. Only <b>fire or acid</b> shuts the healing off. Three vicious attacks a turn besides.</div>
+    <div class="tip"><span class="lab">Field tip</span>You cannot win this with steel alone. Someone must land fire or acid <em>every round</em>, and the killing blow <em>must</em> be fire or acid — drop it any other way and it rises again in moments. Sort out who carries the flame <b>before</b> the fight, not while it's standing over you.</div>
+  </div>
+
+  <!-- THE FIRE -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">The Fire of Cinderhearth</span><span class="btype">Bound Flame (Elemental)</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">The thing that slept beneath the old hearth and at last wore the shape of flame and walked. It burns what it touches and the room besides.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-immune">Immune · Fire</span>
+      <span class="chip c-resist">Resists · ordinary weapons</span>
+      <span class="chip c-vuln">Vulnerable · Cold</span>
+      <span class="chip c-vuln">Vulnerable · Water</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>Burning it does nothing — it <em>is</em> the burning. It sets the floor alight, scorches anything that strikes it bare-handed, and grows where there's fuel to feed on.</div>
+    <div class="tip"><span class="lab">Field tip</span>Water and cold are the answer — water actively wounds it. This is Thalasstheos's element if she's near. Bring an enchanted blade if you mean to trade blows, and never corner it in a room full of timber and oil.</div>
+  </div>
+
+  <!-- SALAMANDER -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">Salamander</span><span class="btype">Fire-Serpent (Elemental)</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">A coil of living heat from somewhere far hotter than here. To touch it is to be burned; to be caught in its tail is worse.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-immune">Immune · Fire</span>
+      <span class="chip c-resist">Resists · ordinary weapons</span>
+      <span class="chip c-vuln">Vulnerable · Cold</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>Its body sears anyone who grabs or strikes it close, and its long tail can wrap you up and squeeze, holding you fast against the heat.</div>
+    <div class="tip"><span class="lab">Field tip</span>Cold is its undoing — lean every frost-spell and chilled blade you have into it. Magic weapons cut where plain steel skips off. Keep out of reach of that tail, and don't waste a single spark of fire on it.</div>
+  </div>
+
+  <div class="vol">Volume Two — The Storm-Crowned Peak</div>
+
+  <!-- DISPLACER BEAST -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">Displacer Beasts</span><span class="btype">Monstrosity</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">A great panther-thing with two lashing tentacles and a liar's gift: it is never quite where your eyes swear it is.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-resist">Displacement — strikes miss it</span>
+      <span class="none">&nbsp;No elemental weakness.</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>It throws a false image of itself, so blows aimed at it go wide more often than not. Two raking tentacles. The <b>storm-touched</b> ones up the mountain blink a short step aside the instant they're hit.</div>
+    <div class="tip"><span class="lab">Field tip</span>The illusion drops the moment you land one true hit — so the second it flinches, everyone pile on before it shimmers back. Even better: anything that forces it to <em>save</em> (a gout of flame, a binding vine, a moonbeam) ignores the trick entirely, because you're not aiming at the lie.</div>
+    <div class="gnote"><b>Seen it before:</b> Thalasstheos shot the false images out of the air on the trail — if one "wolf" or "beast" bursts like a struck reflection, the real one is somewhere you're not looking.</div>
+  </div>
+
+  <!-- LIZARDS -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">Storm-Touched Lizards</span><span class="btype">Monstrosity</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">Once-dull crag-lizards, swollen and maddened by the singing crystals until lightning runs in their throats. They come in swarms and they come from every angle.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-immune">Shrug off · Lightning</span>
+      <span class="none">&nbsp;Strongest near the crystals.</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>They spit cracking bolts of lightning, scuttle up walls and across ceilings, and a few have a habit of <b>overcharging and bursting</b> when they've spat one bolt too many. The closer to the stormglass, the worse they fight.</div>
+    <div class="tip"><span class="lab">Field tip</span>A draught of <b>lightning resistance</b> turns their main weapon into a parlor trick — you found a flask of exactly that, so save it for these. Spread out so one bolt can't catch the whole party, keep an eye <em>up</em>, never stand beside one that's been spitting nonstop, and drag the fight away from the crystal veins if you possibly can.</div>
+  </div>
+
+  <!-- BEHIR -->
+  <div class="beast">
+    <div class="bhead">
+      <span class="bname">The Behir — &ldquo;Skathrix&rdquo;</span><span class="btype">Monstrosity</span>
+      <span class="tag hostile">Foe</span>
+    </div>
+    <div class="blurb">A river of blue-black scale and too many legs, long as a barn and twice as patient. The crowned predator of the lower halls — and, troublingly, clever enough to talk.</div>
+    <div class="row defs"><span class="lab">Defenses</span>
+      <span class="chip c-immune">Immune · Lightning</span>
+      <span class="none">&nbsp;No known weakness — this one's earned the hard way.</span>
+    </div>
+    <div class="row"><span class="lab">Watch for</span>It bites and constricts, can <b>swallow a person whole</b>, scales sheer stone like a lizard on a wall, and breathes a long line of lightning that fills a corridor end to end. It is unhurt by lightning of any kind.</div>
+    <div class="tip"><span class="lab">Field tip</span>Every lightning trick you own is wasted on it — hit it with <em>anything else</em>. Spread wide so its breath can't catch you in a line. If it swallows someone, that's survivable — cut your way out from the inside (Kree will vouch). It loves tight tunnels where it can pin you, so drag it into open ground. And it <b>talks</b>: it can be stalled, deceived, or warned off at least as readily as fought.</div>
+  </div>
+
+  <div class="footer">⚔ &nbsp; Recorded at the Ironbound Hall · added to by those who walk back through the door &nbsp; ⚔</div>
+
+</div>

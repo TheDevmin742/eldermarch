@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hearthsheet — Wilhelm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4ecdd; --panel:#fbf5e8; --panel2:#efe5cf;
+  --ink:#3d3322; --ink-soft:#6e5d40; --muted:#a3906a;
+  --rust:#8a5a22; --rust-deep:#3f6b86; --gold:#cda75a; --edge:#cdb182; --edge-soft:#e0cda0;
+  --dark:#6b4a1e; --dot:#3f6b86; --num:#3f6b86; --exp:#b5532f;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;background:#e8dcc0;}
+body{font-family:'EB Garamond',Georgia,serif;color:var(--ink);font-size:13.5px;line-height:1.4;}
+
+.page{width:920px;margin:18px auto;background:var(--paper);padding:22px;
+  box-shadow:0 6px 22px rgba(60,40,15,.22);border-radius:6px;}
+
+/* ---- identity header ---- */
+.idbar{border:1.5px solid var(--gold);border-radius:12px;background:var(--panel);
+  padding:14px 18px;display:flex;gap:18px;align-items:flex-start;margin-bottom:14px;}
+.idbar .left{flex:1.3;}
+.eyebrow{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.32em;color:var(--rust);text-transform:uppercase;}
+.cname{font-family:'Cinzel',serif;font-weight:700;font-size:30px;line-height:1.04;color:var(--rust);margin:2px 0 6px;}
+.tags{display:flex;gap:6px;flex-wrap:wrap;}
+.tag{font-family:'Cinzel',serif;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;
+  padding:3px 9px;border-radius:10px;color:#fff;}
+.tag.race{background:#8a7a5a;} .tag.cls{background:#3f6b86;} .tag.bg{background:#9a6f2a;}
+.idbar .right{flex:1.5;display:grid;grid-template-columns:1fr 1fr 0.9fr;gap:4px 16px;align-self:center;}
+.field .v{font-size:14px;color:var(--ink);border-bottom:1px solid var(--edge);padding-bottom:1px;min-height:18px;}
+.field .l{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.16em;color:var(--muted);text-transform:uppercase;margin-top:1px;}
+.insp{text-align:center;}
+.insp .dia{width:34px;height:34px;margin:0 auto;background:var(--gold);transform:rotate(45deg);border-radius:6px;
+  display:flex;align-items:center;justify-content:center;}
+.insp .dia span{transform:rotate(-45deg);color:#fff;font-style:italic;font-size:10px;}
+
+/* ---- 3-col body ---- */
+.cols{display:grid;grid-template-columns:1fr 1.25fr 1fr;gap:14px;align-items:start;}
+.col{display:flex;flex-direction:column;gap:12px;}
+
+.panel{border:1px solid var(--edge);border-radius:9px;background:var(--panel);overflow:hidden;}
+.phead{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--rust);
+  padding:6px 10px 4px;border-bottom:1px solid var(--edge-soft);display:flex;justify-content:space-between;align-items:center;}
+.phead.dark{background:var(--dark);color:#f3e7c6;border-bottom:none;}
+.pbody{padding:8px 10px;}
+
+/* ability boxes */
+.abil{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px;}
+.ab{border:1px solid var(--edge);border-radius:9px;background:var(--panel2);text-align:center;padding:7px 4px 5px;position:relative;}
+.ab .lab{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.14em;color:var(--muted);}
+.ab .mod{font-family:'Cinzel',serif;font-size:24px;font-weight:700;color:var(--num);line-height:1.1;}
+.ab .scr{display:inline-block;margin-top:2px;font-size:11px;border:1px solid var(--edge);border-radius:8px;padding:0 8px;background:#fff;}
+.ab .pdot{position:absolute;top:6px;right:7px;width:9px;height:9px;border-radius:50%;border:1.4px solid var(--gold);background:transparent;cursor:pointer;}
+
+/* save & skill rows */
+.row{display:flex;align-items:center;gap:7px;padding:2.5px 2px;border-bottom:1px dotted #e2d4af;}
+.row:last-child{border-bottom:none;}
+.dot{width:9px;height:9px;border-radius:50%;border:1.4px solid var(--gold);flex:none;}
+.dot.on{background:var(--dot);border-color:var(--dot);}
+.bonus{font-weight:600;width:26px;text-align:right;color:var(--num);}
+.rn{flex:1;}
+.atag{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+
+/* combat strip */
+.cstrip{display:grid;grid-template-columns:100px 1fr 1fr 1fr;gap:10px;align-items:center;}
+.accell{display:flex;align-items:center;justify-content:center;height:84px;}
+.acdia{width:56px;height:56px;background:var(--dark);transform:rotate(45deg);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;}
+.acdia .in{transform:rotate(-45deg);text-align:center;color:#f3e7c6;}
+.acdia .in b{font-family:'Cinzel',serif;font-size:20px;display:block;line-height:1;}
+.acdia .in span{font-family:'Cinzel',serif;font-size:6.5px;letter-spacing:.1em;}
+.minibox{border:1px solid var(--edge);border-radius:9px;background:var(--panel2);text-align:center;padding:6px 2px;}
+.minibox b{font-family:'Cinzel',serif;font-size:18px;color:var(--num);display:block;line-height:1.1;}
+.minibox span{font-family:'Cinzel',serif;font-size:6.5px;letter-spacing:.1em;color:var(--muted);text-transform:uppercase;}
+.hpbox{border:1px solid var(--edge);border-radius:9px;background:var(--panel);display:flex;justify-content:space-between;align-items:center;padding:8px 14px;margin-top:10px;}
+.hpbox .big{font-family:'Cinzel',serif;font-size:24px;color:var(--num);}
+.hpbox .lab{font-family:'Cinzel',serif;font-size:7.5px;letter-spacing:.14em;color:var(--rust);text-transform:uppercase;}
+.tworow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+.deathline{display:flex;gap:6px;align-items:center;margin:3px 0;}
+.dcirc{width:11px;height:11px;border-radius:50%;border:1.4px solid var(--gold);}
+
+/* attacks table */
+table{width:100%;border-collapse:collapse;}
+th{font-family:'Cinzel',serif;font-size:7px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;text-align:left;padding:3px 4px;}
+td{padding:4px;border-top:1px dotted #e2d4af;font-size:12.5px;}
+td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
+
+/* lists */
+.eq{columns:2;column-gap:14px;font-size:12px;margin:0;padding-left:16px;}
+.eq li{margin:0 0 2px;}
+.kv{margin:0 0 5px;}
+.kv b{color:var(--rust-deep);}
+.coins{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-top:6px;}
+.coin{border:1px solid var(--edge);border-radius:7px;text-align:center;padding:3px 0;background:#fff;}
+.coin b{display:block;font-family:'Cinzel',serif;font-size:8px;color:var(--muted);}
+.feat{margin:0 0 6px;} .feat b{color:var(--num);}
+.note{font-style:italic;color:var(--ink-soft);}
+.att{display:flex;align-items:flex-start;gap:6px;margin:0 0 4px;}
+.att .box{width:11px;height:11px;border:1.4px solid var(--gold);border-radius:3px;flex:none;margin-top:2px;}
+.att .box.on{background:var(--dot);border-color:var(--dot);}
+
+.pagelabel{text-align:center;font-family:'Cinzel',serif;font-size:8px;letter-spacing:.3em;color:var(--muted);text-transform:uppercase;margin:2px 0 10px;}
+
+/* page 2 */
+.appear{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;}
+.portrait{border:1.5px dashed var(--edge);border-radius:9px;min-height:230px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-style:italic;background:var(--panel2);}
+.bigbody{padding:9px 12px;min-height:60px;}
+
+@media print{
+  body{background:#fff;} .page{box-shadow:none;margin:0 auto;border-radius:0;page-break-after:always;width:auto;}
+}
+</style>
+</head>
+<body>
+<div id="sheet">
+
+  <!-- PAGE 1 -->
+  <div class="page">
+    <div class="idbar">
+      <div class="left">
+        <div class="eyebrow">Character</div>
+        <div class="cname">Wilhelm</div>
+        <div class="tags"><span class="tag race">Human</span><span class="tag cls">Artificer 5</span><span class="tag bg">Tinker</span></div>
+      </div>
+      <div class="right">
+        <div class="field"><div class="v">Artificer 5</div><div class="l">Class &amp; Level</div></div>
+        <div class="field"><div class="v">Tinker</div><div class="l">Background</div></div>
+        <div class="field"><div class="v istarwrap" style="text-align:center;letter-spacing:3px;font-size:15px;"><span class="istar"></span><span class="istar"></span><span class="istar"></span></div><div class="l">Inspiration</div></div>
+        <div class="field"><div class="v">True Neutral</div><div class="l">Alignment</div></div>
+        <div class="field"><div class="v">Andy</div><div class="l">Player</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Experience</div></div>
+      </div>
+    </div>
+
+    <div class="cols">
+      <div class="col">
+        <div class="panel"><div class="phead">Ability Scores</div>
+          <div class="abil">
+            <div class="ab"><div class="pdot"></div><div class="lab">STR</div><div class="mod">+2</div><div class="scr">13</div></div>
+            <div class="ab"><div class="pdot"></div><div class="lab">DEX</div><div class="mod">+2</div><div class="scr">13</div></div>
+            <div class="ab"><div class="pdot"></div><div class="lab">CON</div><div class="mod">+1</div><div class="scr">10</div></div>
+            <div class="ab"><div class="pdot on"></div><div class="lab">INT</div><div class="mod">+3</div><div class="scr">17</div></div>
+            <div class="ab"><div class="pdot"></div><div class="lab">WIS</div><div class="mod">+3</div><div class="scr">15</div></div>
+            <div class="ab"><div class="pdot on"></div><div class="lab">CHA</div><div class="mod">+3</div><div class="scr">16</div></div>
+          </div>
+        </div>
+        <div class="panel"><div class="phead">Saving Throws</div><div class="pbody" style="padding:5px 10px;">
+          <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Strength</span><span class="atag">STR</span></div>
+          <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Dexterity</span><span class="atag">DEX</span></div>
+          <div class="row"><span class="dot"></span><span class="bonus">+1</span><span class="rn">Constitution</span><span class="atag">CON</span></div>
+          <div class="row"><span class="dot on"></span><span class="bonus">+5</span><span class="rn">Intelligence</span><span class="atag">INT</span></div>
+          <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Wisdom</span><span class="atag">WIS</span></div>
+          <div class="row"><span class="dot on"></span><span class="bonus">+5</span><span class="rn">Charisma</span><span class="atag">CHA</span></div>
+        </div></div>
+        <div class="panel"><div class="phead">Skills</div><div class="pbody" style="padding:5px 10px;">
+        <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Acrobatics</span><span class="atag">DEX</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Animal Handling</span><span class="atag">WIS</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Arcana</span><span class="atag">INT</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Athletics</span><span class="atag">STR</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Deception</span><span class="atag">CHA</span></div>
+        <div class="row"><span class="dot on"></span><span class="bonus">+5</span><span class="rn">History</span><span class="atag">INT</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Insight</span><span class="atag">WIS</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Intimidation</span><span class="atag">CHA</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Investigation</span><span class="atag">INT</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Medicine</span><span class="atag">WIS</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Nature</span><span class="atag">INT</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Perception</span><span class="atag">WIS</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Performance</span><span class="atag">CHA</span></div>
+        <div class="row"><span class="dot on"></span><span class="bonus">+5</span><span class="rn">Persuasion</span><span class="atag">CHA</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Religion</span><span class="atag">INT</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Sleight of Hand</span><span class="atag">DEX</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+2</span><span class="rn">Stealth</span><span class="atag">DEX</span></div>
+        <div class="row"><span class="dot"></span><span class="bonus">+3</span><span class="rn">Survival</span><span class="atag">WIS</span></div>
+        </div></div>
+        <div class="panel"><div class="phead">Senses</div><div class="pbody">
+          <div class="kv"><b>Passive Perception</b> 13</div>
+          <div class="kv"><b>Passive Investigation</b> 13 &nbsp;·&nbsp; <b>Passive Insight</b> 13</div>
+          <div class="kv" style="font-style:italic;color:var(--ink-soft);">Darkvision 60 ft. (Goggles of Night).</div>
+        </div></div>
+      </div>
+
+      <div class="col">
+        <div class="cstrip">
+          <div class="accell"><div class="acdia"><div class="in"><b>13</b><span>ARMOR</span></div></div></div>
+          <div class="minibox"><b>+2</b><span>Initiative</span></div>
+          <div class="minibox"><b>30<small style="font-size:9px;">ft</small></b><span>Speed</span></div>
+          <div class="minibox"><b>+2</b><span>Prof. Bonus</span></div>
+        </div>
+        <div class="hpbox"><div><span class="lab">Hit Points</span><br><span class="big">32</span> / 32</div><div><span class="lab">Temp</span><br><span class="big" style="font-size:18px;">0</span></div></div>
+        <div class="tworow">
+          <div class="panel"><div class="phead">Hit Dice</div><div class="pbody"><b contenteditable="true" style="font-family:'Cinzel',serif;font-size:16px;color:var(--num);">5d8</b><div class="note" contenteditable="true">Total 5d8</div></div></div>
+          <div class="panel"><div class="phead">Death Saves</div><div class="pbody">
+            <div class="deathline"><span class="atag" style="width:48px;">Success</span><span class="dcirc"></span><span class="dcirc"></span><span class="dcirc"></span></div>
+            <div class="deathline"><span class="atag" style="width:48px;">Failure</span><span class="dcirc"></span><span class="dcirc"></span><span class="dcirc"></span></div>
+          </div></div>
+        </div>
+        <div class="panel"><div class="phead dark">Attacks &amp; Spellcasting</div><div class="pbody" style="padding:4px 10px 8px;">
+          <table>
+            <tr><th>Name</th><th style="text-align:center;">ATK</th><th>Damage / Type</th></tr>
+            <tr><td>Flintlock <span class="note">(Repeating Shot)</span></td><td class="c">+6</td><td>1d8+3 piercing · makes its own ammo</td></tr>
+            <tr><td>Spear <span class="note">(Returning Weapon)</span></td><td class="c">+6</td><td>1d6+3 piercing · returns when thrown</td></tr>
+            <tr><td>Short sword</td><td class="c">+5</td><td>1d6+2 slashing</td></tr>
+            <tr><td>Ray of Frost <span class="note">(cantrip)</span></td><td class="c">+4</td><td>1d8 cold · speed −10</td></tr>
+          </table>
+          <div class="kv" style="margin-top:6px;"><b>Spell save DC</b> 14 &nbsp;·&nbsp; <b>Spell atk</b> +4 &nbsp;·&nbsp; <b>Ability</b> INT</div>
+        </div></div>
+        <div class="panel"><div class="phead">Equipment</div><div class="pbody">
+          <ul class="eq">
+            <li>Tinker's tools · Smith's tools</li><li>Thieves' tools</li>
+            <li>Flintlock · spear · short sword</li><li>Silver compass (repaired)</li>
+            <li>Talisman (a potato)</li><li>Displacer-beast hide</li>
+            <li>Pocket watch · chains of binding</li><li>Fire blanket</li>
+            <li>3 pots · 2 bones · 1 skull</li><li>Human remains <span class="note">(parts)</span></li>
+          </ul>
+          <div class="coins"><div class="coin"><b>CP</b>—</div><div class="coin"><b>SP</b>0</div><div class="coin"><b>EP</b>—</div><div class="coin"><b>GP</b>1</div><div class="coin"><b>PP</b>—</div></div>
+        </div></div>
+        <div class="panel"><div class="phead">Resources &amp; Uses</div><div class="pbody">
+          <div class="kv"><b>Spell slots</b> — 1st ×4 · 2nd ×2 (see spell page).</div>
+          <div class="kv"><b>Infuse Item</b> — Enhanced Weapon · Repeating Shot · Returning Weapon · Replicate Magic Item.</div>
+          <div class="kv"><b>Magical Tinkering</b> — imbue tiny objects with minor magic.</div>
+          <div class="kv"><b>The Right Tool for the Job</b> · <b>Tool Expertise</b> (double prof with tools).</div>
+        </div></div>
+      </div>
+
+      <div class="col">
+        <div class="panel"><div class="phead">Conditions</div><div class="pbody"><div class="kv" style="font-style:italic;color:var(--ink-soft);">None — steady hands, working order.</div><div class="exh"><b>Exhaustion</b> <span contenteditable="true">0</span> / 6</div></div></div>
+        <div class="panel"><div class="phead">Personality &amp; Traits</div><div class="pbody">
+          <div class="kv"><b>Personality.</b> Sees every project to the end — “every problem has a solution.”</div>
+          <div class="kv"><b>Ideal.</b> To unravel the secrets of the world, and share them with it.</div>
+          <div class="kv"><b>Bond.</b> His late mother, held dear — and the small class he teaches.</div>
+          <div class="kv"><b>Flaw.</b> Mistrustful; tends to enjoy isolation.</div>
+        </div></div>
+        <div class="panel"><div class="phead">Features &amp; Traits</div><div class="pbody">
+          <div class="feat"><b>Magical Tinkering.</b> Imbue tiny objects with light, sound, scent, or a recorded message.</div>
+          <div class="feat"><b>Spellcasting (INT) &amp; Ritual Casting.</b> Casts through his tools as a focus.</div>
+          <div class="feat"><b>Infuse Item.</b> Enhanced Weapon, Repeating Shot, Returning Weapon, Replicate Magic Item.</div>
+          <div class="feat"><b>Replicate Magic Item.</b> Pot of Alchemy · Goggles of Night.</div><div class="feat" style="color:#a23b22;"><b>⚠ Choose your Artificer Specialist.</b> Pick Battle Smith / Artillerist / Alchemist / Armorer (level 3) — grants a major feature (Steel Defender · Eldritch Cannon · Experimental Elixirs · Arcane Armor) and bonus prepared spells. <em>Not yet selected.</em></div>
+          <div class="feat"><b>The Right Tool for the Job · Tool Expertise.</b> Conjures tools; doubles proficiency with them.</div>
+          <div class="feat"><b>Tinkering Ideas (homebrew).</b> Smokebomb (cracked pot), Flame Sword (thermal), the Telecom.</div>
+          <div class="feat"><b>Weapon Crafting · Mimic Tear (homebrew).</b> His stranger creations.</div>
+        </div></div>
+        <div class="panel"><div class="phead">Proficiencies &amp; Languages</div><div class="pbody">
+          <div class="kv"><b>Armor.</b> Light, medium, shields</div>
+          <div class="kv"><b>Weapons.</b> Simple &amp; martial weapons</div>
+          <div class="kv"><b>Tools.</b> Tinker's tools, Smith's tools, thieves' tools</div>
+          <div class="kv"><b>Languages.</b> Common, Thieves' Cant</div>
+        </div></div>
+        <div class="panel"><div class="phead">Attunement <span class="note" style="font-size:9px;">max 3</span></div><div class="pbody">
+          <div class="att"><span class="box on"></span><div><b>Emberlock Focusing Ring</b> — steadies his craft against fire/heat. <span class="note">(attuned)</span></div></div>
+          <div class="att"><span class="box"></span><div class="note">— open slot —</div></div>
+          <div class="att"><span class="box"></span><div class="note">— open slot —</div></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE 2 -->
+  <div class="page">
+    <div class="idbar" style="margin-bottom:12px;">
+      <div class="left"><div class="eyebrow">Character</div><div class="cname" style="font-size:24px;">Wilhelm</div></div>
+      <div class="right" style="grid-template-columns:repeat(3,1fr);">
+        <div class="field"><div class="v">Human</div><div class="l">Race</div></div>
+        <div class="field"><div class="v">Artificer 5</div><div class="l">Class</div></div>
+        <div class="field"><div class="v">True Neutral</div><div class="l">Alignment</div></div>
+      </div>
+    </div>
+    <div class="pagelabel">✦ &nbsp; The Quiet Inventor &nbsp; ✦</div>
+    <div class="panel" style="margin-bottom:12px;"><div class="phead">Appearance</div><div class="pbody">
+      <div class="appear">
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Age</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Height</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Weight</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Eyes</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Skin</div></div>
+        <div class="field"><div class="v">&nbsp;</div><div class="l">Hair</div></div>
+      </div>
+      <div class="note" contenteditable="true" style="margin-top:8px;">A soft-spoken, easily-overlooked man, always tinkering with something in the corner of the room. He smells of cedar shavings and lamp oil, and his pockets click and whir when no one is looking.</div>
+    </div></div>
+    <div class="cols" style="grid-template-columns:1fr 1.4fr;">
+      <div class="col">
+        <div class="panel"><div class="phead">Portrait</div><div class="portrait">paste / draw Wilhelm here</div></div>
+        <div class="panel"><div class="phead">Allies &amp; Organizations</div><div class="pbody">
+          <div class="kv"><b>The Academy of Artifice.</b> Where he teaches primary school in Brindlewick.</div>
+          <div class="kv"><b>The Company.</b> Kree, Kenra &amp; Thalasstheos — the road-family he didn't plan for.</div>
+          <div class="kv"><b>His pupils.</b> The small class he holds dear.</div>
+          <div class="kv"><b>Marta Brin.</b> The merchant whose caravan job started it all.</div>
+          <div class="kv"><b>His late mother.</b> Held very dear.</div>
+        </div></div>
+      </div>
+      <div class="col">
+        <div class="panel"><div class="phead">Backstory</div><div class="pbody bigbody">
+          Wilhelm Thorne was the kind of man people forgot they'd met — soft-spoken, polite, always tinkering with something in the corner of the room. In the cobbled town of Brindlewick he was the village fix-it man: kettles, lanterns, the occasional music box. His workshop smelled of cedar shavings and lamp oil, cluttered with half-built contraptions that clicked and whirred when no one was looking. Most assumed he was a harmless eccentric. But Wilhelm saw the world differently — potential in broken things, patterns in chaos, magic in the mundane. One day, buried beneath a pile of rusted gears, he found a fragment of an ancient schematic, etched with runes and powered by something not quite mechanical. That night he fused arcane energy with brass and bone, and his first creation blinked at him with glowing eyes and asked, <i>“What is my purpose?”</i> Wilhelm didn't know yet — but he knew the world was about to change, and that he would be the one to quietly, brilliantly change it.
+        </div></div>
+        <div class="panel"><div class="phead">Treasure</div><div class="pbody">
+          <div class="kv"><b>The Cinderwarden Coat (campaign).</b> His fireproof coat — resistance to fire; shrugs off burning rooms.</div>
+          <div class="kv"><b>Goggles of Night · Pot of Alchemy.</b> Replicated magic items.</div>
+          <div class="kv"><b>Scale mail · pocket watch · fire blanket.</b> Workshop keepsakes and kit.</div>
+          <div class="kv"><b>Chains of binding · molten fangs · weighted dice (to 6).</b> Odd little makings.</div>
+          <div class="kv"><b>The Mimic Tear.</b> A stranger creation of his own.</div>
+          <div class="kv"><b>Silver compass · displacer-beast hide.</b> A fixed relic and cured spoils.</div>
+        </div></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:12px;"><div class="phead">Additional Features &amp; Notes</div><div class="pbody bigbody">
+      <div class="kv"><b>Soft-Spoken Inventor.</b> Rarely speaks unless necessary; when he does, his words are thoughtful and precise.</div>
+      <div class="kv"><b>Endlessly Curious · Absentminded but Kind.</b> Dismantles things to rebuild them better; forgets birthdays, never forgets to help someone in need.</div>
+      <div class="kv"><b>Private but Observant.</b> Keeps to himself, but notices everything others overlook.</div>
+      <div class="kv"><b>Creed.</b> “Every problem has a solution — you just need the right tools.” “Great inventions don't need applause; if it helps someone, it's worth building.”</div>
+    </div></div>
+  </div>
+
+  <!-- PAGE 3 — SPELLS -->
+  <div class="page">
+    <div class="idbar" style="margin-bottom:12px;">
+      <div class="left"><div class="eyebrow">Character</div><div class="cname" style="font-size:24px;">Wilhelm</div></div>
+      <div class="right" style="grid-template-columns:repeat(3,1fr);">
+        <div class="field"><div class="v">Artificer</div><div class="l">Spellcasting Class</div></div>
+        <div class="field"><div class="v">14</div><div class="l">Save DC</div></div>
+        <div class="field"><div class="v">+4</div><div class="l">Atk Bonus</div></div>
+      </div>
+    </div>
+    <div class="pagelabel">✦ &nbsp; Spells &amp; Infusions &nbsp; ✦</div>
+    <div class="panel" style="margin-bottom:12px;"><div class="phead">Spellcasting</div><div class="pbody">
+      <div class="appear" style="grid-template-columns:repeat(3,1fr);">
+        <div class="field"><div class="v">Intelligence</div><div class="l">Ability</div></div>
+        <div class="field"><div class="v">14</div><div class="l">Spell Save DC</div></div>
+        <div class="field"><div class="v">+4</div><div class="l">Spell Attack</div></div>
+      </div>
+    </div></div>
+    <div class="panel" style="margin-bottom:12px;"><div class="phead">Spell Slots</div><div class="pbody">
+      <table>
+        <tr><th>Level</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+        <tr><td>Total</td><td class="c">4</td><td class="c">2</td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td></tr>
+        <tr><td>Used</td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td><td class="c"> </td></tr>
+      </table>
+    </div></div>
+    <div class="cols" style="grid-template-columns:1fr 1fr;">
+      <div class="col">
+        <div class="panel"><div class="phead">Cantrips <span class="note" style="font-size:9px;">at will</span></div><div class="pbody bigbody" style="min-height:120px;">
+          <div class="kv">Ray of Frost</div><div class="kv">Mending</div>
+        </div></div>
+        <div class="panel"><div class="phead">Level 1 <span class="note" style="font-size:9px;">4 slots</span></div><div class="pbody bigbody" style="min-height:120px;">
+          <div class="kv">Arcane Weapon</div><div class="kv">Snare</div><div class="kv">Heroism</div><div class="kv">Shield</div>
+        </div></div>
+        <div class="panel"><div class="phead">Level 2 <span class="note" style="font-size:9px;">2 slots</span></div><div class="pbody bigbody" style="min-height:120px;"><div class="kv note" style="color:#a23b22;">⚠ choose 2nd-level spells — e.g. Web, Heat Metal, Enhance Ability, Lesser Restoration</div></div></div>
+        <div class="panel"><div class="phead">Infusions Known</div><div class="pbody bigbody" style="min-height:120px;">
+          <div class="kv">Repeating Shot <span class="note">→ flintlock</span></div><div class="kv">Returning Weapon <span class="note">→ spear</span></div><div class="kv">Replicate Magic Item <span class="note">→ Goggles of Night, Pot of Alchemy</span></div><div class="kv">Enhanced Weapon</div>
+        </div></div>
+      </div>
+      <div class="col">
+        <div class="panel"><div class="phead">Level 3</div><div class="pbody bigbody" style="min-height:120px;"></div></div>
+        <div class="panel"><div class="phead">Level 4</div><div class="pbody bigbody" style="min-height:120px;"></div></div>
+        <div class="panel"><div class="phead">Level 5</div><div class="pbody bigbody" style="min-height:120px;"></div></div>
+        <div class="panel"><div class="phead">Notes</div><div class="pbody bigbody" style="min-height:120px;"></div></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<style>
+[contenteditable="true"]:hover{outline:1px dashed #cbb88a;border-radius:4px;}
+[contenteditable="true"]:focus{outline:2px solid #b08d3f;background:#fffdf4;border-radius:4px;}
+.toggle{cursor:pointer;}
+.dcirc.on{background:var(--dot);border-color:var(--dot);}
+.att .box.on{background:var(--dot);border-color:var(--dot);}
+.dot.on.exp{background:var(--exp);border-color:var(--exp);}
+.pdot.on{background:var(--dot);border-color:var(--dot);}
+.pdot.on.exp{background:var(--exp);border-color:var(--exp);}
+.arow{margin:0 0 5px;font-size:13.5px;}
+.sep{color:var(--muted);}
+.istar{cursor:pointer;color:var(--gold);margin:0 2px;font-size:16px;}
+.istar::before{content:'\2729';}
+.istar.on::before{content:'\2605';}
+.addbtn{font-family:'Cinzel',serif;font-size:11px;line-height:1;padding:1px 7px;border:1px solid var(--gold);background:rgba(255,255,255,.5);color:var(--rust);border-radius:8px;cursor:pointer;margin-left:6px;}
+.phead.dark .addbtn{color:#f3e7c6;border-color:#f3e7c6;background:transparent;}
+#bar{position:fixed;top:10px;right:14px;display:flex;gap:6px;z-index:999;}
+#bar button{font-family:'EB Garamond',Georgia,serif;font-size:12px;padding:6px 11px;border:1px solid #b08d3f;background:#fbf6e9;color:#5d4633;border-radius:8px;cursor:pointer;box-shadow:0 2px 5px rgba(60,40,15,.2);}
+#bar button:hover{background:#fff;}
+#hint{position:fixed;bottom:10px;right:14px;font-size:11px;color:#8a7a55;background:#fbf6e9;border:1px solid #e0d3ac;border-radius:7px;padding:4px 9px;z-index:999;font-family:'EB Garamond',serif;}
+.rollchip{display:inline-block;font-family:'Cinzel',serif;font-size:9px;letter-spacing:.04em;margin-left:6px;padding:1px 5px;border:1px solid var(--dot);color:var(--dot);border-radius:6px;cursor:pointer;user-select:none;vertical-align:middle;}
+.rollchip:hover{background:var(--dot);color:#fff;}
+.phead .rollchip{border-color:var(--rust);color:var(--rust);}
+.phead.dark .rollchip{border-color:#f3e7c6;color:#f3e7c6;}
+#rolllog{position:fixed;right:14px;top:118px;width:212px;max-height:46vh;overflow:auto;background:var(--panel);border:1px solid var(--edge);border-radius:10px;box-shadow:0 4px 16px rgba(60,40,15,.18);font-family:'EB Garamond',serif;z-index:998;display:none;}
+.rl-head{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--rust);padding:7px 10px;border-bottom:1px solid var(--edge-soft);display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;background:var(--panel);}
+.rl-clear{font-size:9px;color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:0;}
+#rolllog-body{padding:4px 8px;}
+.logentry{display:grid;grid-template-columns:1fr auto;gap:0 6px;padding:5px 2px;border-bottom:1px dotted var(--edge-soft);font-size:12px;}
+.logentry .ln{font-weight:600;color:var(--ink);}
+.logentry .lr{font-family:'Cinzel',serif;font-weight:700;color:var(--ink);justify-self:end;}
+.logentry .ld{grid-column:1/3;font-size:10.5px;color:var(--muted);font-style:italic;}
+.logentry.nat20{background:rgba(70,140,50,.12);}.logentry.nat20 .lr{color:#2e7d32;}
+.logentry.nat1{background:rgba(190,50,40,.12);}.logentry.nat1 .lr{color:#c0392b;}
+.logentry.err .lr{color:#c0392b;}
+#inittrack{position:fixed;left:14px;top:118px;display:none;flex-direction:column;gap:6px;z-index:998;max-height:72vh;overflow:auto;}
+.initbox{display:flex;align-items:center;gap:7px;background:var(--panel);border:1px solid var(--edge);border-radius:9px;padding:5px 8px;box-shadow:0 2px 6px rgba(60,40,15,.15);min-width:122px;}
+.initbox .initval{font-family:'Cinzel',serif;font-weight:700;font-size:16px;color:var(--rust);min-width:24px;text-align:center;}
+.initbox .initname{flex:1;font-size:12px;color:var(--ink);outline:none;}
+.initbox .initx{cursor:pointer;color:var(--muted);font-weight:700;padding:0 2px;}
+.initbox .initx:hover{color:var(--rust);}
+#diceanim{display:none;position:fixed;inset:0;align-items:center;justify-content:center;font-family:'Cinzel',serif;font-size:56px;color:var(--rust);background:rgba(255,255,255,.2);z-index:1001;pointer-events:none;}
+#dicemodal{display:none;position:fixed;inset:0;align-items:center;justify-content:center;background:rgba(40,30,20,.35);z-index:1002;}
+.dm-card{background:var(--panel);border:1px solid var(--edge);border-radius:14px;padding:18px 20px;box-shadow:0 10px 30px rgba(40,30,20,.35);text-align:center;font-family:'EB Garamond',serif;}
+.dm-title{font-family:'Cinzel',serif;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);margin-bottom:10px;}
+.dm-row{margin-bottom:10px;font-size:13px;}
+.dm-row input{width:50px;font-size:14px;padding:3px 6px;border:1px solid var(--edge);border-radius:6px;text-align:center;}
+.dm-dice{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;max-width:248px;}
+.dm-dice button{font-family:'Cinzel',serif;font-size:12px;padding:7px 0;width:52px;border:1px solid var(--dot);background:#fff;color:var(--dot);border-radius:8px;cursor:pointer;}
+.dm-dice button:hover{background:var(--dot);color:#fff;}
+.dm-close{margin-top:12px;font-size:12px;padding:5px 14px;border:1px solid var(--edge);background:transparent;border-radius:8px;cursor:pointer;color:var(--ink-soft);}
+@media print{#bar,#hint,.addbtn,.rollchip,#rolllog,#inittrack,#dicemodal,#diceanim{display:none!important;}}
+</style>
+<div id="bar">
+  <button onclick="saveCopy()">💾 Save copy</button>
+  <button onclick="openDice()">🎲 Roll dice</button>
+  <button onclick="window.print()">🖨 Print / PDF</button>
+  <button onclick="resetSheet()">↺ Reset</button>
+</div>
+<div id="hint">Click a d20/atk chip to roll · Shift = advantage, Alt = disadvantage · click the Initiative box to track</div>
+<div id="rolllog"><div class="rl-head">Roll Log <span class="rl-clear" onclick="document.getElementById('rolllog-body').innerHTML=''">clear</span></div><div id="rolllog-body"></div></div>
+<div id="inittrack"></div>
+<div id="diceanim"></div>
+<div id="dicemodal"><div class="dm-card"><div class="dm-title">Roll Dice</div><div class="dm-row">How many: <input id="dicecount" type="number" value="1" min="1" max="50"></div><div class="dm-dice"><button onclick="rollCustom(4)">d4</button><button onclick="rollCustom(6)">d6</button><button onclick="rollCustom(8)">d8</button><button onclick="rollCustom(10)">d10</button><button onclick="rollCustom(12)">d12</button><button onclick="rollCustom(20)">d20</button><button onclick="rollCustom(100)">d100</button></div><button class="dm-close" onclick="closeDice()">close</button></div></div>
+<script>
+(function(){
+  var KEY='hearthsheet:'+document.title;
+  var sheet=document.getElementById('sheet');
+  var EDIT='.v,.scr,.mod,.bonus,.coin,.cname,.tag,.eq,.bigbody,.kv,.feat,.fillline,td,.hpbox div,.minibox b,.acdia .in b';
+  var ADD={'RESOURCES & USES':'line','ATTACKS & SPELLCASTING':'attack','PROFICIENCIES & LANGUAGES':'line','FEATURES & TRAITS':'line','ALLIES & ORGANIZATIONS':'line','TREASURE':'line','ADDITIONAL FEATURES':'line','CONDITIONS':'line'};
+  function mkbtn(label,fn,add){var b=document.createElement('button');b.className='addbtn';b.textContent=label;b.setAttribute('data-add',add);b.setAttribute('contenteditable','false');b.setAttribute('onclick',fn+'(this)');return b;}
+  function chip(label,fn){var c=document.createElement('span');c.className='rollchip';c.textContent=label;c.setAttribute('contenteditable','false');c.onclick=fn;return c;}
+  function bind(){
+    sheet.querySelectorAll('.rollchip').forEach(function(e){e.remove();});
+    sheet.querySelectorAll(EDIT).forEach(function(el){el.setAttribute('contenteditable','true');});
+    sheet.querySelectorAll('.istarwrap').forEach(function(w){w.setAttribute('contenteditable','false');});
+    sheet.querySelectorAll('.ab').forEach(function(ab){if(!ab.querySelector('.pdot')){var p=document.createElement('div');p.className='pdot';p.setAttribute('contenteditable','false');ab.insertBefore(p,ab.firstChild);}});
+    sheet.querySelectorAll('.dot,.pdot').forEach(function(d){
+      d.classList.add('toggle');
+      d.onclick=function(){
+        if(d.classList.contains('exp')){d.classList.remove('on');d.classList.remove('exp');}
+        else if(d.classList.contains('on')){d.classList.add('exp');}
+        else{d.classList.add('on');}
+        save();
+      };
+    });
+    sheet.querySelectorAll('.dcirc,.att .box,.istar').forEach(function(d){
+      d.classList.add('toggle');
+      d.onclick=function(){d.classList.toggle('on');save();};
+    });
+    sheet.querySelectorAll('.phead').forEach(function(h){
+      if(h.querySelector('.addbtn'))return;
+      var key=(h.textContent||'').trim().toUpperCase();
+      for(var k in ADD){if(key.indexOf(k)===0){h.appendChild(mkbtn('+','addRow',ADD[k]));h.appendChild(mkbtn('−','removeRow',ADD[k]));break;}}
+    });
+    sheet.querySelectorAll('.row').forEach(function(row){
+      var panel=row.closest('.panel');var ph=panel?panel.querySelector('.phead'):null;var ptxt=ph?ph.textContent.toUpperCase():'';
+      if(ptxt.indexOf('SKILL')<0 && ptxt.indexOf('SAVING')<0)return;
+      var isSave=ptxt.indexOf('SAVING')>=0;
+      row.appendChild(chip('d20',function(ev){var n=row.querySelector('.rn'),b=row.querySelector('.bonus');rollCheck((n?n.textContent.trim():'Check')+(isSave?' save':''),(b?b.textContent:'0'),mode(ev));}));
+    });
+    sheet.querySelectorAll('table tr').forEach(function(tr){
+      if(tr.querySelector('th'))return;var tds=tr.querySelectorAll('td');if(tds.length<3)return;
+      var panel=tr.closest('.panel');var ph=panel?panel.querySelector('.phead'):null;
+      if(!ph||ph.textContent.toUpperCase().indexOf('ATTACK')<0)return;
+      tds[tds.length-1].appendChild(chip('atk',function(ev){rollAttack(tr,mode(ev));}));
+    });
+    sheet.querySelectorAll('.phead').forEach(function(h){
+      if(h.textContent.toUpperCase().indexOf('DEATH')<0||h.querySelector('.rollchip'))return;
+      h.appendChild(chip('d20',function(ev){rollDeath(h.closest('.panel'));}));
+    });
+    sheet.querySelectorAll('.minibox').forEach(function(mb){
+      if(mb.textContent.toUpperCase().indexOf('INITIATIVE')<0)return;
+      mb.style.cursor='pointer';mb.title='Click to roll initiative (Shift adv, Alt dis)';
+      mb.onclick=function(ev){if(ev.target.isContentEditable)return;rollInit(ev);};
+    });
+  }
+  window.addRow=function(btn){
+    var panel=btn.closest('.panel');var kind=btn.getAttribute('data-add');
+    if(kind==='attack'){
+      var tbl=panel.querySelector('table');var tr=document.createElement('tr');
+      tr.innerHTML='<td contenteditable="true">&nbsp;</td><td class="c" contenteditable="true">&nbsp;</td><td contenteditable="true">&nbsp;</td>';
+      tbl.appendChild(tr);
+    } else {
+      var body=panel.querySelector('.pbody');var d=document.createElement('div');d.className='arow';
+      d.innerHTML='<b contenteditable="true" style="color:var(--num);">&nbsp;</b><span class="sep"> — </span><span contenteditable="true">&nbsp;</span>';
+      var anchor=body.querySelector('.exh'); if(anchor){body.insertBefore(d,anchor);}else{body.appendChild(d);}
+    }
+    save();
+  };
+  window.removeRow=function(btn){
+    var panel=btn.closest('.panel');var kind=btn.getAttribute('data-add');
+    if(kind==='attack'){
+      var rows=panel.querySelectorAll('table tr'); if(rows.length>1){rows[rows.length-1].remove();}
+    } else {
+      var body=panel.querySelector('.pbody');var rows=body.querySelectorAll('.arow,.kv,.feat'); if(rows.length){rows[rows.length-1].remove();}
+    }
+    save();
+  };
+  var VER='w2';var t;function save(){clearTimeout(t);t=setTimeout(function(){try{localStorage.setItem(KEY,JSON.stringify({v:VER,html:sheet.innerHTML}));}catch(e){}},400);}
+  sheet.addEventListener('input',save);
+  try{var raw=localStorage.getItem(KEY);if(raw){var o=JSON.parse(raw);if(o&&o.v===VER&&o.html){sheet.innerHTML=o.html;}else{localStorage.removeItem(KEY);}}}catch(e){}
+  bind();
+  function rollDie(s){return Math.floor(Math.random()*s)+1;}
+  function mode(ev){return ev&&ev.shiftKey?'adv':(ev&&ev.altKey?'dis':'');}
+  function modeStr(m){return m==='adv'?' (adv)':(m==='dis'?' (dis)':'');}
+  function num(str){var v=parseInt((str||'').replace(/[^0-9+\-]/g,''),10);return isNaN(v)?0:v;}
+  function d20Roll(mod,m){var a=rollDie(20),b=rollDie(20),nat;if(m==='adv')nat=Math.max(a,b);else if(m==='dis')nat=Math.min(a,b);else nat=a;return{nat:nat,pair:(m?[a,b]:null),total:nat+mod};}
+  function cellText(td){var s='';td.childNodes.forEach(function(n){if(n.nodeType===3)s+=n.nodeValue;else if(!(n.nodeType===1&&n.classList&&n.classList.contains('rollchip')))s+=n.textContent;});return s;}
+  function parseDice(raw){var s=(raw||'').toLowerCase().replace(/\s+/g,'');var math=(s.match(/^[0-9d+\-]+/)||[''])[0];if(!math)return null;var terms=math.match(/[+-]?[^+-]+/g)||[];var dice=[],flat=0,saw=false;for(var i=0;i<terms.length;i++){var t=terms[i],sg=1;if(t.charAt(0)==='+'){t=t.slice(1);}else if(t.charAt(0)==='-'){sg=-1;t=t.slice(1);}if(t.indexOf('d')>=0){var p=t.split('d');if(p.length!==2)return null;var n=p[0]===''?1:parseInt(p[0],10);var sd=parseInt(p[1],10);if(isNaN(n)||isNaN(sd)||sd<1||n<1||n>100)return null;dice.push({n:n,s:sd,sg:sg});saw=true;}else{var v=parseInt(t,10);if(isNaN(v))return null;flat+=sg*v;}}if(!saw&&flat===0)return null;return{dice:dice,flat:flat};}
+  function rollDmg(p,crit){var total=p.flat,parts=[];p.dice.forEach(function(d){var c=d.n*(crit?2:1),sub=0;for(var i=0;i<c;i++)sub+=rollDie(d.s);total+=d.sg*sub;parts.push((d.sg<0?'-':'')+c+'d'+d.s);});return{total:total,parts:parts};}
+  function logRoll(name,detail,result,cls){var b=document.getElementById('rolllog-body');if(!b)return;var e=document.createElement('div');e.className='logentry'+(cls?' '+cls:'');var a=document.createElement('span');a.className='ln';a.textContent=name;var c=document.createElement('span');c.className='lr';c.textContent=result;var d=document.createElement('span');d.className='ld';d.textContent=detail;e.appendChild(a);e.appendChild(c);e.appendChild(d);b.insertBefore(e,b.firstChild);var lg=document.getElementById('rolllog');if(lg)lg.style.display='block';}
+  function animateThen(cb){var ov=document.getElementById('diceanim');if(!ov){cb();return;}ov.style.display='flex';var n=0,iv=setInterval(function(){ov.textContent='⚄ '+rollDie(20);n++;if(n>6){clearInterval(iv);ov.style.display='none';cb();}},55);}
+  function rollCheck(name,bonusStr,m){var mod=num(bonusStr);animateThen(function(){var r=d20Roll(mod,m);var cls=r.nat===20?'nat20':(r.nat===1?'nat1':'');logRoll(name,'d20'+modeStr(m)+(r.pair?' ['+r.pair.join(', ')+']':' ['+r.nat+']')+(mod>=0?' +'+mod:' '+mod),r.total,cls);});}
+  function rollAttack(tr,m){var tds=tr.querySelectorAll('td');var name=(cellText(tds[0])||'Attack').trim()||'Attack';var atk=num(cellText(tds[1]));var dmgStr=cellText(tds[tds.length-1]);animateThen(function(){var hit=d20Roll(atk,m);var crit=hit.nat===20;var hcls=hit.nat===20?'nat20':(hit.nat===1?'nat1':'');logRoll(name+' — hit','d20'+modeStr(m)+(hit.pair?' ['+hit.pair.join(', ')+']':' ['+hit.nat+']')+(atk>=0?' +'+atk:' '+atk),hit.total,hcls);var p=parseDice(dmgStr);if(!p){logRoll(name+' — damage','can’t read dice: “'+dmgStr.trim()+'”','ERR','err');return;}var dm=rollDmg(p,crit);logRoll(name+' — damage'+(crit?' (CRIT ×2)':''),dm.parts.join(' + ')+(p.flat?(p.flat>0?' +'+p.flat:' '+p.flat):''),dm.total,crit?'nat20':'');});}
+  function fillNext(panel,which){var line=null;panel.querySelectorAll('.deathline').forEach(function(l){if(l.textContent.toUpperCase().indexOf(which)>=0)line=l;});if(!line)return;var c=line.querySelectorAll('.dcirc');for(var i=0;i<c.length;i++){if(!c[i].classList.contains('on')){c[i].classList.add('on');return;}}}
+  function rollDeath(panel){animateThen(function(){var r=rollDie(20);if(r===20){logRoll('Death Save','d20 [20]','20 — you rally! +1 HP','nat20');}else if(r===1){logRoll('Death Save','d20 [1]','1 — two failures','nat1');fillNext(panel,'FAIL');fillNext(panel,'FAIL');}else if(r>=10){logRoll('Death Save','d20 ['+r+']',r+' — success','');fillNext(panel,'SUCCESS');}else{logRoll('Death Save','d20 ['+r+']',r+' — failure','');fillNext(panel,'FAIL');}if(typeof save==='function')save();});}
+  window.openDice=function(){var m=document.getElementById('dicemodal');if(m)m.style.display='flex';};
+  window.closeDice=function(){var m=document.getElementById('dicemodal');if(m)m.style.display='none';};
+  window.rollCustom=function(sides){var el=document.getElementById('dicecount');var cnt=parseInt(el?el.value:'1',10)||1;if(cnt<1)cnt=1;if(cnt>50)cnt=50;animateThen(function(){var rolls=[],tot=0;for(var i=0;i<cnt;i++){var r=rollDie(sides);rolls.push(r);tot+=r;}var cls='';if(sides===20&&cnt===1){cls=rolls[0]===20?'nat20':(rolls[0]===1?'nat1':'');}logRoll(cnt+'d'+sides,'['+rolls.join(', ')+']',tot,cls);});};
+  function addInitBox(name,val){var t=document.getElementById('inittrack');if(!t)return;var b=document.createElement('div');b.className='initbox';var v=document.createElement('span');v.className='initval';v.textContent=val;var nm=document.createElement('span');nm.className='initname';nm.setAttribute('contenteditable','true');nm.textContent=name;var x=document.createElement('span');x.className='initx';x.textContent='×';x.onclick=function(){b.remove();if(!t.querySelector('.initbox'))t.style.display='none';};b.appendChild(v);b.appendChild(nm);b.appendChild(x);t.appendChild(b);t.style.display='flex';}
+  window.rollInit=function(ev){var box=null;sheet.querySelectorAll('.minibox').forEach(function(mb){if(mb.textContent.toUpperCase().indexOf('INITIATIVE')>=0)box=mb;});var mod=box?num(box.querySelector('b').textContent):0;var r=d20Roll(mod,mode(ev));var nm=sheet.querySelector('.cname');addInitBox((nm&&nm.textContent.trim())||'PC',r.total);logRoll('Initiative','d20'+modeStr(mode(ev))+' ['+r.nat+']'+(mod>=0?' +'+mod:' '+mod),r.total,r.nat===20?'nat20':(r.nat===1?'nat1':''));};
+  window.saveCopy=function(){
+    var html='<!DOCTYPE html>\n<html>'+document.documentElement.innerHTML+'</html>';
+    var blob=new Blob([html],{type:'text/html'});
+    var a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download=document.title.replace(/[^a-z0-9]+/gi,'_')+'.html';
+    document.body.appendChild(a);a.click();a.remove();
+  };
+  window.resetSheet=function(){if(confirm('Clear your saved edits and reload the original sheet?')){try{localStorage.removeItem(KEY);}catch(e){}location.reload();}};
+})();
+</script>
+</body>
+</html>

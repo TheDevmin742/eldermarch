@@ -1,0 +1,1450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Two — Phandalin to the Stormy Mountains and Beyond</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3b2a1a; --ink-soft:#5d4633; --crimson:#7c2d12; --crimson2:#9a3412;
+  --gold:#9a6b1f; --gold-bright:#b8860b; --sea:#1d4e5f; --edge:#c9b48a;
+  --parch1:#f6ecd2; --parch2:#efe1bf; --parch3:#e7d4a8;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'EB Garamond',Georgia,'Times New Roman',serif;
+  color:var(--ink); line-height:1.72; font-size:19px;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #efe2c2 0%, rgba(239,226,194,0) 55%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(150,110,60,.05) 0 2px, rgba(0,0,0,0) 2px 5px),
+    repeating-radial-gradient(circle at 80% 70%, rgba(120,80,40,.045) 0 2px, rgba(0,0,0,0) 2px 6px),
+    linear-gradient(160deg,var(--parch1),var(--parch2) 55%,var(--parch3));
+  background-attachment:fixed;
+}
+.page{max-width:820px;margin:0 auto;padding:46px 30px 90px;}
+
+.frontis{text-align:center;padding:28px 0 10px;}
+.vol-eyebrow{font-family:'Cinzel',serif;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold);font-size:14px;margin-bottom:6px;padding-left:.55em;}
+.vol-title{font-family:'UnifrakturMaguntia',serif;font-size:74px;line-height:1.02;
+  color:var(--crimson);text-shadow:1px 1px 0 #e9cf9b, 3px 3px 6px rgba(60,30,10,.28);margin:4px 0 2px;}
+.vol-sub{font-family:'Cinzel',serif;font-size:21px;letter-spacing:.06em;color:var(--ink-soft);margin:8px 0 4px;}
+.vol-meta{font-style:italic;color:var(--gold);font-size:16px;letter-spacing:.04em;}
+.frontis pre.flourish{color:var(--crimson);font-size:15px;line-height:1.1;margin:18px 0 6px;
+  text-shadow:1px 1px 0 #e9cf9b;}
+
+.dramatis{margin:26px auto 6px;max-width:740px;}
+.dramatis h4{font-family:'Cinzel',serif;text-align:center;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;font-size:15px;margin:18px 0 14px;}
+.cast-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cast-card{border:1px solid var(--edge);border-radius:10px;padding:13px 16px;
+  background:linear-gradient(160deg,rgba(255,250,235,.6),rgba(231,212,168,.35));
+  box-shadow:0 2px 6px rgba(80,50,20,.10), inset 0 0 0 1px rgba(255,255,255,.25);}
+.cast-name{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);font-size:18px;}
+.cast-role{font-style:italic;color:var(--sea);font-size:15px;margin:1px 0 6px;}
+.cast-desc{font-size:16px;color:var(--ink-soft);line-height:1.55;}
+
+.divider-major{text-align:center;color:var(--gold-bright);font-size:20px;letter-spacing:.4em;margin:34px 0 6px;}
+
+.chapter{margin-top:30px;}
+.scrollwrap{text-align:center;margin:48px 0 22px;}
+.ch-flourish{color:var(--gold-bright);font-size:22px;letter-spacing:.08em;margin-bottom:6px;
+  text-shadow:1px 1px 0 #efdcae;}
+.ch-eyebrow{font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);font-size:13px;margin-top:14px;padding-left:.5em;}
+.ch-title{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;color:var(--crimson);
+  font-size:31px;line-height:1.15;margin:4px auto 6px;max-width:680px;
+  text-shadow:1px 1px 0 #ecd09a;}
+.ch-rule{color:var(--crimson2);font-size:15px;letter-spacing:.05em;opacity:.85;}
+
+.scene-head{text-align:center;font-family:'Cinzel',serif;font-weight:600;color:var(--sea);
+  font-size:20px;margin:30px 0 10px;letter-spacing:.02em;}
+.sh-orn{color:var(--gold-bright);margin:0 .5em;font-size:16px;vertical-align:.08em;}
+.scene{text-align:center;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--crimson);font-size:15px;margin:26px 0 4px;}
+.scene-orn{color:var(--gold-bright);margin:0 .7em;}
+.scene-aside{text-align:center;font-style:italic;color:var(--gold);font-size:14px;margin:0 0 10px;letter-spacing:.02em;}
+
+p.para{margin:0 0 14px;text-align:justify;hyphens:auto;}
+p.first::first-letter{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;
+  float:left;font-size:62px;line-height:.78;padding:6px 10px 2px 0;color:var(--crimson);
+  text-shadow:1px 1px 0 #ecd09a;}
+.say{font-style:italic;color:var(--sea);}
+p.beat{text-align:center;font-family:'Cinzel',serif;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--crimson2);font-size:15px;margin:14px 0;opacity:.9;}
+
+.finis{text-align:center;margin:54px 0 10px;}
+.finis-orn{color:var(--gold-bright);font-size:24px;letter-spacing:.3em;}
+.finis-text{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;color:var(--crimson);
+  font-size:26px;margin-top:10px;text-shadow:1px 1px 0 #ecd09a;}
+
+@media (max-width:640px){
+  body{font-size:17px;}
+  .vol-title{font-size:50px;}
+  .cast-grid{grid-template-columns:1fr;}
+  pre.scroll{font-size:8px;}
+  .ch-title{font-size:24px;}
+}
+@media print{
+  body{background:var(--parch1);}
+  .chapter{page-break-inside:auto;}
+  .scrollwrap{page-break-after:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="frontis">
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+    <div class="vol-eyebrow">The Chronicles of the Ember Road</div>
+    <div class="vol-title">Volume Two</div>
+    <div class="vol-sub">Phandalin to the Stormy Mountains and Beyond</div>
+    <div class="vol-meta">— the story so far · a tale still unfolding —</div>
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+
+    <div class="dramatis">
+      <h4>✦ Dramatis Personae ✦</h4>
+      <div class="cast-grid">
+        <div class="cast-card"><div class="cast-name">Wilhelm Thorne</div><div class="cast-role">Human artificer & tinkerer</div><div class="cast-desc">Dour, precise, flintlock at his hip. Reads every clause of the guild contract — then builds the brass &ldquo;Telecom&rdquo; so the party is never truly out of reach.</div></div><div class="cast-card"><div class="cast-name">Kree</div><div class="cast-role">Aarakocra rogue</div><div class="cast-desc">Bright-feathered and helplessly drawn to coin. Snatches purses, &lsquo;reads&rsquo; books upside down, and keeps a whispering black blade locked in a drawer.</div></div><div class="cast-card"><div class="cast-name">Thalasstheos</div><div class="cast-role">Water genasi, Druid of the Circle of the Sea</div><div class="cast-desc">The serene moral center. This volume she steps away — taking up healing work in town and guiding the party from afar, proving they don&rsquo;t need her at their side to prevail.</div></div><div class="cast-card"><div class="cast-name">Kenra</div><div class="cast-role">Kenku, Druid of the Circle of the Moon</div><div class="cast-desc">Chaos in borrowed voices. Wild-shapes into direwolf, cat, and worse, hoards worthless &lsquo;treasures,&rsquo; and carries a past in the northern mountains she&rsquo;s only beginning to face.</div></div>
+      </div>
+    </div>
+    <div class="divider-major">✦&nbsp;&nbsp;⚜&nbsp;&nbsp;✦</div>
+  </div>
+
+  <section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter One</div><h2 class="ch-title">The Road’s Last Teeth</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The rain does not end all at once.</p>
+<p class="para">It fades—slowly, reluctantly—like a breath the sky forgot it was holding.</p>
+<p class="para">The wagon creaks along the muddy road, its wheels carving shallow grooves through damp earth. A thin mist lingers in the air, clinging to cloaks and feathers alike. The forest has thinned now, giving way to rolling hills, soft and green beneath a gray sky that is finally beginning to clear.</p>
+<p class="para">For the first time since the ravine, since the troll, since the manor—</p>
+<p class="para">They rest.</p>
+<p class="para">Wilhelm lies sprawled awkwardly against a sack, coat still faintly scorched and damp from earlier misfortunes. One hand rests protectively near his flintlock, even in sleep, his fingers twitching every so often as if reloading in dreams.</p>
+<p class="para">Kree lounges atop the wagon’s edge, wings half-draped, idly flipping a coin through his talons. The soft clink, catch, clink is the only sound he contributes to the quiet.</p>
+<p class="para">Kenra is upside down. No one knows when that happened. Her legs hang over the side of the cart, head tilted back, beak slightly open as she hums to herself in three different borrowed tones at once.</p>
+<p class="para">Thalasstheos sits upright among the ashlings, serene even in exhaustion. The tiny creatures cluster near her warmth, their faint glow flickering like distant lanterns. Her eyes remain half-open, watching the road ahead, even as the drizzle fades completely into stillness.</p>
+<p class="para">Peace, for once, seems possible.</p>
+<p class="para">Then—</p>
+<p class="para">Movement.</p>
+<p class="para">Two figures crest a distant rise in the road. One leads a horse; the other walks beside him. Their shapes grow clearer as they approach—travelers, perhaps.</p>
+<p class="para">Or something else.</p>
+<p class="para">Kree’s coin stops mid-air.</p>
+<p class="para">Wilhelm’s eyes open.</p>
+<p class="para">The wagon slows.</p>
+<p class="para">One of the men steps forward, raising a hand. <span class="say">“Hold there,”</span> he calls, voice rough but measured. His eyes flick over the party, sharp, assessing. <span class="say">“What’ve you got in the cart?”</span></p>
+<p class="para">Wilhelm is already moving.</p>
+<p class="para">His hand snaps to his flintlock—</p>
+<p class="para">—and stops.</p>
+<p class="para">Thalasstheos’s hand rests gently, but firmly, on his wrist.</p>
+<p class="para"><span class="say">“No,”</span> she says softly.</p>
+<p class="para">The moment stretches.</p>
+<p class="para">Kenra leans forward, head tilting sharply, voice bright and suspicious all at once.</p>
+<p class="para"><span class="say">“…Are you robbing us?”</span> she asks.</p>
+<p class="para">There is a pause.</p>
+<p class="para">A long one.</p>
+<p class="para">Kree grins.</p>
+<p class="para"><span class="say">“Oh, nothing important,”</span> he says breezily, spreading his wings just slightly. <span class="say">“Just a wagon full of—”</span></p>
+<p class="para">He taps the side of the cart.</p>
+<p class="para"><span class="say">“—cow manure.”</span></p>
+<p class="para">Silence.</p>
+<p class="para">The second man, still a few paces back, snorts—and then scowls.</p>
+<p class="para"><span class="say">“Just kill them,”</span> he barks. <span class="say">“Take whatever they’ve got.”</span></p>
+<p class="para">The air snaps.</p>
+<p class="para">Kree moves first.</p>
+<p class="para">A flash of steel—his dagger whistles through the air—</p>
+<p class="para">—and misses.</p>
+<p class="para">It thuds harmlessly into the dirt beside the man’s boot.</p>
+<p class="para"><span class="say">“Ah,”</span> Kree mutters. <span class="say">“Warming up.”</span></p>
+<p class="para">The road erupts into motion.</p>
+<p class="para">The second man charges forward, blade raised, boots splashing through mud as he swings toward Kenra—</p>
+<p class="para">—but she is already gone.</p>
+<p class="para">She leaps from the wagon—</p>
+<p class="para">Midair, her form twists, stretches—</p>
+<p class="para">Feathers ripple into fur.</p>
+<p class="para">Bones shift with a crack of primal magic.</p>
+<p class="para">She lands as a direwolf, massive and snarling, claws digging into the wet earth as she lunges forward with a thunderous pounce.</p>
+<p class="para">Jaws snap—</p>
+<p class="para">The man stumbles back with a shout, barely avoiding the bite. Panic overtakes him. He scrambles, half-falling, grabbing for the reins of the horse.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">“NOPE—NOPE—NOPE—”</span><span class="scene-orn">❖</span></div>
+<p class="para">He hauls himself onto the saddle and kicks hard.</p>
+<p class="para">The horse bolts.</p>
+<p class="para">Gone in seconds.</p>
+<p class="para">Kenra skids to a halt, ears flicking, watching him disappear with what might be disappointment.</p>
+<p class="para"><span class="say">“Coward,”</span> she growls—though it comes out more like an offended bark.</p>
+<p class="para">The remaining man barely has time to react.</p>
+<p class="para">He draws his blade—</p>
+<p class="para">A sharp crack splits the air.</p>
+<p class="para">Wilhelm fires.</p>
+<p class="para">The bullet strikes true—not flesh, but steel—blasting the weapon clean from the man’s hand. It spins away into the mud with a dull thunk.</p>
+<p class="para">Before he can even curse—</p>
+<p class="para">Water answers.</p>
+<p class="para">Thalasstheos steps forward, one fluid motion, her arm sweeping outward as if pulling the tide itself from the air. A sudden burst of force slams into the bandit, lifting him off his feet and hurling him backward.</p>
+<p class="para">He hits the ground hard.</p>
+<p class="para">Does not get up.</p>
+<p class="para">Silence falls just as quickly as it came.</p>
+<p class="para">The wagon creaks.</p>
+<p class="para">The hills breathe.</p>
+<p class="para">Kree retrieves his dagger, glancing toward the road where the rider vanished. <span class="say">“Well,”</span> he says lightly, <span class="say">“that could’ve gone worse.”</span></p>
+<p class="para">Wilhelm lowers his flintlock, exhaling slowly. <span class="say">“It almost did.”</span></p>
+<p class="para">Kenra trots back toward the cart, shifting mid-step, fur collapsing back into feathers as she resumes her usual form. <span class="say">“He ran,”</span> she says, sounding mildly offended. <span class="say">“I was winning.”</span></p>
+<p class="para">Thalasstheos says nothing. She simply watches the horizon for a moment longer, ensuring no further threats follow.</p>
+<p class="para">Then, quietly—</p>
+<p class="para"><span class="say">“Let us keep moving.”</span></p>
+<p class="para">They do.</p>
+<p class="para">The road rises gently now, winding between soft hills touched by the last light of a breaking sky. The air smells cleaner here. Less of ash. More of earth.</p>
+<p class="para">And then—</p>
+<p class="para">A sign.</p>
+<p class="para">Weathered wood, half-leaning, but still standing.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">PHANDALIN</span><span class="scene-orn">❖</span></div>
+<p class="para">Wilhelm exhales.</p>
+<p class="para">Kree tilts his head, eyes bright.</p>
+<p class="para">Kenra leans forward eagerly.</p>
+<p class="para">Thalasstheos watches the town beyond with quiet calm.</p>
+<p class="para">At last—</p>
+<p class="para">They arrive at the gates.</p>
+<p class="para">The road behind them fades into memory, but something tells them—</p>
+<p class="para">The journey is only just beginning.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Two</div><h2 class="ch-title">A Town of Quiet Threads</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The gates of Phandalin stand open.</p>
+<p class="para">Not grand, not guarded by towering stone or iron—but sturdy, worn, and lived-in. The kind of gates that have seen more wagons than wars.</p>
+<p class="para">As the party approaches, a guard steps forward, raising a hand in greeting rather than warning.</p>
+<p class="para"><span class="say">“Hold there,”</span> he calls, not unkindly. <span class="say">“State your business.”</span></p>
+<p class="para">Kree straightens atop the wagon, already preparing something clever.</p>
+<p class="para"><span class="say">“We’ve got a shipment for—”</span> he begins confidently.</p>
+<p class="para">He pauses.</p>
+<p class="para">A long pause.</p>
+<p class="para">Wilhelm sighs.</p>
+<p class="para"><span class="say">“It’s for Marta Brin,”</span> he says, stepping forward slightly.</p>
+<p class="para">The guard nods immediately, tension easing. <span class="say">“Right. You’re expected.”</span> He steps aside, waving them through. <span class="say">“Welcome to Phandalin.”</span></p>
+<p class="para">And just like that—</p>
+<p class="para">They enter.</p>
+<p class="para">Phandalin is… quiet.</p>
+<p class="para">Not empty. Not lifeless. Just calm.</p>
+<p class="para">People move through their day with a simple purpose—carrying goods, sweeping steps, exchanging small words that drift like dust in the sunlight. The kind of place where nothing should go wrong.</p>
+<p class="para">They pass a general store, its windows cluttered with tools and travel gear. A tavern hums faintly with midday voices. An inn stands nearby, its sign creaking gently in the breeze.</p>
+<p class="para">Normal.</p>
+<p class="para">Almost suspiciously so.</p>
+<p class="para">The wagon rolls on, wheels clattering softly against packed dirt, until at last they arrive at a more structured building—cleaner, sharper in its edges.</p>
+<p class="para">The Merchant’s Guild.</p>
+<p class="para">Inside, the air smells faintly of parchment and ink.</p>
+<p class="para">Behind a polished desk, a receptionist looks up—then immediately past them, out the window.</p>
+<p class="para">At the cart.</p>
+<p class="para">At the time of day.</p>
+<p class="para">Her expression tightens.</p>
+<p class="para"><span class="say">“You’re late,”</span> she says flatly.</p>
+<p class="para">Thalasstheos steps forward, calm as ever. <span class="say">“We were… delayed,”</span> she replies gently. <span class="say">“There was a situation.”</span></p>
+<p class="para">A pause.</p>
+<p class="para">A very deliberate pause.</p>
+<p class="para">The receptionist’s eyes move from her—to Wilhelm—to Kree—</p>
+<p class="para">Then stop.</p>
+<p class="para"><span class="say">“…I was expecting two,”</span> she says slowly. <span class="say">“A tall young man and a red parrot.”</span></p>
+<p class="para">Kree raises a hand. <span class="say">“Present.”</span></p>
+<p class="para">Wilhelm gestures vaguely. <span class="say">“Yes, well—circumstances changed. They joined us along the way.”</span></p>
+<p class="para">The receptionist’s gaze lingers on Kenra. Then on Thalasstheos.</p>
+<p class="para">Judging. Measuring.</p>
+<p class="para">Then—she sighs.</p>
+<p class="para"><span class="say">“Fine.”</span></p>
+<p class="para">She reaches beneath the desk and produces a coin pouch, placing it down with a soft, definitive thud.</p>
+<p class="para"><span class="say">“Payment for delivery.”</span></p>
+<p class="para">Kree moves faster than thought.</p>
+<p class="para">The pouch vanishes into his claws.</p>
+<p class="para"><span class="say">“Pleasure doing business,”</span> he chirps brightly.</p>
+<p class="para">The receptionist does not respond.</p>
+<p class="para">Back outside, the town feels warmer somehow.</p>
+<p class="para">Less like a checkpoint. More like a place.</p>
+<p class="para">And just as quickly as they arrived—</p>
+<p class="para">They begin to drift apart.</p>
+<p class="para">Kenra wanders first.</p>
+<p class="para">Of course she does.</p>
+<p class="para">Her steps turn into a curious waddle as she follows something unseen—perhaps a feeling, perhaps nothing at all—until she stumbles upon a small shrine tucked between buildings.</p>
+<p class="para">Candles flicker softly.</p>
+<p class="para">Charms hang from thin strings.</p>
+<p class="para">And standing beside it—</p>
+<p class="para">A woman.</p>
+<p class="para">Red hair, bright even in the soft light. A pointed hat tilted just slightly. Her presence feels… out of place.</p>
+<p class="para">Or perhaps exactly where it should be.</p>
+<p class="para">She smiles.</p>
+<p class="para"><span class="say">“Welcome,”</span> she says.</p>
+<p class="para">Kenra tilts her head. <span class="say">“Fortune?”</span> she asks immediately, producing a few coins with surprising efficiency.</p>
+<p class="para">The woman—Ember—accepts them without hesitation.</p>
+<p class="para">She studies Kenra.</p>
+<p class="para">Not her face.</p>
+<p class="para">Her.</p>
+<p class="para">Then she speaks.</p>
+<p class="para"><span class="say">“You came from the north,”</span> Ember says softly. <span class="say">“From the mountains. A flock of your own kind.”</span></p>
+<p class="para">Kenra stills.</p>
+<p class="para"><span class="say">“You were cast out,”</span> Ember continues, voice like quiet flame. <span class="say">“And fell… until you found new companions to carry you forward.”</span></p>
+<p class="para">Silence.</p>
+<p class="para">Kenra blinks.</p>
+<p class="para"><span class="say">“…Yes,”</span> she says, quieter now.</p>
+<p class="para">Ember smiles faintly. From somewhere unseen, she produces a small slip of paper and presses it into Kenra’s hand.</p>
+<p class="para"><span class="say">“You will be met with reunion,”</span> she says.</p>
+<p class="para">No explanation.</p>
+<p class="para">No elaboration.</p>
+<p class="para">Just certainty.</p>
+<p class="para">Elsewhere—</p>
+<p class="para">Wilhelm and Thalasstheos walk side by side.</p>
+<p class="para">Kree—</p>
+<p class="para">Was with them.</p>
+<p class="para">Was.</p>
+<p class="para"><span class="say">“…Where is Kenra?”</span> Thalasstheos asks, glancing around.</p>
+<p class="para">Wilhelm turns. Pauses.</p>
+<p class="para"><span class="say">“…She was just here.”</span></p>
+<p class="para">They both turn the other direction.</p>
+<p class="para"><span class="say">“…Where is Kree?”</span> Wilhelm adds.</p>
+<p class="para">Silence.</p>
+<p class="para">A long, mutual realization settles between them.</p>
+<p class="para">They sigh.</p>
+<p class="para">Together.</p>
+<p class="para">Moments later, they sit on a nearby bench.</p>
+<p class="para">Thinking.</p>
+<p class="para">Or trying to.</p>
+<p class="para">Meanwhile—</p>
+<p class="para">Kree has found a door.</p>
+<p class="para">Which means, naturally—</p>
+<p class="para">He is inside.</p>
+<p class="para">The building is tall, quiet, lined with shelves upon shelves of books. The air hums faintly with something arcane.</p>
+<p class="para">A mage’s library.</p>
+<p class="para">Kree’s eyes gleam.</p>
+<p class="para"><span class="say">“Oh… shiny knowledge…”</span> he murmurs, already wandering deeper inside.</p>
+<p class="para"><span class="say">“Looking for something?”</span></p>
+<p class="para">He freezes.</p>
+<p class="para">Turns.</p>
+<p class="para">Ember stands there.</p>
+<p class="para">As if she had always been there.</p>
+<p class="para">As if distance means nothing at all.</p>
+<p class="para">Kree blinks. <span class="say">“…You do that often?”</span></p>
+<p class="para">She only smiles.</p>
+<p class="para"><span class="say">“You’re looking for your feathered friend,”</span> she says, gesturing lightly. <span class="say">“The shrine of luck.”</span></p>
+<p class="para">Kree nods slowly… then immediately gets distracted by a shelf.</p>
+<p class="para">Books. Old ones. Interesting ones.</p>
+<p class="para">Ember watches him for a moment before pulling a worn volume from the shelf and handing it to him.</p>
+<p class="para"><span class="say">“For you,”</span> she says.</p>
+<p class="para">Kree takes it reverently. <span class="say">“I like her,”</span> he mutters.</p>
+<p class="para">Then, with book in hand, he heads back out.</p>
+<p class="para">Kenra, meanwhile, has found—</p>
+<p class="para">A horse.</p>
+<p class="para">More specifically, a stable.</p>
+<p class="para">More specifically, a situation.</p>
+<p class="para">A woman stands inside the fenced area, instructing a younger rider. Calm. Focused.</p>
+<p class="para">Kenra hops the fence.</p>
+<p class="para">Immediately.</p>
+<p class="para"><span class="say">“Hey—!”</span> the older woman shouts.</p>
+<p class="para">Kenra ignores her completely, waddling straight toward the horse with intense curiosity.</p>
+<p class="para"><span class="say">“…Hello,”</span> she says, casting a quick spell.</p>
+<p class="para">The world shifts.</p>
+<p class="para">The horse’s thoughts become words.</p>
+<p class="para">The younger rider stares, utterly confused.</p>
+<p class="para">Kenra leans in. <span class="say">“Speak,”</span> she demands.</p>
+<p class="para">The horse begins—</p>
+<p class="para">—but never finishes.</p>
+<p class="para">The older woman storms forward, grabs Kenra—</p>
+<p class="para">—and throws her.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">“OUT!”</span><span class="scene-orn">❖</span></div>
+<p class="para">Kenra flies.</p>
+<p class="para">Midair—</p>
+<p class="para">She shifts.</p>
+<p class="para">Feathers collapse into fur as she becomes a cat, twisting gracefully—</p>
+<p class="para">Landing on the horse’s back.</p>
+<p class="para"><span class="say">“Now we talk—”</span> she begins.</p>
+<p class="para">The horse disagrees.</p>
+<p class="para">Violently.</p>
+<p class="para">It rears, bucks, and launches her with spectacular force—</p>
+<p class="para">Across the yard—</p>
+<p class="para">Over the fence—</p>
+<p class="para">Through the air—</p>
+<p class="para">And directly—</p>
+<p class="para">At Kree’s feet.</p>
+<p class="para">Poof.</p>
+<p class="para">Kenra reappears in her normal form, sprawled on the ground.</p>
+<p class="para">Kree looks down at her.</p>
+<p class="para">Tilts his head.</p>
+<p class="para"><span class="say">“…Found you,”</span> he says.</p>
+<p class="para">Kenra groans.</p>
+<p class="para">Somewhere nearby, Wilhelm rubs his temples without even knowing why.</p>
+<p class="para">And Thalasstheos, seated quietly on the bench, exhales as if the tides themselves have decided—</p>
+<p class="para">This is simply how things are now.</p>
+<p class="para">Phandalin hums gently around them.</p>
+<p class="para">Unaware.</p>
+<p class="para">Or perhaps—</p>
+<p class="para">Waiting.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Three</div><h2 class="ch-title">The Shape of Something More</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Kree flips the book open as they walk.</p>
+<p class="para">Page after page.</p>
+<p class="para">Symbols. Lines. Careful ink.</p>
+<p class="para">He squints.</p>
+<p class="para">Tilts his head.</p>
+<p class="para">Turn it upside down.</p>
+<p class="para"><span class="say">“…Huh.”</span></p>
+<p class="para">A long moment passes.</p>
+<p class="para">Then another.</p>
+<p class="para">Finally, with complete confidence, he snaps the book shut.</p>
+<p class="para"><span class="say">“It says,”</span> he declares proudly, <span class="say">“curiosity kills the cat.”</span></p>
+<p class="para">Kenra caws loudly, delighted. <span class="say">“Good book!”</span></p>
+<p class="para">They continue down the road together, two birds with absolutely no intention of questioning this conclusion.</p>
+<p class="para">Elsewhere, Wilhelm and Thalasstheos stand near the stables.</p>
+<p class="para">The older woman—arms crossed, posture firm—eyes them both with the patience of someone who has dealt with far worse than adventurers.</p>
+<p class="para"><span class="say">“Name’s Carmine,”</span> she says. <span class="say">“And yes, I saw your friend.”</span></p>
+<p class="para">Wilhelm sighs. <span class="say">“Which one?”</span></p>
+<p class="para"><span class="say">“The annoying one,”</span> Carmine replies instantly. <span class="say">“Feathers. Noise. Questions.”</span></p>
+<p class="para"><span class="say">“…That narrows it down to both of them,”</span> Wilhelm mutters.</p>
+<p class="para">Carmine jerks a thumb toward the street. <span class="say">“I threw her that way.”</span></p>
+<p class="para">Thalasstheos nods politely. <span class="say">“Thank you.”</span></p>
+<p class="para">Wilhelm rubs his temples again.</p>
+<p class="para">Kree and Kenra, meanwhile, have discovered a new door.</p>
+<p class="para">And once again—</p>
+<p class="para">They go inside.</p>
+<p class="para">The general store is quiet.</p>
+<p class="para">Empty, at first glance.</p>
+<p class="para">Crates of furs line the walls. Tools are stacked neatly in rows. Sacks of grain sit beside fresh produce, and coils of rope hang like patient serpents from wooden pegs.</p>
+<p class="para">A place of use.</p>
+<p class="para">A place of need.</p>
+<p class="para">Kree’s eyes immediately lock onto something important.</p>
+<p class="para">A bell.</p>
+<p class="para">Small. Shiny. Perfect.</p>
+<p class="para">He picks it up.</p>
+<p class="para">Ring.</p>
+<p class="para">A soft voice calls from somewhere behind the counter.</p>
+<p class="para"><span class="say">“Coming!”</span></p>
+<p class="para">A moment later, a young woman steps into view—white hair, simple clothes, kind eyes that brighten with surprise.</p>
+<p class="para"><span class="say">“Oh—! I wasn’t expecting customers,”</span> she says warmly. <span class="say">“Welcome to Barthen’s Provisions.”</span></p>
+<p class="para">Her gaze lifts to Kree.</p>
+<p class="para"><span class="say">“…Your feathers are beautiful,”</span> she adds, genuinely.</p>
+<p class="para">Kree puffs up slightly. <span class="say">“I know.”</span></p>
+<p class="para">She leans forward slightly—</p>
+<p class="para"><span class="say">“…Is there someone else with you?”</span></p>
+<p class="para">Kenra stands below the counter, completely invisible from this angle.</p>
+<p class="para">Kree doesn’t miss a beat. <span class="say">“Yes.”</span></p>
+<p class="para">Kenra pops up just enough to be seen.</p>
+<p class="para">Barthen blinks.</p>
+<p class="para">Then smiles.</p>
+<p class="para">Kree immediately slams the bell on the counter. <span class="say">“I want this.”</span></p>
+<p class="para">Barthen looks at the bell.</p>
+<p class="para">Then at Kree.</p>
+<p class="para"><span class="say">“…You want the bell.”</span></p>
+<p class="para"><span class="say">“Yes.”</span></p>
+<p class="para">There is a pause.</p>
+<p class="para">A long one.</p>
+<p class="para">Then, slowly, she nods. <span class="say">“Alright… What are you offering?”</span></p>
+<p class="para">Kree produces the salamander scale with a flourish.</p>
+<p class="para">Barthen’s eyebrows lift slightly.</p>
+<p class="para"><span class="say">“…Deal.”</span></p>
+<p class="para">The exchange is made.</p>
+<p class="para">Kree now owns a bell.</p>
+<p class="para">This is a good day.</p>
+<p class="para">Kenra, meanwhile, is exploring.</p>
+<p class="para">Which means—</p>
+<p class="para">She is pecking at the carpet.</p>
+<p class="para">Barthen watches her with quiet amusement, saying nothing, as if this is not even remotely the strangest thing she has seen this week.</p>
+<p class="para">The birds turn to leave—</p>
+<p class="para">The door opens.</p>
+<p class="para">Wilhelm and Thalasstheos step inside.</p>
+<p class="para">They pause.</p>
+<p class="para">See the birds.</p>
+<p class="para">See the bell.</p>
+<p class="para">Wilhelm exhales.</p>
+<p class="para"><span class="say">“…Of course.”</span></p>
+<p class="para">He steps forward and purchases a loaf of bread, tearing into it almost immediately. It is soft. Fresh.</p>
+<p class="para">A far cry from ash-covered scraps in a ruined manor.</p>
+<p class="para">For a moment, he says nothing.</p>
+<p class="para">Just eats.</p>
+<p class="para">Thalasstheos offers Barthen a small, grateful nod. <span class="say">“Thank you.”</span></p>
+<p class="para">Barthen smiles gently. <span class="say">“Safe travels.”</span></p>
+<p class="para">They step back out into the town.</p>
+<p class="para">And drift, together this time, toward the square.</p>
+<p class="para">The fountain sits at its center, water trickling softly.</p>
+<p class="para">Kree immediately leans over and drinks from it.</p>
+<p class="para">Two nearby townsfolk watch in silent horror—</p>
+<p class="para">Then leave.</p>
+<p class="para">Quickly.</p>
+<p class="para">Kree looks up, water dripping from his beak. <span class="say">“…What?”</span></p>
+<p class="para">Nearby, Thalasstheos stands before a statue.</p>
+<p class="para">The stone worn smooth with time.</p>
+<p class="para">The founder of the town.</p>
+<p class="para">She studies it quietly, something thoughtful in her gaze.</p>
+<p class="para">Something… hopeful.</p>
+<p class="para">Kree, meanwhile, has gathered everything.</p>
+<p class="para">Coin. Spoils. Payment.</p>
+<p class="para">He lays it all out.</p>
+<p class="para"><span class="say">“Alright!”</span> he chirps. <span class="say">“Time to divide!”</span></p>
+<p class="para">They split the rewards evenly.</p>
+<p class="para">No tricks. No sleight of hand.</p>
+<p class="para">Just… fairness.</p>
+<p class="para">For once.</p>
+<p class="para">They each take their share.</p>
+<p class="para">And for a brief, shining moment—</p>
+<p class="para">They cheer.</p>
+<p class="para">A job done.</p>
+<p class="para">A road survived.</p>
+<p class="para">A victory, small but real.</p>
+<p class="para">Then—</p>
+<p class="para">The silence returns.</p>
+<p class="para">Not heavy.</p>
+<p class="para">Not painful.</p>
+<p class="para">Just… uncertain.</p>
+<p class="para">Wilhelm clears his throat. <span class="say">“Well. I suppose I should return to Brindlewick. The academy will expect me back.”</span></p>
+<p class="para">Kenra shifts. <span class="say">“I… have things to find,”</span> she says vaguely.</p>
+<p class="para">Kree shrugs. <span class="say">“Road’s always open.”</span></p>
+<p class="para">Thalasstheos folds her hands gently. <span class="say">“There is still much of the world that needs healing.”</span></p>
+<p class="para">They sit.</p>
+<p class="para">Awkwardly.</p>
+<p class="para">Four people who were, until recently, strangers.</p>
+<p class="para">Now—</p>
+<p class="para">Something else.</p>
+<p class="para">Something undefined.</p>
+<p class="para">Kree’s gaze drifts.</p>
+<p class="para">Across the square.</p>
+<p class="para">To a building.</p>
+<p class="para">Larger than the others.</p>
+<p class="para">Marked.</p>
+<p class="para">And before it—</p>
+<p class="para">A statue.</p>
+<p class="para">Bronze.</p>
+<p class="para">Four figures stand together, weapons raised, immortalized in triumph.</p>
+<p class="para">A party.</p>
+<p class="para">A story.</p>
+<p class="para">A legacy.</p>
+<p class="para">Kree stares at it for a long moment.</p>
+<p class="para">Then—</p>
+<p class="para">He turns.</p>
+<p class="para"><span class="say">“We could do that.”</span></p>
+<p class="para">They look at him.</p>
+<p class="para">He gestures toward the statue.</p>
+<p class="para"><span class="say">“Not the statue part,”</span> he clarifies. <span class="say">“The adventuring part.”</span></p>
+<p class="para">A pause.</p>
+<p class="para">Longer this time.</p>
+<p class="para">Real.</p>
+<p class="para"><span class="say">“We already fight together,”</span> he continues. <span class="say">“We already travel together. Might as well make it official.”</span></p>
+<p class="para">Kenra tilts her head. <span class="say">“…Group?”</span></p>
+<p class="para">Thalasstheos smiles, something warm and certain. <span class="say">“A shared purpose,”</span> she says. <span class="say">“I would like that.”</span></p>
+<p class="para">Wilhelm sighs.</p>
+<p class="para">Deeply.</p>
+<p class="para"><span class="say">“…This is a terrible idea,”</span> he mutters.</p>
+<p class="para">Then, after a moment—</p>
+<p class="para"><span class="say">“…But it is a practical one.”</span></p>
+<p class="para">He looks at them.</p>
+<p class="para">Really looks, this time.</p>
+<p class="para"><span class="say">“…Fine.”</span></p>
+<p class="para">Kree grins.</p>
+<p class="para">Kenra nods eagerly.</p>
+<p class="para">Thalasstheos inclines her head.</p>
+<p class="para">And just like that—</p>
+<p class="para">It is decided.</p>
+<p class="para">They stand.</p>
+<p class="para">Together.</p>
+<p class="para">And begin walking.</p>
+<p class="para">Toward the Adventurer’s Guild Hall.</p>
+<p class="para">Toward something new.</p>
+<p class="para">Not just travelers.</p>
+<p class="para">Not just survivors.</p>
+<p class="para">But a party.</p>
+<p class="para">A beginning.</p>
+<p class="para">The road ahead stretches far beyond Phandalin—</p>
+<p class="para">Into storm, into mountain—</p>
+<p class="para">And into whatever waits beyond.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Four</div><h2 class="ch-title">Ink, Coin, and a Name Yet Chosen</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The doors to the Guild Hall swing open with a solid, practiced weight.</p>
+<p class="para">Inside—life.</p>
+<p class="para">Not the quiet rhythm of Phandalin’s streets, but something louder. Sharper.</p>
+<p class="para">Maps stretch across long tables, weighed down by daggers and mugs. Groups of adventurers argue over routes, tracing paths through forests and mountains with ink-stained fingers. A job board clutters one wall—parchments layered atop one another, requests for help, danger, opportunity.</p>
+<p class="para">Laughter rises from one corner.</p>
+<p class="para">A cheer from another.</p>
+<p class="para">Everywhere—experience.</p>
+<p class="para">Steel worn from use. Cloaks marked by travel. Eyes that have seen things and lived.</p>
+<p class="para">And then—</p>
+<p class="para">There are them.</p>
+<p class="para">Four figures, damp from the road, slightly singed, slightly disorganized—</p>
+<p class="para">Standing in the doorway.</p>
+<p class="para">At the front desk, a woman looks up.</p>
+<p class="para">Glasses perched low. Expression flat.</p>
+<p class="para">She sighs.</p>
+<p class="para"><span class="say">“What is it?”</span> she asks, already sounding tired of the answer.</p>
+<p class="para">Thalasstheos steps forward, bright and certain. <span class="say">“We would like to register as an adventuring party.”</span></p>
+<p class="para">Kree nods enthusiastically beside her. <span class="say">“Yes. Officially.”</span></p>
+<p class="para">The woman raises an eyebrow.</p>
+<p class="para">Her gaze sweeps over them.</p>
+<p class="para"><span class="say">“A human. A kenku. A parrot. And a—”</span></p>
+<p class="para"><span class="say">“Water genasi,”</span> Thalasstheos supplies calmly.</p>
+<p class="para"><span class="say">“…Right.”</span></p>
+<p class="para">The woman turns without another word, retrieves a clipboard, and places it on the counter with a soft tap.</p>
+<p class="para"><span class="say">“Fill it out. Sign at the bottom.”</span></p>
+<p class="para">Her handwriting is neat.</p>
+<p class="para">Painfully neat.</p>
+<p class="para">Wilhelm leans in immediately, scanning every line with careful attention.</p>
+<p class="para">The others—</p>
+<p class="para">Do not.</p>
+<p class="para">Kenra tilts the page sideways.</p>
+<p class="para">Kree flips it upside down.</p>
+<p class="para">Thalasstheos waits patiently.</p>
+<p class="para">The woman sighs again. <span class="say">“Name’s Casey,”</span> she adds absently.</p>
+<p class="para">Wilhelm nods without looking up. <span class="say">“Understood.”</span></p>
+<p class="para">Minutes pass.</p>
+<p class="para">Wilhelm reads everything.</p>
+<p class="para">Every clause.</p>
+<p class="para">Every condition.</p>
+<p class="para">Every expectation.</p>
+<p class="para"><span class="say">“…Hm,”</span> he mutters.</p>
+<p class="para">Kree drums his claws impatiently. <span class="say">“Is it a contract or a novel?”</span></p>
+<p class="para"><span class="say">“Both,”</span> Wilhelm replies.</p>
+<p class="para">Eventually—</p>
+<p class="para">They sign.</p>
+<p class="para">Casey collects the clipboard and, with practiced efficiency, hands each of them a small blue slip of paper.</p>
+<p class="para">Blank.</p>
+<p class="para">Then—</p>
+<p class="para">She produces a single golden slip.</p>
+<p class="para">And hands it to Thalasstheos.</p>
+<p class="para">The genasi pauses.</p>
+<p class="para">Recognition flickers in her eyes.</p>
+<p class="para"><span class="say">“A Tablet of Vigor,”</span> she says softly.</p>
+<p class="para">Casey nods. <span class="say">“One per party. Annual. Use it wisely.”</span></p>
+<p class="para">A quiet weight settles over the moment.</p>
+<p class="para">Life.</p>
+<p class="para">Second chances.</p>
+<p class="para">Not something to waste.</p>
+<p class="para"><span class="say">“Membership fee,”</span> Casey adds flatly.</p>
+<p class="para">Coins exchange hands.</p>
+<p class="para">The deal is done.</p>
+<p class="para">Kree immediately scratches onto his slip.</p>
+<p class="para">Carefully.</p>
+<p class="para">Deliberately.</p>
+<p class="para"><span class="say">“kre”</span></p>
+<p class="para">The k is backwards.</p>
+<p class="para">Wilhelm leans over, squinting.</p>
+<p class="para"><span class="say">“…Kree,”</span> he says slowly, <span class="say">“that’s for the party name.”</span></p>
+<p class="para">Kree looks up. <span class="say">“Yes.”</span></p>
+<p class="para"><span class="say">“That’s your name.”</span></p>
+<p class="para">Kree nods. <span class="say">“It’s a good one.”</span></p>
+<p class="para"><span class="say">“It is not a party name.”</span></p>
+<p class="para"><span class="say">“It could be.”</span></p>
+<p class="para">Wilhelm opens his mouth—</p>
+<p class="para">Thalasstheos steps between them.</p>
+<p class="para"><span class="say">“Perhaps,”</span> she says gently, <span class="say">“we should choose something… more meaningful.”</span></p>
+<p class="para">Kree considers this.</p>
+<p class="para">Wilhelm exhales.</p>
+<p class="para">Kenra nods enthusiastically despite not contributing anything.</p>
+<p class="para">Behind the counter, Casey groans.</p>
+<p class="para">She takes the forms, stamps them with a dull thunk, and slides them aside.</p>
+<p class="para"><span class="say">“Pending,”</span> she mutters.</p>
+<p class="para">She gestures vaguely toward the hall. <span class="say">“You’re registered. You can take jobs. Get paid. Don’t die.”</span></p>
+<p class="para">A pause.</p>
+<p class="para"><span class="say">“And do at least one job a month,”</span> she adds. <span class="say">“Or you’re disbanded.”</span></p>
+<p class="para">Simple.</p>
+<p class="para">Direct.</p>
+<p class="para">Final.</p>
+<p class="para">They step back out into the evening.</p>
+<p class="para">Phandalin has changed.</p>
+<p class="para">Not in structure—but in feeling.</p>
+<p class="para">Lanterns glow softly now, casting warm halos of orange light along the streets. The air is calm, touched by a gentle wind that carries the faint scent of something magical—something intentional.</p>
+<p class="para">The work of a mage, perhaps.</p>
+<p class="para">Or simply a town that refuses to let darkness settle too deeply.</p>
+<p class="para">The day fades.</p>
+<p class="para">The future waits.</p>
+<p class="para">They make their way to the inn.</p>
+<p class="para">The door opens to warmth.</p>
+<p class="para">Voices.</p>
+<p class="para">The comforting chaos of food, drink, and people who have chosen, for a moment, to rest.</p>
+<p class="para">They sit.</p>
+<p class="para">Together.</p>
+<p class="para">A round of drinks arrives.</p>
+<p class="para">Plates of food follow.</p>
+<p class="para">Real food.</p>
+<p class="para">Hot.</p>
+<p class="para">Fresh.</p>
+<p class="para">They eat.</p>
+<p class="para">They laugh.</p>
+<p class="para">They raise their cups—</p>
+<p class="para"><span class="say">“To treasure,”</span> Kree declares.</p>
+<p class="para"><span class="say">“To survival,”</span> Wilhelm adds.</p>
+<p class="para"><span class="say">“To friendship,”</span> Thalasstheos says softly.</p>
+<p class="para"><span class="say">“To… more?”</span> Kenra offers.</p>
+<p class="para">The cups meet.</p>
+<p class="para">A quiet celebration.</p>
+<p class="para">Not loud.</p>
+<p class="para">Not grand.</p>
+<p class="para">But real.</p>
+<p class="para">Later, they approach the innkeeper.</p>
+<p class="para">A tall, broad-shouldered tabaxi stands behind the counter, fur dark and sleek, eyes sharp but not unkind.</p>
+<p class="para"><span class="say">“Rooms?”</span> he asks.</p>
+<p class="para">Wilhelm nods. <span class="say">“Four.”</span></p>
+<p class="para">The tabaxi—Frun—grunts approvingly and produces four keys, placing them on the counter one by one.</p>
+<p class="para"><span class="say">“Upstairs,”</span> he says. <span class="say">“Sleep well.”</span></p>
+<p class="para">They climb.</p>
+<p class="para">The rooms are simple.</p>
+<p class="para">Beds. Tables. Windows.</p>
+<p class="para">Enough.</p>
+<p class="para">More than enough.</p>
+<p class="para">One by one, they step inside.</p>
+<p class="para">The doors close.</p>
+<p class="para">The town quiets.</p>
+<p class="para">And for the first time since the road began—</p>
+<p class="para">They rest.</p>
+<p class="para">Outside, Phandalin glows softly beneath the night.</p>
+<p class="para">The wind moves gently through its streets.</p>
+<p class="para">And somewhere, unseen—</p>
+<p class="para">Something watches the new party with quiet interest.</p>
+<p class="para">The road ahead has begun.</p>
+<p class="para">And this time—</p>
+<p class="para">They will walk it together.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Four and a Half</div><h2 class="ch-title">Whispers in the Quiet</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Night settles gently over Phandalin.</p>
+<p class="para">The inn creaks softly, wood shifting as if exhaling after a long day. Outside, lantern light flickers against the windows, casting slow-moving shadows across the walls.</p>
+<p class="para">Inside—</p>
+<p class="para">Stillness.</p>
+<p class="para">For the first time, each of them is alone.</p>
+<p class="para">Kenra sits cross-legged on her bed.</p>
+<p class="para">A candle burns beside her.</p>
+<p class="para">She pokes it.</p>
+<p class="para">Once.</p>
+<p class="para">Twice.</p>
+<p class="para">A third time, slightly harder.</p>
+<p class="para">The flame flickers in protest.</p>
+<p class="para">Kenra leans closer, fascinated.</p>
+<p class="para"><span class="say">“…Fire,”</span> she mutters, as if rediscovering it.</p>
+<p class="para">There is nothing urgent in her mind.</p>
+<p class="para">No great thought.</p>
+<p class="para">No heavy purpose.</p>
+<p class="para">Just—</p>
+<p class="para">Boredom.</p>
+<p class="para">Across the hall, Thalasstheos sits near her window.</p>
+<p class="para">A butterfly has found its way inside, wings soft and pale in the dim light. It flutters clumsily, brushing against the glass.</p>
+<p class="para">She lifts a hand.</p>
+<p class="para">The creature settles gently on her finger.</p>
+<p class="para">Nearby, a single ashling lingers—one that did not return with the others. Its faint glow pulses softly, like a quiet heartbeat.</p>
+<p class="para">Thalasstheos watches them both.</p>
+<p class="para">Small lives.</p>
+<p class="para">Fragile.</p>
+<p class="para">Free.</p>
+<p class="para">A soft smile crosses her face.</p>
+<p class="para">For now—</p>
+<p class="para">She is content.</p>
+<p class="para">Wilhelm sits at a desk.</p>
+<p class="para">Candlelight illuminates parchment beneath his hand.</p>
+<p class="para">His writing is precise. Careful.</p>
+<p class="para">Deliberate.</p>
+<p class="para">Each word chosen, weighed.</p>
+<p class="para">To the Academy…</p>
+<p class="para">The letter continues.</p>
+<p class="para">Formal. Respectful.</p>
+<p class="para">Final.</p>
+<p class="para">He pauses once, pen hovering above the page.</p>
+<p class="para">Then continues.</p>
+<p class="para">There is no hesitation now.</p>
+<p class="para">Only resolve.</p>
+<p class="para">When he finishes, he sets the pen down and exhales.</p>
+<p class="para">Satisfied.</p>
+<p class="para">Kree sits on the edge of his bed.</p>
+<p class="para">Coins spill across the blanket in uneven piles.</p>
+<p class="para">He counts them once.</p>
+<p class="para">Twice.</p>
+<p class="para">Then again, just to be sure.</p>
+<p class="para"><span class="say">“…Perfect,”</span> he murmurs.</p>
+<p class="para">A small, pleased trill escapes him.</p>
+<p class="para">Then—</p>
+<p class="para">Something shifts.</p>
+<p class="para">A sound.</p>
+<p class="para">Not from the door.</p>
+<p class="para">Not from the hall.</p>
+<p class="para">From his bag.</p>
+<p class="para">Kree freezes.</p>
+<p class="para"><span class="say">“…Hello?”</span></p>
+<p class="para">Silence.</p>
+<p class="para">Then—</p>
+<p class="para">A voice.</p>
+<p class="para">Low.</p>
+<p class="para">Cold.</p>
+<p class="para">Not spoken aloud—but heard all the same.</p>
+<p class="para"><span class="say">“Kree…”</span></p>
+<p class="para">He flinches.</p>
+<p class="para"><span class="say">“Kree… attune…”</span></p>
+<p class="para">His claws tremble as he slowly reaches into the bag.</p>
+<p class="para">Pulls it out.</p>
+<p class="para">The black sword.</p>
+<p class="para">The one from the manor.</p>
+<p class="para">Its surface drinks the light around it, edges too sharp, too still.</p>
+<p class="para"><span class="say">“I am your strength,”</span> the voice murmurs. <span class="say">“Your power… and your vengeance…”</span></p>
+<p class="para">Kree stares at it.</p>
+<p class="para">Heart racing.</p>
+<p class="para"><span class="say">“I grant you anything…”</span></p>
+<p class="para">A pause.</p>
+<p class="para">Long.</p>
+<p class="para">Heavy.</p>
+<p class="para"><span class="say">“…Attune.”</span></p>
+<p class="para">The room feels smaller.</p>
+<p class="para">The air thinner.</p>
+<p class="para">Kree’s grip tightens—</p>
+<p class="para">Then—</p>
+<p class="para">He shoves the blade back into its sheath.</p>
+<p class="para">The voice cuts off instantly.</p>
+<p class="para">Silence crashes back in.</p>
+<p class="para">Breathing hard, Kree scrambles to his bedside drawer, shoves the weapon inside, and slams it shut.</p>
+<p class="para">He stares at it.</p>
+<p class="para">Doesn’t move.</p>
+<p class="para">Doesn’t blink.</p>
+<p class="para"><span class="say">“…No,”</span> he whispers.</p>
+<p class="para">The night deepens.</p>
+<p class="para">One by one, the lights fade.</p>
+<p class="para">The inn grows quiet.</p>
+<p class="para">Thalasstheos sleeps peacefully, her breathing slow, the faint glow of the ashling beside her like a guardian ember.</p>
+<p class="para">Wilhelm rests with the calm of a man who has made a decision and stands by it.</p>
+<p class="para">Kenra lies awake for a while longer, staring at the ceiling, until even boredom gives way to sleep.</p>
+<p class="para">And Kree—</p>
+<p class="para">Kree does not sleep easily.</p>
+<p class="para">He lies still, eyes open in the dark.</p>
+<p class="para">Listening.</p>
+<p class="para">Waiting.</p>
+<p class="para">Half-expecting the voice to return.</p>
+<p class="para">It doesn’t.</p>
+<p class="para">But the silence is worse.</p>
+<p class="para">Because now he knows—</p>
+<p class="para">It can speak.</p>
+<p class="para">And it will again.</p>
+<p class="para">Outside, the wind moves softly through Phandalin.</p>
+<p class="para">Unbothered.</p>
+<p class="para">Unaware.</p>
+<p class="para">But something has followed them from the manor.</p>
+<p class="para">Something patient.</p>
+<p class="para">Something waiting.</p>
+<p class="para">And in the quiet of the night—</p>
+<p class="para">It listens.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Five</div><h2 class="ch-title">The First Hunt</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Morning arrives quietly.</p>
+<p class="para">Too quietly.</p>
+<p class="para">Wilhelm notices first.</p>
+<p class="para">His bag is lighter.</p>
+<p class="para">Far lighter.</p>
+<p class="para">He freezes.</p>
+<p class="para">Opens it fully.</p>
+<p class="para">Digs through—</p>
+<p class="para">Nothing.</p>
+<p class="para">Gone.</p>
+<p class="para">All of it.</p>
+<p class="para">There is a moment—sharp, still—</p>
+<p class="para">Then the door slams open.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">“MY THINGS ARE GONE!”</span><span class="scene-orn">❖</span></div>
+<p class="para">His voice cuts through the inn like a blade.</p>
+<p class="para">Kree jolts upright in his room.</p>
+<p class="para">Kenra falls off her bed.</p>
+<p class="para">Thalasstheos blinks awake, hair loose and unkempt as she steps into the hall.</p>
+<p class="para"><span class="say">“…What?”</span> she murmurs.</p>
+<p class="para">Wilhelm rounds on them immediately. <span class="say">“My coin. My supplies. Everything. Gone.”</span></p>
+<p class="para">Thalasstheos checks her own satchel.</p>
+<p class="para">A pause.</p>
+<p class="para"><span class="say">“…Mine as well.”</span></p>
+<p class="para">Wilhelm’s eyes snap to Kree.</p>
+<p class="para">Kree raises both wings instantly. <span class="say">“Not me.”</span></p>
+<p class="para"><span class="say">“You were counting coins last night,”</span> Wilhelm says sharply.</p>
+<p class="para"><span class="say">“Yes,”</span> Kree replies. <span class="say">“My coins.”</span></p>
+<p class="para">Kenra steps out into the hallway, looking between them.</p>
+<p class="para"><span class="say">“…What is happening?”</span></p>
+<p class="para"><span class="say">“Robbery,”</span> Wilhelm says.</p>
+<p class="para">Kenra checks her own things.</p>
+<p class="para">A rusty pan.</p>
+<p class="para">A tangled fishing net.</p>
+<p class="para">A dented cup.</p>
+<p class="para">All present.</p>
+<p class="para">She looks up.</p>
+<p class="para"><span class="say">“…I am fine.”</span></p>
+<p class="para">There is a beat.</p>
+<p class="para">Wilhelm pinches the bridge of his nose.</p>
+<p class="para">Moments later, they stand before Frun.</p>
+<p class="para">The innkeeper listens, arms crossed, expression unreadable.</p>
+<p class="para"><span class="say">“…Not the first time this week,”</span> he says finally.</p>
+<p class="para">Wilhelm’s head snaps up. <span class="say">“What?”</span></p>
+<p class="para">Frun nods toward the door. <span class="say">“Guard didn’t see anything. No signs of forced entry. Just—gone.”</span></p>
+<p class="para">Kree shifts slightly.</p>
+<p class="para">From his pack, something stirs.</p>
+<p class="para">A faint tremor.</p>
+<p class="para">A whisper, barely forming—</p>
+<p class="para">Kree smacks the bag.</p>
+<p class="para">It goes still.</p>
+<p class="para"><span class="say">“…Not now,”</span> he mutters.</p>
+<p class="para">Back at the table, the damage is assessed.</p>
+<p class="para">Kenra gathers her untouched <span class="say">“treasures”</span> proudly.</p>
+<p class="para">Thalasstheos, searching through what remains, finds something else—</p>
+<p class="para">A scrap of cloth.</p>
+<p class="para">Torn.</p>
+<p class="para">Unfamiliar.</p>
+<p class="para">She turns it over in her hands, thoughtful.</p>
+<p class="para">A clue.</p>
+<p class="para">Perhaps the only one.</p>
+<p class="para">Frun returns with food.</p>
+<p class="para"><span class="say">“On the house,”</span> he says simply.</p>
+<p class="para">They eat.</p>
+<p class="para">Not celebratory this time.</p>
+<p class="para">Measured.</p>
+<p class="para">Quiet.</p>
+<p class="para">They have a problem now.</p>
+<p class="para">A real one.</p>
+<p class="para">Later—</p>
+<p class="para">The Guild Hall.</p>
+<p class="para">The job board stands tall.</p>
+<p class="para">And empty.</p>
+<p class="para">Almost.</p>
+<p class="para">One parchment remains.</p>
+<p class="para">Marked with a deep red seal.</p>
+<p class="para">Intimidating.</p>
+<p class="para">Untouched.</p>
+<p class="para">Kree leans in. <span class="say">“…That looks important.”</span></p>
+<p class="para">Wilhelm reads it aloud.</p>
+<p class="para"><span class="say">“Displacer beasts. Ambushing caravans from the mountains. High risk. High reward.”</span></p>
+<p class="para">A voice beside them speaks.</p>
+<p class="para"><span class="say">“Yeah… that one’s nasty.”</span></p>
+<p class="para">They turn.</p>
+<p class="para">A young adventurer stands nearby, relaxed but watchful.</p>
+<p class="para"><span class="say">“Name’s Seb,”</span> he says. <span class="say">“You take that, you better be ready.”</span></p>
+<p class="para">Wilhelm studies the posting. <span class="say">“How does one accept?”</span></p>
+<p class="para">Seb gestures. <span class="say">“Tear it off. Bring it to Casey.”</span></p>
+<p class="para">Simple.</p>
+<p class="para">Wilhelm nods.</p>
+<p class="para">And tears it free.</p>
+<p class="para">Casey looks up as they approach.</p>
+<p class="para">She sees the paper.</p>
+<p class="para">Then them.</p>
+<p class="para"><span class="say">“…You’re serious?”</span></p>
+<p class="para"><span class="say">“Very,”</span> Wilhelm replies.</p>
+<p class="para">She leans back slightly. <span class="say">“Displacer beasts are not bandits. They don’t miss. They don’t hesitate.”</span></p>
+<p class="para">Kree steps forward. <span class="say">“We were robbed.”</span></p>
+<p class="para">A pause.</p>
+<p class="para">Casey studies them again.</p>
+<p class="para">Then shrugs.</p>
+<p class="para"><span class="say">“Your funeral.”</span></p>
+<p class="para">She stamps the job.</p>
+<p class="para">Accepted.</p>
+<p class="para">Elsewhere—</p>
+<p class="para">The Shrine of Luck.</p>
+<p class="para">Thalasstheos steps inside once more.</p>
+<p class="para">Ember is there.</p>
+<p class="para">Of course she is.</p>
+<p class="para"><span class="say">“I was wondering when you’d return,”</span> Ember says softly.</p>
+<p class="para">Thalasstheos inclines her head. <span class="say">“I seek work. Something that helps.”</span></p>
+<p class="para">Ember smiles.</p>
+<p class="para"><span class="say">“I know just the place.”</span></p>
+<p class="para">The clinic is modest.</p>
+<p class="para">Warm.</p>
+<p class="para">Quiet.</p>
+<p class="para">Inside, a hunched man leans on a cane, eyes sharp despite his posture.</p>
+<p class="para"><span class="say">“You can heal?”</span> he asks.</p>
+<p class="para"><span class="say">“Yes.”</span></p>
+<p class="para">A pause.</p>
+<p class="para">Then—</p>
+<p class="para"><span class="say">“You’re hired.”</span></p>
+<p class="para">Just like that.</p>
+<p class="para">They regroup in the square.</p>
+<p class="para">Kree, Kenra, Wilhelm—</p>
+<p class="para">And Thalasstheos.</p>
+<p class="para"><span class="say">“I have work,”</span> she says. <span class="say">“At the clinic. I can support us.”</span></p>
+<p class="para">Wilhelm nods. <span class="say">“Good.”</span></p>
+<p class="para"><span class="say">“We have a job,”</span> Kree adds.</p>
+<p class="para"><span class="say">“Dangerous,”</span> Kenra clarifies.</p>
+<p class="para">They stand in thought for a moment.</p>
+<p class="para">Then—</p>
+<p class="para">Wilhelm’s eyes light up.</p>
+<p class="para"><span class="say">“…Wait.”</span></p>
+<p class="para">He rummages through his bag, pulling out tools, bits of metal, scraps of wire.</p>
+<p class="para">He works quickly.</p>
+<p class="para">Precisely.</p>
+<p class="para">Within minutes, four small devices sit in his hands—</p>
+<p class="para">Brass rods, rounded at one end, each with a small button.</p>
+<p class="para"><span class="say">“I call it,”</span> Wilhelm says, holding one up, <span class="say">“the Tele Communicator.”</span></p>
+<p class="para">Kenra takes one immediately. <span class="say">“Telecom.”</span></p>
+<p class="para"><span class="say">“…Telecom is fine,”</span> Wilhelm mutters.</p>
+<p class="para">They each take one.</p>
+<p class="para">A connection.</p>
+<p class="para">A safeguard.</p>
+<p class="para">A promise.</p>
+<p class="para">Thalasstheos smiles. <span class="say">“I will remain here.”</span></p>
+<p class="para">Kree nods. <span class="say">“We’ll return.”</span></p>
+<p class="para">Kenra waves.</p>
+<p class="para">Wilhelm adjusts his coat.</p>
+<p class="para">And just like that—</p>
+<p class="para">They part.</p>
+<p class="para">The east gate opens.</p>
+<p class="para">Phandalin fades behind them.</p>
+<p class="para">They step beyond the safety of lantern light—</p>
+<p class="para">Into shadow.</p>
+<p class="para">Wilhelm presses the device.</p>
+<p class="para"><span class="say">“Testing,”</span> he says.</p>
+<p class="para">A pause.</p>
+<p class="para">Then—</p>
+<p class="para"><span class="say">“…I hear you,”</span> Thalasstheos’s voice answers, soft but clear.</p>
+<p class="para">It works.</p>
+<p class="para">They are not alone.</p>
+<p class="para">The trees close in.</p>
+<p class="para">Light dims.</p>
+<p class="para">The road narrows into something less traveled.</p>
+<p class="para">Less certain.</p>
+<p class="para">The forest is dense here.</p>
+<p class="para">Heavy.</p>
+<p class="para">Watching.</p>
+<p class="para">A rustle.</p>
+<p class="para">Kree pauses.</p>
+<p class="para"><span class="say">“…Did you—”</span></p>
+<p class="para">Too late.</p>
+<p class="para">A blur of black—</p>
+<p class="para">A shape that isn’t where it should be—</p>
+<p class="para">It slams into him.</p>
+<p class="para">Claws.</p>
+<p class="para">Weight.</p>
+<p class="para">Motion.</p>
+<p class="para">Kree hits the ground hard.</p>
+<p class="para"><span class="say">“CONTACT!”</span> he screeches.</p>
+<p class="para">Kenra is already moving.</p>
+<p class="para">She leaps—</p>
+<p class="para">Transforms—</p>
+<p class="para">Fur bursts from feathers midair as she becomes a direwolf once more, crashing into the creature with force, claws tearing—</p>
+<p class="para">But—</p>
+<p class="para">Nothing.</p>
+<p class="para">The beast flickers.</p>
+<p class="para">Shimmers—</p>
+<p class="para">And vanishes.</p>
+<p class="para">Kenra skids across the ground, confused.</p>
+<p class="para">Silence.</p>
+<p class="para">Then—</p>
+<p class="para">Eyes.</p>
+<p class="para">Two yellow lights in the shadows.</p>
+<p class="para">Watching.</p>
+<p class="para">Waiting.</p>
+<p class="para">Then—</p>
+<p class="para">Gone.</p>
+<p class="para">The forest holds its breath.</p>
+<p class="para">Wilhelm raises his weapon slowly.</p>
+<p class="para"><span class="say">“…We are being hunted.”</span></p>
+<p class="para">Kree stands, shaken.</p>
+<p class="para">Kenra growls low.</p>
+<p class="para">And somewhere in the trees—</p>
+<p class="para">Something smiles.</p>
+<p class="para">The hunt has begun.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Six</div><h2 class="ch-title">The Hunt in the Woods</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The beast is gone.</p>
+<p class="para">Then it isn’t.</p>
+<p class="para">Kree slips toward the bushes, low and quiet, feathers tucked — and the displacer beast falls on him like a dropped stone. It pins him to the loam, claws splayed, breath hot and wrong against his neck.</p>
+<p class="para">Wilhelm reacts before he thinks. A word, a gesture, a thread of cold he has been practicing in secret — and Ray of Frost leaps from his fingers. It strikes true. Ice sheets over the creature’s hide, its snarling jaws, and a little of Kree besides.</p>
+<p class="para">The beast freezes mid-lunge.</p>
+<p class="para">Then shivers apart into nothing.</p>
+<p class="para">A projection. A lie of light and malice. The real thing pads out of the brush a few feet over, unhurried.</p>
+<p class="para">Or is it.</p>
+<p class="para">A shape shifts in the branches above. Another settles in behind. The forest closes around them like a fist — and the fight is on.</p>
+<p class="para">Far to the south, Phandalin keeps gentler hours.</p>
+<p class="para">Thalasstheos works the modest clinic by the shrine. The wounded come in a slow trickle — a child’s fever, a carter’s split knuckles, then a man hauled in on a door, hurt badly. She tends them all the same: hands cool and certain, water and quiet light where bandages won’t reach. From the corner, leaning on his cane, Doctor Henning watches and says nothing. He has simply never seen hands like hers.</p>
+<p class="para">Back among the trees, the tide turns.</p>
+<p class="para">Kenra is a bear now — eight feet of black fury — and she brings a paw down on a beast just as its jaws open for Wilhelm’s throat. It bursts into fading motes, projection and all. Wilhelm ducks behind a great trunk, breathes, leans out, fires. Above the canopy Kree wheels and looses arrow after arrow, and one by one the false beasts pop like soap-bubbles until there is nothing left to kill.</p>
+<p class="para">Quiet.</p>
+<p class="para">They press on.</p>
+<p class="para">The Triboar Trail unwinds ahead of them, long and grey, and they walk it warily — wounded, low, and without Thalasstheos to mend what the road takes. They find small mercies: a forgotten backpack, still stocked. A deer, fresh-killed, which Wilhelm skins and packs for later, practical even here. And they find less welcome things — more beasts, more teeth — and put them down at a cost.</p>
+<p class="para">All the long way, the black sword at Kree’s hip whispers.</p>
+<p class="para">In one fight Wilhelm goes down hard, and there is no time to set him right; Kenra simply rolls him onto her broad bear-back and runs.</p>
+<p class="para">Then, in Kree’s pocket, the Tele-Communicator buzzes.</p>
+<p class="para">Far away, on the little balcony of her room at the Stonehill Inn, Thalasstheos holds the twin device to her ear and watches the rooftops go gold.</p>
+<p class="para"><span class="say">“Tell me you’re all in one piece,”</span> she says.</p>
+<p class="para"><span class="say">“We’re fine,”</span> Kree chirps, far too quickly. <span class="say">“Great, actually. Lovely woods. Very scenic.”</span></p>
+<p class="para">In the background, a wet, pained voice. <span class="say">“Fine?”</span> Wilhelm. <span class="say">“I have been thrown, frozen, and bled on — some of it my own — and I am currently being carried by a bear —”</span></p>
+<p class="para"><span class="say">“Wilhelm is enjoying the fresh air,”</span> Kree says brightly.</p>
+<p class="para">There is a rustle, a shuffle — Kenra leaning in close to the device, her borrowed voice gone soft and careful in a way it rarely is. <span class="say">“He is loud,”</span> she says. <span class="say">“Loud means alive. We are alive. Do not worry, water-friend.”</span> A pause. <span class="say">“…The trees are nice.”</span></p>
+<p class="para">A beat of static. Then, on the far end, the smallest laugh. <span class="say">“I’ll take it,”</span> Thalasstheos says — and they can hear her choosing to believe them. <span class="say">“The coin is good here. Better than good. I can keep us fed for a long while yet.”</span></p>
+<p class="para"><span class="say">“See? Everyone’s winning,”</span> says Kree.</p>
+<p class="para"><span class="say">“Hang in there,”</span> she tells them, and the line clicks dark.</p>
+<p class="para">She sits a moment longer with the silence. Then she rises, takes the road out to the Alderleaf Farm, and signs on to coax vegetables from the earth with her druidcraft — because idle hands help no one, and worried ones least of all.</p>
+<p class="para">The party walks until the trees thin, and break, and are simply gone.</p>
+<p class="para">A vast field of reeds opens before them, silver and endless — and beyond it, huge against the sky, the mountain.</p>
+<p class="para">They stop. They rest. And Wilhelm, of all things, gets quiet and busy.</p>
+<p class="para">He binds his wounds with a makeshift wrap, then bends over the deer’s antlers and bones, turning them in his hands, sanding, fitting, frowning with a craftsman’s whole attention. A strange little contraption takes shape under his fingers. And from the scraps left over, he carves — carefully, precisely — a handful of small dice.</p>
+<p class="para">Kenra, still a bear, lumbers over and tips her great head at him. <span class="say">“What is it?”</span> she asks. <span class="say">“A trap? A tool? …A snack?”</span></p>
+<p class="para"><span class="say">“Dice,”</span> he says, not looking up.</p>
+<p class="para"><span class="say">“For what?”</span></p>
+<p class="para">A pause. He turns one over, checks its faces, sets it down square. <span class="say">“…For fun,”</span> he admits, like it costs him something.</p>
+<p class="para">Kree’s head snaps around. <span class="say">“Fun.”</span> He says the word as though tasting it. <span class="say">“You.”</span> A delighted, breathy trill. <span class="say">“The man who alphabetizes his powder horns. Making toys.”</span></p>
+<p class="para"><span class="say">“They’re precision-balanced,”</span> Wilhelm snaps, ears red, which is somehow worse.</p>
+<p class="para">Kree cackles. Wilhelm scowls down at his dice and pretends very hard that he doesn’t almost smile.</p>
+<p class="para">Then the sky softens, and a thin rain begins to fall.</p>
+<p class="para">Kenra is the first into it. She drops her bear-bulk into the shallow water pooling under the reeds and rolls, all four paws in the air, sending up fat silver splashes; she swats at the ripples, snaps at falling drops, chuffs with a pleasure too big for words. Kree tips his face up and lets out a long, happy trill — then springs from the ground in a clatter of wet feathers, climbing the grey air in slow loops, wings spread wide to drink the cool of it, just to feel the rain run off him and fall.</p>
+<p class="para">For a moment, it is almost peace.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Seven</div><h2 class="ch-title">The Storm in the Reeds</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Wilhelm sees the eyes first.</p>
+<p class="para">Low in the reeds, where there should be nothing — two pale lights, fixed and patient, watching him the way a thing watches its supper. The rest of the beast is simply not there, hidden in the stalks and the rain and its own dark magic. Only the eyes. Only the cold prickle climbing the back of his neck.</p>
+<p class="para"><span class="say">“There —”</span> he barks, swinging his weapon up. <span class="say">“In the reeds — eyes — eyes!”</span></p>
+<p class="para"><span class="say">“Where?”</span> Kree drops out of the sky.</p>
+<p class="para"><span class="say">“Speak straight!”</span> Kenra wheels, snorting.</p>
+<p class="para"><span class="say">“There!”</span> Wilhelm fires —</p>
+<p class="para">— and the shot vanishes into the field, swallowed whole.</p>
+<p class="para">The beast lunges. Kenra slams it aside in a spray of mud. Kree dives to harry it from above, and Wilhelm sweeps his frost low across the rain-soaked ground until the reeds glitter and the mud locks white with ice.</p>
+<p class="para">Another battle. In the open, this time.</p>
+<p class="para">A world away, the day is kinder to one of them.</p>
+<p class="para">The sun stands high over the Alderleaf fields, and Thalasstheos is sweating through her sleeves. She hauls fat orange carrots from the wet black earth, one after another, and lines them in the basket. The farm’s sheep crowd around her, fearless, butting at her hands and trailing her like ducklings; she laughs and scratches their ears and steers them, gentle and firm, toward the safety of the pen and the high gate, away from the tree-line and whatever waits in it.</p>
+<p class="para"><span class="say">“Go on, little ones,”</span> she murmurs to them, latching the gate. <span class="say">“The world has teeth today. Best stay where it’s soft.”</span></p>
+<p class="para">By dusk she is paid, and given more besides — a wide-brimmed straw hat, a bundle of fresh vegetables, the small gratitude of people who have little to give.</p>
+<p class="para">That evening she lifts the Communicator and calls.</p>
+<p class="para">Nothing answers.</p>
+<p class="para">She tries again. Nothing.</p>
+<p class="para">Later, by candlelight, she opens her little journal and writes — because the worry has to go somewhere, and the page is quieter than the dark:</p>
+<p class="para"><span class="say">“No word tonight. The device is silent, and silence is not like them — Kree would fill an hour with nothing at all. I tell myself the weather has fouled the signal. I tell myself many things. The tide always tells you the truth eventually; I only wish it would hurry. Be loud, Wilhelm. Be alive. I am listening.”</span></p>
+<p class="para">A hundred miles away, the thing that should have answered lies half-sunk in the mud — its little voice snuffed flat beneath a displacer beast’s paw. Wilhelm shoots the creature before it can vanish, but the damage is done.</p>
+<p class="para">The Telecom is dead.</p>
+<p class="para">And the rain is no longer gentle.</p>
+<p class="para">It comes in sheets now, and out of it more beasts boil — real and false, more than they can count, the reed-field hiding them all. They are fighting smoke and teeth, and losing ground.</p>
+<p class="para"><span class="say">“We can’t hold here!”</span> Wilhelm shouts over the wind. <span class="say">“The reeds — they’re using the reeds — open ground, now!”</span></p>
+<p class="para"><span class="say">“Up!”</span> Kenra barks — and doesn’t wait, hooking him onto her bear-back with one paw. <span class="say">“Hold on, dice-man.”</span></p>
+<p class="para">Kree breaks into the air. They run.</p>
+<p class="para">The wind rises to a howl. Driven stumbling into a clearing, they look up — and the sky splits.</p>
+<p class="para">Lightning hammers down, and the current leaps outward through the wet earth to beast and adventurer alike, jolting them off their feet. Where it strikes the reeds, they catch. Fire runs on the wind, fast and gold and hungry.</p>
+<p class="para">And in the next white flash, the storm shows them something.</p>
+<p class="para">A beast bigger than all the rest — broad, scarred, deliberate — standing in the burning reeds. For one frozen instant the lightning carves its face out of the dark: old wounds, pale eyes, a patient and terrible attention. Then black again. Then gone.</p>
+<p class="para">They flee. The lightning follows — snapping down at their heels, again and again, too close, too aimed, as if it has chosen them out of all the field.</p>
+<p class="para">Kenra throws Wilhelm higher onto her back and bolts. Kree, airborne, is caught by a fist of wind and swatted from the sky — he hits the mud hard and comes up fighting.</p>
+<p class="para">And then it is just him.</p>
+<p class="para">Beasts close from every side, half-real, flickering, here and not-here. Kree spins, slashes, kicks off a lunging shape and stumbles back; a claw opens his side; he loses a dagger in the muck; he is gasping, slipping, swinging at things that aren’t where his eyes say they are. Too many. Too fast.</p>
+<p class="para">And at his hip the sword is screaming now — attune, attune, let me, let me —</p>
+<p class="para"><span class="say">“Once,”</span> Kree snarls through his teeth, ducking a tentacle. <span class="say">“Once — if you’ll just shut up.”</span></p>
+<p class="para">It goes quiet.</p>
+<p class="para">One slash. A great beast falls, cut clean through, and the blade flares a deep, hungry purple — and Kree feels strength surge up his arm and into his chest, warm and wrong, as though the thing’s very soul had poured into him.</p>
+<p class="para">He has no time to be afraid of that yet.</p>
+<p class="para">In Phandalin, the wounds have stopped being small.</p>
+<p class="para">The displacer beasts are growing bold, and it shows in Thalasstheos’s clinic — a farmhand mauled to the bone, a woman with a hand crushed flat, scorch-marks where lightning found the brave and the unlucky alike. And then they carry in a town guard, opened deep across the belly, and she works over him until her arms shake.</p>
+<p class="para">It isn’t enough.</p>
+<p class="para"><span class="say">“Easy,”</span> she tells him, low, holding his gaze as the light goes out of it. <span class="say">“Easy, now. You held the line. You can rest.”</span> He goes still under her hands.</p>
+<p class="para">For a while she just kneels there.</p>
+<p class="para">Doctor Henning lowers himself beside her, joints cracking, and sets a hand on her shoulder. <span class="say">“You did everything that could be done,”</span> he says quietly. <span class="say">“More than these old hands ever could. Some wounds were closed before they ever reached your table.”</span></p>
+<p class="para"><span class="say">“I know,”</span> she says. She doesn’t sound like she believes it. <span class="say">“I keep thinking of three fools in a forest who won’t answer their little machine.”</span></p>
+<p class="para">The old doctor studies her. <span class="say">“Then perhaps,”</span> he says gently, <span class="say">“the question isn’t whether you stay.”</span></p>
+<p class="para">She goes to Ember, at the Shrine of Luck.</p>
+<p class="para">The red-haired woman is there as she always is, somehow, candle-light caught in her eyes. Thalasstheos doesn’t mean to spill it all, but it comes anyway — the silence on the line, the beasts grown bold, the guard who died under her hands, the friends she let walk into the woods alone while she pulled carrots from the dirt and told herself it was help.</p>
+<p class="para">Ember listens, unhurried, turning a charm over in her fingers.</p>
+<p class="para"><span class="say">“You speak,”</span> she says at last, voice like quiet flame, <span class="say">“as if you’ve a difficult choice in front of you.”</span></p>
+<p class="para"><span class="say">“I don’t know if I do any good out there,”</span> Thalasstheos admits. <span class="say">“Or only get in the way of it.”</span></p>
+<p class="para"><span class="say">“Mm.”</span> Ember tilts her head, utterly unbothered. <span class="say">“And yet here you are, in a luck-shrine, hoping a stranger will tell you to go.”</span> A small smile. <span class="say">“You decided in the woods, water-druid. You decided the moment the line went quiet. The rest is just you, taking the long way to your own feet.”</span></p>
+<p class="para"><span class="say">“That’s not an answer.”</span></p>
+<p class="para"><span class="say">“It’s the only one you came for.”</span></p>
+<p class="para">Thalasstheos returns to the inn and sits on the balcony a long time, the straw hat in her lap, her eyes on the mountain at the edge of the world.</p>
+<p class="para">In the storm, it has come down to the wire.</p>
+<p class="para">Wilhelm is on the ground, bleeding badly; Kree crouches over him, packing the wound with one hand and tipping a potion down his own throat with the other. Kenra stands over them both, a wall of fur and fury, breaking against the pack again and again. The lightning falls without choosing, scorching friend and beast the same.</p>
+<p class="para">Then — stabilized — Wilhelm rises to one knee and fires, and catches the scarred alpha square; its projections gutter and thin. Tentacles whip out and seize him; Kree’s sword shears them away.</p>
+<p class="para">One beast left. The great scarred one wheels to run —</p>
+<p class="para">— and a Ray of Frost takes it square in the back, freezing its last moment solid: a statue of teeth and terror, alone in the burning field.</p>
+<p class="para">The storm howls on. They run, and they make the trees, and the forest folds them in.</p>
+<p class="para">They build a fire. They find a cabin.</p>
+<p class="para">Wilhelm limps through it, one hand braced on the wall, searching every shelf and corner for anything of use. He turns up a barrel of old stores and eats from it then and there, ravenous, not caring how stale or how strange — though he does pause, mid-bite, with the particular sorrow of a man comparing miseries.</p>
+<p class="para"><span class="say">“…I’d take the ash-bread from the manor over this,”</span> he mutters, and eats it anyway.</p>
+<p class="para">In a corner he finds a silver compass, its needle dead, its case bent. He weighs it in his palm a moment — good silver, decent gearing, worth more as parts — and then, of course, he fixes it instead, easing the needle true with a watchmaker’s patience until it swings north and holds. He pockets it without a word.</p>
+<p class="para">Kenra, a kenku again, waddles in from the rain, dripping and pleased, scuffs around the floorboards for a bit — and discovers a fine empty barrel. She hops in with a small, satisfied caw, tucks her head down, and is gone.</p>
+<p class="para">Kree settles on a log outside with his beast-pelts, stretching and scraping and curing them in the firelight, lost in the work. At his hip the sword sulks — it has tasted a soul now, and wants more, and Kree has not attuned, and it is angry about it, prickling at the edge of his thoughts. He ignores it.</p>
+<p class="para">The cabin door creaks. Wilhelm, limping, compass in hand.</p>
+<p class="para"><span class="say">“Someone has to keep the watch,”</span> he says.</p>
+<p class="para"><span class="say">“Someone does,”</span> Kree agrees, not looking up.</p>
+<p class="para"><span class="say">“I’m injured.”</span></p>
+<p class="para"><span class="say">“You’re always injured.”</span></p>
+<p class="para">A silence that is almost companionable. Then Kree waves a feathered hand. <span class="say">“Go. Sleep, dice-man. I don’t sleep much anyway.”</span> He glances, just once, at the blade. <span class="say">“Better I stay up.”</span></p>
+<p class="para">Wilhelm grunts something that might be thanks and limps off to the cabin’s one cot. Kenra snores in her barrel. And Kree keeps the watch alone, pelts in his lap, the sword muttering, the fire low.</p>
+<p class="para">Then the night changes.</p>
+<p class="para">It begins as wind — a great, building pressure rolling down off the peaks, bending the whole forest before it like grass. Lightning forks across the clouds, closer, then closer, and the thunder doesn’t stop, doesn’t break, just grows — and Kree understands, all at once and far too late, that the storm is not weather.</p>
+<p class="para">It is an escort.</p>
+<p class="para">The sky goes white from edge to edge — and there, riding the wind it brings with it, wreathed in its own lightning, a shape. Vast beyond reckoning. Silent. It sweeps overhead in a single beat of unseen wings, and the forest screams and flattens in its wake, branches torn loose, the fire guttering flat. It does not look down. It does not slow. It simply passes — enormous, deliberate, every crack of lightning and every howl of wind moving with it like a court attending its king — and is gone, up into the boiling clouds that crown the mountain.</p>
+<p class="para">The knife slips from Kree’s fingers.</p>
+<p class="para">He does not pick it up for a long time.</p>
+<p class="para">Dawn finds Phandalin quiet.</p>
+<p class="para">Thalasstheos stops at the Adventurers’ Guild to tell Casey she’s leaving. She hadn’t meant to leave a mark on this town, but she has, and it shows: the parting gifts come from everywhere — her patients, Doctor Henning, Ember, Barthen, the Alderleaf folk — gold and clothes and supplies pressed into her hands by people who will miss her.</p>
+<p class="para"><span class="say">“You’re sure?”</span> Casey asks, almost gentle for once.</p>
+<p class="para"><span class="say">“They’ve gone quiet,”</span> Thalasstheos says, settling the straw hat on her head. <span class="say">“My friends are bad at quiet. That’s how I know.”</span></p>
+<p class="para">She shoulders her pack, turns toward the mountain, and goes.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">End of Session</span><span class="sh-orn">✦</span></h3>
+</section>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Eight</div><h2 class="ch-title">The Climb to the Storm</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Dawn comes grey and reluctant. Mist beads on feathers and bedrolls alike.</p>
+<p class="para">Kree is already awake. Has <em>been</em> awake — perched stiff on a cold rock, eyes fixed on the peak, the vast winged shape of the night still beating somewhere behind his ribs.</p>
+<p class="para">Wilhelm surfaces from his blankets one complaint at a time.</p>
+<p class="para"><span class="say">“…Cold. Wet. Of course it’s wet.”</span> He wrings out a sleeve. <span class="say">“I had an academy. With a roof. And tea.”</span></p>
+<p class="para">From the barrel in the corner: a thump. A scrabble. A spray of woodchips. Then a small black head pops up over the rim.</p>
+<p class="para"><span class="say">“…Morning,”</span> Kenra announces, in a borrowed voice three sizes too bright, and tips herself out onto the ground in a clatter.</p>
+<p class="para">Then the Tele-Communicator buzzes. Kree fumbles it out. Thalasstheos’s voice comes through, calm as a turning tide.</p>
+<p class="para"><span class="say">“Tell me you’re all in one piece.”</span></p>
+<p class="para"><span class="say">“All here,”</span> Kree rasps, far too quickly. <span class="say">“Great, actually. Bracing air. Lovely views.”</span></p>
+<p class="para"><span class="say">“Mm. And the night?”</span></p>
+<p class="para"><span class="say">“What about the night?”</span></p>
+<p class="para"><span class="say">“Kree.”</span></p>
+<p class="para"><span class="say">“It was a very normal night.”</span></p>
+<p class="para">She lets it sit. Far behind them, on a wet road, she stands with the words <em>I’m coming, I’m close</em> held behind her teeth — and keeps them there. They don’t need a worry they can’t reach.</p>
+<p class="para"><span class="say">“Rest when you can,”</span> she says instead. <span class="say">“The tide always comes back around. I’ll call again tonight.”</span></p>
+<p class="para">Wilhelm watches Kree pocket the device and very carefully look at nothing.</p>
+<p class="para"><span class="say">“You’ve been staring at that mountain since before I woke,”</span> he says. <span class="say">“What is it?”</span></p>
+<p class="para"><span class="say">“Nothing.”</span></p>
+<p class="para"><span class="say">“Kree.”</span></p>
+<p class="para"><span class="say">“Birds get bad dreams. It’s a bird thing.”</span></p>
+<p class="para"><span class="say">“You’re a terrible liar.”</span></p>
+<p class="para"><span class="say">“I’m an <em>excellent</em> liar,”</span> Kree says, wounded. <span class="say">“I’m just tired.”</span></p>
+<p class="para">Wilhelm holds his gaze a moment longer. Then lets it go. <span class="say">“…Pack up,”</span> he says quietly. <span class="say">“Before it rains worse.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Trail of Red Feathers</span><span class="sh-orn">✦</span></h3>
+<p class="para">Far behind, Thalasstheos has left Phandalin’s gate at her back and walks the road alone, straw hat low against the drizzle.</p>
+<p class="para">She stops. Kneels. Lifts a single bright-red feather from the mud. Then another — a scattered trail of them, leading off the road and into the brush.</p>
+<p class="para">She turns the feather once in her fingers. Her face goes quiet and grim. <span class="say">“You came this way,”</span> she says, low. And follows.</p>
+<p class="para">She does not hear the thing behind her. The reeds simply part, somewhere off her shoulder — and close again. What she <em>does</em> feel is the wrongness: the weight in the air, the prickle at the back of a healer’s neck that has learned, the hard way, to trust itself.</p>
+<p class="para">The trail ends at a deer’s carcass, half-looted, ribs splayed; a traveler’s pack torn open beside it. <span class="say">“…A trap,”</span> she murmurs. <span class="say">“Of course.”</span></p>
+<p class="beat">The brush erupts.</p>
+<p class="para">It comes from her right — a blur of dark fur and too many limbs — and she throws herself sideways, hand snapping up on instinct. <span class="say">“Down!”</span></p>
+<p class="para">Ice screams from her palm in a jagged shard — and the beast <em>bursts,</em> light and shadow scattering into nothing, like a reflection struck on water.</p>
+<p class="para">A projection. The relief lasts half a heartbeat. Because the <em>real</em> one was never in front of her.</p>
+<p class="para">It hits her from the left, full weight, and the world turns over. She is on her back before she knows she is falling, a paw the size of a dinner plate splayed across her chest, pinning her to the cold earth. Hot breath, the reek of carrion, six flat patient eyes.</p>
+<p class="para">She gets one hand up, reaching for her focus, for <em>anything</em> — and the teeth find her side.</p>
+<p class="para">There is no clean white pain. There is pressure, and then <em>wrongness</em> — a deep grinding tear her body refuses to understand for one long, blank, roaring second — and then it understands all at once, and the scream claws up her throat —</p>
+<p class="para">She swallows it. <em>Not like this. Not in the mud. Not alone.</em></p>
+<p class="para">She does not reach for a spell. There is no time, no breath, no slot to spare. She reaches for the <em>sea.</em></p>
+<p class="para">Skin to scale. Bone to water. Woman to a thin blue serpent — and the paw that pinned a person finds itself pressing a fistful of grass, and she is already <em>gone,</em> pouring out from under it, low and fast and frantic through the wet roots.</p>
+<p class="para">Behind her: a snarl. A lunge. Jaws snap shut where her tail just was. She does not look back. Under a fallen log, through bramble that tears at her scales, into a hollow beneath a stone — and there she stops. Coils tight. Goes utterly still.</p>
+<p class="para">The beast circles. She feels its footfalls through the ground. Once. Twice. A long, hunting silence. Then it moves off — bored, back to its deer — and the footfalls fade.</p>
+<p class="para">Only then does she let herself shake. And she holds the snake-shape a long, long while — longer than she needs to. Because the moment she lets it go, she will have to feel the rest of it.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Broken Woods</span><span class="sh-orn">✦</span></h3>
+<p class="para">The party steps out of the treeline into ruin: trunks toppled like spilled matchsticks, vines torn loose, debris flung across the slope. And there, sprawled in the wreck — a dead displacer beast.</p>
+<p class="para">Kenra’s eyes light up. She is on it in a flash, dagger out, humming.</p>
+<p class="para">Kree crouches over a second body. Head cocked one way. Then the other. Squinting with his good eye, brow furrowed in deep scholarly concentration. He straightens, and reports to the group with grave authority:</p>
+<p class="para"><span class="say">“…It’s dead.”</span></p>
+<p class="para">A beat. Then Wilhelm snorts — an actual, surprised laugh. <span class="say">“Thank you. Invaluable.”</span></p>
+<p class="para"><span class="say">“I’m only telling you what I see.”</span></p>
+<p class="para"><span class="say">“You’re a credit to the sciences.”</span></p>
+<p class="para">Kenra works briskly down the line of carcasses, prying loose fang after fang, peeling hide free with little satisfied caws. <span class="say">“Good fur,”</span> she declares, packing it away. <span class="say">“Sells. Or hat. Maybe both.”</span></p>
+<p class="para">Then they shoulder their packs, lift their eyes to the cloud-crowned peak above — and start to climb.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">On the Trail Behind</span><span class="sh-orn">✦</span></h3>
+<p class="para">When she finally surfaces — woman-shaped, on hands and knees in the wet grass — the wound is waiting, exactly where she left it. Deep, ragged, four punctures and a tear, the blood already soaking dark through the side of her robe.</p>
+<p class="para">She presses a hand flat to it. Her vision sheets white. She breathes the way she has taught a hundred frightened people to breathe — in for four, hold, out for four — until the world settles back into place. <span class="say">“The tide draws back before it returns,”</span> she says, to no one. <span class="say">“Breathe.”</span></p>
+<p class="para">She will not spend a healing spell on herself — not when the others may need every drop she has. But a single small spell is a different arithmetic.</p>
+<p class="para">She cups her hands and murmurs the words of <em>Goodberry,</em> and a cluster of pale, glowing berries blooms in her palm — ten little mercies she can ration, rather than one great healing spent all at once and gone. She eats two; the bright magic of them takes the worst of the fire out of the wound.</p>
+<p class="para">The rest she does the slow way — the way Doctor Henning showed her, between patients, in the cramped little clinic by the shrine. <em>Boiled cloth and a steady hand,</em> he’d grumbled, <em>and don’t go wasting the fancy stuff on what time and care can close.</em> So she rinses the bite with her waterskin, packs a crushed berry into the punctures, and binds it tight with a strip torn from her hem — the knot pulled with a flat little grunt of pain.</p>
+<p class="para"><span class="say">“There,”</span> she says. <span class="say">“You have closed worse than this, with less.”</span> It is not nothing. But saying so helps.</p>
+<p class="para">Only then does she look around her — and goes cold in a way the wound never managed. They are everywhere. Displacer beasts, skinned and gutted, left in the brush like discarded coats: hides peeled clean, fangs pried loose. Something is <em>harvesting</em> them.</p>
+<p class="para">Her thumb finds the Tele-Communicator. Turns it over once. She thinks of how fast Kree had answered; of how, if her voice shook now, they would turn back — down off that mountain, into <em>this.</em> She will not trade their lives for her own comfort.</p>
+<p class="para">She puts the device away. <span class="say">“Not yet,”</span> she says, quiet. <span class="say">“Stay loud. I’m coming.”</span> She drags herself upright, sways, steadies — and walks on, out of the trees, toward the grey sea of reeds.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Climb</span><span class="sh-orn">✦</span></h3>
+<p class="para">Higher. The air thinning. Every step a negotiation with gravity.</p>
+<p class="para">Kenra hunkers over a fresh kill on the path, picking it apart with a surgeon’s interest. She taps the long, raking gouges in the bone. <span class="say">“These marks,”</span> she says — then mimics, eerily, the deep grinding scrape of something enormous hauling itself over stone. <span class="say">“Not beast. Bigger.”</span></p>
+<p class="para">She lays a palm flat to the body. Her feathers prickle. <span class="say">“Magic. Old. Angry.”</span></p>
+<p class="para">Wilhelm’s face does the thing it does. <span class="say">“I have a bad feeling,”</span> he says.</p>
+<p class="para"><span class="say">“You always have a bad feeling,”</span> Kree says cheerfully, already moving.</p>
+<p class="para"><span class="say">“And I’m always <em>right.</em>”</span></p>
+<p class="para"><span class="say">“You’re <em>sometimes</em> right.”</span></p>
+<p class="para"><span class="say">“Name one time I was wrong.”</span></p>
+<p class="para"><span class="say">“The bridge troll.”</span></p>
+<p class="para"><span class="say">“…That worked for <em>ten minutes.</em>”</span></p>
+<p class="para">They don’t get far before an injured displacer beast lurches from the rocks at Kree — Wilhelm’s flintlock barks once, clean, and it drops mid-lunge. Its two pack-mates take one look and <em>bolt,</em> scrambling away downslope in open panic.</p>
+<p class="para">Wilhelm lowers the gun slowly. <span class="say">“Things that hunt in packs do not run like that,”</span> he says. <span class="say">“Not unless something worse than us is up there.”</span> Nobody answers. They go on anyway.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">In the Reeds</span><span class="sh-orn">✦</span></h3>
+<p class="para">The reeds around Thalasstheos are black now — burnt, snapped, strewn with bones and the bodies of beasts. Her boot nudges something brass: a Tele-Communicator, casing cracked, dead. Her heart drops straight through her.</p>
+<p class="para">She lifts her own with trembling hands. <span class="say">“Kree. Kree, answer me—”</span> A crackle. Then his voice, breezy and intact. She has to close her eyes a moment. <span class="say">“…Good,”</span> she breathes. <span class="say">“Good. Stay loud. All of you.”</span></p>
+<p class="para">Then the reeds shift — and a displacer beast looks up from its feeding, blood on its jaws. It lunges. She is already gone, one graceful step through folded space, <em>misty-stepping</em> to its flank. <span class="say">“You’ve fed enough,”</span> she says, almost sad.</p>
+<p class="para">The ground answers her. Vines whip up and bind the beast fast, and a shaft of cold silver light falls, and falls, and falls — until it stops thrashing.</p>
+<p class="para">Further on she finds another — vast, this one, frozen mid-roar in a glaze of ice she would know anywhere. <span class="say">“Oh, Wilhelm,”</span> she says softly, laying her fingers to the frost. <span class="say">“You were here.”</span> She leaves the dreadful statue to thaw in its own time, and climbs.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Singing Crystal</span><span class="sh-orn">✦</span></h3>
+<p class="para">A jut of deep-blue crystal halts the party cold — Kree most of all, his pupils gone wide and shiny. <span class="say">“…Pretty,”</span> he whispers.</p>
+<p class="para">Wilhelm snaps a loose shard off the ground and turns it to the light. <span class="say">“Resonant. Conductive, maybe. Interesting—”</span></p>
+<p class="para">Kenra has gone still, head tilted at the stone’s low hum. She reaches out one curious finger. She touches it.</p>
+<p class="beat">CRACK.</p>
+<p class="para">Static jolts up her arm and every feather on her body stands straight out, doubling her size. She sits there — a startled black puffball — blinking.</p>
+<p class="para">Then, very deliberately, she reaches over and lays the same finger on Wilhelm. His hair leaps off his scalp in every direction.</p>
+<p class="para">Kenra <em>cackles.</em> Kree nearly falls out of his own skin laughing. <span class="say">“…I hate both of you,”</span> Wilhelm says, flattening his hair with both hands. <span class="say">“Worth it,”</span> Kenra says. They move on, still snickering.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Behir</span><span class="sh-orn">✦</span></h3>
+<p class="para">The tracks change. Gone are the soft pads of displacer beasts; now there are <em>gouges</em> — deep, dragging furrows scored into the rock, long as a wagon, leading up the trail. Nobody jokes about these.</p>
+<p class="para">They follow them to a clearing choked with fallen boulders — and there, at the top of the slope, they see it.</p>
+<p class="para">A behir. Long. Serpentine. <em>Wrong</em> — too many legs, a body like a blue-black river of muscle and scale, dragging a displacer-beast corpse in its jaws as easily as a cat carries a mouse.</p>
+<p class="para">The party drops as one behind the boulders.</p>
+<p class="para"><span class="say">“…Okay,”</span> Wilhelm breathes. <span class="say">“Okay. That. That is the thing.”</span></p>
+<p class="para"><span class="say">“That’s a lot of legs,”</span> Kenra whispers, fascinated.</p>
+<p class="para"><span class="say">“Do not count its legs.”</span></p>
+<p class="para"><span class="say">“Twelve.”</span></p>
+<p class="para"><span class="say">“<em>Do not count its legs.</em>”</span></p>
+<p class="para">Kree’s eyes are already up in the branches above them. <span class="say">“I’ll get closer.”</span></p>
+<p class="para"><span class="say">“You will absolutely not—”</span> Wilhelm starts. But Kree is already gone — a soft beat of wings, up into the high boughs of a leaning pine, silent as falling snow. Wilhelm and Kenra press themselves flat into the brush, hardly breathing.</p>
+<p class="para">From his perch, Kree watches. The behir hauls its kill to the lip of a dark cave mouth. Drops it. And goes <em>still.</em> Utterly. Wrongly. Still. Its great head lifts. Turns. Tastes the air.</p>
+<p class="beat">It knows.</p>
+<p class="para"><span class="say">“…It stopped,”</span> Kree whispers to no one, forgetting nobody can hear him up there. <span class="say">“Why did it stop? Things shouldn’t stop like that—”</span></p>
+<p class="para">Below, Kenra senses the shift. Quick as instinct, she cups her hands and throws a sound — the skittering chitter of a displacer beast — off to the <em>left,</em> into the rocks, away from them. The behir’s head snaps toward it. Holds.</p>
+<p class="para">For one long, breathless second, it <em>works.</em></p>
+<p class="para">Then a branch creaks under Kree’s weight. Just slightly. Just once. The head snaps <em>back</em> — straight up, straight at the tree. Two cold eyes find one half-blind bird.</p>
+<p class="beat">And the behir roars.</p>
+<p class="para">It is not a sound. It is a <em>force</em> — it punches through the chest, rattles teeth, sends pebbles skittering down the slope and birds screaming from the canopy. Kree clamps every feather flat and does not move, does not breathe, is fairly sure his heart simply stops for the duration.</p>
+<p class="para">The roar ends. The behir holds his gaze one moment longer — a slow, terrible, <em>measuring</em> moment. Then it turns, takes up its kill, and drags it away into the black throat of the cave.</p>
+<p class="para">For a long while, nobody moves. Then Kree drifts down out of the tree, lands on unsteady legs, and the three of them just <em>look</em> at one another.</p>
+<p class="para"><span class="say">“In,”</span> Kenra says immediately. <span class="say">“We go in.”</span></p>
+<p class="para"><span class="say">“Have you lost your mind.”</span> It is not a question. <span class="say">“That thing is the length of a <em>barn.</em> It looked at a tree and the tree <em>apologized.</em> We are three people. One of you eats potatoes mid-combat.”</span></p>
+<p class="para"><span class="say">“That was <em>one</em> time, and I was hungry—”</span> Kree protests.</p>
+<p class="para"><span class="say">“We are equipped, at most, for a large angry dog.”</span></p>
+<p class="para"><span class="say">“Wilhelm,”</span> Kenra says, patient as a knife. <span class="say">“It dragged food <em>inside.</em> Hoard. Things. Treasure-things.”</span></p>
+<p class="para">Kree’s head comes up. <span class="say">“…Treasure-things?”</span></p>
+<p class="para"><span class="say">“Do not say treasure-things to him.”</span></p>
+<p class="para">But it is already too late. Kree has wandered three steps off and is crouched over a scatter of blue crystal in the dirt, head tilted, the great roaring monster apparently already filed under <em>later.</em> Wilhelm pinches the bridge of his nose.</p>
+<p class="para">Kenra, meanwhile, has gone quiet and thoughtful — which is worse. She looks at the cave, then back down the broken slope they climbed. <span class="say">“It makes sense now,”</span> she says, and her borrowed voices drop into something almost her own. <span class="say">“The beasts. Down in the towns. Everyone said they came out of nowhere — got bold, got hungry, started hitting the caravans and the farms.”</span> She nods at the cave. <span class="say">“They didn’t come down for sport. <em>That</em> drove them off the mountain. Hunted them. Ate them. They ran into people because they were running from <em>it.</em>”</span></p>
+<p class="para"><span class="say">“Something’s wrong up here,”</span> she finishes. <span class="say">“Bigger than lizards. Bigger than beasts.”</span></p>
+<p class="para">Wilhelm looks at the cave mouth for a long, long moment. <span class="say">“…I want it on record,”</span> he says finally, <span class="say">“that I think this is a terrible idea.”</span></p>
+<p class="para"><span class="say">“Noted,”</span> says Kenra. <span class="say">“Noted,”</span> says Kree, not looking up from the crystals. <span class="say">“It is now <em>in</em> the record.”</span></p>
+<p class="para"><span class="say">“It’s a very good record,”</span> Kenra agrees, and starts toward the cave. They case the mouth of it — low, careful, hugging the rock — and one by one, they slip inside.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Cold Camp</span><span class="sh-orn">✦</span></h3>
+<p class="para">Thalasstheos crests a rise and finds it: their cold campfire, scuffed ground, four sets of footprints heading up. Relief and dread in the same breath. She looks up the long throat of the mountain, sets her hat, and starts to climb — lifting the Telecom to her ear as she goes, meaning only to hear their voices once more.</p>
+</section>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Nine</div><h2 class="ch-title">Into the Ravine</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The tunnel slopes down into warm, breathing dark.</p>
+<p class="para">Across a yawning black gap, two small lizards bask in the glow of a blue crystal, fat and lazy. Far below, in the throat of the ravine, more eyes kindle — a dozen, two dozen, cold sparks in the deep.</p>
+<p class="para">Kree, of course, simply glides across.</p>
+<p class="para"><span class="say">“Kree,”</span> Wilhelm hisses. <span class="say">“Kree, we have not <em>discussed</em> crossing yet—”</span></p>
+<p class="para"><span class="say">“It’s easy. You just have wings.”</span></p>
+<p class="para"><span class="say">“I do not have wings, that’s the <em>entire problem</em> — get <em>back</em> here—”</span></p>
+<p class="para">And then Kree’s pocket <em>buzzes.</em> Time slows.</p>
+<p class="para"><span class="say">“…Kree,”</span> Wilhelm says, very quietly. <span class="say">“Do not.”</span></p>
+<p class="beat">Kree answers it.</p>
+<p class="para">Thalasstheos’s voice spills bright and worried into the cavern — <span class="say">“Kree, are you all—”</span> — and two pairs of basking eyes snap open.</p>
+<p class="para">The screech that follows is not a sound so much as a <em>blade</em> — high, splitting, echoing down into the ravine — and the answer rises out of the dark: a chorus of clicks and chitters and the dry scrape of claws on stone, as every cold spark below begins to <em>climb.</em></p>
+<p class="para"><span class="say">“KREE!”</span> Wilhelm’s voice cracks across the gap. <span class="say">“WHY. WHY WOULD YOU ANSWER THE—”</span></p>
+<p class="para"><span class="say">“She sounds upset! Hold on — Thalasstheos? You’re breaking u—”</span></p>
+<p class="para"><span class="say">“PUT IT DOWN—”</span></p>
+<p class="para">A lizard erupts over the lip and launches itself at Kree’s face. He yelps, flails, beats backward — and the Telecom spins from his grip, end over end, glinting once in the crystal-light before the dark below swallows it.</p>
+<p class="para"><span class="say">“…Oh,”</span> says Kree. <span class="say">“OH?”</span> says Wilhelm.</p>
+<p class="beat">And then the ledge is full of teeth.</p>
+<p class="para">Wilhelm stops shouting and starts <em>working.</em> He throws himself flat at the edge, props the flintlock, and picks them off as they climb — one shot, a shriek, a body peeling off the wall and dropping into nothing. Reload. Powder, ball, ram, the motions automatic even as his voice is not. <span class="say">“There are too many,”</span> he calls. <span class="say">“Kenra — I need the gap <em>held</em>—”</span></p>
+<p class="para">Kenra grins with too many teeth. <span class="say">“BEHOLD,”</span> she announces, <span class="say">“the consequences of <em>your</em> actions—”</span> And she <em>leaps.</em></p>
+<p class="para">Fur bursts outward, bone stretches and pops, and a wolf the size of a pony clears the chasm in one furious bound, landing snarling on the far ledge beside Kree. A lizard whips around and sinks its teeth into Kree’s arm; he shouts. Another rears back, throat swelling, scales crackling blue with gathering lightning, jaw cracking wide—</p>
+<p class="para">Kenra’s jaws close on it <em>first.</em> One savage shake — and it bursts into a fistful of grey ash that drifts down into the dark.</p>
+<p class="para"><span class="say">“…Okay,”</span> Kree wheezes, clutching his arm, <span class="say">“the wolf was a good idea.”</span></p>
+<p class="para"><span class="say">“I am full of good ideas,”</span> says the wolf, around a mouthful of lizard.</p>
+<p class="para">But they keep <em>coming</em> — up over the lip, more and more — and then onto the <em>walls,</em> and the <em>ceiling,</em> clinging at impossible angles, skittering overhead, raining grit into everyone’s eyes.</p>
+<p class="para"><span class="say">“They’re on the <em>roof</em> now,”</span> Wilhelm reports, with the flat despair of a man whose day has run entirely out of road. <span class="say">“Of course they’re on the roof.”</span></p>
+<p class="para">Kree draws the black sword. It drinks the crystal-light, edges too dark — and for once he does not hesitate. He <em>moves,</em> wings flaring, carving a bright arc through the press of them, two lizards unmaking themselves on the blade in a hiss of nothing.</p>
+<p class="para">Wilhelm tilts his aim <em>up.</em> Squints. Adjusts for the angle, the dark, the way the whole cavern shivers. <span class="say">“…Everyone hold <em>still,</em>”</span> he mutters, and fires — not at a lizard, but at the root of a great stalactite hanging over the climbing horde.</p>
+<p class="para">It cracks. It <em>falls</em> — a spear of stone the length of a man — and takes a whole knot of them down into the ravine with it, in a clatter of rock and a chorus of fading screeches.</p>
+<p class="para"><span class="say">“HA,”</span> says Wilhelm, genuinely surprised. <span class="say">“That worked.”</span></p>
+<p class="para"><span class="say">“Don’t sound so shocked,”</span> Kree calls. <span class="say">“I’m always shocked when things work—”</span></p>
+<p class="para">A lizard on the ceiling above Kree drops its jaw, and the air goes white.</p>
+<p class="para">The lightning catches Kree full in the chest. It lifts him off his feet and slams him down, every feather standing on end and smoking — and Kenra’s head snaps around, and for one awful second the whole cavern is just the after-image of the bolt and the smell of burnt feathers —</p>
+<p class="para">— and then the lizard that fired it, spent and overcharged, simply <em>detonates,</em> and the blast takes the one clinging beside it too, both bursting into twin clouds of ash that sift down through the crystal-glow.</p>
+<p class="para">Kree lies on the stone. Smoking. Blinking up at the ceiling. <span class="say">“…Ow,”</span> he says, with feeling.</p>
+<p class="para">Then silence rings out, sudden and total. Somewhere, water drips. The last of the dust settles. Two of them and a wolf stand among the ash, chests heaving, the crystal humming its low blue note over a ledge gone quiet at last.</p>
+<p class="para">The Telecom — Kenra’s, now — buzzes. She trots over, still half-wolf, noses it up with one paw, and shifts back to feathers as she lifts it.</p>
+<p class="para"><span class="say">“Kenra? Kenra, what <em>happened</em> — I heard screaming, I heard <em>lightning</em>—”</span> Thalasstheos’s voice is pulled wire-tight.</p>
+<p class="para"><span class="say">“…Lizards,”</span> Kenra reports, surveying the ash. <span class="say">“Many. Dead now.”</span> A pause. <span class="say">“Kree answered his phone.”</span></p>
+<p class="para"><span class="say">“I’m <em>fine,</em>”</span> Kree croaks from the floor. <span class="say">“Mostly.”</span></p>
+<p class="para">A hundred miles of mountain away, Thalasstheos closes her eyes, presses a hand to the binding on her aching side, and climbs a little faster. And worries a great deal more.</p>
+</section>
+
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Ten</div><h2 class="ch-title">The Heart of the Mountain</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The next passage is narrow, and Wilhelm takes the front of it — flintlock low, shoulder to the cold stone, moving with the careful, unhappy precision of a man who has decided that if they must do this, they will at least do it <em>quietly.</em></p>
+<p class="para"><span class="say">“Slow,”</span> he breathes. <span class="say">“Hug the wall. Do not touch anything that—”</span></p>
+<p class="para">Ahead, a soft blue glow pools around the bend. Crystals. A whole <em>vein</em> of them. Kree’s eyes go to coins.</p>
+<p class="para"><span class="say">“Kree—”</span> He is already drifting toward it, feathers fluffed, the rest of the world dissolving into a single shining want. He rounds the corner — and stops.</p>
+<p class="para">Because the crystals are not unattended. Coiled across the glittering bed of them, vast and patient and faintly luminous, lies the behir. Up close it is somehow <em>worse</em> — the slow bellows of its breathing, the dozen limbs folded under it, the long body draped over the hoard like a king who fell asleep mid-thought.</p>
+<p class="para">Kree makes a sound. A small one. A <em>bird</em> one. He scrambles back behind a stalagmite, flattens himself to it, clamps his beak shut, and prays.</p>
+<p class="beat">Too late.</p>
+<p class="para">The great head lifts. The tongue tastes the air, once, twice — and a low voice rolls through the chamber, older than the stone.</p>
+<p class="para"><span class="say">“…I smell feathers.”</span> A pause. <span class="say">“And fear. Come out, little carrion-bird.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Behir’s Bargain</span><span class="sh-orn">✦</span></h3>
+<p class="para">Kree edges out from behind the stalagmite, every feather pressed flat, and gives the monster a smile that is roughly nine-tenths terror.</p>
+<p class="para"><span class="say">“…Hi. Hello. Big fellow. Lovely cave. Really catches the light—”</span></p>
+<p class="para"><span class="say">“Where are the others.”</span> Not a question. The head lowers until one cold eye is level with him. <span class="say">“You did not climb my mountain alone. The thunder-thrower. The one who wears other skins. Where.”</span></p>
+<p class="para">Kree’s mind, for once in its life, moves <em>fast.</em></p>
+<p class="para"><span class="say">“Gone,”</span> he says. <span class="say">“Long gone. Turned back at the reeds — too scary, they said, far too many legs — and honestly? Smart. Wish I’d gone with them. I just, ah—”</span> he gestures vaguely at the crystals — <span class="say">“got lost. Looking for the way <em>out.</em> Which I will now do. Quietly. Forever.”</span></p>
+<p class="para">The behir studies him for a long, terrible moment. Then it <em>snorts</em> — a gust of ozone and contempt — and lays its head back down.</p>
+<p class="para"><span class="say">“You are barely a mouthful,”</span> it rumbles. <span class="say">“Not worth the chewing. Turn back, little bird. Crawl down my mountain the way you came. If I taste you in these halls again—”</span> the eye slides shut — <span class="say">“I will not waste the breath to warn you.”</span></p>
+<p class="para">And it rises, fluid and immense, and pours itself out of the chamber into the dark of the next room, scales whispering over crystal.</p>
+<p class="para">Silence. Kree stands very still and discovers he has forgotten how to breathe. From the passage behind him, three shapes detach from the shadow — Wilhelm, Kenra, and the lingering ghost of a wolf — who have, it turns out, <em>watched the entire thing.</em></p>
+<p class="para"><span class="say">“…You,”</span> Wilhelm says slowly, <span class="say">“lied to a behir. To its face.”</span></p>
+<p class="para"><span class="say">“I panicked eloquently,”</span> Kree wheezes.</p>
+<p class="para"><span class="say">“It worked.”</span></p>
+<p class="para"><span class="say">“I’m as surprised as you are.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Outcrop</span><span class="sh-orn">✦</span></h3>
+<p class="para">But Kree is already over it. The fear drains out of him the instant the danger leaves the room, and the crystals reclaim his whole attention. He crouches at the hoard, head tilting, beak open in quiet wonder.</p>
+<p class="para">Kenra, still wolf-shaped, pads to the great crystal bed where the behir had lain — and there, half-buried in the glittering nest, sits a large, strange potion, its liquid catching the light. Because the cave is dark and a wolf has limited options, she opens her jaws and a curved blade of orange fire blooms into being, clenched between her teeth — a torch with a heartbeat.</p>
+<p class="para">The warm orange glow throws everyone’s shadow huge across the walls, and for a moment it is the manor again — that long dark night weeks and a lifetime ago, Kenra padding ahead of them down the halls with the very same firelight in her teeth, lighting the way through someone else’s nightmare. Wilhelm notices it too. Neither of them says so.</p>
+<p class="para">She trots the light over, drops the flaming scimitar with a <em>clack,</em> and picks the potion up in her mouth instead.</p>
+<p class="para">Across the chamber, Wilhelm has found the <em>other</em> feature of the room: a pit, low in the floor, where a freshly killed displacer beast lies torn open — and a knot of lizards crouches over it, feeding, oblivious, tails twitching in the dark.</p>
+<p class="para">Kree, meanwhile, has found The One. A single crystal, larger and clearer than the rest, jutting from the rock at the perfect angle to be <em>his.</em> He wraps both hands around it and <em>pulls.</em> Nothing. Braces a foot. <em>Pulls.</em> Nothing. He thinks. He reaches into his bag, rummages with the focus of a surgeon — and produces a hammer.</p>
+<p class="para">Wilhelm turns just in time to see it. <span class="say">“Kree. Kree, do not—”</span></p>
+<p class="beat">CRACK.</p>
+<p class="para">The crystal breaks free. And so does something else. A wave of cold energy rolls out from the shattered stone — silent, total, washing through the whole chamber like a held breath let go. And everywhere it touches, magic simply… <em>leaves.</em></p>
+<p class="para">The wolf-shape sloughs off Kenra in an instant, the borrowed muscle and fur unraveling until she is just a small kenku where a pony-sized predator had been. The fire on the dropped scimitar gutters, shrinks, and winks out, the blade dissolving into nothing — and the cave goes dark, lit now only by the soft, indifferent glow of the crystals themselves.</p>
+<p class="para">Kenra stands in the new gloom, feathers slowly rising. She turns to Kree. She <em>glares.</em> <span class="say">“…You,”</span> she says, in a flat little voice entirely her own, <span class="say">“will not do that again.”</span></p>
+<p class="para"><span class="say">“I felt that in my teeth,”</span> Wilhelm hisses, smacking the side of a device on his belt as its lights stutter and die. <span class="say">“My instruments — the whole frequency just — <em>Kree.</em>”</span></p>
+<p class="para">Kree spreads his hands, the crystal still clutched in one, and adopts an expression of wounded innocence. <span class="say">“Okay, first of all,”</span> he says, <span class="say">“that <em>completely</em> wasn’t my fault.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Glowing Blue</span><span class="sh-orn">✦</span></h3>
+<p class="para">The cold wave does not stop at them. It rolls on — across the floor, into the pit — and the feeding lizards go <em>rigid,</em> heads snapping up off their kill, eyes kindling in the dark.</p>
+<p class="para">Wilhelm does not wait for them to think it through. <span class="say">“Move — move, <em>now</em>—”</span> and he has a fistful of Kree’s collar and a fistful of Kenra’s cloak, hauling both into the next passage before the lizards can place where the disturbance came from.</p>
+<p class="para">The room beyond is <em>black.</em> No crystals here. No light at all. Kenra, still holding a grudge and a potion, considers the bottle in her hands. She uncorks it. She drinks it.</p>
+<p class="para">She begins, gently, to <em>glow</em> — but this is not the fire. This is not the warm orange of the manor halls, of the scimitar in her teeth. This light is <em>cold</em> — a deep, electric blue, rising off her feathers like light through deep water, beautiful and wrong, the exact hue of the crystals and the lightning and everything on this mountain that wants them dead. Wilhelm looks at her in it and does not like how much she matches the place.</p>
+<p class="para"><span class="say">“…Useful,”</span> he decides anyway, because useful is what they have. <span class="say">“Right. You’re the lamp. Walk slowly.”</span></p>
+<p class="para">They make it perhaps ten feet before a shape in the dark catches the blue light, turns, and <em>screeches</em> — and the room comes alive with teeth.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">On the Rocky Path</span><span class="sh-orn">✦</span></h3>
+<p class="para">A storm’s worth of miles below, Thalasstheos is not having a gentler night. Three displacer beasts have her circled on the open trail, and the rain has started in earnest. She moves through them like water finds the low ground — patient, economical, refusing to be where they expect her.</p>
+<p class="para">The first lunge is a feint; she reads the false image and lets her ice pass <em>through</em> it, into the rock beyond. The second beast she takes clean, a lance of cold silver light folding it into the mud.</p>
+<p class="para">The third gets to her. It hits her shoulder and drives her back into a pine, pinning her against the bark, jaws gaping for her throat — and finding, in the half-second before they close, that she has a hand free.</p>
+<p class="para"><span class="say">“Not tonight,”</span> she says, almost kindly. A shaft of moonlight punches down through the canopy and through the beast’s torso, and it sags off her, and is still.</p>
+<p class="para">She straightens. Touches the gouge on her shoulder, winces, leaves it. The weather is turning — the wind sharpening, the clouds stacking black against the peak. And then she sees it: a great crystal jutting from the mountainside, taller than she is, humming with a low blue light. She slows. Lays her palm against it. Feels the wrongness in it. <span class="say">“…So this is what has been calling them down,”</span> she murmurs. And keeps climbing.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Thunder in the Dark</span><span class="sh-orn">✦</span></h3>
+<p class="para">In the black room, the fight is going badly in the way fights go badly when you cannot see. Lizards wink in and out of the blue light — <em>there,</em> then gone, then <em>there</em> again at your flank — and the party fights blind around their one glowing lamp.</p>
+<p class="para">Wilhelm fires at shapes and shadows. Kree carves where he can. Kenra, stripped of fire and fur both, has fallen back on the oldest weapon she owns: a quarterstaff, swung with grim, glowing fury, cracking against scaled skulls.</p>
+<p class="para">They give ground up a rocky slope, dodging the white stutter of lightning, beating back the ones that pounce — and then something <em>bigger</em> drops down in front of them. A lizard half again the size of the rest, throat already swelling. It hits the ground and a wave of thunder rolls <em>out</em> of it — not through the air but through the <em>stone,</em> a current that finds every boot and bare foot in the room.</p>
+<p class="para">The whole party seizes and staggers as it hits them at once. And in that frozen half-second, the big lizard’s jaws come down over Kree and <em>close,</em> swallowing him to the wings.</p>
+<p class="para"><span class="say">“KREE—”</span> Wilhelm wheels, fires, nearly takes a lightning bolt across the face for the trouble, jerks back with his ears ringing. Kenra is a thrashing blue smear in the dark, swinging her club at anything that moves, screaming something that might be a war cry and might just be screaming.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Healer Arrives</span><span class="sh-orn">✦</span></h3>
+<p class="para">The cave entrance finds Thalasstheos the way an answer finds a question. She rushes in, hat shedding rain — and pulls up hard at the lip of the great ravine, the black gap, a single broken boulder far below.</p>
+<p class="para">She does not hesitate. One step into folded space, and she is on the far side, staff lifting in her hand with a soft pearl light kindling at its head.</p>
+<p class="para">The next room has feeders in it. They smell her before she clears the passage, and four come off their kill at once. She fights them the way she fights everything — without panic, without waste. Vines burst from the floor to snare the first two; a whip of conjured water slaps a third off its feet and into the wall; the fourth she simply sidesteps, calm as a tide pool, and lets the moonlight take it.</p>
+<p class="para">But the commotion in the <em>next</em> room pulls her eye for one fatal heartbeat — voices, <em>familiar</em> voices, screaming — and in that heartbeat the lightning finds her. It throws her down. The lizards pile on, a scrabbling weight of claws and teeth, and for one bad moment she is flat under all of them, an arm up, the light of her staff guttering against the stone—</p>
+<p class="para">Then a screech rings out from the far room — high, summoning — and as one the lizards <em>abandon</em> her, scrambling toward the sound. She lies still a moment. Breathes. <em>In for four, hold, out for four.</em> Then she gets up and follows them.</p>
+<p class="para">And the room she steps into stops her cold. Kree has fought his way <em>out</em> of the big lizard’s mouth and onto its <em>neck,</em> riding the thrashing thing, driving his black sword down into its skull, over and over, with a single-minded fury she has never once seen in him. Kenra stands over a downed lizard, beating it into the floor with her staff, glowing blue and absolutely feral. Wilhelm is pressed to a wall, reading the room with a tactician’s cold eye, sliding away from every strike that comes for him.</p>
+<p class="para">She does not waste the moment. <span class="say">“Down — all of you, <em>down,</em>”</span> she calls, and lifts her hands, and the cool tide of her healing washes through the room and finds each of them at once. <span class="say">“I have you. Hold the line a little longer.”</span></p>
+<p class="para">Three heads turn toward her voice in the gloom. <span class="say">“…Oh thank the gods,”</span> Wilhelm breathes. <span class="say">“The competent one is here.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Run for the Tunnel</span><span class="sh-orn">✦</span></h3>
+<p class="para">The healing buys them their feet back, but not the room. There are simply too many, and more coming, and the big lizard is rising again. It is Kenra who spots it — a narrow tunnel mouth in the far wall, dark and low.</p>
+<p class="para"><span class="say">“THERE — go, go, <em>everybody go</em>—”</span></p>
+<p class="para">She bolts first, a blue streak. Thalasstheos comes second, herding Kree ahead of her with a hand at his back. Kree dives in third. And Wilhelm comes last — and last is where the mountain catches him.</p>
+<p class="para">A lizard slithers across the tunnel mouth and <em>blocks</em> it, and sinks its teeth into his leg as he tries to pass; he shouts, staggers. And behind him the big lizard comes scuttling fast across the floor, jaws cranking wide, low and hungry and <em>certain.</em></p>
+<p class="para">A hand shoots out of the tunnel. Kree’s. He shoves the blocking lizard bodily aside and <em>yanks</em> — and Wilhelm tumbles through into the dark just as the big lizard’s jaws snap shut on empty air where his leg had been. The thing slams its head against the tunnel mouth, claws raking, too large to follow, screaming its fury into a hole it cannot fit.</p>
+</section>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Eleven</div><h2 class="ch-title">No Way Back</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">On the other side, gasping, they look up. And find themselves in a cathedral of crystal.</p>
+<p class="para">It is the heart of it. The vein they had been chasing splinters here into a vast humming chamber, every wall and ceiling studded with glowing blue stone. The <em>source.</em> The thing that has been driving the mountain mad. And it is, they realize one by one, a beautiful place to die in.</p>
+<p class="para">Wilhelm does the survey first, because he always does, walking the walls with a tin lantern of a face. The tunnel they came through is sealed behind them. The way out is buried under rockfall. The only living door has a behir-sized lizard standing watch on it. He counts the exits twice, the way you check a sum you do not believe, and gets the same answer.</p>
+<p class="para"><span class="say">“…We’re in a box,”</span> he says quietly. <span class="say">“A pretty one.”</span></p>
+<p class="para">Nobody argues. That is the worst part. There is no quip from Kree, no theatrics from Kenra — just four people who climbed a mountain to help some farmers and are now cornered in its gut, blood drying on them, the air crackling with a power that <em>eats</em> the only things they are good at. They are not adventurers anymore. They are something smaller and older than that. They are prey, run to ground, waiting for the thing that hunts this peak to remember they are in here.</p>
+<p class="para">Thalasstheos moves among them with her hands glowing, closing what she can, and pauses at Kenra — tilting her head at the cold blue light still pouring off her. <span class="say">“…That is new,”</span> she observes mildly.</p>
+<p class="para"><span class="say">“Long story,”</span> Kenra says.</p>
+<p class="para"><span class="say">“They always are.”</span> Thalasstheos presses a small green vial into her hands. <span class="say">“Drink. It will give you back what the mountain took.”</span></p>
+<p class="para">Then they try to think their way out, and it goes like this.</p>
+<p class="para"><span class="say">“We break the crystals,”</span> Kenra says first, hefting her staff. <span class="say">“Kill the source. The lizards go quiet, maybe the big one too—”</span></p>
+<p class="para"><span class="say">“And the blast unmakes you where you stand,”</span> Wilhelm cuts in. <span class="say">“Like Kree’s little hammer trick, except <em>surrounded</em> by it. Her—”</span> he points at Thalasstheos — <span class="say">“and you go down with the stone. No.”</span></p>
+<p class="para"><span class="say">“Then we dig,”</span> Kree offers, eyeing the rockfall. <span class="say">“The buried tunnel. I have a hammer—”</span></p>
+<p class="para"><span class="say">“You have done <em>enough</em> with the hammer.”</span></p>
+<p class="para"><span class="say">“It was a <em>good</em> hammer—”</span></p>
+<p class="para"><span class="say">“It would take a day,”</span> Thalasstheos says gently, and that ends it, because they do not have an hour, let alone a day.</p>
+<p class="para"><span class="say">“Fine. The lizard at the door.”</span> Wilhelm rubs his eyes. <span class="say">“We can’t fight through it — not all of us, not hurt like this. The first one through dies.”</span></p>
+<p class="para"><span class="say">“So no one goes <em>through,</em>”</span> Thalasstheos says slowly, and the others look at her. <span class="say">“It is a hunter. A hunter follows the loudest, brightest thing in the dark. If something <em>draws</em> it off the door — just for a breath — the rest of us are gone before it turns back.”</span></p>
+<p class="para">A silence while it sinks in. <span class="say">“…That something gets shot at by lightning,”</span> Wilhelm says. <span class="say">“Yes.”</span> <span class="say">“Alone.”</span> <span class="say">“Yes.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Distraction</span><span class="sh-orn">✦</span></h3>
+<p class="para">Kree, with the instant generosity of a man volunteering someone else, brightens. <span class="say">“Kenra! She glows! She does voices! She’s a perfect—”</span></p>
+<p class="para"><span class="say">“Kree.”</span></p>
+<p class="para"><span class="say">“—she could sound like a whole <em>herd</em> of—”</span></p>
+<p class="para"><span class="say">“Kree. Whose hammer started this?”</span></p>
+<p class="para">A pause. Three faces turn to him with the serene unanimity of a jury. <span class="say">“…Oh, <em>come on,</em>”</span> Kree says.</p>
+<p class="para">He sighs the long sigh of the unjustly accused, and flies out the tunnel in a burst of indignant red feathers. He bursts up into the open chamber and grabs the loudest thing he owns — Barthen’s bell — and rings it like the end of the world, swooping through the air, well above the floor. <em>Can’t reach me up here,</em> he thinks, smug, <em>can’t possibly—</em></p>
+<p class="para">The first lightning bolt parts the feathers an inch from his head.</p>
+<p class="para"><span class="say">“OKAY — okay, it can do that — HURRY UP — PLEASE HURRY UP—”</span> and Kree becomes a frantic, jinking, screaming smear of red against the blue, dodging bolt after bolt as the big lizard wheels beneath him, thunder-throat blazing.</p>
+<p class="para">Below, they run for it. Wilhelm goes first, scrambling up into the climb-tunnel. Thalasstheos next. Then Kenra — but Kenra’s blue glow betrays her the instant she breaks cover, and the big lizard’s head snaps around toward the light. She dives behind a rock just in time.</p>
+<p class="para">Kree, aloft, sees it turning away from him and tries everything to win its eye back. It does not bite. Kenra, pinned behind her rock with a glowing monster between her and escape, lets go of every sensible instinct she has and reaches for the one absurd thing left to her. She makes herself <em>very still.</em> She dims. She hunches. She does an impression of a glowing blue rock.</p>
+<p class="para">From the tunnel, Wilhelm watches this happen in real time. <span class="say">“…Is that going to work,”</span> he says faintly. <span class="say">“Is she — what’s the <em>sound</em> of a rock. Does she have a rock noise. I need to know if she has a rock noise—”</span></p>
+<p class="beat">It works.</p>
+<p class="para">The behir-sized lizard sweeps its gaze right over the small motionless blue lump, decides it is scenery, and turns back to fling lightning at the loud red bird. Kenra waddles — <em>waddles,</em> with enormous dignity — to the tunnel, where two pairs of hands haul her up and in.</p>
+<p class="para">And Kree, freed at last, folds his wings and <em>dives,</em> loosing one arrow on the way past — not at the lizard, but at a great loose slab above the tunnel mouth. It drops. It seals the passage behind him in a roar of stone, the big lizard’s scream cutting off mid-note.</p>
+<p class="para">They are through. There is no longer a way back.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Skathrix</span><span class="sh-orn">✦</span></h3>
+<p class="para">The passage opens into one last chamber. And the behir is waiting for them.</p>
+<p class="para">It is coiled in the center of the room, and it is <em>smiling</em> — if a thing with that many teeth can smile — a slow, sadistic, unhurried grin. It uncoils as they enter and begins to <em>circle,</em> the long body sliding around the edge of the room, the cold eyes traveling up and down each of them in turn. The tongue flickers out, tasting. The tail flicks, testing. It is not afraid. It is <em>choosing.</em></p>
+<p class="para">Kree, because Kree cannot help it, opens his beak to say something. Wilhelm’s hand clamps over it. But it is enough. The eyes fix on them, and the grin drops away.</p>
+<p class="para"><span class="say">“You were warned, little bird,”</span> the behir says — and its voice fills the room now, no longer bored, <em>enormous.</em> <span class="say">“I am <em>Skathrix.</em> I have ruled this peak since before your towns had names. And you — you <em>crawled back into my house.</em>”</span></p>
+<p class="para">Its throat begins to swell. The whole chamber crackles blue. <span class="say">“Then choke on the storm.”</span></p>
+<p class="para">The lightning does not strike. It <em>fills</em> — the entire room going white and screaming at once. Wilhelm is hurled off his feet and does not get up. Kree drops where he stands. Thalasstheos crumples last, slow, fighting it the whole way down, and ends on the floor between them with her eyes half-open and the light gone out of her hands.</p>
+<p class="beat">Only Kenra is left standing.</p>
+<p class="para">She does not understand it — the storm rolled <em>through</em> her and past her, the cold blue light still wrapped around her, untouched. (The potion. Of course. <em>Lightning.</em>) But understanding it does not help, because understanding it does not wake the others, and the others are not waking.</p>
+<p class="para">She stands frozen in the smoking quiet as Skathrix lowers itself to the floor and begins to <em>pour</em> across the stone toward them — slow, certain, savoring it. This is the part it likes. This is why it did not simply crush them in the dark. It wants to watch the small glowing one understand that there is nothing left to do.</p>
+<p class="para">And there isn’t. Kenra knows it even as she drops to her knees among them — shaking Wilhelm, shaking Kree, pressing both hands to Thalasstheos’s chest, hunting for the rise and fall of breath, finding it faint, finding it <em>fading</em> — one small bird in a cathedral of cold light, the only thing still moving, and not nearly enough.</p>
+<p class="para">The mountain has them. It was always going to have them. Skathrix slides closer, and opens its mouth, and there is no one left to stop it.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">To Be Continued</span><span class="sh-orn">✦</span></h3>
+</section>
+
+<div class="finis"><div class="finis-orn">✦ ⚜ ✦</div><div class="finis-text">The Tale Continues…</div></div>
+
+</div>
+</body>
+</html>

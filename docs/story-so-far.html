@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Adventurers' Record — The Story So Far</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3b2a1a; --ink-soft:#5d4633; --crimson:#7c2d12; --crimson2:#9a3412;
+  --gold:#9a6b1f; --gold-bright:#b8860b; --sea:#1d4e5f; --edge:#c9b48a;
+  --parch1:#f6ecd2; --parch2:#efe1bf; --parch3:#e7d4a8;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'EB Garamond',Georgia,'Times New Roman',serif;
+  color:var(--ink); line-height:1.72; font-size:19px;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #efe2c2 0%, rgba(239,226,194,0) 55%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(150,110,60,.05) 0 2px, rgba(0,0,0,0) 2px 5px),
+    repeating-radial-gradient(circle at 80% 70%, rgba(120,80,40,.045) 0 2px, rgba(0,0,0,0) 2px 6px),
+    linear-gradient(160deg,var(--parch1),var(--parch2) 55%,var(--parch3));
+  background-attachment:fixed;
+}
+.page{max-width:830px;margin:0 auto;padding:46px 30px 90px;}
+
+/* title page */
+.frontis{text-align:center;padding:24px 0 6px;}
+.vol-eyebrow{font-family:'Cinzel',serif;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold);font-size:14px;margin-bottom:6px;padding-left:.55em;}
+.vol-title{font-family:'UnifrakturMaguntia',serif;font-size:68px;line-height:1.02;
+  color:var(--crimson);text-shadow:1px 1px 0 #e9cf9b, 3px 3px 6px rgba(60,30,10,.28);margin:4px 0 2px;}
+.vol-sub{font-family:'Cinzel',serif;font-size:20px;letter-spacing:.05em;color:var(--ink-soft);margin:8px 0 4px;}
+.vol-meta{font-style:italic;color:var(--gold);font-size:16px;letter-spacing:.03em;}
+pre.flourish{color:var(--crimson);font-size:15px;line-height:1.1;margin:16px 0 6px;text-shadow:1px 1px 0 #e9cf9b;}
+.preface{max-width:660px;margin:18px auto 0;font-style:italic;color:var(--ink-soft);font-size:17px;}
+
+/* section header */
+.section{margin-top:46px;}
+.sec-wrap{text-align:center;margin:40px 0 18px;}
+.sec-flourish{color:var(--gold-bright);font-size:22px;letter-spacing:.08em;margin-bottom:6px;text-shadow:1px 1px 0 #efdcae;}
+.sec-eyebrow{font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);font-size:13px;padding-left:.5em;}
+.sec-title{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;color:var(--crimson);
+  font-size:30px;line-height:1.15;margin:4px auto 6px;max-width:700px;text-shadow:1px 1px 0 #ecd09a;}
+.sec-rule{color:var(--crimson2);font-size:15px;letter-spacing:.05em;opacity:.85;}
+.flavor{text-align:center;font-style:italic;color:var(--gold);font-size:16px;margin:0 auto 18px;max-width:640px;}
+
+/* prose */
+p{margin:0 0 14px;}
+.story p{text-align:justify;hyphens:auto;}
+.subhead{font-family:'Cinzel',serif;font-weight:600;color:var(--sea);font-size:19px;
+  margin:26px 0 8px;letter-spacing:.02em;}
+.subhead .o{color:var(--gold-bright);margin-right:.5em;}
+.say{font-style:italic;color:var(--sea);}
+.dropfirst::first-letter{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;
+  float:left;font-size:56px;line-height:.78;padding:6px 9px 2px 0;color:var(--crimson);text-shadow:1px 1px 0 #ecd09a;}
+
+/* entries */
+.entry{border-left:3px solid var(--edge);padding:2px 0 2px 16px;margin:0 0 15px;}
+.entry .nm{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);font-size:18px;}
+.entry .role{font-style:italic;color:var(--sea);font-size:15px;}
+.entry .ds{color:var(--ink-soft);font-size:17px;line-height:1.55;margin-top:1px;}
+.groupcap{font-family:'Cinzel',serif;text-transform:uppercase;letter-spacing:.22em;color:var(--gold);
+  font-size:14px;margin:22px 0 10px;text-align:center;}
+
+/* party cards */
+.cast-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:6px;}
+.cast-card{border:1px solid var(--edge);border-radius:10px;padding:13px 16px;
+  background:linear-gradient(160deg,rgba(255,250,235,.6),rgba(231,212,168,.35));
+  box-shadow:0 2px 6px rgba(80,50,20,.10), inset 0 0 0 1px rgba(255,255,255,.25);}
+.cast-name{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);font-size:18px;}
+.cast-role{font-style:italic;color:var(--sea);font-size:15px;margin:1px 0 6px;}
+.cast-desc{font-size:16px;color:var(--ink-soft);line-height:1.55;}
+
+/* status tags */
+.tag{display:inline-block;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;padding:2px 9px;border-radius:20px;vertical-align:.12em;margin-left:8px;border:1px solid;}
+.tag.defeated{color:#2f5d3a;border-color:#9cb79f;background:rgba(120,160,120,.16);}
+.tag.active{color:#8a2412;border-color:#d39a86;background:rgba(190,80,50,.13);}
+.tag.evaded{color:var(--gold);border-color:#d8be84;background:rgba(180,140,40,.12);}
+.tag.ally{color:#1d4e5f;border-color:#9ec0c9;background:rgba(40,110,130,.12);}
+
+.callout{border:1px solid var(--edge);border-radius:10px;padding:16px 20px;margin:14px 0;
+  background:linear-gradient(160deg,rgba(255,250,235,.55),rgba(231,212,168,.30));
+  box-shadow:inset 0 0 0 1px rgba(255,255,255,.25);}
+.callout .nm{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);}
+
+@media (max-width:640px){
+  body{font-size:17px;}
+  .vol-title{font-size:46px;}
+  .cast-grid{grid-template-columns:1fr;}
+  .sec-title{font-size:24px;}
+}
+@media print{ body{background:var(--parch1);} .section{page-break-inside:auto;} }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ===================== TITLE ===================== -->
+  <div class="frontis">
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+    <div class="vol-eyebrow">The Chronicles of the Ember Road</div>
+    <div class="vol-title">The Adventurers' Record</div>
+    <div class="vol-sub">A Player's Catch-Up &amp; Session Reference — The Story So Far</div>
+    <div class="vol-meta">current as of the forest road east of Phandalin</div>
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+    <p class="preface">Kept for the rolls of the Phandalin Adventurers' Guild, and for any companion needing to remember where the road has taken them. Herein: all you have seen and done, the folk you have met, the spoils you carry, the beasts you have bested — and the questions still unanswered. (What lies <em>ahead</em> is, mercifully, not yet written.)</p>
+  </div>
+
+  <!-- ===================== THE PARTY ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Roll Call</div>
+      <h2 class="sec-title">Your Company</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <p class="flavor">Four strangers bound first by coin, then by fire — a registered guild company, though you have yet to agree on a name.</p>
+    <div class="cast-grid">
+      <div class="cast-card"><div class="cast-name">Wilhelm Thorne</div>
+        <div class="cast-role">Human artificer &amp; tinkerer</div>
+        <div class="cast-desc">A dour former academy man with a flintlock, a fondness for shiny salvage, and a talent for invention. Reluctant hero; relentless complainer. Built the party's brass &ldquo;Telecom.&rdquo;</div></div>
+      <div class="cast-card"><div class="cast-name">Kree</div>
+        <div class="cast-role">Aarakocra rogue</div>
+        <div class="cast-desc">Bright-feathered, quick-fingered, helplessly drawn to coin. Mastermind of the infinite-gold-loop. Carries a black sword that whispers to him — and which he has now drawn, just once.</div></div>
+      <div class="cast-card"><div class="cast-name">Thalasstheos</div>
+        <div class="cast-role">Water genasi, Druid of the Circle of the Sea</div>
+        <div class="cast-desc">Serene, maternal, unbreakably kind — the company's healer and conscience. Joined on the road; earned the company's keep in Phandalin, and is now traveling alone to rejoin you.</div></div>
+      <div class="cast-card"><div class="cast-name">Kenra</div>
+        <div class="cast-role">Kenku, Druid of the Circle of the Moon</div>
+        <div class="cast-desc">Chaos in borrowed voices. Wild-shapes into bear, wolf, and cat. Fell out of the sky and never left. Carries a past in the northern mountains.</div></div>
+    </div>
+    <div class="callout"><span class="nm">Standing:</span> You are registered with the Phandalin <strong>Adventurers' Guild</strong> — one job a month, or you're disbanded. Your party name is still, officially, <em>&ldquo;Pending.&rdquo;</em></div>
+  </div>
+
+  <!-- ===================== STORY SO FAR ===================== -->
+  <div class="section story">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">The Road Behind</div>
+      <h2 class="sec-title">The Story So Far</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+
+    <div class="subhead"><span class="o">❖</span>Brindlewick &amp; the Caravan</div>
+    <p class="dropfirst">It began with rain and a robbery. In the little town of <strong>Brindlewick</strong>, Wilhelm and Kree happened upon two bandits accosting a merchant, <strong>Marta Brin</strong>, and cut them down. Grateful — and desperate — she hired the pair to escort her caravan through Phandalin Wood for fifty gold. <span class="say">&ldquo;Bandits have been hitting the lanes for weeks,&rdquo;</span> she warned. Wilhelm went, in his words, <span class="say">&ldquo;for the money.&rdquo;</span></p>
+    <p>On the road through the Whispering Pines they shook off a wolf pack, then made camp — only to be ambushed by bandits in the dark. As the fight turned against them, a giant blue bear burst from the mist, scattered the attackers with a wave of water, and became a woman: <strong>Thalasstheos</strong>, a druid of the sea, who healed their wounds and chose to walk with them.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Ashlings</div>
+    <p>At an abandoned farmhouse they found roughly forty <strong>ashlings</strong> — tiny, gentle fire-spirits — led by one called <strong>Bop</strong>. Driven from their home by fearful farmers, the little creatures needed shelter. Thalasstheos insisted they be invited, not caged: <span class="say">&ldquo;The world has plenty of destroyers. It could use a few more menders.&rdquo;</span> So the ashlings rode along in a barrel aboard the wagon. A tense river crossing nearly drowned Wilhelm (the barrel had a bullet hole from the earlier fight), but Thalasstheos lifted them all to safety in a bubble of water.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Troll's Bridge</div>
+    <p>A new companion fell — literally — from the sky: <strong>Kenra</strong>, a chaotic kenku druid, who simply decided she was joining. At a fog-choked ravine, a <strong>toll troll</strong> demanded <span class="say">&ldquo;Twenty-five gold pieces! Each!&rdquo;</span> What followed was the legendary <em>infinite-gold-loop</em>: Kree kept pickpocketing the same hundred coins back and re-paying them while Wilhelm distracted the dim creature. It almost worked — until Kree slipped, the gold scattered, and a brutal brawl broke out. The troll beat Wilhelm down before a moonbeam from Thalasstheos, a bear from Kenra, and blades from Kree finished it. Across the bridge, a dead adventurers' chest paid them well.</p>
+
+    <div class="subhead"><span class="o">❖</span>Cinderhearth Manor</div>
+    <p>The smell of ash led them to a vine-choked <strong>manor</strong> — once the ashlings' true home, now feverish with fire. Inside waited pit traps, scorched nurseries, and endless fire-spirits. Kree found a glowing <strong>red amulet</strong> that drank flame whole; Kenra found a magic torch and a strange potion; Wilhelm pocketed a silver candelabra (to Thalasstheos's disappointment — <span class="say">&ldquo;Their home is sacred. We are guests, not raiders.&rdquo;</span>). On the ramparts a fire serpent and elemental nearly overwhelmed them, until the red amulet swallowed the blaze entire. Among the rubble, Kree claimed a curious <strong>black sword</strong>.</p>
+    <p>Deeper still, a hallway of burning chains barred the way — Kenra drank her red potion, turned fire-proof and glowing, and walked through as a living torch. Beyond lay a chained, smoldering <strong>cocoon</strong>.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Cindered Salamander</div>
+    <p>The door slammed; the cocoon erupted in spirits. Wilhelm shot the chains while Kenra and Kree tore them loose — and the cocoon split to reveal an ancient <strong>magma salamander</strong>, the source of all the fire. It swallowed Wilhelm whole (he stabbed his way out), crushed Kenra, and hurled Thalasstheos aside. From the brink she poured out her last light to revive them all, and together — sword, bullet, dagger, and moonbeam — they brought the beast down. The fire went out for good.</p>
+    <p>In the quiet after, the calmed ashlings gave their thanks and parting gifts, then melted gently back into the land. The road to Phandalin lay open at last.</p>
+
+    <div class="subhead"><span class="o">❖</span>Arrival in Phandalin</div>
+    <p>Highwaymen tried the caravan one last time on the approach — Kenra (as a direwolf) sent one fleeing <span class="say">&ldquo;NOPE — NOPE — NOPE&rdquo;</span> on horseback. In town, you delivered Marta's goods to the <strong>Merchants' Guild</strong> and were paid. While you wandered, Kenra met the uncanny fortune-teller <strong>Ember</strong> at the Shrine of Luck, who spoke of her exile and foretold: <span class="say">&ldquo;You will be met with reunion.&rdquo;</span> At a fountain beneath a bronze statue of a four-member adventuring party, Kree proposed you make it official — and you became a company, registering at the <strong>Adventurers' Guild</strong> with the clerk <strong>Casey</strong>.</p>
+
+    <div class="subhead"><span class="o">❖</span>A Quiet Night, and a Whisper</div>
+    <p>You toasted your survival at the inn and took rooms from <strong>Frun</strong>, the tabaxi innkeeper. Alone in the dark, Kree's pack began to <em>speak</em> — the black sword: <span class="say">&ldquo;Kree… attune… I am your strength. Your power… and your vengeance.&rdquo;</span> He refused, and locked it in a drawer.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Robbery &amp; the Hunt</div>
+    <p>By morning you'd been robbed — Wilhelm's coin and Thalasstheos's satchel gone without a trace, no forced entry, the only clue a scrap of unfamiliar cloth. Frun sighed: <span class="say">&ldquo;Not the first time this week.&rdquo;</span> Broke and motivated, you took the one rich contract on the board: <strong>displacer beasts</strong> ambushing caravans from the mountains. Thalasstheos chose to stay in Phandalin, taking up healing work at a clinic — <span class="say">&ldquo;You don't need me to take the next step&rdquo;</span> — while Wilhelm's new <strong>Telecom</strong> keeps you all in touch. You left by the east gate. In the deep woods, something black flickered, struck Kree, and vanished, leaving only two yellow eyes. <span class="say">&ldquo;We are being hunted,&rdquo;</span> Wilhelm said. And somewhere in the trees, something smiled.</p>
+
+    <div class="subhead"><span class="o">❖</span>Into the Woods</div>
+    <p>Hunting the beasts, you fought running battles through the forest — their flickering projections turning every blow into a guess. You pressed on down the <strong>Triboar Trail</strong>, wounded and with no Thalasstheos to mend you; once, Wilhelm was hurt so badly that Kenra carried him on her bear-back. A crackling call reached you over the <strong>Telecom</strong>, and Kree cheerfully swore you were all <span class="say">&ldquo;fine,&rdquo;</span> saying nothing of the blood — Kenra playing gently along so as not to worry her. At last the trees broke onto a vast field of reeds, the mountain looming beyond, and you stole a brief rest in the rain: Wilhelm carving dice from deer-bone, Kree turning lazy loops in the drizzle.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Storm in the Reeds</div>
+    <p>The reeds were a trap. Ambushed again, you lost the Telecom — crushed underfoot by a beast — just as an unnatural lightning storm set the whole field ablaze. Among the flames stalked a <strong>scarred alpha</strong>, bigger than all the rest. Cornered and desperate, Kree at last drew the <strong>black sword</strong>: one stroke felled a great beast, the blade flaring <em>purple</em> and pouring strength into him. You barely escaped the burning reeds and reached the cover of the forest, sheltering in an abandoned cabin.</p>
+
+    <div class="subhead"><span class="o">❖</span>The Shape in the Storm</div>
+    <p>That night, on watch, Kree saw it — a vast winged shape riding the storm itself, lightning and howling wind moving with it like a king's procession, before it vanished into the clouds about the mountain. Far away in Phandalin, the line had gone dead, the clinic was filling with the badly hurt, and the beasts were turning bold. Unable to reach you, <strong>Thalasstheos</strong> shouldered her pack and set out alone to find you.</p>
+  </div>
+
+  <!-- ===================== PEOPLE ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Names to Remember</div>
+      <h2 class="sec-title">People You've Met</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+
+    <div class="groupcap">Friends &amp; Companions</div>
+    <div class="entry"><span class="nm">Thalasstheos</span> <span class="tag ally">en route</span><div class="ds">The water-genasi druid who saved you on the road and became your healer and heart. Earned the company's keep in Phandalin — and, when the Telecom went silent, set out alone to find you.</div></div>
+    <div class="entry"><span class="nm">Bop &amp; the Ashlings</span><div class="ds">The gentle fire-spirits you rescued and freed. They gave you parting gifts and faded peacefully back into the land once the manor's fire was ended.</div></div>
+    <div class="entry"><span class="nm">Marta Brin</span><div class="ds">The Brindlewick merchant who hired you for the very first caravan job. A friendly face in Phandalin now that her goods arrived safe.</div></div>
+
+    <div class="groupcap">Folk of Phandalin</div>
+    <div class="entry"><span class="nm">Ember</span><div class="ds">A red-haired woman in a pointed hat who keeps the Shrine of Luck — and seems to be everywhere at once. She read Kenra's past, foretold a coming &ldquo;reunion,&rdquo; gifted Kree a book, and sent Thalasstheos to the clinic. Clearly more than she appears.</div></div>
+    <div class="entry"><span class="nm">Casey</span><div class="ds">The Adventurers' Guild desk clerk who registered your company, handed over the Tablet of Vigor, and set the rules (&ldquo;one job a month, or you're disbanded&rdquo;).</div></div>
+    <div class="entry"><span class="nm">Harlan Voss</span><div class="ds">The Merchants' Guild trade factor who took delivery of Marta's caravan and paid you. Polite, precise, treats everything as a transaction.</div></div>
+    <div class="entry"><span class="nm">Frun</span><div class="ds">The tabaxi innkeeper who rents your rooms. Broke the news of the robbery and waived your bill — &ldquo;On the house.&rdquo;</div></div>
+    <div class="entry"><span class="nm">Barthen</span><div class="ds">Kind shopkeeper at Barthen's Provisions. Traded Kree a small bell for a salamander scale; mentioned caravans going missing on the Triboard Trail.</div></div>
+    <div class="entry"><span class="nm">Carmine</span><div class="ds">The gruff stable-master, with little patience for noise — he has already thrown Kenra out once.</div></div>
+    <div class="entry"><span class="nm">Seb</span><div class="ds">A young adventurer at the Guild who warned you the displacer-beast contract is nasty work. &ldquo;You take that, you better be ready.&rdquo;</div></div>
+    <div class="entry"><span class="nm">Doctor Henning</span><div class="ds">The hunched, cane-leaning clinic doctor who hired Thalasstheos on the spot. Her base of work while you hunt.</div></div>
+
+    <div class="groupcap">Foes &amp; Strangers</div>
+    <div class="entry"><span class="nm">The Toll Troll</span> <span class="tag defeated">slain</span><div class="ds">The dim, greedy guardian of the ravine bridge. Victim of the infinite-gold-loop, then of your blades. Dissolved into steam.</div></div>
+    <div class="entry"><span class="nm">The Whisper in the Sword</span> <span class="tag active">unresolved</span><div class="ds">Not a person — but a presence. The black blade from the manor speaks only to Kree, offering power and &ldquo;vengeance&rdquo; if he will attune to it. So far, he has refused.</div></div>
+  </div>
+
+  <!-- ===================== PLACES ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">The Map So Far</div>
+      <h2 class="sec-title">Places Visited</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <div class="entry"><span class="nm">Brindlewick</span><div class="ds">Where it all began — a small, ordinary river town of cobbled streets, bakeries, and woodsmoke, and Wilhelm's home (he taught at its academy). Here the company first crossed paths, saved Marta Brin from bandits, and took the caravan job that started everything.</div></div>
+    <div class="entry"><span class="nm">Cinderhearth Manor</span><div class="ds">A vine-choked, abandoned estate built around a great central hearth — once the ashlings' home, until an ancient fire stirred beneath it and filled the halls with spirits. You fought through its overgrown courtyard, pit-trapped rooms, burning ramparts, and a hall of molten chains to the chamber far below. With the salamander slain, the manor finally went still, and the land began to take it back.</div></div>
+    <div class="entry"><span class="nm">Phandalin</span><div class="ds">A frontier trade town with no lord, run by guilds under an old pact — and your home base for now. You've walked its Merchants' Guild and Adventurers' Guild halls, Ember's Shrine of Luck, Barthen's Provisions, Carmine's stables, Frun's inn, and the clinic where Thalasstheos now keeps her work.</div></div>
+    <div class="entry"><span class="nm">The Wild Roads Between</span><div class="ds">The places of the journey itself: Phandalin Wood and the Whispering Pines, where wolves shadowed the caravan; the fog-choked ravine and the troll's swaying rope bridge; and the dark woods east of Phandalin, where the displacer-beast hunt — and your latest danger — began.</div></div>
+  </div>
+
+  <!-- ===================== LOOT ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Spoils &amp; Relics</div>
+      <h2 class="sec-title">What You Carry</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <p class="flavor">Hard-won treasures, heartfelt gifts, and one or two things best handled with care.</p>
+
+    <div class="groupcap">Gifts of the Ashlings</div>
+    <div class="entry"><span class="nm">Wilhelm — Fireproof Coat</span><div class="ds">A simple new coat from Bop, untouched by flame. Given after the manor burned out. (He'd lost his old one to fire twice over.)</div></div>
+    <div class="entry"><span class="nm">Kenra — Warm Dark Feather</span><div class="ds">A feather that still holds a faint memory of fire's warmth.</div></div>
+    <div class="entry"><span class="nm">Thalasstheos — Luminous Pearl</span><div class="ds">A small pearl that shimmers like moonlight caught beneath water.</div></div>
+    <div class="entry"><span class="nm">Kree — Platinum Coin</span><div class="ds">A single, perfectly polished platinum coin. In Kree's own words: &ldquo;an absurd amount of money… I accept.&rdquo;</div></div>
+
+    <div class="groupcap">Relics &amp; Curiosities</div>
+    <div class="entry"><span class="nm">The Black Sword</span> <span class="tag active">caution</span><div class="ds">Recovered from the manor and wielded by Kree. It cuts fire-spirits — and now beasts — out of the world for good; in the reeds it felled a scarred alpha clean through, flared purple, and poured strength into him. It whispers for more, and Kree has still not attuned to it.</div></div>
+    <div class="entry"><span class="nm">The Red Amulet</span><div class="ds">Found in the manor's nursery; it devours flame and fire-spirits whole. It drank the manor's blaze and has since gone quiet. Kree keeps it close.</div></div>
+    <div class="entry"><span class="nm">Tablet of Vigor</span><div class="ds">Issued by the Adventurers' Guild — one per company, a relic meant to pull someone back from death's door in dire need. &ldquo;Use it wisely.&rdquo;</div></div>
+    <div class="entry"><span class="nm">Wilhelm's Telecom</span> <span class="tag active">destroyed</span><div class="ds">His hand-built brass communicators, which once kept you linked to Thalasstheos in town — until a displacer beast crushed the field unit underfoot in the reeds. You are now out of contact.</div></div>
+
+    <div class="groupcap">Odds, Ends &amp; Coin</div>
+    <div class="entry"><span class="nm">Carried trinkets</span><div class="ds">Kenra's magic torch and a worn collection of &ldquo;treasures&rdquo;; Kree's pouch of manor jewels, his book from Ember, and a little bell; Wilhelm's silver candelabra and tinker's tools. (Kenra's fire-immunity potion was drunk in the manor.)</div></div>
+    <div class="callout"><span class="nm">Note on coin:</span> the Phandalin robbery cleaned out most of your gold — Wilhelm's purse and Thalasstheos's whole satchel were taken. You set out on the hunt <em>functionally broke</em>, which is rather the point of taking it.</div>
+  </div>
+
+  <!-- ===================== FOES ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Blades Drawn</div>
+      <h2 class="sec-title">Beasts &amp; Foes Faced</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <div class="entry"><span class="nm">Bandits &amp; Highwaymen</span> <span class="tag defeated">defeated</span><div class="ds">In the Brindlewick square, at the dusk camp, and again on the Phandalin road. The dusk-camp one asked a strange question first — &ldquo;Are you here for the job?&rdquo;</div></div>
+    <div class="entry"><span class="nm">Wolves of the Whispering Pines</span> <span class="tag evaded">evaded</span><div class="ds">Trailed the caravan early on; you slipped them by taking a hidden track rather than fighting.</div></div>
+    <div class="entry"><span class="nm">The Toll Troll</span> <span class="tag defeated">slain</span><div class="ds">Guardian of the ravine bridge. Tough and dim; fell to moonbeam, bear, blade, and a point-blank shot.</div></div>
+    <div class="entry"><span class="nm">Fire-Spirits, Serpents &amp; Elementals</span> <span class="tag defeated">cleansed</span><div class="ds">The endless flames of Cinderhearth Manor — wisps, living cinders, a fire serpent, a fire elemental, and a swarm of fire-bats. Beaten back with water, blade, and the fire-eating red amulet.</div></div>
+    <div class="entry"><span class="nm">The Cindered Salamander</span> <span class="tag defeated">slain</span><div class="ds">An ancient magma salamander, the source of the manor's curse. Your hardest battle yet — it nearly killed you all before falling.</div></div>
+    <div class="entry"><span class="nm">Displacer Beasts</span> <span class="tag active">hunting you now</span><div class="ds">Illusion-cloaked predators driven down from the mountains, preying on caravans. Your current contract. First contact in the woods left one of them unscathed and you shaken — they are out there still.</div></div>
+  </div>
+
+  <!-- ===================== BESTIARY ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Creatures Encountered</div>
+      <h2 class="sec-title">A Traveler's Bestiary</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <p class="flavor">Not all you have met meant you harm — some you carried, and some carried you.</p>
+    <div class="entry"><span class="nm">Ashlings</span> <span class="tag ally">friends</span><div class="ds">Tiny living embers, no taller than a hand, that glow like coals and chatter in cricket-and-steam squeaks (only Thalasstheos can understand them). Gentle and shy, they nest in warm hearths. You saved a flock of some forty, led by Bop — and they repaid you before fading into the land.</div></div>
+    <div class="entry"><span class="nm">Fire-Spirits</span><div class="ds">Flickering motes of living flame that infested Cinderhearth Manor — drifting wisps and skittering cinders. Left unchecked they fold into greater horrors: a coiling fire serpent, a towering humanoid fire-elemental, and shrieking swarms of fire-bats. The red amulet devours them; the black sword ends them for good.</div></div>
+    <div class="entry"><span class="nm">The Cindered Salamander</span> <span class="tag defeated">slain</span><div class="ds">An ancient, serpentine beast of molten stone and fire — the source of the manor's curse. It swallows prey whole, breathes gouts of flame, and heals by bathing in lava. The hardest thing you have yet brought down.</div></div>
+    <div class="entry"><span class="nm">Troll</span> <span class="tag defeated">slain</span><div class="ds">A huge, dim, rubber-hided brute that knits its own wounds shut and guarded the ravine bridge for &ldquo;tolls.&rdquo; Strong enough to fling a person across a chasm — but no match for a coin scam and four blades.</div></div>
+    <div class="entry"><span class="nm">Wolves</span> <span class="tag evaded">evaded</span><div class="ds">Ordinary pack hunters that shadowed the caravan through the Whispering Pines. You slipped them on a hidden track rather than fight.</div></div>
+    <div class="entry"><span class="nm">Displacer Beasts</span> <span class="tag active">hunting you now</span><div class="ds">Sleek, panther-like predators wreathed in illusion — they seem to stand where they are <em>not</em>, so blows meant for them strike empty air. Lashing, tentacled limbs and patient, cruel eyes. Driven down from the mountains, and presently on your trail.</div></div>
+  </div>
+
+  <!-- ===================== LORE ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">What You Know</div>
+      <h2 class="sec-title">Lore of the Ember Road</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <div class="entry"><span class="nm">The Ashlings &amp; Cinderhearth Manor</span><div class="ds">The ashlings once made the manor's great hearth their home — until something ancient stirred beneath it and the fire turned wild. They fled, leaving offerings behind for someone kinder or braver. You were that someone: by slaying the salamander you freed their land, and they reclaimed it before fading away.</div></div>
+    <div class="entry"><span class="nm">Phandalin, a Town of Guilds</span><div class="ds">A frontier trade town with no lord — ruled instead by guilds under an old pact. The <strong>Merchants' Guild</strong> governs trade and coin; the <strong>Adventurers' Guild</strong> handles monsters, ruins, and contracts. You are now sworn members of the latter.</div></div>
+    <div class="entry"><span class="nm">The Threat from the Mountains</span><div class="ds">Displacer beasts — rare this close to town — have been ambushing caravans coming down from the mountains, choking off trade. No one knows why they've come so far. Stopping them is your charge.</div></div>
+  </div>
+
+  <!-- ===================== THREADS ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">Loose Threads</div>
+      <h2 class="sec-title">Open Questions</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <p class="flavor">Mysteries you've brushed against but not yet unravelled.</p>
+    <div class="entry"><span class="nm">The Whispering Blade</span><div class="ds">What <em>is</em> the black sword that followed Kree out of the manor? He has drawn it once now — it fed, and it glowed — and it wants more. What happens if he answers its call in full?</div></div>
+    <div class="entry"><span class="nm">The Quiet Thief</span><div class="ds">Someone robs Phandalin's guests in broad daylight, with no forced entry and never caught. They took your coin and Thalasstheos's satchel. The only clue: a scrap of unfamiliar cloth.</div></div>
+    <div class="entry"><span class="nm">Who Is Ember?</span><div class="ds">She appears wherever you go, knows what she shouldn't, and speaks in fortunes. Her promise to Kenra — &ldquo;you will be met with reunion&rdquo; — still hangs unfulfilled.</div></div>
+    <div class="entry"><span class="nm">The Shape in the Storm</span><div class="ds">On the worst night of the storm, a vast winged thing rode the wind and lightning over your camp and vanished into the clouds about the mountain. You do not yet know what it was — only that it was enormous, and unafraid.</div></div>
+    <div class="entry"><span class="nm">A Company Without a Name</span><div class="ds">The guild ledger still reads &ldquo;Pending.&rdquo; Sooner or later, you'll have to decide who you are.</div></div>
+  </div>
+
+  <!-- ===================== WHERE YOU STAND ===================== -->
+  <div class="section">
+    <div class="sec-wrap">
+      <div class="sec-flourish">✦ ════════ ⚜ ════════ ✦</div>
+      <div class="sec-eyebrow">The Present Moment</div>
+      <h2 class="sec-title">Where You Stand</h2>
+      <div class="sec-rule">✦ ═══════════ ❖ ═══════════ ✦</div>
+    </div>
+    <div class="callout">
+      <p style="margin:0 0 10px;">You are <strong>registered adventurers of Phandalin</strong>, deep in the wilds below the mountain — sheltering in an abandoned cabin after barely surviving the burning reeds.</p>
+      <p style="margin:0 0 10px;">Your <strong>Telecom is destroyed</strong>, so you are out of contact with <strong>Thalasstheos</strong> — who has left Phandalin and is traveling alone to find you.</p>
+      <p style="margin:0;">You have just watched an <strong>enormous shape</strong> ride the storm to the peak, and the <strong>displacer beasts</strong> are still hunting. The way forward leads toward the mountain.</p>
+    </div>
+    <div class="frontis" style="margin-top:30px;">
+      <div class="sec-flourish" style="font-size:24px;">✦ ⚜ ✦</div>
+      <div style="font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;color:var(--crimson);font-size:24px;margin-top:8px;text-shadow:1px 1px 0 #ecd09a;">The Tale Continues…</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

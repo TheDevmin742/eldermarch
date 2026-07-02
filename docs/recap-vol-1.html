@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume One — Brindlewick to the Phandalin Road</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3b2a1a; --ink-soft:#5d4633; --crimson:#7c2d12; --crimson2:#9a3412;
+  --gold:#9a6b1f; --gold-bright:#b8860b; --sea:#1d4e5f; --edge:#c9b48a;
+  --parch1:#f6ecd2; --parch2:#efe1bf; --parch3:#e7d4a8;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'EB Garamond',Georgia,'Times New Roman',serif;
+  color:var(--ink); line-height:1.72; font-size:19px;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #efe2c2 0%, rgba(239,226,194,0) 55%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(150,110,60,.05) 0 2px, rgba(0,0,0,0) 2px 5px),
+    repeating-radial-gradient(circle at 80% 70%, rgba(120,80,40,.045) 0 2px, rgba(0,0,0,0) 2px 6px),
+    linear-gradient(160deg,var(--parch1),var(--parch2) 55%,var(--parch3));
+  background-attachment:fixed;
+}
+.page{max-width:820px;margin:0 auto;padding:46px 30px 90px;}
+
+/* ---------- TITLE PAGE ---------- */
+.frontis{text-align:center;padding:28px 0 10px;}
+.vol-eyebrow{font-family:'Cinzel',serif;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold);font-size:14px;margin-bottom:6px;padding-left:.55em;}
+.vol-title{font-family:'UnifrakturMaguntia',serif;font-size:74px;line-height:1.02;
+  color:var(--crimson);text-shadow:1px 1px 0 #e9cf9b, 3px 3px 6px rgba(60,30,10,.28);margin:4px 0 2px;}
+.vol-sub{font-family:'Cinzel',serif;font-size:21px;letter-spacing:.06em;color:var(--ink-soft);margin:8px 0 4px;}
+.vol-meta{font-style:italic;color:var(--gold);font-size:16px;letter-spacing:.04em;}
+.frontis pre.flourish{color:var(--crimson);font-size:15px;line-height:1.1;margin:18px 0 6px;
+  text-shadow:1px 1px 0 #e9cf9b;}
+
+.dramatis{margin:26px auto 6px;max-width:740px;}
+.dramatis h4{font-family:'Cinzel',serif;text-align:center;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;font-size:15px;margin:18px 0 14px;}
+.cast-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cast-card{border:1px solid var(--edge);border-radius:10px;padding:13px 16px;
+  background:linear-gradient(160deg,rgba(255,250,235,.6),rgba(231,212,168,.35));
+  box-shadow:0 2px 6px rgba(80,50,20,.10), inset 0 0 0 1px rgba(255,255,255,.25);}
+.cast-name{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);font-size:18px;}
+.cast-role{font-style:italic;color:var(--sea);font-size:15px;margin:1px 0 6px;}
+.cast-desc{font-size:16px;color:var(--ink-soft);line-height:1.55;}
+
+.divider-major{text-align:center;color:var(--gold-bright);font-size:20px;letter-spacing:.4em;margin:34px 0 6px;}
+
+/* ---------- CHAPTER SCROLL ---------- */
+.chapter{margin-top:30px;}
+.scrollwrap{text-align:center;margin:48px 0 22px;}
+.ch-flourish{color:var(--gold-bright);font-size:22px;letter-spacing:.08em;margin-bottom:6px;
+  text-shadow:1px 1px 0 #efdcae;}
+.ch-eyebrow{font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);font-size:13px;margin-top:14px;padding-left:.5em;}
+.ch-title{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;color:var(--crimson);
+  font-size:31px;line-height:1.15;margin:4px auto 6px;max-width:680px;
+  text-shadow:1px 1px 0 #ecd09a;}
+.ch-rule{color:var(--crimson2);font-size:15px;letter-spacing:.05em;opacity:.85;}
+
+/* ---------- SCENE HEADERS ---------- */
+.scene-head{text-align:center;font-family:'Cinzel',serif;font-weight:600;color:var(--sea);
+  font-size:20px;margin:30px 0 10px;letter-spacing:.02em;}
+.sh-orn{color:var(--gold-bright);margin:0 .5em;font-size:16px;vertical-align:.08em;}
+.scene{text-align:center;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--crimson);font-size:15px;margin:26px 0 4px;}
+.scene-orn{color:var(--gold-bright);margin:0 .7em;}
+.scene-aside{text-align:center;font-style:italic;color:var(--gold);font-size:14px;margin:0 0 10px;letter-spacing:.02em;}
+
+/* ---------- BODY ---------- */
+p.para{margin:0 0 14px;text-align:justify;hyphens:auto;}
+p.first::first-letter{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;
+  float:left;font-size:62px;line-height:.78;padding:6px 10px 2px 0;color:var(--crimson);
+  text-shadow:1px 1px 0 #ecd09a;}
+.say{font-style:italic;color:var(--sea);}
+p.beat{text-align:center;font-family:'Cinzel',serif;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--crimson2);font-size:15px;margin:14px 0;opacity:.9;}
+
+/* ---------- FINIS ---------- */
+.finis{text-align:center;margin:54px 0 10px;}
+.finis-orn{color:var(--gold-bright);font-size:24px;letter-spacing:.3em;}
+.finis-text{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;color:var(--crimson);
+  font-size:26px;margin-top:10px;text-shadow:1px 1px 0 #ecd09a;}
+
+@media (max-width:640px){
+  body{font-size:17px;}
+  .vol-title{font-size:50px;}
+  .cast-grid{grid-template-columns:1fr;}
+  pre.scroll{font-size:8px;}
+  .ch-title{font-size:24px;}
+}
+@media print{
+  body{background:var(--parch1);}
+  .chapter{page-break-inside:auto;}
+  .scrollwrap{page-break-after:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="frontis">
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+    <div class="vol-eyebrow">The Chronicles of the Ember Road</div>
+    <div class="vol-title">Volume One</div>
+    <div class="vol-sub">Brindlewick to the Phandalin Road</div>
+    <div class="vol-meta">— a recap of Sessions One through Three —</div>
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+
+    <div class="dramatis">
+      <h4>✦ Dramatis Personae ✦</h4>
+      <div class="cast-grid">
+        <div class="cast-card"><div class="cast-name">Wilhelm Thorne</div><div class="cast-role">Human artificer & tinkerer</div><div class="cast-desc">A dour academy man with a flintlock and a fondness for shiny trinkets. Fixes what others break; complains the entire time.</div></div><div class="cast-card"><div class="cast-name">Kree</div><div class="cast-role">Aarakocra rogue</div><div class="cast-desc">Bright-feathered, quick-fingered, and helplessly drawn to coin. Keeper of the infinite-gold loop and a great many bad ideas.</div></div><div class="cast-card"><div class="cast-name">Thalasstheos</div><div class="cast-role">Water genasi, Druid of the Circle of the Sea</div><div class="cast-desc">Serene, maternal, and unbreakably kind. The party's healer and conscience — and emphatically <em>not</em> a resource.</div></div><div class="cast-card"><div class="cast-name">Kenra</div><div class="cast-role">Kenku, Druid of the Circle of the Moon</div><div class="cast-desc">Fell out of the sky and never left. Speaks in borrowed voices, roars (badly), wild-shapes into bears and wolves, and BEHOLDS the consequences of her actions.</div></div>
+      </div>
+    </div>
+    <div class="divider-major">✦&nbsp;&nbsp;⚜&nbsp;&nbsp;✦</div>
+  </div>
+
+  <section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;I</div><h2 class="ch-title">Session One — Brindlewick to Phandalin Road (Recap)</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Autumn in Brindlewick. The town is small and ordinary: a river, cobbled streets, smoke from bakeries, and folk going about chores. The sky is low and the air smells of woodsmoke and wet earth.</p>
+<p class="para">Wilhelm wakes and goes about his morning ritual—collecting tools and locking up his small room above the academy. He hums to himself, making mental notes for the short, peaceful break he intends to take during the autumn.</p>
+<p class="para">Nearby, Kree perches above the market square, watching. Bright feathers flash as he studies the people below: merchants haggling, children chasing one another. He likes shiny things and watches the town’s movements with careful interest.</p>
+<p class="para">Rain begins to fall — odd, because Brindlewick rarely sees rain this time of year. Wilhelm pauses at his doorway, looks up, and says aloud, slightly puzzled, <span class="say">“How odd.”</span> The sound of rainfall quickly becomes the background to the day.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Trouble in the Square</span><span class="sh-orn">✦</span></h3>
+<p class="para">A sudden commotion rips through the square: two rough-looking bandits have accosted a merchant, demanding coin and threatening his stall. Villagers scatter. Kree swoops down to investigate, talons bared and eyes cold.</p>
+<p class="para">One bandit draws a knife; the merchant cries out. As Kree lands between the bandits and the merchant, his vivid feathers and quick movement make the attackers overconfident. They strike.</p>
+<p class="para">The fight is short and messy.</p>
+<p class="para">Kree slashes with his talons; one bandit staggers.</p>
+<p class="para">Wilhelm, who had been nearby, fumbles for his flintlock, aims, and fires. The first bandit falls, dead.</p>
+<p class="para">The second bandit manages to strike Kree with a dagger. Wilhelm fires again but misses, the shot thudding into a barrel. The bandit moves in to investigate.</p>
+<p class="para">While the bandit is distracted, Kree finds a potato in the spilled contents of the barrel and, impossibly, eats it mid-fight.</p>
+<p class="para">Wilhelm recovers his aim and fires point-blank; the bandit collapses.</p>
+<p class="para">After the dust settles, the square is a scene of quiet shock. The merchant, Marta Brin, breathes like she can finally stand again. Her hands shake as she clasps theirs.</p>
+<p class="para"><span class="say">“Thank you,”</span> she says. <span class="say">“Truly. Bandits have been hitting the lanes for weeks. If two able people would escort my caravan through Phandalin Wood, I’ll pay fifty gold. It’s dangerous otherwise.”</span></p>
+<p class="para">Kree’s eyes light at the mention of coin. He doesn’t bother with ceremony — wings ruffling, he steps forward and grins in that quick, breathy way. <span class="say">“We’ll do it,”</span> he says simply. <span class="say">“When do we leave?”</span></p>
+<p class="para">Wilhelm straightens, fingers tightening on the flintlock at his hip. He opens his mouth to refuse. <span class="say">“I—”</span> he begins, voice small and uncomfortable. <span class="say">“I’m not a traveler. I teach at the academy. I have…responsibilities here.”</span></p>
+<p class="para">Marta’s face creases with worry. <span class="say">“Please. This shipment is important. Fifty gold now, more on delivery.”</span> She glances between them. Kree looks like he’s already counting the coin in his head. Wilhelm hesitates, then forces out, <span class="say">“I cannot—”</span> and then, with a resigned sigh and a practical glance at the gold, <span class="say">“—very well. I will go. For the money.”</span></p>
+<p class="para">Marta nods, clutching the coin pouch like a talisman. <span class="say">“Thank you. I’ll leave at first light.”</span></p>
+<p class="para">As Marta gathers herself and departs, the square slowly returns to its regular rhythm. Kree and Wilhelm are left standing in the muddy street, two strangers who have agreed to the same small and awkward bargain.</p>
+<p class="para">They walk to the nearest tavern together—not because either trusts the other, but because the rain has begun to soak through and a warm drink sounded better than walking home. Inside, the tavern’s lamplight throws a yellow glow over rough wooden tables and the smell of stew.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">TAVERN</span><span class="scene-orn">❖</span></div><div class="scene-aside">— Didn’t happen but its fun roleplay —</div>
+<p class="para">Kree perches on a bench, one wing half-folded. He drops a small, dull coin on the table, then watches Wilhelm with a curious tilt of his head. His voice is scratchy and quick.</p>
+<p class="para"><span class="say">“I’m Kree,”</span> he says. <span class="say">“Thats pretty cool–”</span> said Wilhelm awkwardly.</p>
+<p class="para">Wilhelm slides into the opposite seat, wiping rain from his sleeves. He gives a polite, guarded smile. <span class="say">“Wilhelm Thorne. I teach at the academy. I mend things.”</span> He keeps the words clipped; he’s not eager to make conversation.</p>
+<p class="para">Kree laughs softly, the sound like feathers rustling. <span class="say">“Mend things? Good. Things break on the road.”</span> He taps the coin. <span class="say">“Fifty’s a tidy sum. You look nervous.”</span> He eyes the holster. <span class="say">“Are you a fighter or a tinkerer?”</span></p>
+<p class="para">Wilhelm’s shoulders tighten. <span class="say">“Tinkerer. Not a fighter. I have a flintlock because this is a world with trouble.”</span> He forces a dry, embarrassed chuckle. <span class="say">“I am not—well. I have a life here. I didn’t plan to leave it.”</span></p>
+<p class="para">Kree studies him for a moment, then shrugs. <span class="say">“Plans change. Roads pay. And trouble finds those who stand still.”</span> He leans forward, quick and bright. <span class="say">“Don’t worry. I know how to keep us quiet. You keep us clever.”</span> He gestures vaguely at Wilhelm’s tools. <span class="say">“You fix things when we break them.”</span></p>
+<p class="para">Wilhelm lets a corner of his mouth lift. <span class="say">“I suppose that is one way of putting it.”</span> He unwraps a small, paper-wrapped bundle — a neat, dry roll of bread Marta gave him — and offers a bite to the table rather than Kree. Kree snatches one, nibbling it with impatient pleasure. <span class="say">“You’re an odd bird,”</span> Wilhelm says, not unkindly.</p>
+<p class="para"><span class="say">“And you’re a dour one,”</span> Kree says back, grinning. <span class="say">“We might be alright together.”</span> He wiggles his fingers: <span class="say">“We leave at dawn?”</span></p>
+<p class="para">Wilhelm looks at the coin, then at Kree’s expectant face, and exhales. <span class="say">“Dawn. We leave at dawn.”</span> He pockets his reluctance with the same mechanical efficiency he uses to stow tools.</p>
+<p class="para">Kree claps once, pleased, and tips an imaginary hat. <span class="say">“Good. We’ll make sure your caravan gets to Phandalin.”</span></p>
+<p class="para">They drink, exchange a few practical details about the route, and fall into an uneasy, first-evening companionship — the kind that can be built fast on shared purpose and coin. The tavern’s warmth wraps around them, and outside the rain eases into a patter that seems, for a moment, less strange and more like the world settling back into itself.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;II</div><h2 class="ch-title">The Road: Caravan to Phandalin</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">An hour into the escort, the caravan rolls along a shaded lane into the Whispering Pines. The forest is quiet; birds hush as the wagons pass. Kree, scouting ahead from a low branch, notices movement: wolves trailing the scent of the carriage.</p>
+<p class="para"><span class="say">“Kree, wolves,”</span> he calls, voice a low trill. He lands and talks it over with Wilhelm.</p>
+<p class="para">Wilhelm squints at the tracks and uses his investigative eye to spot a faint, overgrown track that cuts through bracken—an old path that’s easier to hide the wagons on. <span class="say">“If we take this, the wolves might lose interest,”</span> he says. Kree nods and hops up, pleased at the plan.</p>
+<p class="para">They follow the hidden route, and for now the wolves fall away.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Dusk — Camp and an Encounter</span><span class="sh-orn">✦</span></h3>
+<p class="para">As dusk falls Wilhelm decides it’s best to make camp. The fire smells of wet wood. They spread a few blankets and keep watch.</p>
+<p class="para">The night air hums softly with insects, and the trees loom close around their little campfire. After the long day — fighting, arguing, and agreeing to guard a caravan neither truly wanted — both Wilhelm and Kree are bone-tired.</p>
+<p class="para">They sit by the faint firelight. Wilhelm has his coat draped over his shoulders, fussing absently with a brass tool he keeps turning in his hand. Kree, half-perched on a fallen log, yawns and stretches his wings lazily, feathers glinting with ember-light.</p>
+<p class="para">A twig snaps somewhere beyond the trees.</p>
+<p class="para">Kree tilts his head, his eyes narrowing. <span class="say">“You heard that?”</span></p>
+<p class="para">Wilhelm looks up, weary. <span class="say">“Probably a deer.”</span></p>
+<p class="para">Another sound — closer this time.</p>
+<p class="para">Wilhelm sighs, standing. <span class="say">“Fine. Let’s check before it decides we’re dinner.”</span></p>
+<p class="para">They move a few paces from the fire into the undergrowth, careful but sluggish with fatigue. The moon filters through branches, silvering the ferns underfoot.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">THE UH-OH MOMENT</span><span class="scene-orn">❖</span></div>
+<p class="para">After a long, tense moment of silence, Wilhelm mutters, <span class="say">“Well… this clearing is indeed a clearing.”</span></p>
+<p class="para">Kree smirks, about to reply — and then freezes. From the trees ahead, an armed man steps into the moonlight. His clothes are rough, his eyes darting, and his hand rests near a blade. He looks like he hasn’t slept in days.</p>
+<p class="para">He doesn’t raise his weapon; instead, he gives a curt nod, scanning them both. Then, almost under his breath, he asks,</p>
+<p class="para"><span class="say">“Are you here for the job?”</span></p>
+<p class="para">Wilhelm blinks, throat dry. <span class="say">“What—what job?”</span> he stammers.</p>
+<p class="para">The man’s eyes narrow instantly. <span class="say">“Who are you?”</span> he growls, suspicion sharpening his tone.</p>
+<p class="para">Wilhelm panics. His hand jerks toward his flintlock. <span class="say">“I—uh—sorry—”</span> he blurts, and fires before he even fully raises it.</p>
+<p class="para">The shot cracks through the night — BANG! — splintering bark beside the bandit’s head. Birds scatter from the treetops.</p>
+<p class="para">For a second, everyone just stares in stunned silence — Kree’s feathers puffed, the bandit blinking at the smoking tree behind him, Wilhelm’s hands shaking as the pistol drops slightly.</p>
+<p class="para">Then the bandit snarls and draws his blade.</p>
+<p class="para"><span class="say">“You’ll pay for that!”</span></p>
+<p class="para">Kree steps between them, daggers flashing. <span class="say">“Wonderful,”</span> he mutters. <span class="say">“Can’t even camp one night without making friends.”</span></p>
+<p class="para">The fight is on.</p>
+<p class="para">The skirmish is rapid: the bandit slashes Wilhelm and knocks him forward; Kree drives his blade into the attacker and the man cries out for help. More bandits rush in, surrounding Kree.</p>
+<p class="beat">Then—water.</p>
+<p class="para">A sudden torrent lashes out, slamming into the bandits and sending them sprawling, soaked and incapacitated. A colossal bluish bear scoops the prone attackers and hauls them into the underbrush, then shifts form. A woman stands where the bear had been: calm, radiant, with an air that hushes the forest. She kneels and presses her hands to Wilhelm and Kree.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">NEW CHARACTER???!!!</span><span class="scene-orn">❖</span></div>
+<p class="para">The forest still hums with the echo of battle — the soft patter of rain through leaves, the smell of smoke, the faint hiss of Wilhelm’s spent pistol cooling in the mud. The bandits lie unconscious where a wave of water struck them down, their torches sputtering in the damp earth.</p>
+<p class="para">From the mist beyond the trees steps a figure — not a beast now, but a woman. Droplets trail off her hair like strands of liquid light. Her eyes, the deep blue of the sea at dusk, meet theirs with gentle certainty.</p>
+<p class="para">She kneels beside Wilhelm, who winces as she touches his arm. Her fingers are cool and faintly luminous, like moonlight reflected on still water.</p>
+<p class="para"><span class="say">“You are hurt,”</span> she says softly. Her voice ripples like a calm tide, soothing even before her magic begins.</p>
+<p class="para">A shimmer of water curls from her hand, forming a small sphere that bursts into motes of light. The bruises and cuts fade, leaving only damp skin and astonished silence. Even the air seems cleaner, as if the forest itself had taken a long breath.</p>
+<p class="para">With a graceful motion, she traces a circle in the air. Sparks bloom from her fingertips, gathering into a steady, contained bonfire. Its warmth paints the clearing in gold and orange, chasing away the chill.</p>
+<p class="para">Then she sits cross-legged by the flames and smiles faintly.</p>
+<p class="para"><span class="say">“My name is Thalasstheos,”</span> she says, her tone as calm as a still lake. <span class="say">“A druid of the Circle of the Sea. The forest whispered of danger, so I came. You’ve nothing to fear now.”</span></p>
+<p class="para">Kree blinks, still catching his breath. <span class="say">“A druid, huh?”</span> he rasps. <span class="say">“Good timing. Thought we were fish food for a second there.”</span></p>
+<p class="para">Thalasstheos chuckles quietly, the sound soft as rain.</p>
+<p class="para"><span class="say">“The tides bring help where it is needed,”</span> she replies. <span class="say">“Even to those who do not ask.”</span></p>
+<p class="para">She glances between them — the shaken artificer and the exhausted aarakocra — and adds gently,</p>
+<p class="para"><span class="say">“Rest. The forest keeps its peace tonight.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Scene — Introductions by Firelight</span><span class="sh-orn">✦</span></h3>
+<p class="para">The rain has stopped. Only the soft crackle of the bonfire breaks the night’s silence. The flames shimmer in Thalasstheos’s eyes like starlight reflecting off the ocean. Kree crouches near the fire, wings folded close, picking crumbs of hard bread from his pouch. Wilhelm sits opposite, carefully cleaning the barrel of his flintlock — more to steady his nerves than to actually polish it.</p>
+<p class="para">Thalasstheos watches the two for a while before breaking the quiet.</p>
+<p class="para"><span class="say">“It’s rare,”</span> she says gently, <span class="say">“to find kindness in the woods after dark. I would know the names of those I share a fire with.”</span></p>
+<p class="para">Kree looks up, crumbs still clinging to his beak.</p>
+<p class="para"><span class="say">“Name’s Kree,”</span> he says in a scratchy, birdlike voice. <span class="say">“Just a traveler. I don’t much care for towns — or for people who live in ‘em.”</span></p>
+<p class="para">He flicks a small stone into the fire, watching the sparks.</p>
+<p class="para"><span class="say">“Used to live high in the mountains with my flock. War came, and… well, there’s nothing left to go back to. Been flying ever since, wherever the wind or a bit of coin takes me.”</span></p>
+<p class="para">His tone wavers between pride and fatigue, like someone trying not to show how lonely the wind can be.</p>
+<p class="para">Thalasstheos nods slowly, her expression soft.</p>
+<p class="para"><span class="say">“The sky can be a lonely home,”</span> she says. <span class="say">“But it seems it has given you strong wings.”</span></p>
+<p class="para">Kree shrugs but gives a faint, rasping chuckle.</p>
+<p class="para"><span class="say">“Maybe. Strong enough to land me here, I guess.”</span></p>
+<p class="para">Wilhelm clears his throat quietly, still not meeting either of their eyes.</p>
+<p class="para"><span class="say">“Wilhelm Thorne,”</span> he says. <span class="say">“I, uh… teach at Bramblewick’s academy. Or, well, taught. I suppose I still do. I just needed a bit of quiet during the break.”</span></p>
+<p class="para">He sets the flintlock aside, hesitating before adding,</p>
+<p class="para"><span class="say">“I fix things. Always have. Machines, toys, bits of clockwork that no one else bothers with. Guess I just like… order. Metal doesn’t lie to you like people do.”</span></p>
+<p class="para">Kree tilts his head, one eye gleaming in the firelight.</p>
+<p class="para"><span class="say">“So why’d you bring that?”</span> he asks, nodding to the pistol.</p>
+<p class="beat">Wilhelm stiffens slightly.</p>
+<p class="para"><span class="say">“Habit,”</span> he says simply. <span class="say">“You never know when something might break — or attack.”</span></p>
+<p class="para">There’s an awkward pause before Thalasstheos smiles kindly.</p>
+<p class="para"><span class="say">“You mend what is broken, then,”</span> she says softly. <span class="say">“That is a noble craft. The world needs those who repair what others destroy.”</span></p>
+<p class="para">Wilhelm looks away, a faint pink in his cheeks.</p>
+<p class="para"><span class="say">“Not sure about noble,”</span> he mutters. <span class="say">“But… thank you.”</span></p>
+<p class="para">Thalasstheos places a hand over her heart and bows her head slightly.</p>
+<p class="para"><span class="say">“I am called Thalasstheos,”</span> she says. <span class="say">“Born of the sea, though I walk the land. I follow the path of the druid — to heal, to protect, and to remind the world that balance can always be restored. The waters taught me that all things flow, even pain.”</span></p>
+<p class="para">Kree blinks. <span class="say">“You talk like a poet,”</span> he says.</p>
+<p class="para">She laughs softly. <span class="say">“The sea is full of poetry if you listen.”</span></p>
+<p class="para">For a time, they sit in peaceful silence. The fire pops; night creatures stir in the forest. Finally, Thalasstheos speaks again.</p>
+<p class="para"><span class="say">“If you two are bound for Phandalin, I would travel with you. The forest is restless of late. Safer if we walk together.”</span></p>
+<p class="para">Kree immediately nods. <span class="say">“Fine by me. You saved our tails back there — you’ve earned a spot.”</span></p>
+<p class="para">Wilhelm hesitates, looking between them, then sighs.</p>
+<p class="para"><span class="say">“If it keeps us from being mauled again, then yes. I suppose… company might not be so bad.”</span></p>
+<p class="para">Thalasstheos smiles, the firelight catching the shimmer of her hair.</p>
+<p class="para"><span class="say">“Then it is settled,”</span> she says softly. <span class="say">“Tomorrow, we follow the river’s song — together.”</span></p>
+<p class="para">The night grows quiet again, the stars reflected faintly in her eyes. For the first time, Wilhelm doesn’t mind the silence.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;III</div><h2 class="ch-title">Morning — The Farm and the Ashlings</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">On the second day they come across an abandoned farmhouse. It looks like no one has lived there for months. Curiosity and caution pull them inside.</p>
+<p class="para">Wilhelm’s eye catches two small white pinpricks of light in the shadow—tiny eyes watching. A small, black, ash-like creature hops out and squeaks in a voice too high for normal ears. Thalasstheos hears it plainly.</p>
+<p class="para">Kree and Wilhelm are confused. Kree urges Thalasstheos to translate; she obliges.</p>
+<p class="para">Thalasstheos (softly): <span class="say">“He says his name is Bop. He asks if you are friends.”</span></p>
+<p class="para">Thalasstheos kneels beside the soot-streaked hearth, her hands open and welcoming. A faint glow flickers beneath the ashes — and soon, a tiny figure climbs out, no taller than her hand, glowing like a coal in moonlight. It lets out a burst of squeaks, high-pitched and quick, like the chirping of a cricket mixed with the hiss of steam.</p>
+<p class="para">Kree squints. <span class="say">“Uh… is it saying something?”</span></p>
+<p class="para">Thalasstheos smiles softly, eyes still on the creature. <span class="say">“He calls himself Bop,”</span> she says, voice low and warm. <span class="say">“He’s their leader — or tries to be.”</span></p>
+<p class="para">Bop squeaks again, arms flailing as little flecks of ash scatter through the air.</p>
+<p class="para"><span class="say">“He says…”</span> Thalasstheos translates, pausing as she listens, <span class="say">“…they once lived in a great hearth. A home full of warmth and song. But people came — tore down their fire, smothered it, and threw them out. They wandered until they found this farmhouse, hoping to hide here until they could find a place of their own.”</span></p>
+<p class="para">The group follows her up to the second story. There’s a sudden whoosh from the chimney, and ash rains down as dozens of tiny shapes spill out — glowing faintly orange and gold, squeaking and chittering in fright. They cling to rafters and walls, their light pulsing like candle flames in a storm.</p>
+<p class="para">Thalasstheos watches them with quiet empathy. <span class="say">“There are many,”</span> she murmurs. <span class="say">“Too many to keep running.”</span></p>
+<p class="para">Bop squeaks again, his tone pleading, hands clasped together.</p>
+<p class="para"><span class="say">“He asks for our help,”</span> Thalasstheos says softly. <span class="say">“They’re being driven away by the nearby farmers who fear fire. They just want somewhere warm — somewhere safe.”</span></p>
+<p class="para">For a moment, only the sound of wind through the shutters fills the farmhouse.</p>
+<p class="para">Kree folds her wings, skeptical. <span class="say">“And what exactly do you expect us to do? Build them a chimney?”</span></p>
+<p class="para">Thalasstheos’s gaze sharpens, her blue eyes shimmering like moonlight on still water. <span class="say">“I expect us to be kind,”</span> she says. <span class="say">“The world has plenty of destroyers. It could use a few more menders.”</span></p>
+<p class="para">Wilhelm sighs, rubbing the back of his neck. <span class="say">“Fine. But if one of those little guys gets into my powder bag, we’re going to have a real problem.”</span></p>
+<p class="para">Thalasstheos translates, and Bop squeaks joyfully — a staccato melody of gratitude that fills the room like laughter made of firelight.</p>
+<p class="para">Thalasstheos: <span class="say">“They mean no harm. I can help, but they are vulnerable. Will you stand with them?”</span></p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">LEAVING THE FARMHOUSE</span><span class="scene-orn">❖</span></div>
+<p class="para">Wilhelm, ever the problem-solver, rubs his temples as he eyes the growing crowd of glowing ashlings. <span class="say">“Forty of them,”</span> he mutters. <span class="say">“And not a single cage or crate.”</span></p>
+<p class="para">After a long moment, his gaze lands on the caravan. <span class="say">“...The wagon,”</span> he says suddenly. <span class="say">“If we line a barrel with damp cloth and keep it covered, they’ll stay together — safe and contained.”</span></p>
+<p class="para">He sets to work before anyone can object, hauling a barrel down with efficient determination. Bop squeaks nervously as Wilhelm gestures toward the ashlings, motioning for them to hop in.</p>
+<p class="para">Kree’s feathers puff in alarm. <span class="say">“Whoa, whoa—no! They’re not cargo, Wilhelm!”</span> He steps between him and the barrel, wings spread protectively. <span class="say">“You can’t just—just stuff them in there!”</span></p>
+<p class="para">Wilhelm freezes mid-motion, eyes darting between her and the tiny creatures. <span class="say">“It’s not like that,”</span> he mumbles, defensive but weary. <span class="say">“They’ll be safe. It’s just practical.”</span></p>
+<p class="para">Thalasstheos places a gentle hand on the rim of the barrel. Her voice is calm, but carries the quiet strength of flowing water. <span class="say">“Practicality is good,”</span> she says softly, <span class="say">“but compassion is better. We do not cage what has trusted us. Let them choose to ride with us — not be carried like sacks of grain.”</span></p>
+<p class="para">The water genasi kneels and murmurs something in the old tongue of the waves. The ashlings, glowing faintly, begin to chirp and clamber willingly into the wagon, nestling among blankets and embers.</p>
+<p class="para">Thalasstheos smiles, meeting Wilhelm’s gaze. <span class="say">“See? Even flame travels easier when it feels safe.”</span></p>
+<p class="para">Wilhelm exhales through his nose — half annoyed, half impressed. <span class="say">“Fine,”</span> he mutters, adjusting the reins. <span class="say">“But if they set my wheel grease on fire, you’re explaining that to the merchant.”</span></p>
+<p class="para">Kree chuckles. <span class="say">“Deal.”</span></p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">IN THE FOREST</span><span class="scene-orn">❖</span></div>
+<p class="para">As the caravan creaks through the quiet forest, three of the ashlings tumble off the wagon’s edge and scurry toward a patch of pale mushrooms glowing faintly in the underbrush.</p>
+<p class="para">Wilhelm notices first. <span class="say">“They’re wandering again,”</span> he groans, already reaching for the barrel lid. <span class="say">“If they’d just stay put, we wouldn’t have this problem.”</span></p>
+<p class="para">Kree crouches beside one of the curious little creatures, its ember-like eyes reflecting his own. <span class="say">“They’re not clockwork, Wilhelm,”</span> he says, exasperated. <span class="say">“They’re alive. Let them look.”</span></p>
+<p class="para">Wilhelm snorts. <span class="say">“They can look from inside the barrel. It’s not a museum out here—it’s a forest full of foxes and rain and—”</span></p>
+<p class="para">Kree folds his wings tight, feathers bristling. <span class="say">“You’d stuff the sun in a box if it made your journey easier.”</span></p>
+<p class="para"><span class="say">“That’s called common sense!”</span> Wilhelm snaps, throwing up his hands. <span class="say">“We have forty of them! We can’t chase every glowing puff that—”</span></p>
+<p class="para">Thalasstheos’s voice cuts through the argument like a blade through mist. <span class="say">“Enough.”</span></p>
+<p class="para">The two freeze. The water genasi’s serene face has gone cold, her sea-colored eyes fixed on the path. <span class="say">“They are gone.”</span></p>
+<p class="para">The words hang heavy. Kree turns sharply, scanning the brush. The patch of mushrooms still glows—but the three small lights that had surrounded them are missing.</p>
+<p class="para">Wilhelm tightens his jaw. <span class="say">“They can’t have gone far. But—listen, Thalasstheos—if we waste time chasing every stray, we’ll lose the wagon, and Marta’s shipment, and possibly the road.”</span></p>
+<p class="para">Her gaze shifts to him, calm but unwavering, like deep water before a storm. <span class="say">“We do not abandon those who trust us.”</span></p>
+<p class="para">Wilhelm opens his mouth to argue—but the look in her eyes stills him.</p>
+<p class="para">Kree exhales and lowers his hood. <span class="say">“We promised,”</span> he says quietly.</p>
+<p class="para">Thalasstheos nods once, the decision is made. <span class="say">“I will keep the wagon safe. Go. Bring them home.”</span></p>
+<p class="para">The forest seems to listen as Kree spreads his wings and slips into the undergrowth, Wilhelm following reluctantly with pistol drawn. Behind them, Thalasstheos kneels by the wagon, the remaining thirty-seven ashlings gathering close to her warmth as the mist thickens around the trees.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">IN THE FOREST</span><span class="scene-orn">❖</span></div><div class="scene-aside">— The other forest, off the trail —</div>
+<p class="para">The forest feels thicker the farther they go, the air damp with the smell of moss and smoke. Tiny flecks of ash dot the ground, glowing faintly like dying embers — the only sign of the missing ashlings.</p>
+<p class="para">Wilhelm trudges along the faint path, muttering under his breath. <span class="say">“I used to fix clockwork birds and teapots,”</span> he grumbles, kicking a root. <span class="say">“Taught lectures about safe handling of alchemical reagents. Now I’m crawling through mud chasing living soot.”</span></p>
+<p class="para">Kree chuckles quietly, wings brushing past a fern. <span class="say">“You don’t sound thrilled.”</span></p>
+<p class="para"><span class="say">“I’m soaked, I’m bitten, and my boots cost more than this whole forest,”</span> Wilhelm continues, voice rising. <span class="say">“And if one more magical creature needs rescuing, I might just retire early.”</span></p>
+<p class="para">Kree smirks, eyes scanning the ground. <span class="say">“You don’t strike me as the retiring type. You strike me as the complaining type.”</span></p>
+<p class="para">Wilhelm huffs but doesn’t answer. His eyes catch something — small handprints of ash on a root, faint squeaks up ahead. <span class="say">“There,”</span> he says, gesturing forward. <span class="say">“Luck favors the miserable.”</span></p>
+<p class="para">They creep closer until they see a small clearing: a crooked tree, its roots half-exposed, and three ashlings clinging to the bark, trembling. Beneath the branches, a fox prowls, its eyes twin embers in the twilight.</p>
+<p class="para">The fox snarls. The ashlings squeak in terror, pressing closer to the trunk.</p>
+<p class="para">Wilhelm doesn’t hesitate. With a sharp click and a flash, his flintlock cracks the air. The fox drops mid-step, a curl of smoke rising from its fur.</p>
+<p class="para">Kree flinches at the sound. <span class="say">“Gods—was that necessary?”</span></p>
+<p class="para">Wilhelm reloads briskly, kneeling beside the creature. <span class="say">“It was hungry,”</span> he says flatly. <span class="say">“Now it’s dinner. Waste not.”</span> He tugs at the pelt with practiced hands, the gesture mechanical.</p>
+<p class="para">Kree’s feathers ruffle. <span class="say">“You could’ve scared it off.”</span></p>
+<p class="para">Wilhelm glances up, tired eyes meeting his. <span class="say">“You think everything can be scared off, don’t you? Some things only listen once.”</span></p>
+<p class="para">Kree looks away, silent. The ashlings, still trembling, peek from behind the bark and emit a few tentative chirps. Wilhelm sighs and gestures toward them. <span class="say">“Go on, birdman. Tell them the hero saved the day.”</span></p>
+<p class="para">Kree doesn’t answer. He gathers the three ashlings carefully in his cloak, their faint light flickering like candleflames against the dusk.</p>
+<p class="para">For a long while, neither speaks as they make their way back toward the caravan — the sound of Wilhelm’s boots and Kree’s feathers brushing the undergrowth filling the silence between them.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">BACK AT THE WAGON</span><span class="scene-orn">❖</span></div>
+<p class="para">The sun hangs low in the sky, slanting through the trees in warm, dappled light as Wilhelm and Kree emerge from the forest path. The three missing ashlings cling to Kree’s cloak, faintly glowing with relief.</p>
+<p class="para">Thalasstheos looks up from where she sits beside the wagon, the other ashlings clustered near her hands. She smiles faintly at the sight of the returnees. <span class="say">“They are safe,”</span> she says, her tone full of quiet gratitude. Then her gaze lingers on them — noticing the strain in Kree’s shoulders and the powder-smoke on Wilhelm’s sleeve.</p>
+<p class="para"><span class="say">“Were they frightened?”</span> she asks softly, standing to meet them.</p>
+<p class="para">Kree shifts, feathers rustling. <span class="say">“We found them by a tree,”</span> he says stiffly. <span class="say">“They’re fine now.”</span></p>
+<p class="para">Wilhelm scratches the back of his neck. <span class="say">“A fox,”</span> he adds quickly. <span class="say">“Just a threat. Nothing serious.”</span> The lie comes out smooth but shallow, and he avoids her eyes.</p>
+<p class="para">Thalasstheos studies him for a long heartbeat, the way one might study a current beneath the surface. Then she nods once. <span class="say">“Very well.”</span></p>
+<p class="para">Kree glances sideways at Wilhelm — a long, disappointed look that says everything words don’t. Wilhelm pretends not to notice, fiddling with his flintlock and forcing a grin.</p>
+<p class="para"><span class="say">“Well,”</span> he mutters, <span class="say">“at least no one got eaten.”</span></p>
+<p class="para">The joke falters in the quiet. The ashlings huddle closer to Thalasstheos as she kneels to check the rescued ones for injuries, her voice calm and distant as she hums a soft melody that smells faintly of salt and rain.</p>
+<p class="para">The mood lingers — not broken, but strained — as they prepare the wagon to move again. Dust rises behind the wheels, and the forest falls quiet except for the soft crunch of boots and the faint, flickering chatter of the little fire spirits following close behind.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;IV</div><h2 class="ch-title">Crossing the River</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Later the party reaches a small but swift river—about twenty feet across. There is no bridge and the current looks dangerous, especially for the tiny ashlings.</p>
+<p class="para">Wilhelm squints at the river, its waters rushing faster than he expected. He sighs, adjusting his holster. <span class="say">“Do you… happen to have a spell for vanishing rivers?”</span> he asks, glancing at Thalasstheos hopefully.</p>
+<p class="para">Thalasstheos tilts her head, eyebrows raised in mild confusion. <span class="say">“I… do not. Water I can shape, guide, or lift. But I cannot make an entire river disappear,”</span> she says gently, her voice like calm tides.</p>
+<p class="para">Kree flaps a wing and leans over the edge of the bank, eyes gleaming with excitement. <span class="say">“Well, lucky for us, I have a better idea.”</span></p>
+<p class="para">Wilhelm groans. <span class="say">“Oh, I dread this.”</span></p>
+<p class="para">Kree crouches, spreading his wings. <span class="say">“We gather them in the barrel. I’ll lift it, fly them across. Easy as—well, flying.”</span></p>
+<p class="para"><span class="say">“Flying them across?”</span> Wilhelm repeats, incredulous. <span class="say">“Do you know how heavy forty living things are? Do you?”</span> He shakes his head, hands in the air. <span class="say">“We’ll topple, we’ll—oh, I can see it now—everyone drowned because of a bird and a barrel!”</span></p>
+<p class="para">Kree grins, scarred beak catching the sunlight. <span class="say">“Relax, human. I’m strong. They’re light. Trust me.”</span></p>
+<p class="para">Thalasstheos chuckles softly, shaking her head. <span class="say">“If you can carry them safely, do so—but remember: they are living beings, not cargo.”</span></p>
+<p class="para">Wilhelm mutters, exasperated, brushing a hand through his hair. <span class="say">“I didn’t sign up to be a river-crossing supervisor for glowing soot critters…”</span></p>
+<p class="para">Kree flaps his wings experimentally, the ashlings chittering nervously in the barrel. <span class="say">“You’ll survive. Maybe. Probably. Focus on looking heroic for once.”</span></p>
+<p class="para">Wilhelm scowls, but a reluctant smirk tugs at his lips. <span class="say">“Heroic… yes. That’s exactly what I’m here for.”</span></p>
+<p class="para">Kree cackles, hopping into position. <span class="say">“Then hold on, little ones! Adventure awaits!”</span></p>
+<p class="para">Thalasstheos murmurs a quiet blessing as Kree begins to lift the barrel, her laughter soft as water over rocks, blending with the ashlings’ excited squeaks.</p>
+<p class="para">The ashlings are unexpectedly light when gathered together; Kree lifts the barrel, flies, and lands on the far bank. There is a small disaster: a hole in the barrel—an old bullet hole from the bandit fight—causes several ashlings to fall into the water. Wilhelm leaps to help but is pulled by the current himself.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">THE SECOND UH-OH MOMENT</span><span class="scene-orn">❖</span></div>
+<p class="para">Kree flaps his wings with precision, the barrel of thirty-seven ashlings wobbling in his grip. He hovers above the river, then arcs gracefully across, landing safely on the far bank. The ashlings tumble out, squeaking in excitement, their tiny limbs scattering as they scramble toward Thalasstheos.</p>
+<p class="para">Wilhelm watches, heart pounding, as a few ashlings teeter dangerously near the edge of the barrel. Without thinking twice, he leaps into the rushing current, flailing wildly. <span class="say">“Hold still, you little glowing nuisances! I will not let you drown!”</span></p>
+<p class="para">The river grabs him instantly, yanking him downstream with terrifying force. Splashing, sputtering, and half-cursing the entire concept of adventure, Wilhelm struggles to stay upright. <span class="say">“This… this is preposterous! Completely preposterous!”</span></p>
+<p class="para">Thalasstheos moves like a tide itself, calm and unhurried. She shapes the water into a massive, translucent bubble beneath Wilhelm and the ashlings, lifting them gently from the current. The ashlings squeak in delight, clinging to Wilhelm’s soaked jacket, while he sputters indignantly, dripping and trembling.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">ON THE OTHER SIDE</span><span class="scene-orn">❖</span></div>
+<p class="para">Kree lands on the far bank, feathers glinting with sunlight and spray, and laughs. <span class="say">“Oh, Wilhelm… you look ridiculous! Like a drowned rat who insists on rescuing a pile of glowing muffins!”</span></p>
+<p class="para">Wilhelm glares through dripping hair. <span class="say">“I did save them! And they’re not muffins! This is… heroism!”</span> He shakes a fist at Kree, water flying off his soaked sleeves.</p>
+<p class="para">Thalasstheos steps lightly across the river, water rippling beneath her feet as though it were solid ground, and guides the remaining ashlings safely to the bank. She gives Wilhelm a faint, approving smile. <span class="say">“You acted selflessly,”</span> she says, voice calm as a quiet tide.</p>
+<p class="para">Wilhelm pants, soaked to the bone, brushing mud and water off his jacket. <span class="say">“Selfless, yes… but I could do without all this wet nonsense next time.”</span></p>
+<p class="para">Kree chuckles, plucking a small coin from his pocket and handing it to Bop, who squeaks in delighted thanks. <span class="say">“See? All in a day’s work. And you got to swim in style, Wilhelm.”</span></p>
+<p class="para">Wilhelm mutters something about rivers, mud, and ungrateful birds, but a small smile tugs at his lips. Thalasstheos’s presence is steady, Kree’s laughter infectious, and for a moment, the three of them — wet, grumpy, and exhausted — share a small, triumphant sense of camaraderie.</p>
+<p class="para">They leave the carriage behind for the moment and rest after the day’s tensions.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">End of Session One</span><span class="sh-orn">✦</span></h3>
+<p class="para">The bandits’ presence, the ashling community, and Thalasstheos’s arrival have turned what began as a simple courier job into a journey with unexpected responsibilities. The party now travels together—an uneasy trio bound by coin, compassion, and the small, strange things they have rescued.</p>
+<p class="para">Session One closed with the group camped near the river, the ashlings safe for now, and the road ahead toward Phandalin open but uncertain.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;V</div><h2 class="ch-title">Session Summary: The Ravine, the Troll, and the Two Birds Up to No Good</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">Morning comes bright and cool, the forest still damp from the night before. Wilhelm squelches with every step, his boots puffing out little bursts of water. Kree can barely walk straight from laughing, and even Thalasstheos gives a rare, tiny smirk at Wilhelm’s soggy misery.</p>
+<p class="para">That’s when something screams overhead.</p>
+<p class="para">A shadow plummets from the canopy, flailing, squawking, and then—thud—a kenku lands in a bush, bursts out of it, and throws her arms up as if this was all part of the plan.</p>
+<p class="para"><span class="say">“KENRA!”</span> she chirps, mimicking three different triumphant voices at once.</p>
+<p class="para">Wilhelm blinks. Kree chirps back. Thalasstheos just… waits.</p>
+<p class="para">Kenra introduces herself in a patchwork of borrowed tones, half-druidic wisdom and half-chaotic nonsense. Somehow, it works. She decides instantly that she’s joining the group; the group decides instantly that they don’t really get a say in it.</p>
+<p class="beat">They set off.</p>
+<p class="para">The rain begins as a fine mist, barely more than breath against the skin, but quickly thickens into a steady drizzle. Drops slide off the edges of Kree’s feathers as he hunches protectively over the barrel, wings wrapped around it like a brooding mother hen.</p>
+<p class="para">Inside, the ashlings buzz and squeak, little sparks flickering as they try to peek out.</p>
+<p class="para">The path slopes sharply downward, mud slick beneath their boots and claws. Trees open like a curtain—and the world suddenly drops away in front of them.</p>
+<p class="para">A vast ravine stretches out, carved deep into the earth like a wound. Fog clings to its sides, curling up in pale tendrils. A rope-and-plank bridge—old, moss-covered, swaying even without wind—connects their ledge to the opposite side. Far across it, squatting in the mud like a boulder that forgot to be a rock, sits a troll.</p>
+<p class="para">It gnaws on something vaguely limb-shaped.</p>
+<p class="para">Wilhelm stops dead. <span class="say">“Well. That’s… welcoming.”</span></p>
+<p class="para">Kenra tilts her head, eyes narrowing with mischief. <span class="say">“Maybe… guard distracted if big scary beast nearby.”</span> She puffs up, inhales dramatically, and produces the most unconvincing <span class="say">“GRAAAARRR”</span> a creature has ever made.</p>
+<p class="para">Wilhelm stares. <span class="say">“No. Absolutely not.”</span></p>
+<p class="para">Kenra makes the noise again, louder. <span class="say">“Grrr? RAWR?”</span></p>
+<p class="para"><span class="say">“You sound like a sick goat trying to fight a squirrel.”</span></p>
+<p class="para">She huffs, feathers ruffling. <span class="say">“Plan better than nothing.”</span></p>
+<p class="para"><span class="say">“We haven’t even discussed if we WANT to cross!”</span> Wilhelm snaps. He gestures sharply at the ravine. <span class="say">“That bridge looks like it was built by drunk raccoons.”</span></p>
+<p class="para">Thalasstheos steps forward, rain sliding off her blue skin like she’s part of the weather itself. <span class="say">“We must cross. The Old House lies beyond. The ashlings cannot wait.”</span></p>
+<p class="para">Wilhelm sighs dramatically. <span class="say">“Of course. Why wouldn’t the ancient haunted ruin be on the other side of the death bridge guarded by a—”</span></p>
+<p class="para">A deep, wet voice booms from across the chasm:</p>
+<p class="para"><span class="say">“HEY! Travelers!”</span></p>
+<p class="para">The troll waves a large hand. <span class="say">“Fee! Twenty-five gold pieces! Each!”</span></p>
+<p class="beat">Wilhelm’s eye twitches.</p>
+<p class="para"><span class="say">“You’re the newest member—”</span></p>
+<p class="para">Kree straightens indignantly. <span class="say">“No she isn’t! Kenra literally fell from sky this morning—”</span></p>
+<p class="para">Wilhelm holds up a hand. <span class="say">“Irrelevant.”</span></p>
+<p class="para">Thalasstheos tilts her head. <span class="say">“You are suggesting I… what? Pay? Distract? Be sacrificed?”</span></p>
+<p class="para">Wilhelm gestures helplessly. <span class="say">“I’m suggesting we use… resources efficiently.”</span></p>
+<p class="para">Her expression flattens. <span class="say">“I am not a resource.”</span></p>
+<p class="para"><span class="say">“Well—”</span></p>
+<p class="para"><span class="say">“Nor cargo. Nor trade.”</span> Her voice sharpens, a cool undertone like a rising tide. <span class="say">“I joined you to protect the ashlings, not to be bartered like a goat.”</span></p>
+<p class="para">The drizzle thickens into rain.</p>
+<p class="para">Wilhelm rubs his temples. <span class="say">“I wasn’t bartering you, I was—look—fine. Fine. We’ll do it your way.”</span></p>
+<p class="para">Thalasstheos’s stare is cool enough to make him turn away first.</p>
+<p class="para">Kree steps between them quickly. <span class="say">“We go. We talk. No arguing on slippery cliff, please.”</span></p>
+<p class="para">Kenra nods vigorously. <span class="say">“Yes. Less talk, more… crossing without dying.”</span></p>
+<p class="para">With a collective, soggy sigh, the group approaches the bridge.</p>
+<p class="para">Thalasstheos takes the lead, grace steady even on the shifting planks. When they reach shouting distance, she raises a hand.</p>
+<p class="para"><span class="say">“Greetings,”</span> she calls. <span class="say">“We seek safe passage across.”</span></p>
+<p class="para">The troll grins wide enough to show every mossy tooth. <span class="say">“Fee!”</span></p>
+<p class="para">Wilhelm mutters, <span class="say">“Oh, brilliant negotiation.”</span></p>
+<p class="para">Kenra decides this is the perfect moment to help. She straightens, puffs up her feathers… and emits what she thinks is a terrifying bear roar.</p>
+<p class="para">It is, instead, a high-pitched, startled <span class="say">“MROWWR-krk!”</span> that echoes pitifully off the ravine walls.</p>
+<p class="para">The troll scratches his head. Then frowns.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Five-Minute Party Huddle (aka: Wilhelm’s Descent into Madness)</span><span class="sh-orn">✦</span></h3>
+<p class="para">The group pulls back from the bridge, huddling beneath a soggy pine.</p>
+<p class="para">Thalasstheos: <span class="say">“The fee is the fee.”</span></p>
+<p class="para">Kree: <span class="say">“We pay… but perhaps not permanently.”</span></p>
+<p class="para">Wilhelm: <span class="say">“Absolutely not. We’re not giving that overgrown moss-monster a mountain of gold.”</span></p>
+<p class="para">Kenra (brightly): <span class="say">“I roar again?”</span></p>
+<p class="para"><span class="say">“NO!”</span></p>
+<p class="para">Thalasstheos counts their coins calmly.</p>
+<p class="para">Wilhelm: <span class="say">“I have thirty.”</span></p>
+<p class="para">Kree: <span class="say">“Ten.”</span></p>
+<p class="para">Kenra: <span class="say">“Ten.”</span></p>
+<p class="beat">There is silence.</p>
+<p class="para">Then Wilhelm: <span class="say">“…that’s ninety.”</span></p>
+<p class="para">Thalasstheos: <span class="say">“uh...”</span></p>
+<p class="para">Wilhelm rubs his temples. <span class="say">“We need one hundred.”</span></p>
+<p class="para">Kree raises a feathered finger. <span class="say">“We have one hundred.”</span></p>
+<p class="para">Wilhelm blinks. <span class="say">“No, we don’t.”</span></p>
+<p class="para">Kenra nods as if explaining something to a child. <span class="say">“We have ninety.”</span></p>
+<p class="para">Kree: <span class="say">“And ten.”</span></p>
+<p class="para">Wilhelm: <span class="say">“THAT’S STILL NINETY—THAT’S THE SAME NINETY!”</span></p>
+<p class="para">Thalasstheos, calmly: <span class="say">“We can remove someone from the equation.”</span></p>
+<p class="para">Wilhelm glares. <span class="say">“You mean me, don’t you.”</span></p>
+<p class="para">She smiles serenely. <span class="say">“You said it, not I.”</span></p>
+<p class="para">Kenra leans to Kree. <span class="say">“Is this math? Or arguing?”</span></p>
+<p class="para">Kree shrugs. <span class="say">“Both.”</span></p>
+<p class="para">Wilhelm throws his hands up. <span class="say">“Fine. We’ll pay. But mark my words—this troll is a walking scam.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Paying the Toll</span><span class="sh-orn">✦</span></h3>
+<p class="para">After five full minutes of nonsense, Wilhelm stomps forward and dumps the gold into the troll’s palm.</p>
+<p class="para"><span class="say">“There. HAPPY?”</span></p>
+<p class="para"><span class="say">“Yes,”</span> the troll says, delighted. <span class="say">“Cross!”</span></p>
+<p class="para">They shuffle across the swaying bridge—Thalasstheos calm, Wilhelm muttering, Kenra proud of her earlier <span class="say">“roar,”</span> and Kree pretending not to fiddle with the troll’s belt pouch.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Barrel Problem</span><span class="sh-orn">✦</span></h3>
+<p class="para">Halfway across, the troll suddenly squints.</p>
+<p class="para"><span class="say">“What in the box?”</span></p>
+<p class="para">Wilhelm answers so fast it squeaks: <span class="say">“Potatoes! Old! Dusty! Very boring. Terrible potatoes.”</span></p>
+<p class="para">Kree, meanwhile, has already managed to liberate the 100 gold from the troll’s belt—so smoothly that he’s humming.</p>
+<p class="para">Thalasstheos, bless her unbroken honesty, sighs.</p>
+<p class="para"><span class="say">“They are ashlings.”</span></p>
+<p class="para">The troll gasps with delight. <span class="say">“Then fee for them, too! Twenty-five gold each!”</span></p>
+<p class="para">Wilhelm’s jaw drops so far it nearly hits the bridge.</p>
+<p class="para"><span class="say">“ALL FORTY OF THEM?! Do you think we’re MADE of gol—”</span></p>
+<p class="para">Kree, smiling warmly, reaches into his pocket and hands the troll a pouch.</p>
+<p class="para"><span class="say">“Here you go! One hundred gold.”</span></p>
+<p class="para">It is, unmistakably, the exact same 100 gold.</p>
+<p class="para">The troll beams. <span class="say">“Thanks!”</span></p>
+<p class="para">Wilhelm sputters. <span class="say">“Wha—where—how—”</span></p>
+<p class="para">Kenra pats Kree’s shoulder proudly. <span class="say">“Birds good at money.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The “Infinite Gold Loop” Scam Begins</span><span class="sh-orn">✦</span></h3>
+<p class="para">The troll flips through the gold. <span class="say">“That pays for four ashlings. Now pay for others.”</span></p>
+<p class="para">Wilhelm goes pale. <span class="say">“THIRTY-SIX MORE?!”</span></p>
+<p class="para">He turns to Thalasstheos. <span class="say">“So… hear me out—”</span></p>
+<p class="para"><span class="say">“No,”</span> she says calmly.</p>
+<p class="para"><span class="say">“We could offer the newest member—”</span></p>
+<p class="para"><span class="say">“I will freeze your boots to the ground.”</span></p>
+<p class="para"><span class="say">“But it’s LOGICAL—”</span></p>
+<p class="para"><span class="say">“No.”</span></p>
+<p class="para">While the two argue again, Kree casually slips the gold back out of the troll’s hand during a moment of distraction. Kenra plucks a stray coin and hands it to him like an assistant in a magic trick.</p>
+<p class="para">The troll holds out its empty hand. <span class="say">“Next payment!”</span></p>
+<p class="para">Kree drops the exact same pouch into it.</p>
+<p class="para"><span class="say">“Here you are!”</span></p>
+<p class="para">The troll counts the coins—again.</p>
+<p class="para">Wilhelm watches the absurd cycle, eyes widening.</p>
+<p class="para">Kenra nods. <span class="say">“Yes. Troll dumb.”</span></p>
+<p class="para">Even Thalasstheos is forced to blink. <span class="say">“This… seems improbable.”</span></p>
+<p class="para">Kree grins proudly. <span class="say">“Birds good at improbable.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">And So It Continues…</span><span class="sh-orn">✦</span></h3>
+<p class="para">Every time Wilhelm distracts the troll with another bad argument about sacrificing Thalasstheos, Kree steals the gold back; Kenra assists; and Kree pays again.</p>
+<p class="para">Gold into troll hand.</p>
+<p class="para">The troll never notices.</p>
+<p class="para">After what feels like an eternity of idiocy, the troll finally claps its hands.</p>
+<p class="para"><span class="say">“All Ashlings paid for! You go now!”</span></p>
+<p class="para">Wilhelm staggers away whispering, <span class="say">“I think I’ve actually gone insane.”</span></p>
+<p class="para">Thalasstheos pats his shoulder. <span class="say">“No. Merely outmaneuvered by birds.”</span></p>
+<p class="para">Kenra puffs up proudly.</p>
+<p class="para">Kree bows. <span class="say">“It is a gift.”</span></p>
+<p class="para">Their plan might even have worked.</p>
+<p class="beat">But Kree slips.</p>
+<p class="beat">The gold scatters.</p>
+<p class="para">The troll’s eyes narrow.</p>
+<p class="beat">And combat erupts.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Fight</span><span class="sh-orn">✦</span></h3>
+<p class="para">The troll scoops Kree up and flings him like a feathery projectile straight into Wilhelm. Both crash into the mud, groaning.</p>
+<p class="para">Kenra doesn’t hesitate—not even long enough for Wilhelm to finish yelling <span class="say">“WAIT, DON’T—”</span>.</p>
+<p class="para">Feathers ripple into fur, joints pop, limbs surge outward. In a heartbeat she is eight feet of furious black bear, and with a roar that is somehow both terrifying and deeply, absurdly Kenra, she bellows:</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">“BEHOLD— THE CONSEQUENCES OF MY ACTIONS!”</span><span class="scene-orn">❖</span></div>
+<p class="beat">Then she charges.</p>
+<p class="para">Primal Savagery crackles across her claws, turning them glassy and acid-slick. She launches herself at the troll with the enthusiasm of someone tackling an unsupervised buffet, sinks her fangs into its flank, and shakes.</p>
+<p class="para">The troll howls, windmilling its arms as if trying to remember whether it’s allowed to hit a bear that’s also a person.</p>
+<p class="para">Meanwhile, Thalasstheos bolts for the barrel of ashlings. She flings her arms wide, water swirling up from the river like a liquid ribbon. With Shape Water, she lifts the barrel in a rising swell—like a magical elevator that’s trying very hard to be professional about this—and gently sweeps the ashlings to the far cliff.</p>
+<p class="para"><span class="say">“Hold on,”</span> she murmurs, <span class="say">“and please don’t slosh.”</span></p>
+<p class="para">She sprints back, dropping to her knees beside Wilhelm and Kree. Healing magic pulses from her hands—soft, warm, and smelling faintly of sea salt—knitting bruises and cuts as they gasp for breath.</p>
+<p class="para">Wilhelm staggers upright, dripping, battered, and furious in the very dignified way only a half-drowned gunslinger can be.</p>
+<p class="para"><span class="say">“Alright,”</span> he growls, <span class="say">“round two.”</span></p>
+<p class="para">He levels his pistol, squints, fires…</p>
+<p class="para">…and completely misses the troll.</p>
+<p class="para">The bullet whizzes past Kenra’s ear.</p>
+<p class="para">Kenra freezes mid-maul, slowly turns her big bear head, and gives Wilhelm a look that can only be described as <span class="say">“Really?”</span></p>
+<p class="para">Wilhelm winces. <span class="say">“I was… giving it a warning shot.”</span></p>
+<p class="para">Kenra snorts. It sounds like a wet sneeze, but judgy.</p>
+<p class="para">Kree, now recovered and airborne, calls down, <span class="say">“Don’t worry, Wilhelm! I’ll hit it for you!”</span></p>
+<p class="para">He flips a dagger through his fingers, wings flaring dramatically, and throws it.</p>
+<p class="para">THUNK. It embeds right in the troll’s shoulder.</p>
+<p class="para">Kree beams. <span class="say">“See? Like that!”</span></p>
+<p class="para">Wilhelm mutters, <span class="say">“Show-off,”</span> but he can’t help the proud little smile tugging at his mouth.</p>
+<p class="para">The troll roars, smashes its club into Kenra, then charges Wilhelm. It kicks him squarely in the chest—slamming him into a tree so hard it shakes loose a rain of leaves.</p>
+<p class="para">Thalasstheos sprints toward the fray, water whipping around her ankles as if urging her forward. She barely gets her hands up before—</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">WHAM.</span><span class="scene-orn">❖</span></div>
+<p class="para">The troll’s massive arm swings out blindly, its knotted knuckles smashing into her ribs with the force of a battering ram. The impact lifts her clean off the ground, her breath leaving in a sharp, pained gasp.</p>
+<p class="para">But she doesn’t hit the dirt.</p>
+<p class="para">Kree dives beneath her, wings beating frantically. For a moment he almost crumples under the weight, wobbling like a bird trying to land with an entire library in its arms—but he manages, trembling, to lower her gently to the earth.</p>
+<p class="para"><span class="say">“Don’t—move,”</span> he wheezes.</p>
+<p class="para">Thalasstheos tries to speak, winces, and instead clenches her jaw. Pain arcs across her features, sharp and bright—but her eyes stay focused.</p>
+<p class="para">She presses her palms together.</p>
+<p class="beat">The river answers.</p>
+<p class="para">A deep, crystalline crack echoes out as water surges upward and freezes mid-flow, exploding into a tall, jagged ice wall. Its surface gleams like fractured sapphire, separating the troll from her fallen companions with a barrier as beautiful as it is deadly.</p>
+<p class="para">Only then does she turn to Wilhelm, kneeling beside him with the tender precision of someone who’s done this a thousand times. Her thumbs rest lightly against his temples, guiding his breath into steadier rhythm, her magic knitting tension from his chest.</p>
+<p class="para">On the other side of the ice wall, Kenra roars.</p>
+<p class="para">This time it isn’t a joke or a battle quip—it’s a full-throated, primal bear roar, shaking the air like rolling thunder. She slams into the troll with raw, wild fury, claws dripping with acid and teeth bared in unwavering rage.</p>
+<p class="para">Snow-like frost, kicked up by Thalasstheos’s magic, settles on Kenra’s dark fur as she rips into the monster.</p>
+<p class="para">Thalasstheos rises unsteadily, raises one hand—</p>
+<p class="para">—and a swirl of glittering ice shards coalesces around her, a storm of tiny knives catching the moonlight. She flings them forward, and they streak across the battlefield, slicing through the air with a haunting, crystalline whisper.</p>
+<p class="para">They pepper the troll’s hide, freezing, melting, and freezing again as they bite deep.</p>
+<p class="para">Wilhelm wipes blood from his lip, pushes to his feet, and charges—gun empty, fists clenched, eyes locked on the beast. Determination radiates off him in waves.</p>
+<p class="para">On his right, Kree swoops in low, wings cutting through the air, a second dagger glinting between his claws.</p>
+<p class="para">They hit the troll from opposite sides in a perfect pincer: Wilhelm slamming into its lower spine with a shoulder-check that rattles teeth, Kree carving a bright, shallow arc along its exposed flank.</p>
+<p class="para">The troll spins, confused, enraged—</p>
+<p class="para">—and Kenra clamps her jaws down on its arm, anchoring it with unstoppable force.</p>
+<p class="para">Her teeth sink deep. The troll bellows, stumbling, pinned in place as Wilhelm and Kree ready the finishing strikes.</p>
+<p class="para">The session freezes there—</p>
+<p class="para">Waiting for a victory they can almost taste.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;VI</div><h2 class="ch-title">Session 3, Bridge to The Manor.</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">With Shape Water, she lifts the barrel in a rising swell—like a magical elevator that’s trying very hard to be professional about this—and gently sweeps the ashlings to the far side of the bridge. They squeak in a chorus of alarm and excitement as they bob along inside the rolling current, tiny lights flickering like lanterns in a storm.</p>
+<p class="para"><span class="say">“Safe,”</span> Thalasstheos murmurs, guiding the water down and setting the barrel gently against the rock. The ashlings huddle together, chirping anxiously but unharmed.</p>
+<p class="para">Behind her, the ravine explodes into noise.</p>
+<p class="para">Kenra-the-bear slams into the troll again, claws scraping against rubbery hide as acidic magic  sizzles and smokes. The troll howls, staggering backward, one foot slipping dangerously close to the edge of the ravine.</p>
+<p class="para"><span class="say">“HEY!”</span> it bellows, swatting wildly. <span class="say">“NO FAIR! YOU DIDN’T PAY FOR BEAR!”</span></p>
+<p class="para">Wilhelm groans from the mud, rolling onto his side as Kree groans on top of him.</p>
+<p class="para"><span class="say">“Get—off—me,”</span> Wilhelm wheezes.</p>
+<p class="para">Kree scrambles upright, feathers slick with rain and muck. <span class="say">“You broke my dramatic landing,”</span> he snaps, then looks up just in time to see the troll rearing back to smash Kenra with both fists.</p>
+<p class="para"><span class="say">“Oh. That’s bad.”</span></p>
+<p class="para">Wilhelm doesn’t argue. He yanks himself to his knees, hands shaking as he reloads his flintlock. Powder. Ramrod. Ball. His fingers fumble, slick with river water and panic.</p>
+<p class="para"><span class="say">“I swear,”</span> he mutters, teeth clenched, <span class="say">“if this misfires—”</span></p>
+<p class="para">The troll brings its fists down.</p>
+<p class="para">Kenra barely dodges, rolling aside with a thunderous whump that rattles the bridge. Planks snap. Ropes creak.</p>
+<p class="para">Wilhelm’s shot rang out sharp and final, the bullet striking the troll square in the face with a wet crack. The creature reeled, roaring in pain, just as Kenra—still fully bear—thundered into it. Her claws raked deep through rubbery flesh, her weight driving the troll backward toward the edge of the bridge. For a heartbeat, it seemed like brute force and precision would be enough.</p>
+<p class="para">Then the troll howled.</p>
+<p class="para">Its rage came all at once. It tore itself free from Kenra’s grasp and charged Wilhelm with terrifying speed. The club came down once, then again—wood and bone colliding—and Wilhelm was sent crashing to the planks. The bridge shuddered beneath him as the troll beat him into stillness, leaving him crumpled and unmoving.</p>
+<p class="para"><span class="say">“Wilhelm!”</span></p>
+<p class="para">Thalasstheos sprinted forward, skidding to her knees beside him as silver moonlight bloomed in her hands. She raised her gaze just long enough to fix the troll in her sight and called down a radiant beam from above. Moonlight burned into the creature’s flesh as Kree darted in, wings snapping as he lunged with his dagger, slashing where the light weakened it. The troll staggered, howled one last time, and collapsed—its body dissolving into silence and steam.</p>
+<p class="para">For a moment, only the wind and the creaking bridge remained.</p>
+<p class="para">Thalasstheos immediately turned back to Wilhelm, pressing glowing hands to his chest, steady and focused. The magic flowed like a tide pulling him back from the brink. His breathing evened, shallow but present. She stayed there until she was sure—absolutely sure—that he would live.</p>
+<p class="para">Once the danger had passed, they crossed the rest of the derelict bridge carefully. On the far side, half-hidden beneath damp moss and splintered boards, sat a sturdy chest. Kree’s eyes lit up instantly.</p>
+<p class="para"><span class="say">“Ooooh—shiny box, shiny box,”</span> he crooned, already kneeling beside it. He pulled out his thieves’ tools, humming to himself in a bright, sing-song rhythm as metal clicked softly. <span class="say">“Open-open-open…”</span></p>
+<p class="para">The lock gave way easily. Inside lay gold coins, neatly packed gear, and well-worn equipment—helmets, belts, and blades clearly left behind by adventurers who had paid the toll to cross and never made it back. Kree rifled through it with obvious delight, holding things up to the light.</p>
+<p class="para"><span class="say">“Pretty pay. Bridge pay. Thank you, ghosts,”</span> he chirped happily.</p>
+<p class="para">After dividing what they could carry, Kree flew back across the ravine, carefully lifting the barrel of ashlings and ferrying it over with surprising gentleness. Once reunited, Thalasstheos stabilized Wilhelm fully, and—after a short rest and many sore muscles—they pressed on.</p>
+<p class="para">The smell of ash grew stronger as they approached the mansion.</p>
+<p class="para">It loomed out of the trees like a forgotten thought, its stone walls swallowed by thick vines and soft green moss. Windows stared darkly from beneath creeping ivy, and the air around it felt warm in the wrong places, as if embers still smoldered somewhere deep inside. The ground was littered with fallen leaves and blackened stone.</p>
+<p class="para">At the entrance, they stopped.</p>
+<p class="para"><span class="say">“The ashlings should stay here,”</span> Wilhelm said, glancing toward the flickering little creatures. <span class="say">“We don’t know what’s inside.”</span></p>
+<p class="para">Thalasstheos nodded. <span class="say">“I’ll guard them. That’s my duty.”</span></p>
+<p class="para">Reluctantly, the others agreed. Kree, Wilhelm, and Kenra moved into the courtyard while Thalasstheos stayed behind with the barrel, eyes never leaving the manor doors.</p>
+<p class="para">The courtyard opened around a cracked stone fountain, its basin dry and choked with leaves. Almost immediately, small fire spirits leapt down from the surrounding walls, sensing intrusion. Wilhelm reacted first, driving his spear cleanly through one—it dissipated instantly in a hiss of embers. Kree lunged at another with his dagger, but the spirit shrieked and surged forward, exploding in a burst of flame.</p>
+<p class="para">Wilhelm yelped as fire caught his coat.</p>
+<p class="para"><span class="say">“Ah—no—no no no—!”</span></p>
+<p class="para">He spun in circles, slapping at himself uselessly as smoke curled up around his shoulders.</p>
+<p class="para">From the entrance, Thalasstheos heard the commotion and rushed in, summoning a sheet of water that drenched him head to toe. Steam hissed as the flames died.</p>
+<p class="para"><span class="say">“You’re fine,”</span> she said flatly.</p>
+<p class="para"><span class="say">“I was on fire,”</span> Wilhelm replied, dripping.</p>
+<p class="para">They exchanged a look, then silently agreed it was safer for her to come along.</p>
+<p class="para">Inside the mansion, the air was stale and heavy. The party moved carefully, still worn from the bridge. Wilhelm scoffed at their caution.</p>
+<p class="para"><span class="say">“It’s a normal dungeon,”</span> he muttered, strolling ahead.</p>
+<p class="para">The tile beneath his boot clicked.</p>
+<p class="para">He vanished straight down into a pit with a startled shout.</p>
+<p class="para">A few seconds later, Wilhelm climbed out of the pit, dust and grime covering him, muttering under his breath as he brushed himself off. A brief laugh ran through the group at the sight of him, but it was quickly cut off as a fire spirit burst from a nearby corridor, shrieking and spinning. Kenra’s laughter, which had been bright and carefree, froze mid-chuckle as the spirit exploded in her face.</p>
+<p class="para">The impact sent her staggering backward, eyes wide and feathers bristling with fear. Her claws scrabbled against the cold stone floor as she bolted down a narrow hallway, heart racing, leaving a small trail of scorched debris behind her.</p>
+<p class="para">The room she stumbled into was dark and quiet, abandoned long ago. Broken shelves lined the walls, their contents either rotted away or coated in dust. A long table dominated the center, and upon it rested a small potion in a cracked vial and a faintly glowing torch, still magically alight. Kenra skidded to a stop, panting, and eyed the objects cautiously.</p>
+<p class="para">She crouched, sniffing the potion and tapping the torch. A flicker of curiosity sparked in her fear. <span class="say">“Huh… shiny… shiny safe…”</span> she murmured, picking up the torch and holding it out to light the dim corners.</p>
+<p class="para">Meanwhile, back in the hall, Thallasstheos called out.</p>
+<p class="para"><span class="say">“Kenra! Kree! Stay close!”</span></p>
+<p class="para">Her voice echoed off the empty walls. Wilhelm, still recovering from the pit, waved weakly.</p>
+<p class="para"><span class="say">“Kree! Where are you?”</span> she added, frustration creeping into her tone.</p>
+<p class="para">But Kree’s head was tilted down a side corridor, wings half-folded, eyes fixed on a faint, pulsing red glow ahead. The glow hypnotized him, and with a soft whistle, he moved toward it, wings lifting as he disappeared down the hallway.</p>
+<p class="para">The nursery lay in quiet disarray. Dusty toys littered the floor—wooden blocks, threadbare dolls, miniature furniture, and tiny rattles. In the center, a small table held a velvet-lined box. Its contents pulsed with an inner light: a red amulet, glowing warmly in the dimness.</p>
+<p class="beat">Kree’s eyes widened.</p>
+<p class="para"><span class="say">“Oh… pretty…,”</span> he cooed softly. Delicate claws carefully lifted the amulet and tucked it into his cloak, brushing the fabric over it protectively. He crouched there for a moment, listening to the faint echo of footsteps in the hall, before finally deciding to move back toward the others.</p>
+<p class="para">Thallasstheos’s voice rose again from the stairwell.</p>
+<p class="para"><span class="say">“Kree! Kenra! Where are you both?”</span></p>
+<p class="para">She sighed, exasperation clear in the tone. Seeing Wilhelm still half-stuck in the pit, she rolled up her sleeves and moved to pull him out herself, muttering under her breath.</p>
+<p class="para">Once Wilhelm was free, dusted off, and muttering about <span class="say">“never trusting dungeons again,”</span> they pressed on. The bedroom at the end of the hallway was shadowed and quiet, the faint smell of old wood and candle wax lingering. Searching for the missing members, Wilhelm’s eyes landed on a silver candelabra atop a dresser. Without hesitation, he grabbed it, weighing it in his hands.</p>
+<p class="para">Thallasstheos’s eyes narrowed. <span class="say">“Wilhelm! We need to focus on finding the others, not taking trinkets!”</span></p>
+<p class="para"><span class="say">“They’re just small treasures!”</span> Wilhelm protested, brushing off her scowl.</p>
+<p class="para"><span class="say">“This is not the time!”</span> she snapped. <span class="say">“Kenra could be in danger, and Kree… who knows where that bird is?”</span></p>
+<p class="para">He grinned sheepishly, holding the candelabra closer. <span class="say">“It’s shiny… and sturdy. Perfect for lighting our path.”</span></p>
+<p class="para">Thallasstheos pinched the bridge of her nose. <span class="say">“Fine. Take it. But after we find the others. Priority: survival, not loot.”</span></p>
+<p class="para">Wilhelm nodded, tucking the candelabra into his pack.</p>
+<p class="para">A few moments later, all four of them converged at the foot of the stairwell, the dim light casting long shadows across the walls. Kenra emerged from the kitchen hallway, torch in paw, eyes wide but still flicking nervously toward the hall. Kree arrived a heartbeat later, wings fluttering softly, the red amulet safely concealed within his cloak.</p>
+<p class="para">Thallasstheos exhaled deeply, taking in the scattered, weary party. <span class="say">“Alright,”</span> she muttered. <span class="say">“Let’s move. And please… no more detours, or I swear I’ll carry all of you myself.”</span></p>
+<p class="para">The stairwell was narrow and worn, the stones slick with moss and dust from years of neglect. Each step echoed with their boots and claws, Wilhelm grumbling quietly about his pitfall experience while Kenra padded silently beside him, still clutching her torch tightly. Thallasstheos brought up the rear, arms crossed, her eyes narrowed as she scowled at the two.</p>
+<p class="para"><span class="say">“Wilhelm,”</span> she said, voice low and steady, <span class="say">“and Kenra… do you really think it’s acceptable to take from the Ashlings’ home?”</span></p>
+<p class="para">Wilhelm shifted uneasily. <span class="say">“It’s just… a candelabra. They’ll never miss it.”</span></p>
+<p class="para">Kenra cawed, <span class="say">“And I only took the potion to keep myself alive! Technically… nothing wrong there.”</span></p>
+<p class="para">Thallasstheos huffed, exasperated. <span class="say">“You don’t get it! Their home is sacred. We are guests, not raiders.”</span></p>
+<p class="para">Kree, tucked just behind the railing, shifted uncomfortably, the red amulet snugly hidden beneath his cloak. He cooed softly to himself, shame creeping into his movements, and kept his wings folded tightly, hoping no one would notice.</p>
+<p class="para">Once they reached the outer wall, the view opened dramatically. The manor sprawled below them, vines clinging to broken stone walls, moss softening the edges of collapsed towers. Beyond, the forest stretched like a rolling green sea, sunlight glinting off dew on the leaves, the wind carrying the faint scent of ash from their earlier travels. Birds flitted between the branches, and distant mountains framed the horizon.</p>
+<p class="para"><span class="say">“It’s… breathtaking,”</span> Wilhelm muttered, momentarily forgetting the tension.</p>
+<p class="para">Kenra let out a low chuckle. <span class="say">“Even for a haunted old place… wow.”</span></p>
+<p class="para">The beauty was fleeting, however, as a corner of the wall suddenly erupted. A crumbling fireplace, long dormant, spouted fire spirits that hissed and spiraled toward them, licking the stone edges with heat and fury.</p>
+<p class="para">Kree reacted instinctively. He leapt into the air, wings slicing the wind, talons gripping his shortbow. <span class="say">“Incoming! Fizzle-fizzle, pow!”</span> he squawked, releasing arrows at two of the spirits. Both dissipated in harmless sparks, leaving a faint trail of smoke.</p>
+<p class="para">But more spirits poured from the fireplace, swirling around with menacing intent. Thallasstheos’s hands rose, water magic forming in a glowing arc above the flames. Streams of shimmering liquid lanced out, hissing as they extinguished one spirit after another.</p>
+<p class="para">Yet one spirit resisted. Flickering violently, it surged upward, cracking and sparking as it coalesced into a wall of fire. Kree, trapped against the stone, found himself encased in a shimmering bubble of flames. The tongues of fire licked at his feathers, singeing the edges of his wings, and heat pressed in from all sides.</p>
+<p class="para">His eyes caught the red glow of the amulet floating above, pulled irresistibly toward the heart of the fireplace. For a moment, he hesitated, claws twitching.</p>
+<p class="para"><span class="say">“Oh… shiny… must… let go…”</span> he whispered to himself, panic threading his voice.</p>
+<p class="para">Then, with a trembling beak, he released it. The amulet fell into the flames with a resonant hum. Instantly, the fire roared and twisted, drawn upward, and the flames—and all the spirits—were absorbed into the amulet’s glowing core. The light flared briefly, then dimmed to a steady, warm pulse.</p>
+<p class="para">Kree dropped to the wall, feathers ruffled, heart still hammering, wings trembling from the heat.</p>
+<p class="para">Thallasstheos exhaled deeply, relief flooding her posture. <span class="say">“Kree… you’re… safe. Thank the elements.”</span></p>
+<p class="para">But the relief faded as her gaze swept over the party. Wilhelm’s eyes widened, Kenra shifted nervously, and Kree’s feathers bristled slightly beneath his cloak.</p>
+<p class="para"><span class="say">“And… I suppose,”</span> she said, voice tight, <span class="say">“since you all felt compelled to take things from the Ashlings as well…”</span> She shook her head, frustration clear. <span class="say">“I am deeply disappointed.”</span></p>
+<p class="para">Kree lowered his eyes, quietly cooing, and hugged the amulet close to his chest. Wilhelm scratched the back of his head, muttering, <span class="say">“It’s just… for the adventure…”</span></p>
+<p class="para">Thallasstheos pinched the bridge of her nose. <span class="say">“Next time, you better leave the treasures where they belong. We survive as a party—or not at all.”</span></p>
+<p class="para">The wind blew across the wall, carrying the faint, lingering smell of ash and smoke. The party fell silent for a moment, staring down at the manor below and the forest beyond, each lost in thought, each aware that the next challenge might be waiting just around the corner.</p>
+<p class="para">The path along the outer wall narrowed, littered with jagged stones and crumbling masonry. Sunlight caught the edges of the ruins, glinting off the moss and dust as the party approached the next obstacle: a segment of wall that had long since collapsed. Loose rubble shifted underfoot, threatening to send anyone tumbling into the forest below.</p>
+<p class="para">Kree took to the air, wings slicing the wind, talons clutching the stones below as he flew across with ease. <span class="say">“Safe… shiny… over!”</span> he cooed, landing nimbly on the far side.</p>
+<p class="para">Wilhelm tested each stone with his spear before stepping carefully. Kenra padded behind him, feathers ruffling as she navigated the unstable ground, her cloak brushing against loose rubble.</p>
+<p class="para"><span class="say">“Steady… careful… careful…”</span> she muttered in clipped, echoing repetitions, the words a nervous mantra as she hopped from stone to stone.</p>
+<p class="para">A rock shifted beneath her foot. Her balance faltered, wings flaring instinctively, and she teetered at the edge.</p>
+<p class="para"><span class="say">“Kenra!”</span> Wilhelm shouted, lunging forward. His hand caught the edge of her cloak just in time, yanking her to solid ground with a grunt.</p>
+<p class="para"><span class="say">“Gah! Thank—thank you!”</span> Kenra croaked, clutching her cloak tightly to her chest, feathers trembling from the near-fall.</p>
+<p class="para">Thallasstheos leapt across the gap with ease, landing just as the unstable segment of wall gave way behind them. Dust and stones tumbled into the forest below with a rattling crash.</p>
+<p class="para">The party exhaled collectively, brushing dust from their clothing and feathers, each silently noting how close the fall had been.</p>
+<p class="para">They continued along the safer stretch of wall, the forest sprawling below, the wind tugging at cloaks and feathers. The sun glinted off the distant river, and the sounds of wildlife drifted up from the canopy.</p>
+<p class="para">Wilhelm’s sharp eyes caught something unusual—a dark shape glinting against the stone floor. He stepped closer, crouching to inspect it.</p>
+<p class="para"><span class="say">“A sword…”</span> he muttered, voice low, tension in his tone. He bent down and brushed away the dust, revealing a black blade that shimmered subtly in the sunlight.</p>
+<p class="para">His hand hesitated over the hilt, memories of the pitfall still fresh, a flicker of suspicion crossing his face.</p>
+<p class="para"><span class="say">“Wilhelm… careful,”</span> Thallasstheos said, stepping up behind him. <span class="say">“We don’t know what traps—or worse—might be tied to it.”</span></p>
+<p class="para">Kenra leaned forward, cloak brushing the stone, feathers twitching. <span class="say">“careful…”</span> she muttered in quick, clipped repetitions, her eyes wide.</p>
+<p class="para">Kree fluttered down from a ledge above, eyes narrowing as he spotted the blade. <span class="say">“Oooh…”</span> he cooed softly, talons flexing.</p>
+<p class="para">The four of them gathered around the sword, each cautious, each intrigued. Wilhelm’s hand hovered over the hilt again, his expression tight with suspicion, the morning light glinting off the dark steel.</p>
+<p class="para">The party exchanged uneasy glances, silence stretching across the wind-swept wall, broken only by the distant rustle of leaves and the faint whistle of the breeze through the ruined stones.</p>
+<p class="para">And there it remained, gleaming in the sun, waiting.</p>
+<div class="scene"><span class="scene-orn">❖</span><span class="scene-text">END OF SESSION</span><span class="scene-orn">❖</span></div>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;VII</div><h2 class="ch-title">Chapter: The Blade and the Flame</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">For a long moment, no one moved.</p>
+<p class="para">The black sword lay in the rubble, its surface catching the light in a way that felt… wrong. Not reflective, not dull—something deeper, like it swallowed the sun and gave back only a shadow of it.</p>
+<p class="beat">Wilhelm hesitated.</p>
+<p class="beat">Kree did not.</p>
+<p class="para">With a flick of his wing, he stepped forward and took the blade in hand. It was warm—not like fire, but like something alive. The metal seemed to settle against his grip, as though it had been waiting.</p>
+<p class="para">No sound came from it. No voice. Only a quiet, pulsing presence.</p>
+<p class="para">Behind them, stone groaned. The ramparts were not stable for long.</p>
+<p class="beat">They moved on.</p>
+<p class="para">The far corner of the wall revealed the next problem.</p>
+<p class="para">A wide gap split the rampart, jagged stone falling away into the courtyard below. Across it, another corrupted campfire burned—its flames too bright, too eager, flickering with unnatural life.</p>
+<p class="para">Kree glanced at Kenra.</p>
+<p class="para">No words were needed.</p>
+<p class="para">He lifted her with a strong beat of his wings, the wind rushing past as they crossed the gap in a single arc. They landed hard on the far side, boots and claws scraping stone.</p>
+<p class="para">Behind them, Wilhelm and Thallasstheos turned back, climbing down from the wall to circle through the lower courtyard and reach the fire from the other side.</p>
+<p class="para">The mansion groaned around them, as if it knew what was coming.</p>
+<p class="beat">The fire erupted.</p>
+<p class="para">Three spirits burst forth in a spray of embers, shrieking as they took shape. Kree reacted instantly—his bow sang, and one of the spirits vanished mid-flight, pierced clean through.</p>
+<p class="para">Kenra did not hesitate.</p>
+<p class="para">She surged forward, her form shifting, stretching, fur bursting forth as she became a great brown bear. With a roar, she crashed into the nearest spirit, claws tearing through flame as it flickered and fought back.</p>
+<p class="para">But the fire was changing.</p>
+<p class="para">From the campfire’s core, something larger rose.</p>
+<p class="para">Flame coiled in on itself, tightening, stretching—until it took the shape of a massive serpent, its body writhing with heat and hunger. Its eyes burned white-hot as it struck, lashing out toward Kree.</p>
+<p class="para">He leapt skyward, wings snapping open as the serpent’s jaws snapped shut just beneath him.</p>
+<p class="para">Below, the creature turned and struck again—this time sinking its blazing fangs into Kenra’s shoulder. Fire spread across her fur, but she did not fall. With a furious roar, she lashed out, primal energy surging through her claws as she tore into the creature with savage force.</p>
+<p class="para">Nearby, another elemental formed, smaller but no less vicious. It hurled embers upward, forcing Kree to twist and weave through the air as sparks burned past him.</p>
+<p class="para">Then—</p>
+<p class="beat">Something shifted.</p>
+<p class="beat">The serpent stilled.</p>
+<p class="para">A sudden jolt ran through its body as something unseen struck it from behind. It thrashed violently, coiling and snapping—not at the party, but at something within its own flames.</p>
+<p class="para">With a terrible, hungry motion, it turned on the smaller elemental.</p>
+<p class="beat">And devoured it.</p>
+<p class="para">Fire collapsed inward as the serpent consumed the other spirit whole. Its form surged, growing larger, brighter, its flames roaring higher as its wounds sealed and its presence deepened into something far more dangerous.</p>
+<p class="para">The air grew hotter.</p>
+<p class="beat">Heavier.</p>
+<p class="para">The creature turned back toward them—larger now, stronger, its burning gaze fixed on its prey.</p>
+<p class="para">And it was smiling.</p>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter&nbsp;VIII</div><h2 class="ch-title">Chapter: The Blade and the Flame (continued)</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The serpent’s flames roared higher, its body coiling with new strength as it turned its blazing gaze upon them.</p>
+<p class="para">And elsewhere along the shattered ramparts—</p>
+<p class="para">Wilhelm and Thallasstheos moved quickly through the courtyard below, boots striking stone slick with moss and ash. The second campfire loomed above them, perched high along the wall where the broken ramparts curved inward. Its flames burned fiercely, out of reach, spitting embers down like falling stars.</p>
+<p class="para">From it, fire spirits poured forth.</p>
+<p class="para">Wilhelm raised his weapon and fired. The crack split the air, a spirit bursting apart mid-flight as the shot tore through it. Another followed, then another—each blast buying precious seconds as more shapes formed in the flames above.</p>
+<p class="para">Beside him, Thallasstheos stood still.</p>
+<p class="beat">Too still.</p>
+<p class="para">Her eyes were closed, her hands raised slightly as she whispered words older than the crumbling stone around them. The air shifted, subtle at first—cooling, tightening, as though the world itself held its breath.</p>
+<p class="para">Wilhelm didn’t turn. He didn’t speak. He simply kept firing.</p>
+<p class="para">A spirit lunged low—he stepped forward and shot it point-blank, its form scattering into fading embers before it could reach her. Another dove from above—he pivoted, firing again, holding the line as the pressure built.</p>
+<p class="para">The flames atop the wall flared brighter.</p>
+<p class="para">Thallasstheos’s voice deepened.</p>
+<p class="para">The words were no longer soft.</p>
+<p class="beat">They carried.</p>
+<p class="para">A low tremor ran through the air as unseen currents gathered at her command. Moisture coalesced, drawn from stone, from moss, from the very air itself. It spiraled upward, tightening into a force barely contained.</p>
+<p class="para">Then—</p>
+<p class="beat">She released it.</p>
+<p class="para">A torrent of water surged forth, roaring upward in a crashing wave that struck the elevated fire with overwhelming force. Steam exploded outward in a violent hiss as flame met flood.</p>
+<p class="beat">The campfire sputtered.</p>
+<p class="beat">Flickered.</p>
+<p class="beat">And died.</p>
+<p class="para">The spirits it birthed collapsed with it, their forms unraveling into nothing as the last embers were drowned and scattered.</p>
+<p class="para">Silence fell over their side of the wall, broken only by the fading drip of water against stone.</p>
+<p class="para">Wilhelm lowered his weapon slightly, breath steady but eyes still sharp.</p>
+<p class="para">Thallasstheos opened her eyes.</p>
+<p class="para">Far above and across the gap, the battle still raged—firelight flickering wildly against the crumbling walls as something larger, stronger, burned against Kree and Kenra.</p>
+<p class="para">And now, with their side extinguished—</p>
+<p class="para">They turned toward it.</p>
+<p class="para">They did not hesitate.</p>
+<p class="para">Wilhelm and Thallasstheos broke into a run, boots pounding against wet stone as they rounded the ruined wall and closed the distance. Heat washed over them in waves, the air thick with ash and the roar of living fire.</p>
+<p class="para">Across the gap, the battle had grown worse.</p>
+<p class="para">The serpent loomed larger now, its body coiling with stolen flame as it struck again, sinking its blazing fangs into Kenra’s side. The great bear roared in pain, claws digging into stone as fire spread across her fur.</p>
+<p class="para">Above, the air darkened.</p>
+<p class="para">From the campfire, a swarm burst forth—dozens of blazing shapes, small and shrieking. Fire bats. They poured into the sky in a chaotic cloud, then descended all at once upon Kree.</p>
+<p class="para">He vanished inside them.</p>
+<p class="para">Flames battered him from every side, wings struggling against the storm as biting heat tore at him. The swarm moved as one, a living inferno pressing in, relentless.</p>
+<p class="para">Wilhelm raised his weapon and fired.</p>
+<p class="para">The crack of the shot cut through the chaos, tearing a gap in the swarm as several of the burning creatures scattered into fading sparks. He fired again, forcing space, carving openings where there had been none.</p>
+<p class="para">Thallasstheos reached Kenra.</p>
+<p class="para">Her hands glowed with soft, silvery light as she knelt beside the wounded bear, pressing her palm against scorched fur. The glow deepened, steady and calm against the violence around them, mending what the fire had torn apart.</p>
+<p class="para">For a moment—</p>
+<p class="beat">Relief.</p>
+<p class="para">Then the campfire screamed.</p>
+<p class="para">A violent stream of embers erupted outward, a concentrated blast of burning force that tore across the battlefield and struck Thallasstheos head-on. The impact shattered her focus, the healing light flickering and breaking as she was driven back, breath stolen from her lungs.</p>
+<p class="beat">The magic faltered.</p>
+<p class="beat">Kenra still bled.</p>
+<p class="para">Above them, Kree fought to break free.</p>
+<p class="para">With a powerful beat of his wings, he forced himself upward, bursting out of the swarm in a surge of motion and wind. The fire bats scattered—then stopped.</p>
+<p class="para">For a single, unnatural moment, they hovered.</p>
+<p class="para">Then they collapsed inward.</p>
+<p class="para">Flame drew together, folding, merging—until the swarm became one.</p>
+<p class="para">A massive fire elemental took shape in the air, its form towering, its body roaring with heat far greater than before. It turned slowly, its gaze settling on the party below.</p>
+<p class="para">Two giants of flame now stood against them.</p>
+<p class="para">The serpent coiled tighter, its body blazing brighter as it prepared to strike again.</p>
+<p class="para">The elemental raised its burning limbs, embers raining from its form like falling stars.</p>
+<p class="para">And the campfire still burned.</p>
+<p class="beat">Hungry.</p>
+<p class="para">The battlefield had become a storm of fire and motion.</p>
+<p class="para">Kenra staggered as the serpent tore its fangs free, embers scattering from the wound. Before she could recover, the creature shifted—its massive body coiling, redirecting, its blazing length wrapping around Thallasstheos in a tightening spiral.</p>
+<p class="para">Flame closed around her.</p>
+<p class="para">The serpent reared back, jaws opening wide, heat building as it prepared to consume her whole.</p>
+<p class="para">Across the field, the towering elemental turned, its form pulsing with gathered heat as Wilhelm’s shot struck it squarely. The blast drew its attention instantly. It stepped forward, each movement heavy, deliberate—unstoppable.</p>
+<p class="para">Wilhelm reached for another round.</p>
+<p class="beat">Nothing.</p>
+<p class="beat">Empty.</p>
+<p class="para">The realization hit hard, but there was no time to think. The elemental’s burning limbs swept toward him, each strike sending waves of heat through the air. He moved on instinct alone—ducking, rolling, scrambling across broken stone as fire crashed down where he had stood a heartbeat before.</p>
+<p class="para">Above, Kree wheeled through the air, eyes locked on the source.</p>
+<p class="beat">The campfire.</p>
+<p class="beat">It still burned.</p>
+<p class="para">It fed them all.</p>
+<p class="para">With a sharp turn, he dove toward it, wings cutting through the heated air. The glow beneath his cloak pulsed faster now, stronger—pulling, calling.</p>
+<p class="para">Behind him, Thallasstheos struggled.</p>
+<p class="para">The serpent’s coils tightened, constricting, crushing. Fire pressed in from all sides as its jaws lowered toward her, the heat unbearable, the light blinding. Her breath faltered. Her strength waned.</p>
+<p class="para">And Wilhelm—</p>
+<p class="para">He could not keep this up.</p>
+<p class="para">The elemental bore down on him, relentless, each step driving him further back, closer to the edge of ruin. One misstep—one moment too slow—and it would end.</p>
+<p class="para">Everything balanced on a single, breaking point.</p>
+<p class="para">Then—</p>
+<p class="beat">The amulet moved.</p>
+<p class="para">It tore free from Kree’s grasp, streaking forward like a falling star. It plunged into the heart of the fire without hesitation.</p>
+<p class="beat">Light erupted.</p>
+<p class="para">Not flame—something deeper. The fire twisted inward, collapsing as if pulled by an unseen force. The serpent froze mid-strike, its body shuddering as the blaze that formed it was ripped away.</p>
+<p class="beat">The elemental faltered.</p>
+<p class="para">Cracks of dimming light split across its form.</p>
+<p class="para">Everything was being drawn in.</p>
+<p class="para">The campfire shrank, its roar collapsing into a desperate hiss as the amulet drank it dry. Flame peeled away from the serpent’s coils, from the elemental’s towering frame, from every lingering spark in the air.</p>
+<p class="para">The serpent unraveled, its grip loosening in an instant as it dissolved into fading embers.</p>
+<p class="para">The elemental reached out once—then shattered into nothing.</p>
+<p class="beat">Silence fell.</p>
+<p class="para">The fire was gone.</p>
+<p class="para">Only the amulet remained, hovering for a brief moment above the blackened stone—its glow now brighter than ever before—before it dropped, still and quiet.</p>
+<p class="para">The heat vanished with it.</p>
+<p class="beat">Smoke drifted upward.</p>
+<p class="para">And for the first time since they had stepped onto the ramparts—</p>
+<p class="para">The mansion was still.</p>
+<p class="para">The fire died out slowly, leaving only drifting ash and the faint crackle of cooling stone. The courtyard settled into an uneasy silence, as if the mansion itself was listening.</p>
+<p class="para">Wilhelm lowered his weapon and exhaled, long and sharp. <span class="say">“I’m starting to think everything here wants us dead.”</span></p>
+<p class="para">Kenra stood nearby, still tense, eyes scanning the darkened walls. <span class="say">“It almost got her.”</span></p>
+<p class="para">Thalasstheos stepped forward from the edge of the smoke, steadying herself. Her voice was calm, but there was strain beneath it. <span class="say">“I am unharmed.”</span></p>
+<p class="para">Kree hovered a short distance above the ground, wings still half-spread. He looked down at the amulet in his hands like it might change again at any moment. <span class="say">“That thing did more than it should’ve.”</span></p>
+<p class="para">Wilhelm glanced at it. <span class="say">“Yeah. That’s what worries me.”</span></p>
+<p class="para">Kenra frowned. <span class="say">“It saved us.”</span></p>
+<p class="para"><span class="say">“Maybe,”</span> Wilhelm said, tightening his grip on his weapon. <span class="say">“Or maybe it’s just waiting.”</span></p>
+<p class="para">Thalasstheos turned her gaze toward the deeper parts of the mansion. <span class="say">“The fire was guarding something.”</span></p>
+<p class="para">Kree swallowed. <span class="say">“So… we’re not done.”</span></p>
+<p class="para">Wilhelm gave a dry laugh with no humor in it. <span class="say">“Of course we’re not.”</span></p>
+<p class="para">Kenra looked between them, then toward the dark halls ahead. <span class="say">“What now?”</span></p>
+<p class="para">Wilhelm checked his weapon. <span class="say">“Now we finish what we started.”</span></p>
+<p class="para">Thalasstheos nodded once. <span class="say">“Carefully.”</span></p>
+<p class="para">Kree tucked the amulet away, slower this time. <span class="say">“I’m starting to hate being careful.”</span></p>
+<p class="beat">They moved on.</p>
+<p class="para">The tower stood blackened now, its outer flames finally gone, leaving behind a scorched husk of stone and wood. The entrance yawned open like a wound that had never fully healed.</p>
+<p class="para">Kenra crouched near the threshold, sniffing a small glass vial she had picked up from the ground. Her form shifted briefly as curiosity overtook caution—fur thickening, senses sharpening—before she huffed and returned to herself with a thoughtful tilt of her head.</p>
+<p class="para"><span class="say">“Not poison,”</span> she said simply. <span class="say">“Warm. Restorative.”</span></p>
+<p class="para">No one questioned how she knew.</p>
+<p class="beat">They moved inside.</p>
+<p class="para">The interior of the mansion was quieter, but not empty. Ash clung to every surface. The air still carried the memory of fire, like a breath held too long.</p>
+<p class="para">Wilhelm broke off first, stepping into what had once been a bedroom. The walls were marked with crude charcoal drawings—simple shapes, figures made by small hands. Ashlings. Scribbles of stick-like bodies, glowing circles, and a large messy shape that might have been the manor itself.</p>
+<p class="para">He went still for a moment.</p>
+<p class="para">In the corner stood a chest.</p>
+<p class="para">He stared at it for a long second, then slowly reached for it—hesitating just before opening it. After a pause, he let his hand drop.</p>
+<p class="para"><span class="say">“…Not worth it,”</span> he muttered.</p>
+<p class="para">Thallasstheos, arriving just behind him, let out a small breath of relief but said nothing.</p>
+<p class="para">Elsewhere, Kree drifted into what had once been a nursery. The room was scattered with broken cookware, soot-stained toys, and more of the same strange ashling drawings—careful little depictions of warmth, circles, and home.</p>
+<p class="para">His eyes locked onto a pouch tucked beneath a fallen shelf.</p>
+<p class="beat">He opened it.</p>
+<p class="beat">Jewels.</p>
+<p class="para">A soft, delighted trill escaped him as he quickly tucked it away into his cloak.</p>
+<p class="para"><span class="say">“…Useful,”</span> he whispered.</p>
+<p class="para">Kenra, meanwhile, had found what remained of a sitting room. A large, dust-covered couch sat in the center like it had been waiting for someone who never came back.</p>
+<p class="para">She eyed it carefully, then nodded to herself as if making an important decision.</p>
+<p class="para">She jumped onto it.</p>
+<p class="para">A cloud of dust exploded into the air.</p>
+<p class="para">Kenra coughed once, then settled in anyway.</p>
+<p class="para"><span class="say">“Comfortable,”</span> she declared, unconvincingly.</p>
+<p class="para">Soon, they regrouped in the main hall.</p>
+<p class="para">Kenra remained on the couch, now clearly regretting it but refusing to move. Thallasstheos sat in a worn chair, posture calm but tired. Wilhelm leaned against a heavy table, checking his weapon out of habit. Kree wandered between them, lightly tapping at an old, half-dead piano.</p>
+<p class="para">Wilhelm’s stomach growled loudly in the quiet room.</p>
+<p class="para">He glanced at the ancient bread from earlier.</p>
+<p class="beat">Held it.</p>
+<p class="beat">Considered it.</p>
+<p class="para">Then, without enthusiasm but with practicality, he tore off a piece and ate it anyway.</p>
+<p class="para">Kree’s talons struck the piano keys again—off rhythm, too loud, too free. A sharp, delighted trill followed as he climbed onto it fully, playing without care for tone or balance.</p>
+<p class="para">The sound shattered the quiet.</p>
+<p class="para">Wilhelm winced. <span class="say">“Can you not—”</span></p>
+<p class="para">The piano screamed under Kree’s weight.</p>
+<p class="para">And then—</p>
+<p class="beat">Something answered.</p>
+<p class="beat">From the fireplace.</p>
+<p class="para">From beneath the rug.</p>
+<p class="para">From behind the portraits lining the walls.</p>
+<p class="para">Flames moved where there had been none.</p>
+<p class="para">Fire spirits rose all at once, crawling out of the house itself like it had been holding its breath for too long.</p>
+<p class="para">The mansion was not empty.</p>
+<p class="para">It had only been waiting for noise.</p>
+<p class="para">After the chaos in the main hall, the mansion finally settled—though not into peace, only exhaustion.</p>
+<p class="para">Thalasstheos moved first, kneeling beside Kenra and Wilhelm in turn. Her hands glowed with a soft, cooling light as she mended burns and soot-stained wounds. Kenra relaxed under the healing, while Wilhelm immediately noticed something else entirely.</p>
+<p class="para"><span class="say">“My coat,”</span> he said flatly, turning slowly. <span class="say">“It is burned.”</span></p>
+<p class="para">He stared at the scorched fabric like it had personally betrayed him.</p>
+<p class="para">Then his eyes shifted—slowly, deliberately—to Kree.</p>
+<p class="para">Kree, meanwhile, was still perched on the piano, lightly tapping out aimless notes with his talons as if none of this concerned him at all.</p>
+<p class="para">Wilhelm’s expression tightened.</p>
+<p class="para"><span class="say">“We are in a burning haunted mansion,”</span> he said, voice rising slightly, <span class="say">“and you are playing furniture.”</span></p>
+<p class="para">Kree didn’t look up. <span class="say">“It’s calming.”</span></p>
+<p class="para"><span class="say">“It’s ruining my patience.”</span></p>
+<p class="para">Thalasstheos sighed softly, but said nothing.</p>
+<p class="para">Kenra, now fully recovered, shook herself out and tilted her head. Something had caught her attention.</p>
+<p class="para">She moved deeper into the basement.</p>
+<p class="para">A hidden passageway yawned open below, leading further down. Warm air drifted upward from it—too warm. Carrying the smell of smoke.</p>
+<p class="beat">They followed.</p>
+<p class="para">The deeper they went, the more wrong it felt.</p>
+<p class="para">Darkness pressed in on them, broken only by faint, distant glows—pairs of eyes watching from far ahead, just outside the light’s reach. They did not move. They only observed.</p>
+<p class="para">No one spoke much.</p>
+<p class="para">Eventually, the passage narrowed into a long hallway.</p>
+<p class="para">Burning chains hung from the ceiling and walls, swaying slightly without wind. Molten slag dripped slowly down their lengths, hissing when it hit the floor.</p>
+<p class="para">A barrier, more than a passage.</p>
+<p class="para">Kree lifted off immediately, weaving through the gaps with ease, feathers brushing close to heat but never catching.</p>
+<p class="para">Thallasstheos stepped forward, composed as ever. She whispered something under her breath, and space bent slightly around her as she shifted forward with Misty Step, appearing cleanly beyond the worst of the chains.</p>
+<p class="para">Wilhelm looked at the path.</p>
+<p class="para">Then at the others.</p>
+<p class="para">Then at the bread in his hand.</p>
+<p class="para"><span class="say">“…Fine.”</span></p>
+<p class="para">He ate the last piece, grimaced, and walked through.</p>
+<p class="para">He made it across—barely—coat smoldering again in places.</p>
+<p class="para">Kenra, watching all of this, reached down and drank the potion she had found earlier.</p>
+<p class="para">For a moment, nothing happened.</p>
+<p class="beat">Then she glowed.</p>
+<p class="para">A deep, steady red light bloomed from her skin and fur, as if embers had taken root inside her.</p>
+<p class="para">Kree paused mid-hover. <span class="say">“…Oh, that’s new.”</span></p>
+<p class="para">Wilhelm squinted. <span class="say">“Why are you on fire now?”</span></p>
+<p class="para">Kenra blinked at her hands. <span class="say">“I feel fine.”</span></p>
+<p class="beat">She walked forward.</p>
+<p class="para">The chains parted around her.</p>
+<p class="para">The heat licked at her—but did nothing. She continued through the burning hallway like she belonged there, glowing faintly red the entire way.</p>
+<p class="para">Kree followed behind slowly. <span class="say">“That’s unfair.”</span></p>
+<p class="para">The next chamber opened wide.</p>
+<p class="para">Gold lay scattered across the floor in uneven piles, dimly lit by emberlight. Kree didn’t hesitate—he dove forward immediately, gathering it with practiced excitement.</p>
+<p class="para"><span class="say">“Finally,”</span> he murmured. <span class="say">“Something sensible.”</span></p>
+<p class="para">The moment he touched it, the glowing eyes in the darkness vanished.</p>
+<p class="beat">The room dimmed.</p>
+<p class="para">And suddenly—</p>
+<p class="para">Kenra stood in the center, glowing red like a living lantern.</p>
+<p class="para">Wilhelm stared at her for a long moment.</p>
+<p class="para"><span class="say">“…Well,”</span> he said, <span class="say">“this is useful.”</span></p>
+<p class="beat">He stepped closer.</p>
+<p class="para">Kenra tilted her head. <span class="say">“What are you doing?”</span></p>
+<p class="para">Wilhelm adjusted his coat and, without shame, pointed forward. <span class="say">“You’re lighting the way.”</span></p>
+<p class="beat">Kenra blinked.</p>
+<p class="para"><span class="say">“…I am?”</span></p>
+<p class="para"><span class="say">“Yes.”</span></p>
+<p class="para">Kree snorted. <span class="say">“He’s using you as a torch.”</span></p>
+<p class="para">Thalasstheos did not approve—but she also did not argue.</p>
+<p class="para">And so they moved forward.</p>
+<p class="para">The final door loomed ahead.</p>
+<p class="para">Kenra’s light pushed it open.</p>
+<p class="para">Inside was a vast chamber.</p>
+<p class="para">And at its center—</p>
+<p class="beat">A massive cocoon.</p>
+<p class="beat">Bound in chains.</p>
+<p class="beat">Smoldering.</p>
+<p class="beat">Radiant.</p>
+<p class="para">It pulsed like a heartbeat made of fire.</p>
+<p class="para">The moment they stepped inside—</p>
+<p class="para">The door slammed shut behind them.</p>
+<p class="beat">The cocoon stirred.</p>
+<p class="para">And fire erupted outward in a burst of screaming spirits.</p>
+<p class="beat">The battle began.</p>
+<p class="para">The chamber erupted into chaos almost instantly.</p>
+<p class="para">Fire spirits poured from the cocoon in an endless stream—shrill, flickering things that split and multiplied as they surged outward. The party was scattered, cut off from one another in seconds.</p>
+<p class="para">Thalasstheos retreated first, her calm breaking only slightly as she raised a hand and sent shards of ice slicing through the air. Each one struck true, bursting spirits into hissing steam—but more replaced them just as quickly.</p>
+<p class="para"><span class="say">“They do not end!”</span> she called out, backing further away.</p>
+<p class="para">Wilhelm had already taken cover behind a crumbling section of wall. He worked quickly, muttering under his breath as faint mechanical light flickered across his weapon.</p>
+<p class="para"><span class="say">“Let’s see if this helps…”</span></p>
+<p class="para">With a sharp click, the infusion took hold.</p>
+<p class="para">He leaned out and fired—not at the spirits, but at the cocoon itself.</p>
+<p class="para">The shot struck cleanly.</p>
+<p class="beat">And did nothing.</p>
+<p class="para">Wilhelm’s expression flattened.</p>
+<p class="para"><span class="say">“…Of course it doesn’t.”</span></p>
+<p class="para">Across the chamber, Kenra had already transformed—her form shifting into that of a wolf, though still glowing with that strange, ember-red light. She tore through the spirits with relentless force, jaws snapping, claws raking, scattering them faster than they could regroup.</p>
+<p class="para">Still, they kept coming.</p>
+<p class="para">Kree hovered above the battlefield, watching.</p>
+<p class="para">Then his gaze drifted to the black sword in his grasp.</p>
+<p class="para"><span class="say">“…Alright,”</span> he murmured.</p>
+<p class="beat">He dove.</p>
+<p class="para">The blade cut through a fire spirit—</p>
+<p class="para">And it didn’t just disperse.</p>
+<p class="beat">It died.</p>
+<p class="para">The flame collapsed inward, extinguished completely.</p>
+<p class="beat">Kree blinked mid-flight.</p>
+<p class="para"><span class="say">“Oh.”</span></p>
+<p class="para">The sword pulsed softly in his talons.</p>
+<p class="para"><span class="say">“…Oh, I like this.”</span></p>
+<p class="para">The cocoon shuddered violently.</p>
+<p class="beat">Then it answered.</p>
+<p class="para">From its surface, flame gathered—condensing, growing—</p>
+<p class="para">Until a massive humanoid elemental tore free, towering above the battlefield.</p>
+<p class="para">It turned immediately toward Thalasstheos.</p>
+<p class="para">And unleashed a torrent of fire.</p>
+<p class="para">She staggered back, barely raising a barrier in time. The flames crashed against it, forcing her to one knee.</p>
+<p class="para"><span class="say">“I cannot—!”</span></p>
+<p class="para">A gunshot cracked through the chaos.</p>
+<p class="para">Wilhelm, still behind cover, had shifted targets.</p>
+<p class="para"><span class="say">“Forget the cocoon!”</span> he shouted. <span class="say">“The chains—break the chains!”</span></p>
+<p class="para">Another shot rang out—</p>
+<p class="para">One of the heavy bindings snapped with a sharp, metallic scream.</p>
+<p class="beat">Kenra reacted instantly.</p>
+<p class="para">With a burst of speed, she lunged forward—leaping through the swarm, landing at the base of the cocoon. Her jaws clamped around a chain—</p>
+<p class="para">And with a violent wrench—</p>
+<p class="beat">It shattered.</p>
+<p class="beat">The cocoon shrieked.</p>
+<p class="para">Not a sound—but a feeling. A piercing, furious pulse that rippled through the room.</p>
+<p class="para">The spirits surged harder, denser, throwing themselves at the remaining chains.</p>
+<p class="beat">Protecting them.</p>
+<p class="para">Thalasstheos was faltering.</p>
+<p class="para">The massive elemental advanced, flames building again for a final, overwhelming strike—</p>
+<p class="para">Then—</p>
+<p class="para">A black blur cut through it.</p>
+<p class="beat">Kree.</p>
+<p class="para">The sword flashed once.</p>
+<p class="para">The elemental split—and vanished.</p>
+<p class="beat">Gone.</p>
+<p class="beat">Completely.</p>
+<p class="para">Kree hovered for just a moment, staring at the blade.</p>
+<p class="para"><span class="say">“…That is extremely useful.”</span></p>
+<p class="para"><span class="say">“Focus!”</span> Wilhelm snapped.</p>
+<p class="para">From there, they moved as one.</p>
+<p class="para">Wilhelm kept firing from cover, picking off chains with precise, calculated shots.</p>
+<p class="para">Thalasstheos, regaining her footing, shifted to support—her magic mending wounds, steadying Kenra as she pushed deeper.</p>
+<p class="para">Kree carved a path through the spirits, each strike of the blade permanently thinning their numbers.</p>
+<p class="para">And Kenra—</p>
+<p class="para">Glowing, relentless—</p>
+<p class="para">Tore through the remaining chains one by one.</p>
+<p class="para">The final chain snapped.</p>
+<p class="para">For a moment—</p>
+<p class="beat">Everything is still.</p>
+<p class="para">Then the cocoon burst.</p>
+<p class="para">Lava exploded outward in all directions, splattering across the floor in molten waves. The party scattered, barely avoiding the burning flow as it consumed the battlefield.</p>
+<p class="para">The remaining chains melted away, useless.</p>
+<p class="beat">The cocoon sagged.</p>
+<p class="beat">Collapsed.</p>
+<p class="beat">And split open.</p>
+<p class="beat">Light poured out.</p>
+<p class="beat">Blinding. Orange. Alive.</p>
+<p class="beat">Something moved within.</p>
+<p class="para">Slowly—deliberately—it emerged.</p>
+<p class="para">A massive, serpentine form of molten stone and fire, its body rippling with heat, its eyes blazing like twin furnaces.</p>
+<p class="beat">A magma salamander.</p>
+<p class="beat">Ancient.</p>
+<p class="beat">Terrifying.</p>
+<p class="beat">The source.</p>
+<p class="para">It lifted its head.</p>
+<p class="para">And looked at them.</p>
+<p class="para">The fire in the chamber bent toward it—drawn, obedient.</p>
+<p class="para">Wilhelm lowered his gun slightly.</p>
+<p class="para"><span class="say">“…Well,”</span> he muttered, <span class="say">“there it is.”</span></p>
+<p class="para">Kree tightened his grip on the sword.</p>
+<p class="para">Kenra snarled, flames reflecting in her glowing form.</p>
+<p class="para">Thalasstheos steadied herself, breath slow, eyes locked on the creature.</p>
+<p class="para">This was no longer about surviving the fire.</p>
+<p class="para">This was about ending it.</p>
+<p class="para">The salamander moved first.</p>
+<p class="para">It spun with terrifying speed, its molten body whipping around—</p>
+<p class="para">And Kree was caught in it.</p>
+<p class="para">He was flung across the chamber, smashing into the stone wall with a sickening crack before dropping hard to the ground, the black sword clattering beside him.</p>
+<p class="beat">Kenra didn’t hesitate.</p>
+<p class="para">Still in her wolf form, still glowing red, she lunged forward and clamped her jaws onto the creature’s tail. The heat should have been unbearable—but the potion held.</p>
+<p class="para">The salamander reared, hissing, and unleashed a torrent of fire directly onto her.</p>
+<p class="para">She didn’t let go.</p>
+<p class="para">Behind them, Wilhelm kept firing, steady and precise, using the last of his cover to line up shots.</p>
+<p class="para">Then the salamander turned.</p>
+<p class="para">Lava spewed from its jaws—engulfing the wall.</p>
+<p class="beat">Stone melted.</p>
+<p class="beat">Cover vanished.</p>
+<p class="para">Wilhelm cursed under his breath and rolled aside just as the structure collapsed.</p>
+<p class="para">The creature surged forward again, faster now.</p>
+<p class="para">It lunged at Kenra—</p>
+<p class="beat">And bit down.</p>
+<p class="para">A blast of cold struck its side.</p>
+<p class="para">Thalasstheos, breathing hard, stood with one hand raised—Ray of Frost still shimmering in the air.</p>
+<p class="para"><span class="say">“Over here!”</span> she called.</p>
+<p class="beat">The salamander turned.</p>
+<p class="beat">Kree stirred.</p>
+<p class="para">Pain lanced through him as he forced himself up, wings trembling. His eyes locked onto the sword.</p>
+<p class="beat">Still there.</p>
+<p class="beat">Still glowing.</p>
+<p class="para">He grabbed it—and launched himself forward.</p>
+<p class="para">With a cry, he drove the blade deep into the salamander’s side.</p>
+<p class="para">The reaction was immediate.</p>
+<p class="para">The creature shrieked, its body thrashing violently, molten scales cracking and shifting. It spun wildly, chains whipping around its body like flails—</p>
+<p class="beat">One caught Thalasstheos.</p>
+<p class="para">Another wrapped around Wilhelm.</p>
+<p class="para">They were yanked off their feet.</p>
+<p class="para">The salamander struck again.</p>
+<p class="para">Its jaws snapped shut—</p>
+<p class="beat">And Wilhelm disappeared.</p>
+<p class="beat">Swallowed whole.</p>
+<p class="para">Inside the burning maw, Wilhelm reacted on instinct.</p>
+<p class="para">With a shout, he drove a spear upward, slashing through the creature’s mouth from within.</p>
+<p class="para">Outside, Kenra and Kree struck together.</p>
+<p class="beat">Teeth.</p>
+<p class="beat">Talons.</p>
+<p class="beat">Force.</p>
+<p class="para">The salamander convulsed—</p>
+<p class="para">Then gagged—</p>
+<p class="para">And spat Wilhelm back out in a blast of fire.</p>
+<p class="para">Flames exploded outward in every direction.</p>
+<p class="para">The chamber became an inferno.</p>
+<p class="para">Thalasstheos broke free just long enough to reach Wilhelm, her magic surging as she forced life back into him, closing wounds, steadying his breath.</p>
+<p class="para"><span class="say">“You are not dying here,”</span> she said firmly.</p>
+<p class="para">The salamander raised one massive limb—</p>
+<p class="para">And brought it down.</p>
+<p class="para">Kenra was crushed beneath the blow.</p>
+<p class="para">Her wolf form shattered, collapsing back into her kenku shape as she lay motionless.</p>
+<p class="beat">It turned again.</p>
+<p class="para">Thalasstheos barely had time to look up before its jaws closed around her.</p>
+<p class="para">It shook its head once—</p>
+<p class="para">And flung her across the chamber.</p>
+<p class="para">She hit the wall hard and dropped, unmoving.</p>
+<p class="para">Kree rose again into the air, fury burning through him.</p>
+<p class="para">He drew arrow after arrow, firing in rapid succession. Each shot struck true, embedding into molten flesh.</p>
+<p class="para">The salamander roared—</p>
+<p class="para">Then slid back into a pool of lava.</p>
+<p class="para">Its wounds began to close.</p>
+<p class="beat">Healing.</p>
+<p class="para"><span class="say">“No—!”</span> Kree shouted.</p>
+<p class="para">The creature surged out again, renewed.</p>
+<p class="para">It barreled forward—</p>
+<p class="para">Striking Wilhelm and Kenra before they could react.</p>
+<p class="beat">Both fell.</p>
+<p class="beat">Still.</p>
+<p class="beat">Silent.</p>
+<p class="para">For a moment—</p>
+<p class="beat">There was nothing.</p>
+<p class="para">Then—</p>
+<p class="beat">A faint glow.</p>
+<p class="beat">Thalasstheos.</p>
+<p class="para">Her eyes opened slowly as she dragged herself upright, trembling. Her body screamed in protest, but she raised her hands anyway.</p>
+<p class="beat">This was it.</p>
+<p class="para">Everything she had left.</p>
+<p class="para">Light poured from her—not fire, not heat, but something softer. Ancient. Steady.</p>
+<p class="para">It spread across the battlefield.</p>
+<p class="beat">Over Wilhelm.</p>
+<p class="beat">Over Kenra.</p>
+<p class="beat">Over Kree.</p>
+<p class="para">Wounds closed. Breath returned.</p>
+<p class="beat">Strength—just enough.</p>
+<p class="para">Then the light faded.</p>
+<p class="para">Thalasstheos nearly collapsed again.</p>
+<p class="beat">Kree didn’t wait.</p>
+<p class="para">With a sharp beat of his wings, he launched forward, sword blazing in his grip.</p>
+<p class="para">Wilhelm rolled to his feet, raising his gun with one final, steady aim.</p>
+<p class="para">Kenra, barely conscious, pushed herself up and hurled a dagger with everything she had left.</p>
+<p class="para">Thalasstheos lifted her hand one last time.</p>
+<p class="para">Moonlight broke through the fire.</p>
+<p class="para">A beam of pale radiance descended from above, cutting through the inferno and pinning the salamander in place.</p>
+<p class="para">All at once—</p>
+<p class="beat">They struck.</p>
+<p class="para">The sword drove deep.</p>
+<p class="para">The bullet fired true.</p>
+<p class="para">The dagger found its mark.</p>
+<p class="beat">The moonbeam burned.</p>
+<p class="para">The salamander let out a final, shuddering roar.</p>
+<p class="beat">Its body cracked.</p>
+<p class="beat">Split.</p>
+<p class="beat">Collapsed inward.</p>
+<p class="para">The fire dimmed—</p>
+<p class="para">Faltered—</p>
+<p class="beat">And went out.</p>
+<p class="beat">Silence fell.</p>
+<p class="para">The chamber, once blazing with life and fury, now lay still.</p>
+<p class="para">Only cooling stone remained.</p>
+<p class="para">Kree hovered for a moment longer before landing unsteadily.</p>
+<p class="para">Wilhelm lowered his weapon.</p>
+<p class="beat">Kenra didn’t move.</p>
+<p class="para">Thalasstheos exhaled slowly, her strength finally giving way as she sank to her knees.</p>
+<p class="beat">It was over.</p>
+<p class="para">The fire was gone.</p>
+<p class="para">And somehow—</p>
+<p class="para">They were still standing.</p>
+<p class="para">They didn’t leave the chamber so much as crawl out of it.</p>
+<p class="para">The heat was fading, but the structure wasn’t holding. Cracks split through the stone, molten seams cooling too fast, too unevenly. Pieces of the ceiling gave way as they staggered through the doorway—half carrying, half dragging one another.</p>
+<p class="para">Kree stumbled more than once, still clutching the black sword.</p>
+<p class="para">Wilhelm leaned heavily on what remained of his strength, one arm braced against the wall, the other gripping his weapon out of sheer habit.</p>
+<p class="para">Kenra moved last, unsteady but determined, feathers singed and dampened by sweat and soot.</p>
+<p class="para">Thalasstheos nearly collapsed at the threshold.</p>
+<p class="para">But they made it out.</p>
+<p class="para">Cool air hit them like a blessing.</p>
+<p class="para">They didn’t go far—just beyond the ruins, where the ground turned soft and the grass bent gently under a growing drizzle.</p>
+<p class="para">Rain began to fall.</p>
+<p class="beat">Light. Steady.</p>
+<p class="para">Enough to quiet the last traces of heat clinging to their skin.</p>
+<p class="para">They sank down where they stood.</p>
+<p class="beat">No watch.</p>
+<p class="beat">No words.</p>
+<p class="beat">Just rest.</p>
+<p class="para">When they woke, the world felt… different.</p>
+<p class="para">The fire was gone.</p>
+<p class="para">Not hidden. Not dormant.</p>
+<p class="beat">Gone.</p>
+<p class="para">The land itself seemed to breathe easier.</p>
+<p class="para">Shapes began to gather at the edge of the clearing.</p>
+<p class="beat">The ashlings.</p>
+<p class="para">No longer frantic or flickering wildly, but calm—small, ember-soft figures that moved like fading coals rather than raging flame.</p>
+<p class="beat">They approached slowly.</p>
+<p class="beat">Carefully.</p>
+<p class="beat">Gratefully.</p>
+<p class="beat">One stepped forward—Bop.</p>
+<p class="para">Wilhelm recognized them immediately.</p>
+<p class="para">Bop carried something folded over their arms.</p>
+<p class="para">Without ceremony, they held it out.</p>
+<p class="beat">A coat.</p>
+<p class="para">Simple—but new. Untouched by flame.</p>
+<p class="para">Wilhelm stared at it for a moment before taking it, running his hand over the fabric like he didn’t quite believe it.</p>
+<p class="para"><span class="say">“…Thank you,”</span> he said quietly.</p>
+<p class="para">And for once, there was no complaint in his voice.</p>
+<p class="para">Another ashling approached Kenra.</p>
+<p class="para">They reached up, placing something gently into her hands—</p>
+<p class="beat">A feather.</p>
+<p class="para">Dark, but faintly warm, like it still held a memory of fire.</p>
+<p class="para">Kenra turned it over slowly, eyes reflecting its glow.</p>
+<p class="beat">Thalasstheos was next.</p>
+<p class="para">An ashling placed a small, luminous pearl in her palm. It shimmered faintly, like moonlight caught beneath the surface.</p>
+<p class="para">She bowed her head in thanks, her expression soft.</p>
+<p class="para">Kree didn’t notice his gift at first.</p>
+<p class="para">He was too busy watching the others.</p>
+<p class="para">Until something clinked against the ground near his feet.</p>
+<p class="beat">He looked down.</p>
+<p class="beat">And froze.</p>
+<p class="beat">A coin.</p>
+<p class="beat">Platinum.</p>
+<p class="beat">Perfectly polished.</p>
+<p class="para">He picked it up slowly, holding it to the light, eyes wide.</p>
+<p class="para"><span class="say">“…This is,”</span> he whispered, <span class="say">“an absurd amount of money.”</span></p>
+<p class="para">He looked at the ashlings.</p>
+<p class="para">Then back at the coin.</p>
+<p class="para"><span class="say">“…I accept.”</span></p>
+<p class="para">The ashlings lingered only a moment longer.</p>
+<p class="para">Then, like embers finally cooling, they drifted back into the land.</p>
+<p class="beat">And were gone.</p>
+<p class="para">For a while, the party just stood there.</p>
+<p class="beat">Breathing.</p>
+<p class="para">Letting the quiet settle in.</p>
+<p class="para">Eventually, Wilhelm adjusted his new coat.</p>
+<p class="para">Kree tucked the coin away—carefully.</p>
+<p class="para">Thalasstheos closed her hand around the pearl.</p>
+<p class="para">Kenra held onto the feather.</p>
+<p class="beat">They turned.</p>
+<p class="para">And made their way back to the cart.</p>
+<p class="para">The road stretched ahead of them, damp from the rain, winding forward through a world that no longer burned.</p>
+<p class="beat">Phandalin waited.</p>
+<p class="para">And this time—</p>
+<p class="para">They were finally on their way.</p>
+<div class="finis"><div class="finis-orn">✦ ⚜ ✦</div><div class="finis-text">Stay Tuned for Volume 2!!!</div></div>
+</section>
+
+</div>
+</body>
+</html>
