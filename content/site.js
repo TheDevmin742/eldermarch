@@ -17,6 +17,9 @@ window.ELDERMARCH.site = {
 
 /* Extra tools shown on the Dice & Tools tab (the roller is built in). */
 window.ELDERMARCH.tools = [
+  { title: "🎲 The Casting Table",
+    blurb: "The new dice roller — a kinder set of dice, in every colour: pick your die, your hue, your decoration, and let the table remember the rolls.",
+    href: "docs/casting-table.html" },
   { title: "Battle Cards — How to Win Your Turn",
     blurb: "The combat crib sheet, now on the web: what you get every turn, the classic mistakes, and a card for every hero.",
     href: "docs/battle-cards.html" },
