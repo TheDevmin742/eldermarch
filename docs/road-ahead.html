@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Road Ahead — Campaign Timeline</title>
+<title>The Road So Far, and the Road Ahead</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
@@ -12,7 +12,7 @@
   --paper:#f6ecd9; --panel:#fdf6e9; --panel2:#efe2c8;
   --ink:#4a4233; --ink-soft:#7a6f5b; --muted:#a99d80;
   --rust:#a8453a; --rust-deep:#7c2f26; --gold:#e0c97e; --gold-deep:#b89a4e;
-  --edge:#d8c49a; --blue:#2e5496; --green:#3c6e47;
+  --edge:#d8c49a; --green:#3c6e47;
 }
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:#e8dcc0;}
@@ -23,41 +23,209 @@ a{color:var(--rust);}
 .sheet{background:var(--paper);border:1.5px solid var(--gold);border-radius:14px;box-shadow:0 6px 22px rgba(60,40,15,.22);padding:30px 34px;}
 .eyebrow{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.34em;color:var(--gold-deep);text-transform:uppercase;text-align:center;}
 h1{font-family:'Cinzel',serif;font-weight:700;font-size:34px;line-height:1.05;color:var(--rust);margin:6px 0 2px;text-align:center;}
-.subtitle{font-style:italic;color:var(--ink-soft);margin:0 0 18px;text-align:center;}
-h2{font-family:'Cinzel',serif;color:var(--rust-deep);font-size:17px;margin:26px 0 10px;letter-spacing:.06em;border-bottom:1.5px solid var(--edge);padding-bottom:5px;}
-h2 .o{color:var(--gold-deep);margin-right:.4em;}
-p{margin:0 0 12px;}
-.statline{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:14px 0 6px;}
-.stat{background:var(--panel);border:1.5px solid var(--edge);border-radius:10px;padding:8px 14px;text-align:center;min-width:74px;}
-.stat b{display:block;font-family:'Cinzel',serif;font-size:20px;color:var(--rust);}
-.stat span{font-family:'Cinzel',serif;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);}
-ul.moves{list-style:none;margin:0;padding:0;}
-ul.moves li{background:var(--panel);border:1px solid var(--edge);border-radius:10px;padding:9px 14px;margin:0 0 8px;}
-ul.moves li b{color:var(--rust-deep);}
-ul.moves li .meta{font-family:'Cinzel',serif;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--gold-deep);margin-left:6px;}
-.callout{background:linear-gradient(180deg,#f7edd6,#f0e0bd);border:1.5px solid var(--gold-deep);border-radius:12px;padding:14px 18px;margin:18px 0;}
-.callout .ct{font-family:'Cinzel',serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--rust);margin-bottom:6px;}
-.good{border-left:5px solid var(--green);}
-.bad{border-left:5px solid var(--rust);}
-.npc-table{width:100%;border-collapse:collapse;margin:0 0 12px;}
-.npc-table td{border:1px solid var(--edge);padding:8px 12px;vertical-align:top;background:var(--panel);}
-.npc-table td:first-child{font-family:'Cinzel',serif;font-size:13px;color:var(--rust-deep);white-space:nowrap;font-weight:700;width:170px;}
-hr.flourish{border:none;text-align:center;margin:26px 0 10px;}
-hr.flourish:after{content:"\2726 \269C \2726";color:var(--gold-deep);letter-spacing:.6em;font-size:12px;}
+.subtitle{font-style:italic;color:var(--ink-soft);margin:0 0 6px;text-align:center;}
+.hint{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);text-align:center;margin:0 0 20px;}
+.era{font-family:'Cinzel',serif;font-size:13px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold-deep);text-align:center;margin:34px 0 16px;}
+.era .rule{display:inline-block;width:46px;height:1px;background:var(--gold-deep);vertical-align:middle;margin:0 12px;opacity:.6;}
+
+.tl{position:relative;margin:0;padding-left:30px;}
+.tl:before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:3px;background:var(--gold-deep);border-radius:2px;}
+.tl.past:before{background:var(--rust);}
+.stop{
+  position:relative;margin:0 0 14px;background:var(--panel);border:1.5px solid var(--edge);
+  border-radius:12px;
+  opacity:0;transform:translateY(14px);transition:opacity .5s ease, transform .5s ease, border-color .2s ease;
+}
+.stop.seen{opacity:1;transform:none;}
+.stop:before{
+  content:"";position:absolute;left:-26px;top:20px;width:12px;height:12px;
+  background:var(--gold-deep);border:2px solid var(--paper);border-radius:3px;transform:rotate(45deg);
+}
+.tl.past .stop:before{background:var(--rust);border-radius:50%;transform:none;}
+.tl.past .stop:after{
+  content:"✓";position:absolute;left:-24px;top:19px;font-size:10px;line-height:12px;color:#fff;
+  font-weight:700;width:12px;text-align:center;
+}
+.stop.here-stop{border-color:var(--rust);background:#f6e3dc;}
+.stop.here-stop:before{
+  background:var(--rust-deep);border-radius:50%;transform:none;
+  animation:herepulse 2s ease-in-out infinite;
+}
+@keyframes herepulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(168,69,58,.5);}
+  50%{box-shadow:0 0 0 7px rgba(168,69,58,0);}
+}
+.stop-head{
+  display:flex;align-items:baseline;gap:10px;padding:12px 16px;cursor:pointer;user-select:none;border-radius:12px;
+}
+.stop-head:hover{background:rgba(224,201,126,.14);}
+.stop .k{font-family:'Cinzel',serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);white-space:nowrap;}
+.tl.past .k{color:var(--rust);}
+.here-stop .k{color:var(--rust-deep);}
+.stop .t{font-size:18px;flex:1;}
+.stop .chev{font-family:'Cinzel',serif;color:var(--muted);font-size:12px;transition:transform .25s ease;}
+.stop.open .chev{transform:rotate(90deg);}
+.stop .body{max-height:0;overflow:hidden;transition:max-height .35s ease;}
+.stop .body-inner{padding:2px 16px 14px;border-top:1px dashed var(--edge);}
+.stop .blurb{color:var(--ink-soft);font-size:15.5px;margin:10px 0 8px;}
+.stop .cites{display:flex;flex-wrap:wrap;gap:12px;}
+.stop .cites a{
+  font-family:'Cinzel',serif;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  text-decoration:none;border-bottom:1px solid var(--edge);
+}
+.stop .quote{font-style:italic;color:var(--gold-deep);font-size:14.5px;margin:8px 0;padding-left:12px;border-left:2px solid var(--gold-deep);}
 footer{color:var(--muted);text-align:center;font-style:italic;margin-top:20px;font-size:13px;}
-@media(max-width:640px){ .sheet{padding:20px 16px;} h1{font-size:26px;} .npc-table td:first-child{width:auto;} }
-@media print{ body{background:#fff;} .back{display:none;} .sheet{box-shadow:none;border-color:#bbb;} }
+@media(max-width:640px){ .sheet{padding:20px 14px;} h1{font-size:26px;} .stop .t{font-size:16px;} }
 </style>
 </head>
 <body>
 <div class="wrap">
 <a class="back" href="../index.html">&larr; Back to the Hub</a>
 <div class="sheet">
-<div class="eyebrow">The Eldermarch Chronicle</div>
-<h1>The Road Ahead</h1>
-<p class="subtitle">Where the tale goes next — no spoilers, only the shape of the journey.</p>
-<style>.tl{position:relative;margin:20px 0 0;padding-left:26px;}.tl:before{content:"";position:absolute;left:8px;top:6px;bottom:6px;width:3px;background:var(--gold-deep);border-radius:2px;}.tl .stop{position:relative;margin:0 0 16px;background:var(--panel);border:1.5px solid var(--edge);border-radius:12px;padding:12px 16px;}.tl .stop:before{content:"";position:absolute;left:-24px;top:18px;width:12px;height:12px;background:var(--gold-deep);border:2px solid var(--paper);border-radius:3px;transform:rotate(45deg);}.tl .here{border-color:var(--rust);background:#f6e3dc;}.tl .here:before{background:var(--rust-deep);border-radius:50%;}.tl .k{font-family:Cinzel,serif;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-deep);}.tl .here .k{color:var(--rust);}.tl .t{font-size:18px;}</style><p><em>Where the tale goes next — no spoilers, only the shape of the journey. The road may yet wind; fortune is a fickle cartographer.</em></p><div class="tl"><div class="stop here"><div class="k">You are here</div><div class="t">The heart of the storm-crowned peak</div></div><div class="stop "><div class="k">Next</div><div class="t">A reckoning beneath the storm</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">Down from the mountain, onto the long road</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">The reed-marches of Saltmere</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">Strange songs in the Whisperpines</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">Into the deep dark of the Underway</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">A mystery in Riverbrook</div></div><div class="stop "><div class="k">The Road to the Capital</div><div class="t">The Harvest Festival in the Blossom Lanes</div></div><div class="stop "><div class="k">The Capital · Aurelis</div><div class="t">The gates of the capital, at last</div></div><div class="stop "><div class="k">The Capital · Aurelis</div><div class="t">A conspiracy beneath the crown</div></div><div class="stop "><div class="k">Beyond the Map</div><div class="t">…a horizon past the edge of every chart</div></div></div></div>
+  <div class="eyebrow">The Eldermarch Chronicle</div>
+  <h1>The Road So Far, and the Road Ahead</h1>
+  <p class="subtitle">Every step the company has taken — and the shape of the journey to come. No spoilers past the here-marker; fortune is a fickle cartographer.</p>
+  <p class="hint">✦ tap any stop to unfold it ✦</p>
+
+  <div class="era"><span class="rule"></span>The Road Behind<span class="rule"></span></div>
+  <div class="tl past" id="tl-past"></div>
+
+  <div class="era"><span class="rule"></span>Where the Chronicle Left Off<span class="rule"></span></div>
+  <div class="tl" id="tl-here"></div>
+
+  <div class="era"><span class="rule"></span>The Road Ahead<span class="rule"></span></div>
+  <div class="tl" id="tl-next"></div>
+</div>
 <footer>Updated as the company travels. The horizon moves; so do we.</footer>
 </div>
+
+<script>
+const V1 = 'recap-vol-1.html', V2 = 'recap-vol-2.html';
+
+const PAST = [
+  {
+    k: 'Where it began', t: 'Brindlewick, on a rain-luck morning',
+    blurb: 'A quiet mill-town, trouble in the square, and four strangers who signed on to guard Marta Brin’s caravan to Phandalin. It rained the morning they left — and in Brindlewick, rain means something is beginning.',
+    quote: '“Session One — Brindlewick to Phandalin Road”',
+    cites: [[V1, 'Read it in Volume One'], ['town-brindlewick.html', 'Brindlewick in the Gazetteer']]
+  },
+  {
+    k: 'The road', t: 'The ravine, the troll, and the two birds up to no good',
+    blurb: 'A toll bridge, a troll with firm opinions about payment, a barrel problem, and the infamous “infinite gold loop” scam — history will judge whose idea that was. The fight that followed is still argued about over drinks.',
+    quote: '“The Ravine, the Troll, and the Two Birds Up to No Good”',
+    cites: [[V1, 'Read it in Volume One']]
+  },
+  {
+    k: 'The farm', t: 'The barn of little embers',
+    blurb: 'In a drafty barn the company found a flock of gentle living coals hiding from the weather, the mice, and the world — and met Bop, no taller than a hand and braver than most knights.',
+    quote: '“Morning — The Farm and the Ashlings”',
+    cites: [[V1, 'Read it in Volume One'], ['town-cinderhearth.html', 'The ashlings in the Gazetteer']]
+  },
+  {
+    k: 'The manor', t: 'Cinderhearth — the Blade and the Flame',
+    blurb: 'A fire-haunted estate, feral flame-spirits, and beneath it all a chained cocoon and the Cindered Salamander that hunted the ashlings. The company cut through the fire, shattered the cocoon, and slew the beast — and carried out a Red Amulet that drinks fire and a Black Sword that whispers. Forty-some embers came home behind them.',
+    quote: '“Chapter: The Blade and the Flame”',
+    cites: [[V1, 'Read it in Volume One'], ['town-cinderhearth.html', 'The manor in the Gazetteer']]
+  },
+  {
+    k: 'Phandalin', t: 'Ink, coin, and a name yet chosen',
+    blurb: 'The company reached the guild-town, registered at the Ironbound Hall (one job a month; don’t die; your funeral), received a Tablet of Vigor, and met Ember at her Shrine — who read fortunes that were all true and pressed a self-writing book on Kree. Then someone robbed them in broad daylight, and nobody has caught the thief yet.',
+    quote: '“A Town of Quiet Threads · Ink, Coin, and a Name Yet Chosen”',
+    cites: [[V2, 'Read it in Volume Two'], ['town-phandalin.html', 'Phandalin in the Gazetteer']]
+  },
+  {
+    k: 'The first hunt', t: 'The displacer, and the storm in the reeds',
+    blurb: 'The contract Seb warned them about. A hunt through the woods after a beast that is never where you look, ending in the reeds under an unnatural lightning storm — where Wilhelm’s Telecom was crushed underfoot, and the mountains started calling.',
+    quote: '“The First Hunt · The Hunt in the Woods · The Storm in the Reeds”',
+    cites: [[V2, 'Read it in Volume Two']]
+  },
+  {
+    k: 'The climb', t: 'Red feathers, singing crystal, and the Behir',
+    blurb: 'Up the storm-crowned peak: a trail of red feathers, broken woods, crystal that sings in the dark — and Skathrix, the Storm-Servant, lord of the mountain’s lower halls, who speaks, and mocks, and is afraid of something above him. A cold camp never felt so warm.',
+    quote: '“The Climb to the Storm · The Singing Crystal · The Behir”',
+    cites: [[V2, 'Read it in Volume Two'], ['compendium.html', 'Skathrix in the Compendium']]
+  }
+];
+
+const HERE = [
+  {
+    k: 'You are here', t: 'The heart of the storm-crowned peak', here: true,
+    blurb: 'Into the ravine, and up into the heart of the mountain — where the Chronicle left off mid-lightning, at a cliff-edge it refuses to finish. What answered the storm is a tale for the next session.',
+    quote: '“Into the Ravine · The Heart of the Mountain”',
+    cites: [[V2, 'Read the cliffhanger in Volume Two']]
+  }
+];
+
+const NEXT = [
+  { k: 'Next', t: 'A reckoning beneath the storm',
+    blurb: 'The mountain still has you. Sunday will say what the lightning meant.' },
+  { k: 'The road to the capital', t: 'Down from the mountain, onto the long road',
+    blurb: 'Whatever happens up there, the road goes on — south and east, toward Aurelis.' },
+  { k: 'The road to the capital', t: 'The reed-marches of Saltmere',
+    blurb: 'Salt wind, reed-cutters, and whatever it is the marsh folk won’t say after dark.' },
+  { k: 'The road to the capital', t: 'Strange songs in the Whisperpines',
+    blurb: 'The pines whisper. That is not a figure of speech.' },
+  { k: 'The road to the capital', t: 'Into the deep dark of the Underway',
+    blurb: 'The road under the world — older than every road on top of it.' },
+  { k: 'The road to the capital', t: 'A mystery in Riverbrook',
+    blurb: 'A river town with a Barthen in it, and something worth a detective’s eye.' },
+  { k: 'The road to the capital', t: 'The Harvest Festival in the Blossom Lanes',
+    blurb: 'Lanterns, contests, and pie. The company deserves one nice day. Surely nothing will happen.' },
+  { k: 'The capital · Aurelis', t: 'The gates of the capital, at last',
+    blurb: 'The end of the long road — and the beginning of a much bigger story.' },
+  { k: 'The capital · Aurelis', t: 'A conspiracy beneath the crown',
+    blurb: 'The shape of it is already on the wind. No more can be said.' },
+  { k: 'Beyond the map', t: '…a horizon past the edge of every chart',
+    blurb: 'The book does not stay the same. Neither does the map.' }
+];
+
+function esc(s){ return String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function renderStops(elId, stops){
+  document.getElementById(elId).innerHTML = stops.map(s => `
+    <div class="stop${s.here ? ' here-stop' : ''}">
+      <div class="stop-head">
+        <span class="k">${esc(s.k)}</span>
+        <span class="t">${esc(s.t)}</span>
+        <span class="chev">❯</span>
+      </div>
+      <div class="body"><div class="body-inner">
+        ${s.quote ? `<p class="quote">${esc(s.quote)}</p>` : ''}
+        <p class="blurb">${esc(s.blurb)}</p>
+        ${s.cites && s.cites.length ? `<div class="cites">${s.cites.map(([href, label]) =>
+          `<a href="${esc(href)}" target="_blank" rel="noopener">${esc(label)} →</a>`).join('')}</div>` : ''}
+      </div></div>
+    </div>`).join('');
+}
+
+renderStops('tl-past', PAST);
+renderStops('tl-here', HERE);
+renderStops('tl-next', NEXT);
+
+/* unfold on tap */
+document.querySelectorAll('.stop-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const stop = head.parentElement;
+    const body = stop.querySelector('.body');
+    const opening = !stop.classList.contains('open');
+    stop.classList.toggle('open', opening);
+    body.style.maxHeight = opening ? body.scrollHeight + 'px' : '0';
+  });
+});
+
+/* stops fade in as they come up the road */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); } });
+}, { threshold: 0.15 });
+document.querySelectorAll('.stop').forEach(s => io.observe(s));
+
+/* the here-marker starts unfolded — it's why everyone came */
+const hereStop = document.querySelector('.here-stop');
+if (hereStop){
+  hereStop.classList.add('open');
+  const b = hereStop.querySelector('.body');
+  requestAnimationFrame(() => { b.style.maxHeight = b.scrollHeight + 'px'; });
+}
+</script>
 </body>
 </html>

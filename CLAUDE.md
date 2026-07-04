@@ -8,7 +8,7 @@ This site is read by PLAYERS. Never add content from the campaign's `DM Notes` f
 - Ember's Book entries must never reveal: anything about gods scheming, dragons in disguise, advisors, shapeshifters, "the Riftrender", or anyone named Mharrokh, Caelus, Tethaia, or Vaelra. If Jane asks for a new Ember page, write warm in-world history/folklore only, and show it to her before committing.
 
 ## File map (what to edit for what)
-- `content/site.js` — Roll20 URL, next-session date, tagline, extra tools list, `feedbackEmail` (Messages form target; "" hides the form)
+- `content/site.js` — Roll20 URL, next-session date, tagline, extra tools list, `feedbackEmail` (Messages form target; "" hides the form), `nextSessionAt` (ISO local datetime — powers the header countdown; "" hides it)
 - `content/announcements.js` — announcements; `banner: true` pins one above the tabs
 - `content/ember.js` — Ember's Book pages; set `unlocked: true` to reveal one
 - `content/recaps.js` / `content/lore.js` — cards linking to files in `docs/`

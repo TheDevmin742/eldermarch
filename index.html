@@ -39,6 +39,7 @@ h1.title{font-family:'Cinzel',serif;font-weight:700;font-size:44px;line-height:1
 .roll20:hover{background:var(--rust-deep);}
 .next-session{margin-top:12px;font-family:'Cinzel',serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);}
 .next-session b{color:var(--rust);}
+.countdown{display:block;margin-top:5px;font-size:12.5px;letter-spacing:.22em;color:var(--rust-deep);font-variant-numeric:tabular-nums;}
 
 /* ---------- announcement banner ---------- */
 .banner{
@@ -347,8 +348,30 @@ document.getElementById('site-footer').textContent = D.site?.footer || "";
 const r20 = document.getElementById('roll20-link');
 r20.href = D.site?.roll20Url || "#";
 if (!D.site?.roll20Url) r20.textContent = "⚔ Roll20 link coming soon";
-if (D.site?.nextSession) document.getElementById('next-session').innerHTML =
-  'Next session — <b>' + esc(D.site.nextSession) + '</b>';
+if (D.site?.nextSession) {
+  document.getElementById('next-session').innerHTML =
+    'Next session — <b>' + esc(D.site.nextSession) + '</b>' +
+    (D.site.nextSessionAt ? '<span id="countdown" class="countdown"></span>' : '');
+  if (D.site.nextSessionAt) {
+    const target = new Date(D.site.nextSessionAt).getTime();
+    const cd = document.getElementById('countdown');
+    const pad = n => String(n).padStart(2, '0');
+    const tick = () => {
+      const left = target - Date.now();
+      if (isNaN(left)) { cd.textContent = ''; return; }
+      if (left <= 0) {
+        // session time! (message lingers for the rest of the day)
+        cd.textContent = left > -14 * 3600 * 1000 ? '⚔ the table is set — roll initiative!' : '';
+        return;
+      }
+      const d = Math.floor(left / 86400000), h = Math.floor(left / 3600000) % 24,
+            m = Math.floor(left / 60000) % 60, s = Math.floor(left / 1000) % 60;
+      cd.textContent = '⌛ ' + (d > 0 ? d + 'd ' : '') + pad(h) + 'h ' + pad(m) + 'm ' + pad(s) + 's';
+      setTimeout(tick, 1000);
+    };
+    tick();
+  }
+}
 
 /* ----- tabs ----- */
 document.getElementById('tabs').addEventListener('click', e => {

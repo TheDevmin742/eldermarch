@@ -6,9 +6,12 @@ window.ELDERMARCH.site = {
   tagline: "A homebrew campaign of storms, shinies, and the road to the capital.",
   welcome: "This is the company's hub — sheets, recaps, lore, and dice. Bookmark it; it grows as the story does.",
   // Paste your Roll20 game link between the quotes:
-  roll20Url: "",
+  roll20Url: "https://app.roll20.net/join/20642258/Z_pl-A",
   // Shown under the Roll20 button. Leave "" to hide.
-  nextSession: "Sunday, July 12 — the mountain still has you.",
+  nextSession: "Sunday, July 12 at 10:00 — the mountain still has you.",
+  // When the next session starts (local time). Powers the live countdown.
+  // Leave "" to turn the countdown off.
+  nextSessionAt: "2026-07-12T10:00:00",
   footer: "Kept by the DM. Ember checks the margins.",
   // Where the Messages tab delivers feedback (via formsubmit.co).
   // This is the DM's FormSubmit alias — it forwards to her inbox without

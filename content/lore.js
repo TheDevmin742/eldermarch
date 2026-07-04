@@ -5,8 +5,8 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.lore = [
   {
-    title: "The Road Ahead — a Traveler's Timeline",
-    blurb: "Where the tale goes next — no spoilers, only the shape of the journey: down the mountain, along the long road, and to the gates of the capital at last.",
+    title: "The Road So Far, and the Road Ahead",
+    blurb: "The whole journey on one line — every stop the company has made (with links to the Chronicle that tells it), the cliff-edge where we left off, and the shape of the road to come.",
     href: "docs/road-ahead.html",
   },
   {
