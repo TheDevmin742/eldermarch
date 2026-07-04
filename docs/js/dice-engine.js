@@ -1463,6 +1463,20 @@ export function createDiceStage(canvas, initial) {
         }
         cut.edge.forEach(p => crossings.push(p));
       });
+      // the living surface: two traveling waves, fed by the die's motion.
+      // world-based, so the swell lines up across every face of the glass
+      const energy = clamp(Math.max(sl.energy != null ? sl.energy : 0.2, 0.14), 0, 1.4);
+      const drainMute = die.tidefx && die.tidefx.kind === 'drain' ? 0.35 : 1;
+      const wAmp = geo.R * (0.02 + 0.075 * energy) * drainMute;
+      const tw = now || performance.now();
+      const waveAt = p => {
+        const dx = p[0] - px, dz = p[2] - pz;
+        return wAmp * (
+          0.62 * Math.sin(dx * 3.1 + dz * 2.2 + tw / 300 + (sl.phase || 0) * 2) +
+          0.38 * Math.sin(dx * -2.4 + dz * 3.5 - tw / 210 + (sl.phase || 0) * 3.4)
+        );
+      };
+      const projWave = p => proj([p[0], p[1] + waveAt(p), p[2]]);
       // the water's open surface — the cross-section of the whole die
       const frontCuts = faces.map(o => clipBelowWater(o.f.idx.map(vi => wv[vi]), px, pz, wl, sl.tx, sl.tz));
       frontCuts.forEach(c => c.edge.forEach(p => crossings.push(p)));
@@ -1471,9 +1485,26 @@ export function createDiceStage(canvas, initial) {
         const pts = crossings.slice().sort((A, B) =>
           Math.atan2(A[2] - c0[2], A[0] - c0[0]) - Math.atan2(B[2] - c0[2], B[0] - c0[0]));
         ctx.beginPath();
-        pts.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+        // subdivide the rim so the swell rounds it instead of tenting it
+        pts.forEach((p, i) => {
+          const q = pts[(i + 1) % pts.length];
+          for (let k2 = 0; k2 < 3; k2++) {
+            const s = projWave(vLerp(p, q, k2 / 3));
+            (i === 0 && k2 === 0) ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+          }
+        });
         ctx.closePath();
         ctx.fillStyle = wSurf; ctx.fill();
+        // a gleam sliding along the swell
+        const pA = pts[0], pB = pts[Math.floor(pts.length / 2)];
+        ctx.beginPath();
+        for (let k2 = 0; k2 <= 8; k2++) {
+          const s = projWave(vLerp(pA, pB, k2 / 8));
+          k2 === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+        }
+        ctx.strokeStyle = `rgba(224,252,246,${0.24 + 0.2 * energy + 0.3 * glowK})`;
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
       }
       // water against the near glass
       frontCuts.forEach(cut => {
@@ -1504,19 +1535,26 @@ export function createDiceStage(canvas, initial) {
       let lit = null;
       faces.forEach(o => { const d = vDot(o.nW, LIGHT); if (!lit || d > lit.d) lit = { o, d }; });
       if (lit && lit.d > 0.15) { facePath(lit.o.f); ctx.fillStyle = `rgba(255,255,250,${0.10 * lit.d})`; ctx.fill(); }
-      // the segmented foam line riding the waterline
+      // the foam line rides the same swell as the surface — no seams, no zips
       ctx.strokeStyle = 'rgba(250,255,252,0.8)'; ctx.lineWidth = 1.6;
       frontCuts.forEach((cut, i) => {
         if (cut.edge.length < 2) return;
-        const r = wavyLine(cut.edge[0], cut.edge[1], t, i * 1.7 + (sl.phase || 0), 1.7);
-        for (let k = 0; k < 2; k++) {
-          const u = 0.28 + 0.4 * k + 0.1 * Math.sin(t / 340 + k * 2.2 + i);
+        const A = cut.edge[0], B = cut.edge[1];
+        ctx.beginPath();
+        for (let k2 = 0; k2 <= 8; k2++) {
+          const s = projWave(vLerp(A, B, k2 / 8));
+          k2 === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+        }
+        ctx.stroke();
+        // foam pips bobbing on the crests
+        for (let k2 = 0; k2 < 2; k2++) {
+          const u = 0.28 + 0.4 * k2 + 0.1 * Math.sin(t / 340 + k2 * 2.2 + i);
+          const p = vLerp(A, B, u);
+          const s = proj([p[0], p[1] + waveAt(p) + 0.02, p[2]]);
           ctx.beginPath();
-          ctx.arc(lerp(r.sA.x, r.sB.x, u) + r.nx * 1.6, lerp(r.sA.y, r.sB.y, u) + r.ny * 1.6,
-            1.1 + 0.5 * Math.sin(t / 230 + k * 3 + i), 0, TAU);
+          ctx.arc(s.x, s.y, 1.1 + 0.5 * Math.sin(t / 230 + k2 * 3 + i), 0, TAU);
           ctx.fillStyle = 'rgba(250,255,252,0.7)'; ctx.fill();
         }
-        ctx.strokeStyle = 'rgba(250,255,252,0.8)'; ctx.lineWidth = 1.6;
       });
       // glass edges — light, so the water stays the star
       ctx.strokeStyle = hexRgba(TIDE.ink, 0.38); ctx.lineWidth = 1.4;
@@ -1951,8 +1989,8 @@ export function createDiceStage(canvas, initial) {
         sig: !!(color && color.special) && t === 'd20',
         pearl: isTide && t === 'd20',
         slosh: isTide ? {
-          tx: 0.09 * Math.sin((now || 0) / 880 + i), tz: 0.07 * Math.cos((now || 0) / 760 + i),
-          lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i
+          tx: 0.07 * Math.sin((now || 0) / 1150 + i), tz: 0.055 * Math.cos((now || 0) / 990 + i),
+          lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i, energy: 0.28
         } : null,
         _tint: (color && color.special) === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
         _ph: i * 1.37
@@ -2082,7 +2120,7 @@ export function createDiceStage(canvas, initial) {
       // each set holds ONE signature d20 — the Pearl, the gilded prize, the Prototype, the Moon
       sig: !!special && spec.type === 'd20' && i === 0,
       pearl: isTide && spec.type === 'd20' && i === 0,
-      slosh: isTide ? { tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9 } : null,
+      slosh: isTide ? { tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9, energy: 1.2 } : null,
       _tint: special === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
       _ph: i * 1.37
     }));
@@ -2200,20 +2238,26 @@ export function createDiceStage(canvas, initial) {
         const pv = d._pv || vel;
         const acc = vScale(vSub(vel, pv), 1 / dt);
         d._pp = d.pos.slice(); d._pv = vel;
-        // ripples where a watery die strikes the tray
+        // ripples where a watery die strikes the tray — and a splash inside it
         if (sl && d._pvy != null && d._pvy < -3 && vel[1] > -0.4 && d.pos[1] < 1.1) {
           spawnRipple(d.pos[0], d.pos[2], clamp(Math.abs(d._pvy) / 9, 0.35, 1.2));
+          sl.energy = Math.min(1.4, (sl.energy || 0) + Math.abs(d._pvy) / 7);
         }
         d._pvy = vel[1];
         if (!sl) return;
-        const K = 42, C = 7.5, DRIVE = 0.024;
+        // a heavy, slow pendulum — water sways, it doesn't snap
+        const K = 15, C = 3.6, DRIVE = 0.020;
         const ax = clamp(acc[0], -80, 80), az = clamp(acc[2], -80, 80), ay = clamp(acc[1], -80, 80);
-        const restx = 0.06 * Math.sin(now / 840 + sl.phase);
-        const restz = 0.05 * Math.cos(now / 760 + sl.phase);
+        const restx = 0.05 * Math.sin(now / 1150 + sl.phase);
+        const restz = 0.04 * Math.cos(now / 990 + sl.phase);
         sl.vx += (-K * (sl.tx - restx) - C * sl.vx - DRIVE * ax) * dt;
         sl.vz += (-K * (sl.tz - restz) - C * sl.vz - DRIVE * az) * dt;
-        sl.tx = clamp(sl.tx + sl.vx * dt, -0.6, 0.6);
-        sl.tz = clamp(sl.tz + sl.vz * dt, -0.6, 0.6);
+        sl.tx = clamp(sl.tx + sl.vx * dt, -0.5, 0.5);
+        sl.tz = clamp(sl.tz + sl.vz * dt, -0.5, 0.5);
+        // the surface's wave energy: fed by motion, spent over time
+        sl.energy = Math.min(1.4, (sl.energy || 0.2) * Math.exp(-1.15 * dt)
+          + (Math.abs(ax) + Math.abs(az)) * dt * 0.012
+          + (Math.abs(sl.vx) + Math.abs(sl.vz)) * dt * 0.55);
         if (d.tidefx && d.tidefx.kind === 'drain' && now >= d.tidefx.t0) {
           // the tide going out: the level falls with the clock, not the framerate
           const el = (now - d.tidefx.t0) / 1000;
