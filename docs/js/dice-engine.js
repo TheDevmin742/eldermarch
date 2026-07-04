@@ -1477,10 +1477,15 @@ export function createDiceStage(canvas, initial) {
         );
       };
       const projWave = p => proj([p[0], p[1] + waveAt(p), p[2]]);
+      // while the die tumbles, the clean surface gives way to churn
+      const churn = clamp(sl.churn || 0, 0, 1);
+      const surfAlpha = 1 - smooth(0.28, 0.62, churn);
       // the water's open surface — the cross-section of the whole die
       const frontCuts = faces.map(o => clipBelowWater(o.f.idx.map(vi => wv[vi]), px, pz, wl, sl.tx, sl.tz));
       frontCuts.forEach(c => c.edge.forEach(p => crossings.push(p)));
-      if (crossings.length >= 3) {
+      if (crossings.length >= 3 && surfAlpha > 0.03) {
+        ctx.save();
+        ctx.globalAlpha = die.alpha * surfAlpha;
         const c0 = crossings.reduce((a, p) => vAdd(a, p), [0, 0, 0]).map(v => v / crossings.length);
         const pts = crossings.slice().sort((A, B) =>
           Math.atan2(A[2] - c0[2], A[0] - c0[0]) - Math.atan2(B[2] - c0[2], B[0] - c0[0]));
@@ -1505,6 +1510,7 @@ export function createDiceStage(canvas, initial) {
         ctx.strokeStyle = `rgba(224,252,246,${0.24 + 0.2 * energy + 0.3 * glowK})`;
         ctx.lineWidth = 1.2;
         ctx.stroke();
+        ctx.restore();
       }
       // water against the near glass
       frontCuts.forEach(cut => {
@@ -1514,6 +1520,31 @@ export function createDiceStage(canvas, initial) {
         ctx.closePath();
         ctx.fillStyle = wFront; ctx.fill();
       });
+      // churning water: bubbles and swirl while the die tumbles
+      if (churn > 0.12 && !die.cracked) {
+        const planeAt = p => wl + sl.tx * (p[0] - px) + sl.tz * (p[2] - pz);
+        const ca = 0.6 * churn * (0.75 + 0.25 * Math.sin(tw / 190));
+        for (let k2 = 0; k2 < 8; k2++) {
+          const swirl = (k2 % 2 ? 1 : -1);
+          const angB = k2 * 0.785 + (tw / 340) * swirl + (sl.phase || 0);
+          const rad = geo.R * (0.20 + 0.34 * ((k2 * 37 % 10) / 10));
+          const by = -geo.R * 0.04 - geo.R * 0.3 * ((k2 * 53 % 10) / 10) + geo.R * 0.16 * Math.sin(tw / 240 + k2 * 2.1);
+          const bp = [px + Math.cos(angB) * rad, die.pos[1] + by, pz + Math.sin(angB) * rad * 0.85];
+          if (bp[1] > planeAt(bp)) continue; // only where the water is
+          const s = proj(bp);
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, 1 + (k2 % 3) * 0.6, 0, TAU);
+          ctx.fillStyle = `rgba(230,250,246,${ca * (0.4 + 0.6 * ((k2 * 29 % 10) / 10))})`;
+          ctx.fill();
+          if (k2 % 3 === 0) {
+            ctx.beginPath();
+            ctx.arc(s.x, s.y, 3.2 + (k2 % 4), angB, angB + 1.3);
+            ctx.strokeStyle = `rgba(210,244,238,${ca * 0.5})`;
+            ctx.lineWidth = 1.1;
+            ctx.stroke();
+          }
+        }
+      }
       // luminous water throws its light out through the glass
       if (glowK > 0.02) {
         const c = proj(die.pos);
@@ -1536,6 +1567,8 @@ export function createDiceStage(canvas, initial) {
       faces.forEach(o => { const d = vDot(o.nW, LIGHT); if (!lit || d > lit.d) lit = { o, d }; });
       if (lit && lit.d > 0.15) { facePath(lit.o.f); ctx.fillStyle = `rgba(255,255,250,${0.10 * lit.d})`; ctx.fill(); }
       // the foam line rides the same swell as the surface — no seams, no zips
+      ctx.save();
+      ctx.globalAlpha = die.alpha * surfAlpha;
       ctx.strokeStyle = 'rgba(250,255,252,0.8)'; ctx.lineWidth = 1.6;
       frontCuts.forEach((cut, i) => {
         if (cut.edge.length < 2) return;
@@ -1556,6 +1589,7 @@ export function createDiceStage(canvas, initial) {
           ctx.fillStyle = 'rgba(250,255,252,0.7)'; ctx.fill();
         }
       });
+      ctx.restore();
       // glass edges — light, so the water stays the star
       ctx.strokeStyle = hexRgba(TIDE.ink, 0.38); ctx.lineWidth = 1.4;
       faces.forEach(o => { facePath(o.f); ctx.stroke(); });
@@ -2258,6 +2292,16 @@ export function createDiceStage(canvas, initial) {
         sl.energy = Math.min(1.4, (sl.energy || 0.2) * Math.exp(-1.15 * dt)
           + (Math.abs(ax) + Math.abs(az)) * dt * 0.012
           + (Math.abs(sl.vx) + Math.abs(sl.vz)) * dt * 0.55);
+        // churn: while the die tumbles fast, the water has no clean surface —
+        // it's a spinning mass. Measure rotation rate and blend smoothly.
+        if (d._pq) {
+          const qd = clamp(Math.abs(d.quat[0] * d._pq[0] + d.quat[1] * d._pq[1] + d.quat[2] * d._pq[2] + d.quat[3] * d._pq[3]), 0, 1);
+          const spinRate = 2 * Math.acos(qd) / dt; // rad/s
+          const hVel = Math.hypot(vel[0], vel[2]);
+          const target = clamp(spinRate / 13 + hVel / 11, 0, 1);
+          sl.churn = (sl.churn || 0) + (target - (sl.churn || 0)) * Math.min(1, dt * 7);
+        }
+        d._pq = d.quat.slice();
         if (d.tidefx && d.tidefx.kind === 'drain' && now >= d.tidefx.t0) {
           // the tide going out: the level falls with the clock, not the framerate
           const el = (now - d.tidefx.t0) / 1000;
