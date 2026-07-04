@@ -107,6 +107,34 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
   box-shadow:0 1px 2px rgba(10,30,40,.4);
 }
 .swatches button.swatch-tide.active{box-shadow:0 0 0 3px #7fd0c4,var(--shadow-xs);}
+.swatches button.swatch-hoard{
+  position:relative;
+  background:linear-gradient(140deg,#233B2C 0%,#141216 34%,#2E1A36 62%,#1A2440 100%) !important;
+}
+.swatches button.swatch-hoard::after{
+  content:"✦";position:absolute;right:12%;top:8%;font-size:11px;line-height:1;color:#F2D588;
+  text-shadow:0 0 4px rgba(242,213,136,.8);
+}
+.swatches button.swatch-hoard.active{box-shadow:0 0 0 3px #d9b75a,var(--shadow-xs);}
+.swatches button.swatch-works{
+  position:relative;
+  background:linear-gradient(145deg,#C9A55C 0%,#A98544 45%,#6E5426 100%) !important;
+}
+.swatches button.swatch-works::after{
+  content:"";position:absolute;right:14%;top:14%;width:30%;height:30%;border-radius:50%;
+  background:radial-gradient(circle at 40% 35%, #9FE8FF 0%, #4A5058 45%, #23272C 100%);
+  box-shadow:0 0 5px rgba(159,232,255,.55);
+}
+.swatches button.swatch-works.active{box-shadow:0 0 0 3px #cdb478,var(--shadow-xs);}
+.swatches button.swatch-moon{
+  position:relative;
+  background:linear-gradient(150deg,#4A4062 0%,#2C2740 55%,#1B1830 100%) !important;
+}
+.swatches button.swatch-moon::after{
+  content:"☾";position:absolute;right:10%;top:4%;font-size:13px;line-height:1;color:#E9E7F6;
+  text-shadow:0 0 5px rgba(226,228,250,.8);
+}
+.swatches button.swatch-moon.active{box-shadow:0 0 0 3px #b9b4d8,var(--shadow-xs);}
 .decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
 .decos button{
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
@@ -176,9 +204,9 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 </div>
 
 <!-- bump ?v= whenever js/dice-engine.js changes, so caches can't serve a stale engine -->
-<script src="js/cannon.js?v=3"></script>
+<script src="js/cannon.js?v=4"></script>
 <script type="module">
-import { createDiceStage } from './js/dice-engine.js?v=3';
+import { createDiceStage } from './js/dice-engine.js?v=4';
 
 const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
 
@@ -191,9 +219,11 @@ const SWATCHES = [
   { id:'ink',   name:'Obsidian',   body:'#2C2417', light:false },
   { id:'parch', name:'Bone',       body:'#E8DCC0', light:true  },
   { id:'plum',  name:'Nightshade', body:'#5A3A52', light:false },
-  /* The Rising Tide — Thalasstheos's set: sea-glass dice with real water
-     inside, one pearl-toned d20, blue refraction shadows, ripples. */
-  { id:'tide',  name:'The Rising Tide — Thalasstheos', body:'#2FA093', light:false, special:'tide' }
+  /* The character sets — each with one signature d20 and its own mat. */
+  { id:'tide',  name:'The Rising Tide — Thalasstheos', body:'#2FA093', light:false, special:'tide' },
+  { id:'hoard', name:'The Magpie’s Hoard — Kree', body:'#1A1720', light:false, special:'hoard' },
+  { id:'works', name:'The Tinker’s Works — Wilhelm', body:'#A98544', light:false, special:'works' },
+  { id:'moon',  name:'The Borrowed Moon — Kenra', body:'#3B3552', light:false, special:'moon' }
 ];
 
 const DECOS = [
@@ -202,8 +232,26 @@ const DECOS = [
   { id:'filigree',label:'Filigree',    note:'brass flourishes' },
   { id:'runes',   label:'Runes',       note:'an arcane ring' },
   { id:'heraldic',label:'Heraldic',    note:'a double frame' },
-  { id:'beach',   label:'Rocky Beach', note:'surf, stones, and sea-light' }
+  { id:'beach',   label:'Rocky Beach', note:'surf, stones, and sea-light' },
+  { id:'nest',    label:'The Nest',    note:'twigs and treasures' },
+  { id:'bench',   label:'The Workbench', note:'schematics and sawdust' },
+  { id:'glade',   label:'Moonlit Glade', note:'fireflies and silver light' }
 ];
+
+/* which mat belongs to which set — suggested, never forced */
+const SET_MATS = { tide:'beach', hoard:'nest', works:'bench', moon:'glade' };
+
+/* what the signature d20 says when fate speaks */
+const SET_LINES = {
+  tide:  { crit:'The tide always comes back.', fumble:'…the tide went out.',
+           critDetail:'the tide always comes back', fumbleDetail:'the tide went out' },
+  hoard: { crit:'A shiny for the hoard!', fumble:'…someone stole it.',
+           critDetail:'a shiny for the hoard', fumbleDetail:'someone stole it' },
+  works: { crit:'Precisely as designed.', fumble:'…back to the bench.',
+           critDetail:'precisely as designed', fumbleDetail:'back to the bench' },
+  moon:  { crit:'The moon shows her full face.', fumble:'…the new moon keeps her secrets.',
+           critDetail:'the moon shows her full face', fumbleDetail:'the new moon keeps her secrets' }
+};
 
 /* physics feel */
 const THROW_STRENGTH = 1.2, SLOW_MOTION = false, KEEP_DICE = false;
@@ -246,21 +294,21 @@ function describe(out){
   }
   const n = out.values.length;
   const label = n > 1 ? n + type : type;
-  const tide = state.color === 'tide';
+  const lines = SET_LINES[state.color] || null;
   let critNote = '';
-  if (out.crit === 'nat20') critNote = tide ? ' — “The tide always comes back.”' : ' — natural twenty!';
-  if (out.crit === 'nat1') critNote = tide ? ' — “…the tide went out.”' : ' — the die shatters';
+  if (out.crit === 'nat20') critNote = lines ? ' — “' + lines.crit + '”' : ' — natural twenty!';
+  if (out.crit === 'nat1') critNote = lines ? ' — “' + lines.fumble + '”' : ' — the die shatters';
   if (n === 1){
     return { label, totalText: String(out.total),
       breakdown: type + ' → ' + out.total + critNote,
-      detail: out.crit === 'nat20' ? (tide ? 'a natural 20 — the tide always comes back' : 'a natural 20')
-        : out.crit === 'nat1' ? (tide ? 'a natural 1 — the tide went out' : 'a natural 1 — swept from the felt')
+      detail: out.crit === 'nat20' ? (lines ? 'a natural 20 — ' + lines.critDetail : 'a natural 20')
+        : out.crit === 'nat1' ? (lines ? 'a natural 1 — ' + lines.fumbleDetail : 'a natural 1 — swept from the felt')
         : 'a single ' + type };
   }
   return { label, totalText: String(out.total),
     breakdown: out.values.join(' + ') + ' = ' + out.total + critNote,
-    detail: out.values.join(', ') + (out.crit === 'nat20' ? (tide ? ' · the tide always comes back' : ' · a twenty among them')
-      : out.crit === 'nat1' ? (tide ? ' · one die went out with the tide' : ' · one die shattered') : '') };
+    detail: out.values.join(', ') + (out.crit === 'nat20' ? (lines ? ' · ' + lines.critDetail : ' · a twenty among them')
+      : out.crit === 'nat1' ? (lines ? ' · ' + lines.fumbleDetail : ' · one die shattered') : '') };
 }
 
 /* ---------- rendering ---------- */
@@ -270,7 +318,7 @@ function renderTypes(){
 }
 function renderSwatches(){
   $('swatches').innerHTML = SWATCHES.map(s =>
-    `<button data-color="${s.id}" title="${s.name}" class="${s.special === 'tide' ? 'swatch-tide ' : ''}${s.id === state.color ? 'active' : ''}" style="background:${s.body}"></button>`).join('');
+    `<button data-color="${s.id}" title="${s.name}" class="${s.special ? 'swatch-' + s.id + ' ' : ''}${s.id === state.color ? 'active' : ''}" style="background:${s.body}"></button>`).join('');
 }
 function renderDecos(){
   $('decos').innerHTML = DECOS.map(d =>
@@ -346,6 +394,15 @@ $('swatches').addEventListener('click', e => {
   const b = e.target.closest('button[data-color]');
   if (!b) return;
   state.color = b.dataset.color;
+  // picking a character's set lays out their mat too — unless the DM has
+  // deliberately chosen a decorative mat, which we respect
+  const pairedMat = SET_MATS[state.color];
+  const swappable = ['glow', 'plain', ...Object.values(SET_MATS)];
+  if (pairedMat && state.deco !== pairedMat && swappable.includes(state.deco)) {
+    state.deco = pairedMat;
+    if (stage) stage.setTheme(state.deco);
+    renderDecos();
+  }
   if (stage && !stage.isRolling()) stage.setIdleDie({ type: state.type, color: curSwatch() });
   renderSwatches();
 });

@@ -293,7 +293,10 @@ const THEMES = {
   filigree: { felt: '#61352A', fleurons: true, brassLine: true },
   runes:    { felt: '#3D4E56', runes: true },
   heraldic: { felt: '#453B2C', frames: true, brassLine: true },
-  beach:    { felt: '#C4AD82', beach: true, animated: true, noStitch: true }
+  beach:    { felt: '#C4AD82', beach: true, animated: true, noStitch: true },
+  nest:     { felt: '#4A3B28', nest: true, animated: true, noStitch: true },
+  bench:    { felt: '#6E5638', bench: true, noStitch: true },
+  glade:    { felt: '#26312A', glade: true, animated: true, noStitch: true }
 };
 const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', 'ᛒ', 'ᛗ', 'ᛚ'];
 
@@ -336,6 +339,68 @@ const BEACH_PEBBLES = (() => {
   for (let i = 0; i < 6; i++)  put(-TABLE.INW + 1 + rand() * (TABLE.INW * 2 - 2), -TABLE.IND + 0.5 + rand() * 1.4, 0.14, 0.3);
   return pebbles;
 })();
+/* ---- the character sets: Kree, Wilhelm, Kenra ---- */
+const HOARD = { // Kree — magpie-feather black, gold shinies
+  base: '#141216', ink: '#08080B', num: '#E8C36A',
+  gild: '#C9A227', gildInk: '#4A3410', gildNum: '#3A2B10'
+};
+const WORKS = { // Wilhelm — riveted brass, one arc-lit prototype
+  base: '#A98544', ink: '#3A2A12', num: '#2E1F10',
+  proto: '#4A5058', protoInk: '#23272C', protoNum: '#9FE8FF'
+};
+const MOON = { // Kenra — borrowed midnight tints, moon-silver light
+  ink: '#191526', num: '#DDD9EE',
+  moon: '#E6E4F2', moonInk: '#8F8BA8', moonNum: '#2E2A4A',
+  dir: vNorm([-0.5, 0.7, -0.4]), // where the moonlight falls from
+  tints: ['#4A3A55', '#33474F', '#3E4638', '#4E3A38', '#2F3A52', '#463349', '#3A3A3A', '#513F2E']
+};
+
+/* deterministic scatter for the character mats */
+function lcg(seed) { let s = seed; return () => (s = (s * 48271) % 2147483647) / 2147483647; }
+const NEST_TWIGS = (() => {
+  const rand = lcg(4177);
+  const twigs = [];
+  for (let i = 0; i < 64; i++) {
+    const a = rand() * TAU;
+    const rx = TABLE.INW - 0.55 - rand() * 0.75, rz = TABLE.IND - 0.5 - rand() * 0.65;
+    const x = Math.cos(a) * rx, z = Math.sin(a) * rz;
+    twigs.push({ x, z, ang: a + Math.PI / 2 + (rand() - 0.5) * 0.9, len: 0.5 + rand() * 0.75,
+      w: 1.4 + rand() * 1.6, tone: mixHex('#6B5335', '#3A2C1A', rand()) });
+  }
+  return twigs;
+})();
+const NEST_SHINIES = (() => {
+  const rand = lcg(9319);
+  const kinds = ['coin', 'ring', 'button', 'gem', 'coin', 'bead'];
+  const items = [];
+  for (let i = 0; i < 11; i++) {
+    const a = rand() * TAU, rr = 0.25 + rand() * 0.62;
+    items.push({ kind: kinds[i % kinds.length],
+      x: Math.cos(a) * (TABLE.INW - 1.3) * rr, z: Math.sin(a) * (TABLE.IND - 1.1) * rr,
+      r: 0.13 + rand() * 0.1, ph: rand() * TAU, rot: rand() * TAU });
+  }
+  return items;
+})();
+const BENCH_COGS = (() => {
+  const rand = lcg(6011);
+  const cogs = [];
+  for (let i = 0; i < 6; i++) {
+    cogs.push({ x: -TABLE.INW + 0.8 + rand() * (TABLE.INW * 2 - 1.6),
+      z: (rand() < 0.5 ? -1 : 1) * (TABLE.IND - 0.75 - rand() * 0.5),
+      r: 0.22 + rand() * 0.2, teeth: 7 + Math.floor(rand() * 4), rot: rand() * TAU,
+      tone: mixHex('#57452A', '#3E3020', rand()) });
+  }
+  return cogs;
+})();
+const GLADE_FLIES = (() => {
+  const rand = lcg(2731);
+  return Array.from({ length: 9 }, () => ({
+    x: -TABLE.INW + 0.9 + rand() * (TABLE.INW * 2 - 1.8),
+    z: -TABLE.IND + 0.8 + rand() * (TABLE.IND * 2 - 1.6),
+    ph: rand() * TAU, sp: 0.6 + rand() * 0.8
+  }));
+})();
+
 /* the animated waterline of the surf (world z for a given x) */
 function surfLine(x, t) {
   return -TABLE.IND + TABLE.IND * 0.62
@@ -664,6 +729,9 @@ export function createDiceStage(canvas, initial) {
       ctx.setLineDash([]);
     }
     if (th.beach) drawBeach(now);
+    if (th.nest) drawNest(now);
+    if (th.bench) drawBench();
+    if (th.glade) drawGlade(now);
     // theme decorations
     if (th.candle) {
       const fl = stage.anim ? (0.05 * Math.sin(now / 160) + 0.03 * Math.sin(now / 47)) : 0;
@@ -811,6 +879,156 @@ export function createDiceStage(canvas, initial) {
     ctx.restore();
   }
 
+  /* ---------- the nest (Kree) ---------- */
+  function glint(sx, sy, r, a) {
+    if (a <= 0.02) return;
+    ctx.strokeStyle = `rgba(255,246,214,${a})`;
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.moveTo(sx - r, sy); ctx.lineTo(sx + r, sy);
+    ctx.moveTo(sx, sy - r); ctx.lineTo(sx, sy + r);
+    ctx.stroke();
+    ctx.beginPath(); ctx.arc(sx, sy, Math.max(0.8, r * 0.22), 0, TAU);
+    ctx.fillStyle = `rgba(255,250,230,${a})`; ctx.fill();
+  }
+  function drawNest(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the woven twig ring
+    NEST_TWIGS.forEach(tw => {
+      const dx = Math.cos(tw.ang) * tw.len / 2, dz = Math.sin(tw.ang) * tw.len / 2;
+      const s0 = proj([tw.x - dx, 0.02, tw.z - dz]), s1 = proj([tw.x + dx, 0.02, tw.z + dz]);
+      ctx.strokeStyle = tw.tone; ctx.lineWidth = tw.w;
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    });
+    // treasures tucked into the weave
+    NEST_SHINIES.forEach(it => {
+      const s = proj([it.x, 0.02, it.z]);
+      const e = proj([it.x + it.r, 0.02, it.z]);
+      const r = Math.max(2.5, Math.hypot(e.x - s.x, e.y - s.y));
+      if (it.kind === 'ring') {
+        ctx.beginPath(); ctx.arc(s.x, s.y, r * 0.8, 0, TAU);
+        ctx.strokeStyle = '#D9B75A'; ctx.lineWidth = 2.4; ctx.stroke();
+      } else if (it.kind === 'gem') {
+        ctx.beginPath();
+        ctx.moveTo(s.x, s.y - r); ctx.lineTo(s.x + r * 0.8, s.y); ctx.lineTo(s.x, s.y + r); ctx.lineTo(s.x - r * 0.8, s.y);
+        ctx.closePath(); ctx.fillStyle = '#3E6FA8'; ctx.fill();
+        ctx.strokeStyle = 'rgba(20,20,30,0.6)'; ctx.lineWidth = 1; ctx.stroke();
+      } else if (it.kind === 'button') {
+        ctx.beginPath(); ctx.arc(s.x, s.y, r * 0.85, 0, TAU);
+        ctx.fillStyle = '#8A7B66'; ctx.fill();
+        ctx.strokeStyle = 'rgba(30,24,14,0.6)'; ctx.lineWidth = 1.2; ctx.stroke();
+        [[-0.3, 0], [0.3, 0]].forEach(([ox]) => {
+          ctx.beginPath(); ctx.arc(s.x + ox * r, s.y, 1, 0, TAU); ctx.fillStyle = 'rgba(30,24,14,0.7)'; ctx.fill();
+        });
+      } else { // coin / bead
+        ctx.beginPath();
+        ctx.ellipse(s.x, s.y, r * 0.9, r * 0.62, it.rot, 0, TAU);
+        ctx.fillStyle = it.kind === 'bead' ? '#7A4A3A' : '#D9B75A'; ctx.fill();
+        ctx.strokeStyle = 'rgba(40,30,10,0.55)'; ctx.lineWidth = 1.1; ctx.stroke();
+      }
+      // each treasure twinkles in its own time
+      const tw = Math.max(0, Math.sin(now / 640 + it.ph)) ** 6;
+      glint(s.x + r * 0.4, s.y - r * 0.4, 3 + r * 0.25, 0.75 * tw);
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the workbench (Wilhelm) ---------- */
+  function drawBench() {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // plank seams
+    for (let k = -2; k <= 2; k++) {
+      const z = k * (TABLE.IND * 0.4);
+      const s0 = proj([-TABLE.INW - 1, 0.012, z]), s1 = proj([TABLE.INW + 1, 0.012, z]);
+      ctx.strokeStyle = 'rgba(38,28,14,0.5)'; ctx.lineWidth = 1.6;
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+      // grain
+      for (let g = 0; g < 5; g++) {
+        const gx = -TABLE.INW + 0.6 + g * (TABLE.INW * 2 - 1.2) / 4 + (k + 2) * 0.37;
+        const gs = proj([gx, 0.012, z + 0.5]), ge = proj([gx + 0.9, 0.012, z + 1.1]);
+        ctx.strokeStyle = 'rgba(48,36,18,0.28)'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(gs.x, gs.y); ctx.lineTo(ge.x, ge.y); ctx.stroke();
+      }
+    }
+    // a chalked schematic, half-erased by work
+    ctx.strokeStyle = 'rgba(238,232,214,0.30)'; ctx.lineWidth = 1.4;
+    ctx.setLineDash([7, 5]);
+    ctx.beginPath();
+    for (let i = 0; i <= 30; i++) {
+      const a = i / 30 * TAU;
+      const s = proj([-TABLE.INW + 1.7 + Math.cos(a) * 1.15, 0.013, -TABLE.IND + 1.5 + Math.sin(a) * 1.05]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const c1 = proj([-TABLE.INW + 1.7, 0.013, -TABLE.IND + 1.5]);
+    const c2 = proj([-TABLE.INW + 3.6, 0.013, -TABLE.IND + 2.1]);
+    ctx.strokeStyle = 'rgba(238,232,214,0.22)';
+    ctx.beginPath(); ctx.moveTo(c1.x, c1.y); ctx.lineTo(c2.x, c2.y); ctx.stroke();
+    floorText('§ fig. 12', -TABLE.INW + 3.9, -TABLE.IND + 2.3, 0.06, 0.5, 'rgba(238,232,214,0.30)', 'italic 26px Georgia, serif');
+    // loose cogs and screws
+    BENCH_COGS.forEach(cg => {
+      const s = proj([cg.x, 0.02, cg.z]);
+      const e = proj([cg.x + cg.r, 0.02, cg.z]);
+      const r = Math.max(4, Math.hypot(e.x - s.x, e.y - s.y));
+      ctx.beginPath();
+      for (let tth = 0; tth < cg.teeth * 2; tth++) {
+        const a = cg.rot + tth / (cg.teeth * 2) * TAU;
+        const rr = tth % 2 === 0 ? r : r * 0.78;
+        const x = s.x + Math.cos(a) * rr, y = s.y + Math.sin(a) * rr * 0.72;
+        tth === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y);
+      }
+      ctx.closePath();
+      ctx.fillStyle = cg.tone; ctx.fill();
+      ctx.strokeStyle = 'rgba(24,18,8,0.6)'; ctx.lineWidth = 1.2; ctx.stroke();
+      ctx.beginPath(); ctx.arc(s.x, s.y, r * 0.3, 0, TAU);
+      ctx.fillStyle = 'rgba(30,22,10,0.8)'; ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the moonlit glade (Kenra) ---------- */
+  function drawGlade(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the moonbeam, breathing slowly
+    const breathe = 0.11 + 0.035 * Math.sin(now / 2600);
+    const mb = proj([-1.2, 0.012, -0.6]);
+    const mg = ctx.createRadialGradient(mb.x, mb.y, 30, mb.x, mb.y, 300);
+    mg.addColorStop(0, `rgba(222,226,255,${breathe})`);
+    mg.addColorStop(0.6, `rgba(222,226,255,${breathe * 0.45})`);
+    mg.addColorStop(1, 'rgba(222,226,255,0)');
+    pathW(tablePaths().innerBase);
+    ctx.fillStyle = mg; ctx.fill();
+    // soft undergrowth shadows at the edges
+    for (let i = 0; i < 8; i++) {
+      const a = i / 8 * TAU + 0.4;
+      const s = proj([Math.cos(a) * (TABLE.INW - 0.7), 0.012, Math.sin(a) * (TABLE.IND - 0.6)]);
+      const fg = ctx.createRadialGradient(s.x, s.y, 4, s.x, s.y, 60);
+      fg.addColorStop(0, 'rgba(10,16,12,0.30)');
+      fg.addColorStop(1, 'rgba(10,16,12,0)');
+      ctx.fillStyle = fg;
+      ctx.fillRect(s.x - 60, s.y - 60, 120, 120);
+    }
+    // fireflies on their slow errands
+    GLADE_FLIES.forEach(fl => {
+      const x = fl.x + 0.55 * Math.sin(now / (1900 / fl.sp) + fl.ph);
+      const z = fl.z + 0.4 * Math.cos(now / (2300 / fl.sp) + fl.ph * 2);
+      const s = proj([x, 0.25 + 0.12 * Math.sin(now / 900 + fl.ph), z]);
+      const pulse = Math.max(0, Math.sin(now / 800 + fl.ph * 3)) ** 3;
+      if (pulse < 0.05) return;
+      const fg = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 7);
+      fg.addColorStop(0, `rgba(255,242,168,${0.85 * pulse})`);
+      fg.addColorStop(0.4, `rgba(255,232,140,${0.35 * pulse})`);
+      fg.addColorStop(1, 'rgba(255,232,140,0)');
+      ctx.fillStyle = fg;
+      ctx.fillRect(s.x - 7, s.y - 7, 14, 14);
+    });
+    ctx.restore();
+  }
+
   /* ---------- ripples (the Rising Tide) ---------- */
   function spawnRipple(x, z, strength) {
     stage.ripples.push({ x, z, t0: performance.now(), s: clamp(strength, 0.3, 1.2) });
@@ -932,11 +1150,17 @@ export function createDiceStage(canvas, initial) {
   }
   function drawDie(die, now) {
     const { geo, color } = die;
-    const tide = color && color.special === 'tide';
+    const special = color && color.special;
+    const tide = special === 'tide';
     const pearl = tide && die.pearl;
     const glassy = tide && !pearl && !die.cracked && die.slosh;
-    const ink = pearl ? TIDE.pearlInk : tide ? TIDE.ink : (color.light ? '#4A3B24' : '#241A0E');
-    const numColor = tide ? TIDE.num : (color.light ? '#2C2417' : '#FBF6E9');
+    const sig = !!die.sig;
+    let ink, numColor;
+    if (tide) { ink = pearl ? TIDE.pearlInk : TIDE.ink; numColor = TIDE.num; }
+    else if (special === 'hoard') { ink = sig ? HOARD.gildInk : HOARD.ink; numColor = sig ? HOARD.gildNum : HOARD.num; }
+    else if (special === 'works') { ink = sig ? WORKS.protoInk : WORKS.ink; numColor = sig ? WORKS.protoNum : WORKS.num; }
+    else if (special === 'moon') { ink = sig ? MOON.moonInk : MOON.ink; numColor = sig ? MOON.moonNum : MOON.num; }
+    else { ink = color.light ? '#4A3B24' : '#241A0E'; numColor = color.light ? '#2C2417' : '#FBF6E9'; }
     ctx.globalAlpha = die.alpha;
     const wv = geo.verts.map(v => vAdd(qRotate(v, die.quat), die.pos));
     const sv = wv.map(proj);
@@ -1023,23 +1247,91 @@ export function createDiceStage(canvas, initial) {
       return;
     }
 
-    /* ---- opaque pipeline: the pearl and every ordinary set ---- */
+    /* ---- opaque pipeline: the pearl, the character sets, and every plain colour ---- */
+    const t = now || performance.now();
+    // the Moon die rises with its own halo
+    if (special === 'moon' && sig && !die.cracked) {
+      const c = proj(die.pos);
+      const e = proj(vAdd(die.pos, [geo.R, 0, 0]));
+      const hr = Math.hypot(e.x - c.x, e.y - c.y) * 2.4;
+      const hg = ctx.createRadialGradient(c.x, c.y, hr * 0.3, c.x, c.y, hr);
+      const ha = 0.16 + 0.05 * Math.sin(t / 1300);
+      hg.addColorStop(0, `rgba(226,228,250,${ha * die.alpha})`);
+      hg.addColorStop(1, 'rgba(226,228,250,0)');
+      ctx.fillStyle = hg;
+      ctx.fillRect(c.x - hr, c.y - hr, hr * 2, hr * 2);
+    }
     faces.forEach(({ f, nW, cW }) => {
       const d = vDot(nW, LIGHT);
+      const ld = (d + 1) / 2;
       let fill;
       if (pearl) {
         // mother-of-pearl: the sheen drifts hue with the facet's direction
         const irid = mixHex(mixHex('#EBD9D6', '#DAE8DC', (nW[0] + 1) / 2), '#DAE1EE', (nW[2] + 1) / 2);
-        fill = shadeHex(mixHex(TIDE.pearlBase, irid, 0.62), lerp(-0.10, 0.24, (d + 1) / 2));
+        fill = shadeHex(mixHex(TIDE.pearlBase, irid, 0.62), lerp(-0.10, 0.24, ld));
       } else if (tide) {
         const h = clamp((cW[1] - die.pos[1]) / geo.R, -1, 1);
-        fill = shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.18, 0.22, (d + 1) / 2));
+        fill = shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.18, 0.22, ld));
+      } else if (special === 'hoard') {
+        if (sig) fill = shadeHex(HOARD.gild, lerp(-0.35, 0.42, ld)); // the gilded prize
+        else {
+          // magpie feathers: green-violet-blue sheen turning with each facet
+          const irid = mixHex(mixHex('#2C4636', '#3A2144', (nW[0] + 1) / 2), '#22355C', (nW[2] + 1) / 2);
+          fill = shadeHex(mixHex(HOARD.base, irid, 0.52), lerp(-0.22, 0.34, ld));
+        }
+      } else if (special === 'works') {
+        // machined metal: hard light, hard shade
+        fill = shadeHex(sig ? WORKS.proto : WORKS.base, lerp(-0.38, 0.44, ld));
+      } else if (special === 'moon') {
+        if (sig) fill = shadeHex(MOON.moon, lerp(-0.07, 0.11, ld));
+        else {
+          // a borrowed colour, silvering and dimming with the moon's slow breath
+          const shimmer = 0.5 + 0.5 * Math.sin(t / 1400 + (die._ph || 0));
+          const base = mixHex(die._tint || MOON.tints[0], '#8E8AA8', 0.10 + 0.14 * shimmer);
+          fill = shadeHex(base, lerp(-0.20, 0.24, ld));
+        }
       } else {
-        fill = shadeHex(color.body, lerp(-0.24, 0.26, (d + 1) / 2));
+        fill = shadeHex(color.body, lerp(-0.24, 0.26, ld));
       }
       facePath(f);
       ctx.fillStyle = fill; ctx.fill();
       ctx.strokeStyle = ink; ctx.lineWidth = 2; ctx.stroke();
+      // per-set flourishes
+      if (special === 'hoard' && !die.cracked) {
+        // a shiny tucked in the feathers, catching the light now and then
+        const fi = geo.faces.indexOf(f);
+        const p0 = wv[f.idx[0]], pc = vAdd(qRotate(f.c, die.quat), die.pos);
+        const gp = proj(vLerp(pc, p0, 0.42));
+        const tw = Math.max(0, Math.sin(t / (sig ? 420 : 700) + fi * 2.1 + (die._ph || 0) * 3)) ** 8;
+        glint(gp.x, gp.y, sig ? 4.5 : 3.2, (sig ? 0.9 : 0.65) * tw * die.alpha);
+      }
+      if (special === 'works') {
+        // rivets at the corners of every plate
+        const cS = proj(vAdd(qRotate(f.c, die.quat), die.pos));
+        f.idx.forEach(vi => {
+          const rx = lerp(sv[vi].x, cS.x, 0.16), ry = lerp(sv[vi].y, cS.y, 0.16);
+          ctx.beginPath(); ctx.arc(rx, ry, 1.5, 0, TAU);
+          ctx.fillStyle = sig ? 'rgba(24,30,36,0.9)' : 'rgba(52,38,16,0.85)'; ctx.fill();
+          ctx.beginPath(); ctx.arc(rx - 0.5, ry - 0.5, 0.6, 0, TAU);
+          ctx.fillStyle = sig ? 'rgba(159,232,255,0.65)' : 'rgba(240,220,170,0.7)'; ctx.fill();
+        });
+        if (sig) {
+          // the Prototype's arcane seams
+          const pulse = 0.38 + 0.28 * Math.sin(t / 450 + (die._ph || 0));
+          ctx.strokeStyle = `rgba(110,205,250,${pulse * die.alpha})`;
+          ctx.lineWidth = 2.2;
+          facePath(f); ctx.stroke();
+        }
+      }
+      if (special === 'moon' && !sig) {
+        // the rim the moonlight finds
+        const md = vDot(nW, MOON.dir);
+        if (md > 0.25) {
+          ctx.strokeStyle = `rgba(226,226,246,${0.55 * md * die.alpha})`;
+          ctx.lineWidth = 1.8;
+          facePath(f); ctx.stroke();
+        }
+      }
     });
     drawDieLabels(faces, geo, die, sv, wv, numColor);
     ctx.globalAlpha = 1;
@@ -1106,6 +1398,9 @@ export function createDiceStage(canvas, initial) {
     const gold = g.color === 'red' ? '168,43,32'
       : g.color === 'ebb' ? '64,104,152'
       : g.color === 'tide' ? (g.strong ? '190,245,232' : '140,225,208')
+      : g.color === 'arc' ? (g.strong ? '175,235,255' : '110,205,250')
+      : g.color === 'moonlit' ? (g.strong ? '242,242,255' : '212,214,242')
+      : g.color === 'newmoon' ? '92,82,140'
       : (g.strong ? '255,214,120' : '214,168,74');
     const grad = ctx.createRadialGradient(c.x, c.y, R * 0.3, c.x, c.y, R * (g.strong ? 3 : 2.4));
     grad.addColorStop(0, `rgba(${gold},${0.5 * a})`);
@@ -1119,6 +1414,9 @@ export function createDiceStage(canvas, initial) {
       ctx.closePath();
       ctx.fillStyle = g.color === 'tide' ? `rgba(214,250,240,${0.3 * a})`
         : g.color === 'ebb' ? `rgba(150,190,228,${0.3 * a})`
+        : g.color === 'arc' ? `rgba(190,240,255,${0.3 * a})`
+        : g.color === 'moonlit' ? `rgba(238,238,255,${0.3 * a})`
+        : g.color === 'newmoon' ? `rgba(150,140,200,${0.3 * a})`
         : `rgba(255,232,160,${0.3 * a})`;
       ctx.fill();
       ctx.save();
@@ -1307,11 +1605,14 @@ export function createDiceStage(canvas, initial) {
       }
       return {
         geo, color: col, pos: [x, restY(geo, q), 0.1], quat: q, alpha: 1, hidden: false, glow: null, crack: null,
+        sig: !!(color && color.special) && t === 'd20',
         pearl: isTide && t === 'd20',
         slosh: isTide ? {
           tx: 0.09 * Math.sin((now || 0) / 880 + i), tz: 0.07 * Math.cos((now || 0) / 760 + i),
           lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i
-        } : null
+        } : null,
+        _tint: (color && color.special) === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
+        _ph: i * 1.37
       };
     };
     if (type === 'd100') return [mk('d10t', Object.assign({}, color, { body: shadeHex(color.body, -0.18) }), -1.5, 0), mk('d10u', color, 1.5, 1)];
@@ -1335,9 +1636,10 @@ export function createDiceStage(canvas, initial) {
   function needsIdle() {
     if (stage.anim || stage.destroyed) return false;
     const th = THEMES[stage.scene.theme] || {};
-    const tideShown = (stage.scene.mode === 'showcase' && stage.scene.color && stage.scene.color.special === 'tide')
-      || (stage.scene.mode === 'keep' && (stage.scene.keptDice || []).some(d => d.color && d.color.special === 'tide'));
-    return !!(th.animated || tideShown);
+    // every character set animates at rest: water, glints, arc-light, moonlight
+    const specialShown = (stage.scene.mode === 'showcase' && stage.scene.color && stage.scene.color.special)
+      || (stage.scene.mode === 'keep' && (stage.scene.keptDice || []).some(d => d.color && d.color.special));
+    return !!(th.animated || specialShown);
   }
   function idleTick(t) {
     stage.idleRaf = null;
@@ -1402,7 +1704,7 @@ export function createDiceStage(canvas, initial) {
     const qty = clamp(spec.qty || 1, 1, 8);
     if (spec.type === 'd100') {
       for (let k = 0; k < Math.min(qty, 4); k++) {
-        geos.push(getGeo('d10t')); colors.push({ body: shadeHex(spec.color.body, -0.18), light: spec.color.light });
+        geos.push(getGeo('d10t')); colors.push(Object.assign({}, spec.color, { body: shadeHex(spec.color.body, -0.18) }));
         geos.push(getGeo('d10u')); colors.push(spec.color);
       }
     } else if (spec.type === 'coin') {
@@ -1424,13 +1726,18 @@ export function createDiceStage(canvas, initial) {
     if (!rec) rec = simulateCanned(geos, spec, spec.force);
     const outcome = buildOutcome(spec, rec.results);
 
-    const isTide = spec.color && spec.color.special === 'tide';
+    const special = spec.color && spec.color.special;
+    const isTide = special === 'tide';
     const dice = geos.map((geo, i) => ({
       geo, color: colors[i],
       pos: [0, 0, 0], quat: [0, 0, 0, 1],
       alpha: 1, hidden: true, glow: null, crack: null, cracked: false,
-      pearl: isTide && spec.type === 'd20' && i === 0, // her Pearl of Tides — just the one
-      slosh: isTide ? { tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9 } : null
+      // each set holds ONE signature d20 — the Pearl, the gilded prize, the Prototype, the Moon
+      sig: !!special && spec.type === 'd20' && i === 0,
+      pearl: isTide && spec.type === 'd20' && i === 0,
+      slosh: isTide ? { tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9 } : null,
+      _tint: special === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
+      _ph: i * 1.37
     }));
     stage.ripples = [];
     let resolveFn;
@@ -1453,13 +1760,15 @@ export function createDiceStage(canvas, initial) {
     a.dice.forEach((d, i) => {
       const val = a.results[i] ? a.results[i].value : null;
       const isD20 = d.geo.type === 'd20';
-      const tideDie = d.color && d.color.special === 'tide';
+      const sp = d.color && d.color.special;
+      const settleColor = sp === 'tide' ? 'tide' : sp === 'works' ? 'arc' : sp === 'moon' ? 'moonlit' : 'gold';
+      const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : 'red';
       d.glow = {
         t0: now, dur: 1150,
-        color: isD20 && val === 1 ? (tideDie ? 'ebb' : 'red') : (tideDie ? 'tide' : 'gold'),
+        color: isD20 && val === 1 ? failColor : settleColor,
         strong: isD20 && val === 20
       };
-      if (tideDie) spawnRipple(d.pos[0], d.pos[2], 0.9);
+      if (sp === 'tide') spawnRipple(d.pos[0], d.pos[2], 0.9);
       if (isD20 && val === 20) {
         a.effects.push(makeFlash(d, now + 140));
         done = Math.max(done, 140 + 900);
