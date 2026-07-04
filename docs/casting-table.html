@@ -158,6 +158,74 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
     radial-gradient(circle at 55% 60%, rgba(255,80,25,.5) 0%, rgba(255,80,25,0) 45%);
 }
 .swatches button.swatch-cinder.active{box-shadow:0 0 0 3px #e07a3e,var(--shadow-xs);}
+.swatches button.swatch-guild{
+  position:relative;
+  background:linear-gradient(150deg,#6E522E 0%,#5C4326 55%,#40301A 100%) !important;
+  border:2px solid #3E3E46 !important;
+}
+.swatches button.swatch-guild::after{
+  content:"";position:absolute;inset:26%;border-radius:50%;
+  border:2.5px solid #3E3E46;
+  box-shadow:inset 0 0 0 1px rgba(217,183,90,.5);
+}
+.swatches button.swatch-guild.active{box-shadow:0 0 0 3px #d9b75a,var(--shadow-xs);}
+.swatches button.swatch-ledger{
+  position:relative;
+  background:radial-gradient(circle at 40% 35%, #E2CB86 0%, #C9A94F 55%, #96772E 100%) !important;
+}
+.swatches button.swatch-ledger::after{
+  content:"";position:absolute;inset:16%;border-radius:50%;
+  border:1.6px dashed rgba(84,64,26,.65);
+}
+.swatches button.swatch-ledger.active{box-shadow:0 0 0 3px #e2cb86,var(--shadow-xs);}
+.swatches button.swatch-ember{
+  position:relative;
+  background:linear-gradient(155deg,#8E3B6B 0%,#6B2E4A 55%,#3C1830 100%) !important;
+}
+.swatches button.swatch-ember::after{
+  content:"";position:absolute;left:50%;top:52%;width:24%;height:32%;transform:translate(-50%,-50%);
+  border-radius:50% 50% 50% 50% / 62% 62% 38% 38%;
+  background:radial-gradient(circle at 50% 72%, #FFE9C0 0%, #FFB25E 55%, rgba(255,140,80,0) 100%);
+  animation:ashglow 1.7s ease-in-out infinite;
+}
+.swatches button.swatch-ember.active{box-shadow:0 0 0 3px #e89ab8,var(--shadow-xs);}
+.swatches button.swatch-displacer{
+  position:relative;
+  background:linear-gradient(145deg,#2C3352 0%,#20263C 60%,#12141F 100%) !important;
+}
+.swatches button.swatch-displacer::before{
+  content:"";position:absolute;inset:14%;border-radius:50%;
+  background:radial-gradient(circle at 62% 40%, rgba(126,112,208,.55) 0%, rgba(126,112,208,0) 55%);
+  transform:translate(-12%,8%);
+}
+.swatches button.swatch-displacer::after{
+  content:"";position:absolute;inset:14%;border-radius:50%;
+  background:radial-gradient(circle at 62% 40%, rgba(207,200,242,.5) 0%, rgba(207,200,242,0) 45%);
+}
+.swatches button.swatch-displacer.active{box-shadow:0 0 0 3px #9c90d8,var(--shadow-xs);}
+.swatches button.swatch-crystal{
+  position:relative;
+  background:conic-gradient(from 210deg, #7A6FB8 0%, #4A3F80 28%, #8FB8E8 45%, #5E5490 62%, #B0A6E8 82%, #7A6FB8 100%) !important;
+}
+.swatches button.swatch-crystal::after{
+  content:"✦";position:absolute;right:12%;top:8%;font-size:11px;line-height:1;color:#EAF2FF;
+  text-shadow:0 0 5px rgba(190,214,255,.9);
+  animation:ashglow 2.1s ease-in-out infinite;
+}
+.swatches button.swatch-crystal.active{box-shadow:0 0 0 3px #b0c6f0,var(--shadow-xs);}
+.swatches button.swatch-behir{
+  position:relative;
+  background:linear-gradient(160deg,#35527A 0%,#28405C 55%,#14202F 100%) !important;
+}
+.swatches button.swatch-behir::after{
+  content:"";position:absolute;left:24%;top:16%;width:52%;height:68%;
+  clip-path:polygon(62% 0%, 28% 46%, 48% 46%, 30% 100%, 78% 38%, 54% 38%);
+  background:#EAF4FF;
+  filter:drop-shadow(0 0 3px rgba(196,216,255,.9));
+  animation:boltflick 2.6s ease-in-out infinite;
+}
+@keyframes boltflick{0%,88%,100%{opacity:.35}92%,96%{opacity:1}}
+.swatches button.swatch-behir.active{box-shadow:0 0 0 3px #a9c4e8,var(--shadow-xs);}
 .decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
 .decos button{
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
@@ -232,9 +300,9 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 </div>
 
 <!-- bump ?v= whenever js/dice-engine.js changes, so caches can't serve a stale engine -->
-<script src="js/cannon.js?v=8"></script>
+<script src="js/cannon.js?v=9"></script>
 <script type="module">
-import { createDiceStage } from './js/dice-engine.js?v=8';
+import { createDiceStage } from './js/dice-engine.js?v=9';
 
 const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
 
@@ -253,7 +321,13 @@ const SWATCHES = [
   { id:'works', name:'The Tinker’s Works — Wilhelm', body:'#A98544', light:false, special:'works' },
   { id:'moon',  name:'The Borrowed Moon — Kenra', body:'#3B3552', light:false, special:'moon' },
   { id:'ash',   name:'The Hearthkin — the Ashlings of Cinderhearth', body:'#3A302C', light:false, special:'ash' },
-  { id:'cinder',name:'The Cindered — the Salamander of the Deep Hearth', body:'#33241E', light:false, special:'cinder' }
+  { id:'cinder',name:'The Cindered — the Salamander of the Deep Hearth', body:'#33241E', light:false, special:'cinder' },
+  { id:'guild', name:'The Ironbound — the Adventurers’ Guild', body:'#5C4326', light:false, special:'guild' },
+  { id:'ledger',name:'The Ledgerhall — the Merchants’ Guild', body:'#C9A94F', light:true, special:'ledger' },
+  { id:'ember', name:'The Shrine of Luck — Ember', body:'#6B2E4A', light:false, special:'ember' },
+  { id:'displacer', name:'The Displacer — the beast of the wood', body:'#20263C', light:false, special:'displacer' },
+  { id:'crystal', name:'The Deep Roads — cave crystal', body:'#5E5490', light:false, special:'crystal' },
+  { id:'behir', name:'Skathrix — the Storm-Servant of the Peak', body:'#28405C', light:false, special:'behir' }
 ];
 
 const DECOS = [
@@ -267,11 +341,20 @@ const DECOS = [
   { id:'bench',   label:'The Workbench', note:'schematics and sawdust' },
   { id:'glade',   label:'Moonlit Glade', note:'fireflies and silver light' },
   { id:'hearth',  label:'The Hearth',  note:'warm stone and drifting ash' },
-  { id:'magma',   label:'The Deep Hearth', note:'magma, basalt, and chains' }
+  { id:'magma',   label:'The Deep Hearth', note:'magma, basalt, and chains' },
+  { id:'hall',    label:'The Ironbound Hall', note:'contracts and torchlight' },
+  { id:'desk',    label:'The Counting Desk', note:'ledger lines and coin' },
+  { id:'shrine',  label:'The Shrine of Luck', note:'candles and hanging charms' },
+  { id:'reeds',   label:'The Reed Fields', note:'swaying grass, mountains beyond' },
+  { id:'cave',    label:'The Crystal Cave', note:'the singing stone' },
+  { id:'lair',    label:'The Storm-Servant’s Lair', note:'bones, fused coin, and lightning' }
 ];
 
 /* which mat belongs to which set — suggested, never forced */
-const SET_MATS = { tide:'beach', hoard:'nest', works:'bench', moon:'glade', ash:'hearth', cinder:'magma' };
+const SET_MATS = {
+  tide:'beach', hoard:'nest', works:'bench', moon:'glade', ash:'hearth', cinder:'magma',
+  guild:'hall', ledger:'desk', ember:'shrine', displacer:'reeds', crystal:'cave', behir:'lair'
+};
 
 /* what the signature d20 says when fate speaks */
 const SET_LINES = {
@@ -286,7 +369,19 @@ const SET_LINES = {
   ash:   { crit:'The hearth glows for you.', fumble:'…only ash and quiet.',
            critDetail:'the hearth glows for you', fumbleDetail:'only ash and quiet' },
   cinder:{ crit:'The fire remembers.', fumble:'…cooled to slag.',
-           critDetail:'the fire remembers', fumbleDetail:'cooled to slag' }
+           critDetail:'the fire remembers', fumbleDetail:'cooled to slag' },
+  guild: { crit:'One for the trophy wall!', fumble:'…your funeral.',
+           critDetail:'one for the trophy wall', fumbleDetail:'your funeral' },
+  ledger:{ crit:'Profit endures.', fumble:'…a bad investment.',
+           critDetail:'profit endures', fumbleDetail:'a bad investment' },
+  ember: { crit:'The fortune was true.', fumble:'…the fortune was also true.',
+           critDetail:'the fortune was true', fumbleDetail:'the fortune was also true' },
+  displacer: { crit:'Right where it wasn’t.', fumble:'…never where you look.',
+           critDetail:'right where it wasn’t', fumbleDetail:'never where you look' },
+  crystal: { crit:'The stone sings true.', fumble:'…a crystal cracks.',
+           critDetail:'the stone sings true', fumbleDetail:'a crystal cracks' },
+  behir: { crit:'Drink the lightning.', fumble:'…the devourer hunts even us.',
+           critDetail:'drink the lightning', fumbleDetail:'the devourer hunts even us' }
 };
 
 /* physics feel */

@@ -298,7 +298,13 @@ const THEMES = {
   bench:    { felt: '#6E5638', bench: true, noStitch: true },
   glade:    { felt: '#26312A', glade: true, animated: true, noStitch: true },
   hearth:   { felt: '#8A7462', hearth: true, animated: true, noStitch: true },
-  magma:    { felt: '#241B18', magma: true, animated: true, noStitch: true }
+  magma:    { felt: '#241B18', magma: true, animated: true, noStitch: true },
+  hall:     { felt: '#6B5334', hall: true, animated: true, noStitch: true },
+  desk:     { felt: '#3E5244', desk: true, animated: true, noStitch: true },
+  shrine:   { felt: '#4A2E3C', shrine: true, animated: true, noStitch: true },
+  reeds:    { felt: '#7B7A4E', reeds: true, animated: true, noStitch: true },
+  cave:     { felt: '#2A2734', cave: true, animated: true, noStitch: true },
+  lair:     { felt: '#26221E', lair: true, animated: true, noStitch: true }
 };
 const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', 'ᛒ', 'ᛗ', 'ᛚ'];
 
@@ -364,6 +370,31 @@ const ASH = { // the ashlings — banked coals, gentle and warm
 const CINDER = { // the salamander — black crust over living magma
   base: '#33241E', ink: '#150E0B', num: '#FFB35C',
   molten: '#B33A16', moltenInk: '#2A1006', moltenNum: '#FFE0B0'
+};
+
+const GUILD = { // the Adventurers' Guild — oak braced with iron
+  base: '#5C4326', ink: '#241708', num: '#D9B75A',
+  charter: '#8A6B38', charterInk: '#3A2A12', charterNum: '#EFD9A0', iron: '#3E3E46'
+};
+const LEDGER = { // the Merchants' Guild — minted coin
+  base: '#C9A94F', ink: '#54401A', num: '#3E2E10',
+  mint: '#E2CB86', mintInk: '#6B5426', mintNum: '#54401A'
+};
+const EMBERSET = { // Ember — candlelight and true fortunes
+  base: '#6B2E4A', ink: '#2A1020', num: '#FFD9A8',
+  fortune: '#F2E3C8', fortuneInk: '#B08A6A', fortuneNum: '#8E3B6B'
+};
+const DISP = { // the displacer beast — never where you look
+  base: '#20263C', ink: '#0C0F1C', num: '#CFC8F2',
+  beast: '#2C3352', beastInk: '#101528', beastNum: '#E6E0FF'
+};
+const CRYSTAL = { // the deep roads — living crystal
+  base: '#5E5490', ink: '#2A2344', num: '#F2F0FF',
+  geode: '#3A3050', geodeInk: '#1C1730', geodeNum: '#D8F4FF'
+};
+const BEHIR = { // Skathrix — the Chain of Thunder
+  base: '#28405C', ink: '#0E1826', num: '#DCE8FA',
+  storm: '#1A2A40', stormInk: '#080E18', stormNum: '#EAF4FF'
 };
 
 /* deterministic scatter for the character mats */
@@ -483,6 +514,85 @@ const MAGMA_CHAINS = [
   { a: [-TABLE.INW - 0.2, -TABLE.IND + 1.1], b: [1.9, TABLE.IND - 0.7] },
   { a: [TABLE.INW + 0.2, -TABLE.IND + 0.6], b: [-1.4, 1.15] }
 ];
+/* pinned contracts on the Ironbound Hall's board */
+const HALL_NOTES = (() => {
+  const rand = lcg(6427);
+  return Array.from({ length: 9 }, (_, i) => ({
+    x: -TABLE.INW + 1 + rand() * (TABLE.INW * 2 - 2),
+    z: -TABLE.IND + 0.7 + rand() * (TABLE.IND * 2 - 1.4),
+    w: 0.55 + rand() * 0.4, h: 0.7 + rand() * 0.35,
+    rot: (rand() - 0.5) * 0.5, tone: mixHex('#E8D9B0', '#C9B689', rand()),
+    seal: rand() < 0.4, lines: 2 + Math.floor(rand() * 3)
+  }));
+})();
+/* the counting desk: coin stacks and ledger lines */
+const DESK_STACKS = (() => {
+  const rand = lcg(3803);
+  return Array.from({ length: 7 }, () => ({
+    x: -TABLE.INW + 0.9 + rand() * (TABLE.INW * 2 - 1.8),
+    z: -TABLE.IND + 0.8 + rand() * (TABLE.IND * 2 - 1.6),
+    n: 2 + Math.floor(rand() * 5), r: 0.16 + rand() * 0.06, ph: rand() * TAU
+  }));
+})();
+/* the shrine: candle points and strings of charms */
+const SHRINE_CANDLES = (() => {
+  const rand = lcg(9151);
+  return Array.from({ length: 10 }, () => ({
+    x: -TABLE.INW + 0.7 + rand() * (TABLE.INW * 2 - 1.4),
+    z: -TABLE.IND + 0.6 + rand() * (TABLE.IND * 2 - 1.2),
+    ph: rand() * TAU, r: 0.7 + rand() * 0.9
+  }));
+})();
+const SHRINE_CHARMS = ['✶', '☾', '♥', '✚', '☘', '✶', '⚿', '☾'];
+/* the reed fields: swaying blades, and the mountains beyond */
+const REED_BLADES = (() => {
+  const rand = lcg(2087);
+  return Array.from({ length: 64 }, () => ({
+    x: -TABLE.INW + 0.4 + rand() * (TABLE.INW * 2 - 0.8),
+    z: -TABLE.IND * 0.28 + rand() * (TABLE.IND * 1.2),
+    h: 0.5 + rand() * 0.7, lean: (rand() - 0.5) * 0.3,
+    ph: rand() * TAU, tone: mixHex('#8A8A52', '#5E6238', rand())
+  }));
+})();
+const REED_PEAKS = [
+  [-TABLE.INW - 1, 0.55], [-4.2, 0.9], [-3.1, 0.62], [-2.2, 1.15], [-1.1, 0.7],
+  [-0.2, 1.5], [0.9, 0.85], [1.8, 1.05], [2.9, 0.6], [4.1, 0.95], [TABLE.INW + 1, 0.5]
+];
+/* the crystal cave: shard clusters */
+const CAVE_CLUSTERS = (() => {
+  const rand = lcg(7639);
+  return Array.from({ length: 8 }, () => ({
+    x: -TABLE.INW + 0.8 + rand() * (TABLE.INW * 2 - 1.6),
+    z: -TABLE.IND + 0.6 + rand() * (TABLE.IND * 2 - 1.2),
+    n: 2 + Math.floor(rand() * 3), r: 0.18 + rand() * 0.22,
+    ph: rand() * TAU, hue: rand() < 0.5 ? '176,150,255' : '150,220,255',
+    rot: rand() * TAU
+  }));
+})();
+/* the storm-servant's lair: bones, fused coin, scorch */
+const LAIR_BONES = (() => {
+  const rand = lcg(5573);
+  const items = [];
+  for (let i = 0; i < 8; i++) items.push({
+    kind: 'bone',
+    x: -TABLE.INW + 0.8 + rand() * (TABLE.INW * 2 - 1.6),
+    z: -TABLE.IND + 0.7 + rand() * (TABLE.IND * 2 - 1.4),
+    len: 0.4 + rand() * 0.5, rot: rand() * TAU
+  });
+  for (let i = 0; i < 5; i++) items.push({
+    kind: 'lump',
+    x: -TABLE.INW + 1 + rand() * (TABLE.INW * 2 - 2),
+    z: -TABLE.IND + 0.8 + rand() * (TABLE.IND * 2 - 1.6),
+    r: 0.14 + rand() * 0.14, rot: rand() * TAU
+  });
+  for (let i = 0; i < 6; i++) items.push({
+    kind: 'scorch',
+    x: -TABLE.INW + 0.9 + rand() * (TABLE.INW * 2 - 1.8),
+    z: -TABLE.IND + 0.7 + rand() * (TABLE.IND * 2 - 1.4),
+    r: 0.35 + rand() * 0.45, rot: rand() * TAU
+  });
+  return items;
+})();
 
 /* the animated waterline of the surf (world z for a given x) */
 function surfLine(x, t) {
@@ -817,6 +927,12 @@ export function createDiceStage(canvas, initial) {
     if (th.glade) drawGlade(now);
     if (th.hearth) drawHearth(now);
     if (th.magma) drawMagma(now);
+    if (th.hall) drawHall(now);
+    if (th.desk) drawDesk(now);
+    if (th.shrine) drawShrine(now);
+    if (th.reeds) drawReeds(now);
+    if (th.cave) drawCave(now);
+    if (th.lair) drawLair(now);
     // theme decorations
     if (th.candle) {
       const fl = stage.anim ? (0.05 * Math.sin(now / 160) + 0.03 * Math.sin(now / 47)) : 0;
@@ -1241,6 +1357,318 @@ export function createDiceStage(canvas, initial) {
     ctx.restore();
   }
 
+  /* ---------- the ironbound hall (the adventurers' guild) ---------- */
+  function drawHall(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // plank seams
+    ctx.strokeStyle = 'rgba(34,24,12,0.45)'; ctx.lineWidth = 1.6;
+    for (let k = -2; k <= 2; k++) {
+      const x = k * (TABLE.INW * 0.4);
+      const s0 = proj([x, 0.012, -TABLE.IND - 1]), s1 = proj([x, 0.012, TABLE.IND + 1]);
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    }
+    // pinned contracts, corners curling
+    HALL_NOTES.forEach(n => {
+      const c = proj([n.x, 0.014, n.z]);
+      const e = proj([n.x + n.w, 0.014, n.z]);
+      const w = Math.hypot(e.x - c.x, e.y - c.y), h = w * (n.h / n.w) * 0.72;
+      ctx.save();
+      ctx.translate(c.x, c.y); ctx.rotate(n.rot);
+      ctx.fillStyle = n.tone;
+      ctx.fillRect(-w / 2, -h / 2, w, h);
+      ctx.strokeStyle = 'rgba(60,44,20,0.5)'; ctx.lineWidth = 1; ctx.strokeRect(-w / 2, -h / 2, w, h);
+      ctx.strokeStyle = 'rgba(70,54,30,0.45)'; ctx.lineWidth = 1;
+      for (let l = 0; l < n.lines; l++) {
+        const ly = -h / 2 + h * (0.3 + 0.2 * l);
+        ctx.beginPath(); ctx.moveTo(-w * 0.36, ly); ctx.lineTo(w * 0.36, ly); ctx.stroke();
+      }
+      // the pin
+      ctx.beginPath(); ctx.arc(0, -h / 2 + 2.5, 2, 0, TAU);
+      ctx.fillStyle = '#3E3E46'; ctx.fill();
+      // a wax seal for the serious ones
+      if (n.seal) {
+        ctx.beginPath(); ctx.arc(w * 0.3, h * 0.3, 3.4, 0, TAU);
+        ctx.fillStyle = 'rgba(140,40,32,0.85)'; ctx.fill();
+      }
+      ctx.restore();
+    });
+    // torchlight breathing from the trophy wall
+    const tl = proj([TABLE.INW - 0.4, 0.012, -TABLE.IND + 0.5]);
+    const fl = 0.10 + 0.035 * Math.sin(now / 620) + 0.02 * Math.sin(now / 210);
+    const g = ctx.createRadialGradient(tl.x, tl.y, 24, tl.x, tl.y, 360);
+    g.addColorStop(0, `rgba(255,170,90,${fl})`);
+    g.addColorStop(1, 'rgba(255,170,90,0)');
+    pathW(tablePaths().innerBase);
+    ctx.fillStyle = g; ctx.fill();
+    ctx.restore();
+  }
+
+  /* ---------- the counting desk (the merchants' guild) ---------- */
+  function drawDesk(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the ledger's ruled grid, pressed into the leather
+    ctx.strokeStyle = 'rgba(214,206,180,0.14)'; ctx.lineWidth = 1;
+    for (let k = -3; k <= 3; k++) {
+      const z = k * (TABLE.IND * 0.26);
+      const s0 = proj([-TABLE.INW - 1, 0.012, z]), s1 = proj([TABLE.INW + 1, 0.012, z]);
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    }
+    [[-TABLE.INW * 0.5], [TABLE.INW * 0.15], [TABLE.INW * 0.6]].forEach(([x]) => {
+      const s0 = proj([x, 0.012, -TABLE.IND - 1]), s1 = proj([x, 0.012, TABLE.IND + 1]);
+      ctx.strokeStyle = 'rgba(178,60,50,0.18)'; ctx.lineWidth = 1.2;
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    });
+    floorText('“Profit Endures”', TABLE.INW * 0.5 - 1.2, TABLE.IND - 0.75, 0.04, 0.52, 'rgba(214,206,180,0.22)', 'italic 26px Georgia, serif');
+    // stacked coin — each glinting when the light finds it
+    DESK_STACKS.forEach(st => {
+      const s = proj([st.x, 0.02, st.z]);
+      const e = proj([st.x + st.r, 0.02, st.z]);
+      const r = Math.max(3.5, Math.hypot(e.x - s.x, e.y - s.y));
+      for (let c = 0; c < st.n; c++) {
+        const cy = s.y - c * r * 0.34;
+        ctx.beginPath(); ctx.ellipse(s.x, cy, r, r * 0.42, 0, 0, TAU);
+        ctx.fillStyle = c === st.n - 1 ? '#D9B75A' : '#B99A44';
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(70,52,16,0.55)'; ctx.lineWidth = 1; ctx.stroke();
+      }
+      const tw2 = Math.max(0, Math.sin(now / 740 + st.ph)) ** 6;
+      glint(s.x + r * 0.5, s.y - st.n * r * 0.34, 3 + r * 0.2, 0.7 * tw2);
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the shrine of luck (Ember) ---------- */
+  function drawShrine(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the fortune circle chalked at the heart of the nook
+    const cc = proj([0, 0.012, 0.25]);
+    [2.3, 1.65].forEach((rr, ri) => {
+      ctx.beginPath();
+      for (let i = 0; i <= 44; i++) {
+        const a = i / 44 * TAU;
+        const s = proj([Math.cos(a) * rr, 0.013, 0.25 + Math.sin(a) * rr * 0.9]);
+        i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+      }
+      ctx.strokeStyle = `rgba(240,214,170,${ri === 0 ? 0.20 : 0.14})`;
+      ctx.lineWidth = ri === 0 ? 1.6 : 1.1;
+      ctx.stroke();
+    });
+    SHRINE_CHARMS.forEach((ch, i) => {
+      const a = i / SHRINE_CHARMS.length * TAU - Math.PI / 2;
+      floorText(ch, Math.cos(a) * 1.98, 0.25 + Math.sin(a) * 1.78, a + Math.PI / 2, 0.5, 'rgba(240,214,170,0.30)', '400 40px serif');
+    });
+    // strings of charms swagged across the corners
+    [[-1, -1], [1, -1]].forEach(([sx, sz], ci) => {
+      const A = [sx * (TABLE.INW - 0.2), 1.6, sz * (TABLE.IND - 0.15)];
+      const B = [sx * 0.6, 1.15, -TABLE.IND * 0.15];
+      ctx.beginPath();
+      for (let k = 0; k <= 12; k++) {
+        const u = k / 12;
+        const p = vLerp(A, B, u);
+        p[1] -= Math.sin(u * Math.PI) * 0.35;
+        const s = proj(p);
+        k === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+      }
+      ctx.strokeStyle = 'rgba(200,170,140,0.4)'; ctx.lineWidth = 1.1; ctx.stroke();
+      for (let k = 1; k < 6; k++) {
+        const u = k / 6;
+        const p = vLerp(A, B, u);
+        p[1] -= Math.sin(u * Math.PI) * 0.35 + 0.09;
+        const s = proj(p);
+        const sway = Math.sin(now / 1400 + k * 1.7 + ci * 3) * 1.5;
+        ctx.save();
+        ctx.translate(s.x + sway, s.y);
+        ctx.fillStyle = 'rgba(226,196,150,0.55)';
+        ctx.font = '11px serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(SHRINE_CHARMS[(k + ci * 3) % SHRINE_CHARMS.length], 0, 0);
+        ctx.restore();
+      }
+    });
+    // candle-points, each with its own small weather
+    SHRINE_CANDLES.forEach(cd => {
+      const s = proj([cd.x, 0.05, cd.z]);
+      const e = proj([cd.x + cd.r, 0.05, cd.z]);
+      const rr = Math.hypot(e.x - s.x, e.y - s.y) * 0.5;
+      const fl = 0.5 + 0.28 * Math.sin(now / 240 + cd.ph) + 0.12 * Math.sin(now / 87 + cd.ph * 2);
+      const g = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, rr);
+      g.addColorStop(0, `rgba(255,214,150,${0.30 * fl})`);
+      g.addColorStop(0.4, `rgba(255,178,110,${0.14 * fl})`);
+      g.addColorStop(1, 'rgba(255,178,110,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - rr, s.y - rr, rr * 2, rr * 2);
+      ctx.beginPath(); ctx.arc(s.x, s.y, 1.5, 0, TAU);
+      ctx.fillStyle = `rgba(255,236,190,${0.75 * fl})`; ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the reed fields (the displacer hunt) ---------- */
+  function drawReeds(now) {
+    // the mountains stand beyond the tray, resting on the back rim —
+    // drawn unclipped so the ridge can rise above the felt
+    const RIM = 0.62, ZB = -TABLE.IND - 0.18;
+    const XL = -TABLE.INW - 0.15, XR = TABLE.INW + 0.15;
+    // dusk glowing behind the ridge
+    const dk0 = proj([0, RIM + 1.7, ZB]), dk1 = proj([0, RIM, ZB]);
+    const dg = ctx.createLinearGradient(dk0.x, dk0.y, dk1.x, dk1.y);
+    dg.addColorStop(0, 'rgba(216,170,140,0)');
+    dg.addColorStop(1, 'rgba(216,170,140,0.35)');
+    ctx.beginPath();
+    [[XL, RIM], [XR, RIM], [XR, RIM + 1.7], [XL, RIM + 1.7]].forEach(([x, y], i) => {
+      const s = proj([x, y, ZB]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = dg; ctx.fill();
+    // the ridge, and the storm-crowned peak among them
+    ctx.beginPath();
+    REED_PEAKS.forEach(([x, h], i) => {
+      const s = proj([clamp(x, XL, XR), RIM + h * 0.9, ZB]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    });
+    const c1 = proj([XR, RIM - 0.06, ZB]);
+    const c2 = proj([XL, RIM - 0.06, ZB]);
+    ctx.lineTo(c1.x, c1.y); ctx.lineTo(c2.x, c2.y);
+    ctx.closePath();
+    ctx.fillStyle = 'rgba(48,50,70,0.92)';
+    ctx.fill();
+    // a stormlight flicker over the tallest peak, now and then
+    const stormFl = Math.max(0, Math.sin(now / 2300 + 1.3)) ** 12;
+    if (stormFl > 0.05) {
+      const pk = proj([-0.2, RIM + 1.5 * 0.9, ZB]);
+      const sg = ctx.createRadialGradient(pk.x, pk.y, 2, pk.x, pk.y, 60);
+      sg.addColorStop(0, `rgba(200,215,255,${0.5 * stormFl})`);
+      sg.addColorStop(1, 'rgba(200,215,255,0)');
+      ctx.fillStyle = sg;
+      ctx.fillRect(pk.x - 60, pk.y - 60, 120, 120);
+    }
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the reeds, swaying in one shared wind
+    REED_BLADES.forEach(rb => {
+      const sway = rb.lean + 0.14 * Math.sin(now / 1300 + rb.ph + rb.x * 0.7);
+      const s0 = proj([rb.x, 0.01, rb.z]);
+      const s1 = proj([rb.x + sway * rb.h, rb.h, rb.z]);
+      ctx.strokeStyle = rb.tone;
+      ctx.lineWidth = 1.6;
+      ctx.beginPath();
+      ctx.moveTo(s0.x, s0.y);
+      ctx.quadraticCurveTo(s0.x + (s1.x - s0.x) * 0.3, s0.y + (s1.y - s0.y) * 0.7, s1.x, s1.y);
+      ctx.stroke();
+      // seed-head
+      ctx.beginPath(); ctx.ellipse(s1.x, s1.y, 1.4, 3, sway, 0, TAU);
+      ctx.fillStyle = shadeHex(rb.tone, 0.18); ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the crystal cave (the deep roads) ---------- */
+  function drawCave(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // darkness pooling at the edges
+    for (let i = 0; i < 6; i++) {
+      const a = i / 6 * TAU + 0.5;
+      const s = proj([Math.cos(a) * (TABLE.INW - 0.6), 0.012, Math.sin(a) * (TABLE.IND - 0.5)]);
+      const g = ctx.createRadialGradient(s.x, s.y, 4, s.x, s.y, 80);
+      g.addColorStop(0, 'rgba(6,5,12,0.4)');
+      g.addColorStop(1, 'rgba(6,5,12,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - 80, s.y - 80, 160, 160);
+    }
+    // the clusters — the singing stone
+    CAVE_CLUSTERS.forEach(cl => {
+      const pulse = 0.55 + 0.45 * Math.sin(now / 1500 + cl.ph);
+      const s = proj([cl.x, 0.02, cl.z]);
+      const e = proj([cl.x + cl.r, 0.02, cl.z]);
+      const r = Math.max(5, Math.hypot(e.x - s.x, e.y - s.y));
+      // glow first
+      const g = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, r * 2.6);
+      g.addColorStop(0, `rgba(${cl.hue},${0.22 * pulse})`);
+      g.addColorStop(1, `rgba(${cl.hue},0)`);
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - r * 2.6, s.y - r * 2.6, r * 5.2, r * 5.2);
+      // shards
+      for (let k = 0; k < cl.n; k++) {
+        const a = cl.rot + k * 2.4;
+        const bx = s.x + Math.cos(a) * r * 0.4, by = s.y + Math.sin(a) * r * 0.2;
+        const hh = r * (0.9 + (k % 2) * 0.5);
+        ctx.beginPath();
+        ctx.moveTo(bx - r * 0.28, by);
+        ctx.lineTo(bx + Math.sin(a) * r * 0.18, by - hh);
+        ctx.lineTo(bx + r * 0.28, by);
+        ctx.closePath();
+        ctx.fillStyle = `rgba(${cl.hue},${0.5 + 0.3 * pulse})`;
+        ctx.fill();
+        ctx.strokeStyle = 'rgba(240,240,255,0.35)'; ctx.lineWidth = 1; ctx.stroke();
+      }
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the storm-servant's lair (Skathrix) ---------- */
+  function drawLair(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    LAIR_BONES.forEach(it => {
+      const s = proj([it.x, 0.014, it.z]);
+      if (it.kind === 'scorch') {
+        const e = proj([it.x + it.r, 0.014, it.z]);
+        const r = Math.hypot(e.x - s.x, e.y - s.y);
+        const g = ctx.createRadialGradient(s.x, s.y, r * 0.1, s.x, s.y, r);
+        g.addColorStop(0, 'rgba(10,8,6,0.5)');
+        g.addColorStop(0.7, 'rgba(16,12,8,0.25)');
+        g.addColorStop(1, 'rgba(16,12,8,0)');
+        ctx.fillStyle = g;
+        ctx.beginPath(); ctx.ellipse(s.x, s.y, r, r * 0.7, it.rot, 0, TAU); ctx.fill();
+      } else if (it.kind === 'lump') {
+        const e = proj([it.x + it.r, 0.014, it.z]);
+        const r = Math.max(3, Math.hypot(e.x - s.x, e.y - s.y));
+        ctx.beginPath();
+        ctx.ellipse(s.x, s.y, r, r * 0.7, it.rot, 0, TAU);
+        ctx.fillStyle = '#8A6F2E'; ctx.fill();
+        ctx.strokeStyle = 'rgba(40,30,10,0.6)'; ctx.lineWidth = 1.1; ctx.stroke();
+        ctx.beginPath(); ctx.ellipse(s.x - r * 0.25, s.y - r * 0.2, r * 0.35, r * 0.2, it.rot, 0, TAU);
+        ctx.fillStyle = 'rgba(226,196,110,0.5)'; ctx.fill();
+      } else {
+        const dx = Math.cos(it.rot) * it.len / 2, dz = Math.sin(it.rot) * it.len / 2;
+        const s0 = proj([it.x - dx, 0.016, it.z - dz]), s1 = proj([it.x + dx, 0.016, it.z + dz]);
+        ctx.strokeStyle = 'rgba(216,208,190,0.75)'; ctx.lineWidth = 3;
+        ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+        [s0, s1].forEach(sp => {
+          ctx.beginPath(); ctx.arc(sp.x, sp.y, 2.4, 0, TAU);
+          ctx.fillStyle = 'rgba(216,208,190,0.75)'; ctx.fill();
+        });
+      }
+    });
+    // the lightning that lives here — a flicker across the hall, now and then
+    const bolt = Math.max(0, Math.sin(now / 3100 + 0.8)) ** 24;
+    if (bolt > 0.04) {
+      pathW(tablePaths().innerBase);
+      ctx.fillStyle = `rgba(190,212,255,${0.12 * bolt})`;
+      ctx.fill();
+      let bs = 6091 + Math.floor(now / 3100) % 7;
+      const brand = () => (bs = (bs * 48271) % 2147483647) / 2147483647;
+      let bx = -TABLE.INW + 1 + brand() * (TABLE.INW * 2 - 2), bz = -TABLE.IND + 0.4;
+      ctx.beginPath();
+      let sp = proj([bx, 0.02, bz]);
+      ctx.moveTo(sp.x, sp.y);
+      for (let k = 0; k < 6; k++) {
+        bx += (brand() - 0.5) * 1.4; bz += (0.5 + brand() * 0.5);
+        sp = proj([bx, 0.02, bz]);
+        ctx.lineTo(sp.x, sp.y);
+      }
+      ctx.strokeStyle = `rgba(226,238,255,${0.7 * bolt})`;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+
   /* ---------- ripples (the Rising Tide) ---------- */
   function spawnRipple(x, z, strength) {
     stage.ripples.push({ x, z, t0: performance.now(), s: clamp(strength, 0.3, 1.2) });
@@ -1409,6 +1837,12 @@ export function createDiceStage(canvas, initial) {
     else if (special === 'moon') { ink = sig ? MOON.moonInk : MOON.ink; numColor = sig ? MOON.moonNum : MOON.num; }
     else if (special === 'ash') { ink = sig ? ASH.bopInk : ASH.ink; numColor = sig ? ASH.bopNum : ASH.num; }
     else if (special === 'cinder') { ink = sig ? CINDER.moltenInk : CINDER.ink; numColor = sig ? CINDER.moltenNum : CINDER.num; }
+    else if (special === 'guild') { ink = sig ? GUILD.charterInk : GUILD.ink; numColor = sig ? GUILD.charterNum : GUILD.num; }
+    else if (special === 'ledger') { ink = sig ? LEDGER.mintInk : LEDGER.ink; numColor = sig ? LEDGER.mintNum : LEDGER.num; }
+    else if (special === 'ember') { ink = sig ? EMBERSET.fortuneInk : EMBERSET.ink; numColor = sig ? EMBERSET.fortuneNum : EMBERSET.num; }
+    else if (special === 'displacer') { ink = sig ? DISP.beastInk : DISP.ink; numColor = sig ? DISP.beastNum : DISP.num; }
+    else if (special === 'crystal') { ink = sig ? CRYSTAL.geodeInk : CRYSTAL.ink; numColor = sig ? CRYSTAL.geodeNum : CRYSTAL.num; }
+    else if (special === 'behir') { ink = sig ? BEHIR.stormInk : BEHIR.ink; numColor = sig ? BEHIR.stormNum : BEHIR.num; }
     else { ink = color.light ? '#4A3B24' : '#241A0E'; numColor = color.light ? '#2C2417' : '#FBF6E9'; }
     // the tide's fated moments: glowing water on a 20, water draining out on a 1
     let glowK = 0, drainK = 0;
@@ -1650,6 +2084,43 @@ export function createDiceStage(canvas, initial) {
       ctx.fillStyle = hg;
       ctx.fillRect(c.x - hr, c.y - hr, hr * 2, hr * 2);
     }
+    // the displacer's afterimage — the die you see is not quite where it is
+    if (special === 'displacer' && !die.cracked) {
+      const ox = (sig ? 7 : 5) * Math.sin(t / 480 + (die._ph || 0) * 2);
+      const oy = (sig ? 5 : 3.5) * Math.cos(t / 390 + (die._ph || 0) * 3);
+      ctx.save();
+      ctx.translate(ox, oy);
+      faces.forEach(({ f }) => {
+        facePath(f);
+        ctx.fillStyle = `rgba(126,112,208,${(sig ? 0.22 : 0.15) * die.alpha})`;
+        ctx.fill();
+      });
+      ctx.restore();
+    }
+    // Ember's fortune die carries its own candlelight
+    if (special === 'ember' && sig && !die.cracked) {
+      const c = proj(die.pos);
+      const e = proj(vAdd(die.pos, [geo.R, 0, 0]));
+      const hr = Math.hypot(e.x - c.x, e.y - c.y) * 2;
+      const hg = ctx.createRadialGradient(c.x, c.y, hr * 0.25, c.x, c.y, hr);
+      const ha = 0.14 + 0.05 * Math.sin(t / 240) + 0.03 * Math.sin(t / 91);
+      hg.addColorStop(0, `rgba(255,190,150,${ha * die.alpha})`);
+      hg.addColorStop(1, 'rgba(255,190,150,0)');
+      ctx.fillStyle = hg;
+      ctx.fillRect(c.x - hr, c.y - hr, hr * 2, hr * 2);
+    }
+    // the Geode's buried light
+    if (special === 'crystal' && sig && !die.cracked) {
+      const c = proj(die.pos);
+      const e = proj(vAdd(die.pos, [geo.R, 0, 0]));
+      const hr = Math.hypot(e.x - c.x, e.y - c.y) * 1.5;
+      const hg = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, hr);
+      const ha = 0.22 + 0.1 * Math.sin(t / 900 + (die._ph || 0));
+      hg.addColorStop(0, `rgba(176,225,255,${ha * die.alpha})`);
+      hg.addColorStop(1, 'rgba(176,225,255,0)');
+      ctx.fillStyle = hg;
+      ctx.fillRect(c.x - hr, c.y - hr, hr * 2, hr * 2);
+    }
     // the Moon die rises with its own halo
     if (special === 'moon' && sig && !die.cracked) {
       const c = proj(die.pos);
@@ -1702,6 +2173,30 @@ export function createDiceStage(canvas, initial) {
         const base = sig ? mixHex(CINDER.molten, '#E4491F', 0.3 + 0.3 * surge)
                          : mixHex(CINDER.base, '#7A2E14', 0.10 + 0.10 * surge);
         fill = shadeHex(base, lerp(-0.26, 0.32, ld));
+      } else if (special === 'guild') {
+        // seasoned oak (the charter die is founders' bronze, greening at the edges)
+        const base = sig ? mixHex(GUILD.charter, '#4E7A5E', 0.16 + 0.2 * ((nW[2] + 1) / 2)) : GUILD.base;
+        fill = shadeHex(base, lerp(-0.24, 0.28, ld));
+      } else if (special === 'ledger') {
+        // minted metal: hard bright faces, hard dark ones
+        fill = shadeHex(sig ? LEDGER.mint : LEDGER.base, lerp(-0.34, 0.4, ld));
+      } else if (special === 'ember') {
+        // wine-dark velvet, warming where the candlelight lands
+        const warm = 0.5 + 0.5 * Math.sin(t / 340 + (die._ph || 0) * 2);
+        const base = sig ? EMBERSET.fortune : mixHex(EMBERSET.base, '#A6484A', 0.08 + 0.10 * warm);
+        fill = shadeHex(base, lerp(sig ? -0.08 : -0.2, sig ? 0.12 : 0.24, ld));
+      } else if (special === 'displacer') {
+        // sleek blue-black hide, a violet sheen sliding off every facet
+        const sheen = mixHex('#3A2F6E', '#1E3A5A', (nW[0] + 1) / 2);
+        fill = shadeHex(mixHex(sig ? DISP.beast : DISP.base, sheen, 0.35), lerp(-0.2, 0.3, ld));
+      } else if (special === 'crystal') {
+        // living crystal: light pours through the lit facets
+        const base = sig ? CRYSTAL.geode : CRYSTAL.base;
+        fill = shadeHex(mixHex(base, '#DCE8FF', smooth(0.62, 1, ld) * 0.55), lerp(-0.3, 0.34, ld));
+      } else if (special === 'behir') {
+        // storm-blue plates, darkening before the flash
+        const brood = 0.5 + 0.5 * Math.sin(t / 1900 + (die._ph || 0));
+        fill = shadeHex(mixHex(sig ? BEHIR.storm : BEHIR.base, '#0E1A2C', 0.12 * brood), lerp(-0.26, 0.3, ld));
       } else {
         fill = shadeHex(color.body, lerp(-0.24, 0.26, ld));
       }
@@ -1781,6 +2276,88 @@ export function createDiceStage(canvas, initial) {
         ctx.lineWidth = sig ? 2.6 : 1.8;
         facePath(f); ctx.stroke();
       }
+      if (special === 'guild') {
+        // iron banding, studded at every corner
+        ctx.strokeStyle = sig ? 'rgba(122,96,48,0.9)' : 'rgba(62,62,70,0.9)';
+        ctx.lineWidth = 3;
+        facePath(f); ctx.stroke();
+        const cS = proj(vAdd(qRotate(f.c, die.quat), die.pos));
+        f.idx.forEach(vi => {
+          const rx = lerp(sv[vi].x, cS.x, 0.13), ry = lerp(sv[vi].y, cS.y, 0.13);
+          ctx.beginPath(); ctx.arc(rx, ry, 1.7, 0, TAU);
+          ctx.fillStyle = sig ? 'rgba(90,72,30,0.9)' : 'rgba(30,30,36,0.9)'; ctx.fill();
+          ctx.beginPath(); ctx.arc(rx - 0.5, ry - 0.5, 0.6, 0, TAU);
+          ctx.fillStyle = sig ? 'rgba(240,220,160,0.8)' : 'rgba(200,200,210,0.6)'; ctx.fill();
+        });
+      }
+      if (special === 'ledger' && f.label != null) {
+        // every face struck like a coin: ring and reeding around the number
+        const cW2 = vAdd(qRotate(vAdd(f.c, vScale(f.n, 0.018)), die.quat), die.pos);
+        withSurface(cW2, vScale(qRotate(f.tR, die.quat), f.r), vScale(qRotate(f.tU, die.quat), -f.r), () => {
+          ctx.beginPath(); ctx.arc(0, 0, 15.5, 0, TAU);
+          ctx.strokeStyle = 'rgba(84,64,26,0.55)'; ctx.lineWidth = 1.6; ctx.stroke();
+          ctx.beginPath(); ctx.arc(0, 0, 18, 0, TAU);
+          ctx.setLineDash([1.6, 2.6]);
+          ctx.strokeStyle = 'rgba(84,64,26,0.4)'; ctx.lineWidth = sig ? 2 : 1.3; ctx.stroke();
+          ctx.setLineDash([]);
+        });
+      }
+      if (special === 'ember' && !die.cracked) {
+        // a candle-heart in each facet, and a faint charm in the wax
+        const fi = geo.faces.indexOf(f);
+        const cS = proj(vAdd(qRotate(f.c, die.quat), die.pos));
+        const eS = proj(vAdd(vAdd(qRotate(f.c, die.quat), die.pos), [f.r * 0.6, 0, 0]));
+        const rr = Math.max(3, Math.hypot(eS.x - cS.x, eS.y - cS.y));
+        const fl2 = (sig ? 0.30 : 0.16) * (0.55 + 0.3 * Math.sin(t / 250 + fi * 2.3) + 0.15 * Math.sin(t / 93 + fi));
+        const eg = ctx.createRadialGradient(cS.x, cS.y, 0, cS.x, cS.y, rr);
+        eg.addColorStop(0, `rgba(255,170,120,${fl2 * die.alpha})`);
+        eg.addColorStop(1, 'rgba(255,170,120,0)');
+        ctx.fillStyle = eg;
+        ctx.fillRect(cS.x - rr, cS.y - rr, rr * 2, rr * 2);
+        if (f.label != null && f.r > 0.5) {
+          const cW2 = vAdd(qRotate(vAdd(f.c, vScale(f.n, 0.016)), die.quat), die.pos);
+          withSurface(cW2, vScale(qRotate(f.tR, die.quat), f.r), vScale(qRotate(f.tU, die.quat), -f.r), () => {
+            ctx.font = '14px serif';
+            ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+            ctx.fillStyle = `rgba(255,214,168,${0.14 * die.alpha})`;
+            ctx.fillText(SHRINE_CHARMS[fi % SHRINE_CHARMS.length], 12, -12);
+          });
+        }
+      }
+      if (special === 'crystal' && !die.cracked) {
+        // one facet at a time catches the deep light and flares
+        const fi = geo.faces.indexOf(f);
+        const flashIdx = Math.floor(t / 1100 + (die._ph || 0) * 2) % geo.faces.length;
+        if (fi === flashIdx) {
+          const fp = (t / 1100 + (die._ph || 0) * 2) % 1;
+          const fa = Math.sin(fp * Math.PI) * (sig ? 0.5 : 0.34);
+          facePath(f);
+          ctx.fillStyle = `rgba(226,240,255,${fa * die.alpha})`;
+          ctx.fill();
+          const gv = sv[f.idx[0]];
+          glint(gv.x, gv.y, 4, fa * die.alpha);
+        }
+      }
+      if (special === 'behir' && !die.cracked) {
+        // the plates carry a charge — every so often it arcs
+        const fi = geo.faces.indexOf(f);
+        const flick = Math.max(0, Math.sin(t / (sig ? 480 : 730) + fi * 2.3 + (die._ph || 0) * 4)) ** (sig ? 10 : 18);
+        if (flick > 0.08 && f.idx.length >= 3) {
+          const a0 = sv[f.idx[0]], a1 = sv[f.idx[Math.floor(f.idx.length / 2)]];
+          let js = fi * 131 + Math.floor(t / 110);
+          const jr = () => { js = (js * 48271) % 2147483647; return js / 2147483647 - 0.5; };
+          ctx.beginPath();
+          ctx.moveTo(a0.x, a0.y);
+          for (let k2 = 1; k2 < 4; k2++) {
+            const u = k2 / 4;
+            ctx.lineTo(lerp(a0.x, a1.x, u) + jr() * 7, lerp(a0.y, a1.y, u) + jr() * 7);
+          }
+          ctx.lineTo(a1.x, a1.y);
+          ctx.strokeStyle = `rgba(222,238,255,${0.85 * flick * die.alpha})`;
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      }
     });
     drawDieLabels(faces, geo, die, sv, wv, numColor);
     ctx.globalAlpha = 1;
@@ -1852,6 +2429,9 @@ export function createDiceStage(canvas, initial) {
       : g.color === 'newmoon' ? '92,82,140'
       : g.color === 'ember' ? (g.strong ? '255,190,110' : '255,140,70')
       : g.color === 'ashen' ? '150,140,130'
+      : g.color === 'shimmer' ? (g.strong ? '210,200,255' : '176,160,255')
+      : g.color === 'crystal' ? (g.strong ? '224,240,255' : '186,214,255')
+      : g.color === 'storm' ? (g.strong ? '234,244,255' : '196,216,255')
       : (g.strong ? '255,214,120' : '214,168,74');
     const grad = ctx.createRadialGradient(c.x, c.y, R * 0.3, c.x, c.y, R * (g.strong ? 3 : 2.4));
     grad.addColorStop(0, `rgba(${gold},${0.5 * a})`);
@@ -1870,6 +2450,9 @@ export function createDiceStage(canvas, initial) {
         : g.color === 'newmoon' ? `rgba(150,140,200,${0.3 * a})`
         : g.color === 'ember' ? `rgba(255,196,130,${0.3 * a})`
         : g.color === 'ashen' ? `rgba(190,182,172,${0.3 * a})`
+        : g.color === 'shimmer' ? `rgba(206,196,255,${0.3 * a})`
+        : g.color === 'crystal' ? `rgba(224,240,255,${0.3 * a})`
+        : g.color === 'storm' ? `rgba(226,240,255,${0.3 * a})`
         : `rgba(255,232,160,${0.3 * a})`;
       ctx.fill();
       ctx.save();
@@ -2222,8 +2805,11 @@ export function createDiceStage(canvas, initial) {
       const isD20 = d.geo.type === 'd20';
       const sp = d.color && d.color.special;
       const settleColor = sp === 'tide' ? 'tide' : sp === 'works' ? 'arc' : sp === 'moon' ? 'moonlit'
-        : (sp === 'ash' || sp === 'cinder') ? 'ember' : 'gold';
-      const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : sp === 'ash' ? 'ashen' : 'red';
+        : (sp === 'ash' || sp === 'cinder' || sp === 'ember') ? 'ember'
+        : sp === 'displacer' ? 'shimmer' : sp === 'crystal' ? 'crystal' : sp === 'behir' ? 'storm' : 'gold';
+      const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : sp === 'ash' ? 'ashen'
+        : sp === 'ember' ? 'ember' // her fortunes are true either way
+        : sp === 'displacer' ? 'newmoon' : sp === 'crystal' ? 'newmoon' : sp === 'behir' ? 'ebb' : 'red';
       d.glow = {
         t0: now, dur: 1150,
         color: isD20 && val === 1 ? failColor : settleColor,
