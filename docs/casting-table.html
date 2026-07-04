@@ -135,6 +135,29 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
   text-shadow:0 0 5px rgba(226,228,250,.8);
 }
 .swatches button.swatch-moon.active{box-shadow:0 0 0 3px #b9b4d8,var(--shadow-xs);}
+.swatches button.swatch-ash{
+  position:relative;
+  background:radial-gradient(circle at 50% 62%, #6E4630 0%, #4A3A32 40%, #322A26 100%) !important;
+}
+.swatches button.swatch-ash::after{
+  content:"";position:absolute;left:50%;top:56%;width:26%;height:26%;border-radius:50%;transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 45% 40%, #FFD9A8 0%, #FF9A4A 55%, rgba(255,120,50,0) 100%);
+  animation:ashglow 2.4s ease-in-out infinite;
+}
+@keyframes ashglow{0%,100%{opacity:.55}50%{opacity:1}}
+.swatches button.swatch-ash.active{box-shadow:0 0 0 3px #e8a86a,var(--shadow-xs);}
+.swatches button.swatch-cinder{
+  position:relative;
+  background:linear-gradient(150deg,#4A211A 0%,#33241E 45%,#1C110C 100%) !important;
+}
+.swatches button.swatch-cinder::after{
+  content:"";position:absolute;inset:18%;border-radius:50%;
+  background:
+    radial-gradient(circle at 30% 70%, rgba(255,110,45,.85) 0%, rgba(255,110,45,0) 34%),
+    radial-gradient(circle at 68% 34%, rgba(255,160,70,.7) 0%, rgba(255,160,70,0) 30%),
+    radial-gradient(circle at 55% 60%, rgba(255,80,25,.5) 0%, rgba(255,80,25,0) 45%);
+}
+.swatches button.swatch-cinder.active{box-shadow:0 0 0 3px #e07a3e,var(--shadow-xs);}
 .decos{padding:14px;display:flex;flex-direction:column;gap:8px;}
 .decos button{
   display:flex;flex-direction:column;align-items:flex-start;gap:1px;text-align:left;
@@ -177,6 +200,11 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
         <div class="qty-num"><b id="qty-val">1</b><span>dice</span></div>
         <button id="qty-inc" aria-label="more dice">+</button>
       </div>
+      <div class="qty-wrap" id="mod-wrap">
+        <button id="mod-dec" aria-label="lower modifier">&minus;</button>
+        <div class="qty-num"><b id="mod-val">+0</b><span>mod</span></div>
+        <button id="mod-inc" aria-label="raise modifier">+</button>
+      </div>
       <button id="roll-btn">Roll</button>
     </div>
 
@@ -204,9 +232,9 @@ aside.col{flex:1 1 240px;min-width:240px;max-width:320px;display:flex;flex-direc
 </div>
 
 <!-- bump ?v= whenever js/dice-engine.js changes, so caches can't serve a stale engine -->
-<script src="js/cannon.js?v=4"></script>
+<script src="js/cannon.js?v=5"></script>
 <script type="module">
-import { createDiceStage } from './js/dice-engine.js?v=4';
+import { createDiceStage } from './js/dice-engine.js?v=5';
 
 const SIDES = { d4:4, d6:6, d8:8, d10:10, d12:12, d20:20, d100:100 };
 
@@ -223,7 +251,9 @@ const SWATCHES = [
   { id:'tide',  name:'The Rising Tide — Thalasstheos', body:'#2FA093', light:false, special:'tide' },
   { id:'hoard', name:'The Magpie’s Hoard — Kree', body:'#1A1720', light:false, special:'hoard' },
   { id:'works', name:'The Tinker’s Works — Wilhelm', body:'#A98544', light:false, special:'works' },
-  { id:'moon',  name:'The Borrowed Moon — Kenra', body:'#3B3552', light:false, special:'moon' }
+  { id:'moon',  name:'The Borrowed Moon — Kenra', body:'#3B3552', light:false, special:'moon' },
+  { id:'ash',   name:'The Hearthkin — the Ashlings of Cinderhearth', body:'#3A302C', light:false, special:'ash' },
+  { id:'cinder',name:'The Cindered — the Salamander of the Deep Hearth', body:'#33241E', light:false, special:'cinder' }
 ];
 
 const DECOS = [
@@ -235,11 +265,13 @@ const DECOS = [
   { id:'beach',   label:'Rocky Beach', note:'surf, stones, and sea-light' },
   { id:'nest',    label:'The Nest',    note:'twigs and treasures' },
   { id:'bench',   label:'The Workbench', note:'schematics and sawdust' },
-  { id:'glade',   label:'Moonlit Glade', note:'fireflies and silver light' }
+  { id:'glade',   label:'Moonlit Glade', note:'fireflies and silver light' },
+  { id:'hearth',  label:'The Hearth',  note:'warm stone and drifting ash' },
+  { id:'magma',   label:'The Deep Hearth', note:'magma, basalt, and chains' }
 ];
 
 /* which mat belongs to which set — suggested, never forced */
-const SET_MATS = { tide:'beach', hoard:'nest', works:'bench', moon:'glade' };
+const SET_MATS = { tide:'beach', hoard:'nest', works:'bench', moon:'glade', ash:'hearth', cinder:'magma' };
 
 /* what the signature d20 says when fate speaks */
 const SET_LINES = {
@@ -250,13 +282,17 @@ const SET_LINES = {
   works: { crit:'Precisely as designed.', fumble:'…back to the bench.',
            critDetail:'precisely as designed', fumbleDetail:'back to the bench' },
   moon:  { crit:'The moon shows her full face.', fumble:'…the new moon keeps her secrets.',
-           critDetail:'the moon shows her full face', fumbleDetail:'the new moon keeps her secrets' }
+           critDetail:'the moon shows her full face', fumbleDetail:'the new moon keeps her secrets' },
+  ash:   { crit:'The hearth glows for you.', fumble:'…only ash and quiet.',
+           critDetail:'the hearth glows for you', fumbleDetail:'only ash and quiet' },
+  cinder:{ crit:'The fire remembers.', fumble:'…cooled to slag.',
+           critDetail:'the fire remembers', fumbleDetail:'cooled to slag' }
 };
 
 /* physics feel */
 const THROW_STRENGTH = 1.2, SLOW_MOTION = false, KEEP_DICE = false;
 
-const state = { type:'d20', qty:1, color:'rust', deco:'glow', rolling:false };
+const state = { type:'d20', qty:1, mod:0, color:'rust', deco:'glow', rolling:false };
 const history = [];
 const $ = id => document.getElementById(id);
 const esc = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -282,31 +318,37 @@ function describe(out){
   }
   if (type === 'd100'){
     const n = out.dice.length;
-    const label = n > 1 ? n + 'd100' : 'd100';
+    const dmod = out.mod || 0;
+    const dmodTag = dmod ? (dmod > 0 ? '+' + dmod : '−' + Math.abs(dmod)) : '';
+    const dmodTxt = dmod ? ' ' + (dmod > 0 ? '+' : '−') + ' ' + Math.abs(dmod) : '';
+    const label = (n > 1 ? n + 'd100' : 'd100') + dmodTag;
     if (n === 1){
       const d0 = out.dice[0];
-      const bd = String(d0.tens).padStart(2,'0') + ' + ' + d0.units + ' = ' + d0.value;
+      const bd = String(d0.tens).padStart(2,'0') + ' + ' + d0.units + ' = ' + d0.value + (dmod ? dmodTxt + ' = ' + out.total : '');
       return { label, totalText: String(out.total), breakdown: bd, detail: 'percentile: ' + bd };
     }
     return { label, totalText: String(out.total),
-      breakdown: out.values.join(' + ') + ' = ' + out.total,
+      breakdown: out.values.join(' + ') + dmodTxt + ' = ' + out.total,
       detail: out.values.join(', ') };
   }
   const n = out.values.length;
-  const label = n > 1 ? n + type : type;
+  const mod = out.mod || 0;
+  const modTag = mod ? (mod > 0 ? '+' + mod : '−' + Math.abs(mod)) : '';
+  const modTxt = mod ? ' ' + (mod > 0 ? '+' : '−') + ' ' + Math.abs(mod) : '';
+  const label = (n > 1 ? n + type : type) + modTag;
   const lines = SET_LINES[state.color] || null;
   let critNote = '';
   if (out.crit === 'nat20') critNote = lines ? ' — “' + lines.crit + '”' : ' — natural twenty!';
   if (out.crit === 'nat1') critNote = lines ? ' — “' + lines.fumble + '”' : ' — the die shatters';
   if (n === 1){
     return { label, totalText: String(out.total),
-      breakdown: type + ' → ' + out.total + critNote,
+      breakdown: type + ' → ' + out.values[0] + (mod ? modTxt + ' = ' + out.total : '') + critNote,
       detail: out.crit === 'nat20' ? (lines ? 'a natural 20 — ' + lines.critDetail : 'a natural 20')
         : out.crit === 'nat1' ? (lines ? 'a natural 1 — ' + lines.fumbleDetail : 'a natural 1 — swept from the felt')
-        : 'a single ' + type };
+        : 'a single ' + type + (mod ? ', modified' : '') };
   }
   return { label, totalText: String(out.total),
-    breakdown: out.values.join(' + ') + ' = ' + out.total + critNote,
+    breakdown: out.values.join(' + ') + modTxt + ' = ' + out.total + critNote,
     detail: out.values.join(', ') + (out.crit === 'nat20' ? (lines ? ' · ' + lines.critDetail : ' · a twenty among them')
       : out.crit === 'nat1' ? (lines ? ' · ' + lines.fumbleDetail : ' · one die shattered') : '') };
 }
@@ -333,6 +375,8 @@ function renderControls(){
   const coin = state.type === 'coin';
   $('qty-val').textContent = state.qty;
   $('qty-wrap').classList.toggle('disabled', coin || state.rolling);
+  $('mod-val').textContent = state.mod > 0 ? '+' + state.mod : state.mod < 0 ? '−' + Math.abs(state.mod) : '+0';
+  $('mod-wrap').classList.toggle('disabled', coin || state.rolling);
   $('roll-btn').classList.toggle('rolling', state.rolling);
   $('roll-btn').textContent = state.rolling ? (coin ? 'Flipping…' : 'Casting…') : (coin ? 'Flip' : 'Roll');
   $('die-types').style.pointerEvents = state.rolling ? 'none' : '';
@@ -366,7 +410,7 @@ async function roll(){
   watchdog = setTimeout(() => { if (state.rolling){ state.rolling = false; renderControls(); } }, 18000);
   try {
     const out = await stage.roll({
-      type: state.type, qty: state.qty, color: curSwatch(),
+      type: state.type, qty: state.qty, mod: state.mod, color: curSwatch(),
       throwStrength: THROW_STRENGTH, slowMotion: SLOW_MOTION, keepDice: KEEP_DICE
     });
     const d = describe(out);
@@ -421,6 +465,16 @@ $('qty-inc').addEventListener('click', () => {
 $('qty-dec').addEventListener('click', () => {
   if (state.rolling) return;
   state.qty = Math.max(1, state.qty - 1);
+  renderControls();
+});
+$('mod-inc').addEventListener('click', () => {
+  if (state.rolling) return;
+  state.mod = Math.min(20, state.mod + 1);
+  renderControls();
+});
+$('mod-dec').addEventListener('click', () => {
+  if (state.rolling) return;
+  state.mod = Math.max(-20, state.mod - 1);
   renderControls();
 });
 $('roll-btn').addEventListener('click', roll);

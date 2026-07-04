@@ -296,7 +296,9 @@ const THEMES = {
   beach:    { felt: '#C4AD82', beach: true, animated: true, noStitch: true },
   nest:     { felt: '#4A3B28', nest: true, animated: true, noStitch: true },
   bench:    { felt: '#6E5638', bench: true, noStitch: true },
-  glade:    { felt: '#26312A', glade: true, animated: true, noStitch: true }
+  glade:    { felt: '#26312A', glade: true, animated: true, noStitch: true },
+  hearth:   { felt: '#8A7462', hearth: true, animated: true, noStitch: true },
+  magma:    { felt: '#241B18', magma: true, animated: true, noStitch: true }
 };
 const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', 'ᛒ', 'ᛗ', 'ᛚ'];
 
@@ -355,6 +357,15 @@ const MOON = { // Kenra — borrowed midnight tints, moon-silver light
   tints: ['#4A3A55', '#33474F', '#3E4638', '#4E3A38', '#2F3A52', '#463349', '#3A3A3A', '#513F2E']
 };
 
+const ASH = { // the ashlings — banked coals, gentle and warm
+  base: '#3A302C', ink: '#1E1614', num: '#FFD9A8',
+  bop: '#7A4A32', bopInk: '#3A241A', bopNum: '#FFF3DC'
+};
+const CINDER = { // the salamander — black crust over living magma
+  base: '#33241E', ink: '#150E0B', num: '#FFB35C',
+  molten: '#B33A16', moltenInk: '#2A1006', moltenNum: '#FFE0B0'
+};
+
 /* deterministic scatter for the character mats */
 function lcg(seed) { let s = seed; return () => (s = (s * 48271) % 2147483647) / 2147483647; }
 const NEST_TWIGS = (() => {
@@ -400,6 +411,78 @@ const GLADE_FLIES = (() => {
     ph: rand() * TAU, sp: 0.6 + rand() * 0.8
   }));
 })();
+const HEARTH_DRIFTS = (() => {
+  const rand = lcg(8123);
+  return Array.from({ length: 7 }, () => ({
+    x: -TABLE.INW + 0.8 + rand() * (TABLE.INW * 2 - 1.6),
+    z: -TABLE.IND + 0.7 + rand() * (TABLE.IND * 2 - 1.4),
+    r: 0.6 + rand() * 0.9, a: 0.08 + rand() * 0.09
+  }));
+})();
+const HEARTH_MOTES = (() => {
+  const rand = lcg(5471);
+  return Array.from({ length: 12 }, () => ({
+    x: -TABLE.INW + 0.8 + rand() * (TABLE.INW * 2 - 1.6),
+    z: -TABLE.IND + 0.7 + rand() * (TABLE.IND * 2 - 1.4),
+    ph: rand() * TAU, sp: 0.5 + rand() * 0.9, warm: rand() < 0.45
+  }));
+})();
+/* a small resident's tracks, wandering across the dust */
+const HEARTH_PRINTS = (() => {
+  const rand = lcg(3313);
+  const prints = [];
+  let x = -TABLE.INW + 1.2, z = TABLE.IND - 1.0, ang = -0.5;
+  for (let i = 0; i < 14; i++) {
+    ang += (rand() - 0.45) * 0.55;
+    x += Math.cos(ang) * 0.62; z += Math.sin(ang) * 0.5 - 0.12;
+    if (Math.abs(x) > TABLE.INW - 0.8 || Math.abs(z) > TABLE.IND - 0.7) break;
+    const side = i % 2 === 0 ? 1 : -1;
+    prints.push({ x: x - Math.sin(ang) * 0.13 * side, z: z + Math.cos(ang) * 0.13 * side, ang });
+  }
+  return prints;
+})();
+const MAGMA_CRACKS = (() => {
+  const rand = lcg(9743);
+  const cracks = [];
+  for (let c = 0; c < 4; c++) {
+    const pts = [];
+    let x = -TABLE.INW + 0.6 + rand() * (TABLE.INW * 2 - 1.2);
+    let z = -TABLE.IND + 0.5 + rand() * (TABLE.IND * 2 - 1);
+    let ang = rand() * TAU;
+    pts.push([x, z]);
+    for (let k = 0; k < 7; k++) {
+      ang += (rand() - 0.5) * 1.3;
+      x += Math.cos(ang) * (0.55 + rand() * 0.5);
+      z += Math.sin(ang) * (0.45 + rand() * 0.4);
+      x = clamp(x, -TABLE.INW + 0.4, TABLE.INW - 0.4);
+      z = clamp(z, -TABLE.IND + 0.35, TABLE.IND - 0.35);
+      pts.push([x, z]);
+    }
+    cracks.push({ pts, ph: rand() * TAU });
+  }
+  return cracks;
+})();
+const MAGMA_POOLS = (() => {
+  const rand = lcg(1531);
+  return Array.from({ length: 3 }, () => ({
+    x: -TABLE.INW + 1.1 + rand() * (TABLE.INW * 2 - 2.2),
+    z: -TABLE.IND + 0.9 + rand() * (TABLE.IND * 2 - 1.8),
+    r: 0.32 + rand() * 0.3, ph: rand() * TAU
+  }));
+})();
+const MAGMA_SPARKS = (() => {
+  const rand = lcg(7247);
+  return Array.from({ length: 9 }, () => ({
+    x: -TABLE.INW + 0.7 + rand() * (TABLE.INW * 2 - 1.4),
+    z: -TABLE.IND + 0.6 + rand() * (TABLE.IND * 2 - 1.2),
+    ph: rand() * TAU, sp: 0.8 + rand() * 1.1
+  }));
+})();
+/* the chains that were meant to bind — two runs across the hall floor */
+const MAGMA_CHAINS = [
+  { a: [-TABLE.INW - 0.2, -TABLE.IND + 1.1], b: [1.9, TABLE.IND - 0.7] },
+  { a: [TABLE.INW + 0.2, -TABLE.IND + 0.6], b: [-1.4, 1.15] }
+];
 
 /* the animated waterline of the surf (world z for a given x) */
 function surfLine(x, t) {
@@ -732,6 +815,8 @@ export function createDiceStage(canvas, initial) {
     if (th.nest) drawNest(now);
     if (th.bench) drawBench();
     if (th.glade) drawGlade(now);
+    if (th.hearth) drawHearth(now);
+    if (th.magma) drawMagma(now);
     // theme decorations
     if (th.candle) {
       const fl = stage.anim ? (0.05 * Math.sin(now / 160) + 0.03 * Math.sin(now / 47)) : 0;
@@ -1029,6 +1114,133 @@ export function createDiceStage(canvas, initial) {
     ctx.restore();
   }
 
+  /* ---------- the hearth (the ashlings) ---------- */
+  function drawHearth(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // worn hearthstone tiles
+    ctx.strokeStyle = 'rgba(58,44,34,0.35)'; ctx.lineWidth = 1.8;
+    [-TABLE.INW * 0.34, TABLE.INW * 0.34].forEach(x => {
+      const s0 = proj([x, 0.012, -TABLE.IND - 1]), s1 = proj([x, 0.012, TABLE.IND + 1]);
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    });
+    [0].forEach(z => {
+      const s0 = proj([-TABLE.INW - 1, 0.012, z]), s1 = proj([TABLE.INW + 1, 0.012, z]);
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+    });
+    // drifts of soft pale ash
+    HEARTH_DRIFTS.forEach(dr => {
+      const s = proj([dr.x, 0.013, dr.z]);
+      const e = proj([dr.x + dr.r, 0.013, dr.z]);
+      const r = Math.hypot(e.x - s.x, e.y - s.y);
+      const g = ctx.createRadialGradient(s.x, s.y, r * 0.15, s.x, s.y, r);
+      g.addColorStop(0, `rgba(214,204,192,${dr.a})`);
+      g.addColorStop(1, 'rgba(214,204,192,0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(s.x - r, s.y - r, r * 2, r * 2);
+    });
+    // small footprints wandering through the dust
+    HEARTH_PRINTS.forEach(pr => {
+      const s = proj([pr.x, 0.014, pr.z]);
+      ctx.save();
+      ctx.translate(s.x, s.y); ctx.rotate(Math.atan2(Math.sin(pr.ang), Math.cos(pr.ang)) * 0.4);
+      ctx.beginPath(); ctx.ellipse(0, 0, 2.1, 3, 0, 0, TAU);
+      ctx.fillStyle = 'rgba(66,52,42,0.34)'; ctx.fill();
+      [[-1, -3.6], [0, -4.1], [1, -3.6]].forEach(([ox, oy]) => {
+        ctx.beginPath(); ctx.arc(ox * 1.4, oy, 0.8, 0, TAU); ctx.fill();
+      });
+      ctx.restore();
+    });
+    // the fire is off somewhere to the left, and its light reaches this far
+    const hl = proj([-TABLE.INW + 0.4, 0.012, -TABLE.IND + 0.6]);
+    const warm = 0.11 + 0.035 * Math.sin(now / 700) + 0.02 * Math.sin(now / 233);
+    const hg = ctx.createRadialGradient(hl.x, hl.y, 30, hl.x, hl.y, 420);
+    hg.addColorStop(0, `rgba(255,164,84,${warm})`);
+    hg.addColorStop(0.55, `rgba(255,140,70,${warm * 0.4})`);
+    hg.addColorStop(1, 'rgba(255,140,70,0)');
+    pathW(tablePaths().innerBase);
+    ctx.fillStyle = hg; ctx.fill();
+    // motes of dust and the occasional tiny ember, drifting up through the light
+    HEARTH_MOTES.forEach(mt => {
+      const cycle = (now / (5200 / mt.sp) + mt.ph) % 1;
+      const h = 0.05 + cycle * 1.5;
+      const x = mt.x + 0.3 * Math.sin(now / 1700 + mt.ph * 3);
+      const s = proj([x, h, mt.z]);
+      const a = (1 - cycle) * (mt.warm ? 0.5 : 0.3) * Math.min(1, cycle * 8);
+      if (a <= 0.02) return;
+      ctx.beginPath(); ctx.arc(s.x, s.y, mt.warm ? 1.6 : 1.1, 0, TAU);
+      ctx.fillStyle = mt.warm ? `rgba(255,180,110,${a})` : `rgba(226,216,200,${a})`;
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
+  /* ---------- the old hearth hall (the salamander) ---------- */
+  function drawMagma(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // living cracks in the basalt
+    MAGMA_CRACKS.forEach(cr => {
+      const pulse = 0.55 + 0.45 * Math.sin(now / 1100 + cr.ph);
+      [[7, `rgba(255,60,20,${0.14 * pulse})`], [3, `rgba(255,110,40,${0.42 * pulse})`], [1.3, `rgba(255,196,96,${0.75 * pulse})`]].forEach(([lw, col]) => {
+        ctx.beginPath();
+        cr.pts.forEach(([x, z], i) => { const s = proj([x, 0.013, z]); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
+        ctx.strokeStyle = col; ctx.lineWidth = lw; ctx.stroke();
+      });
+    });
+    // pools where the stone gave up
+    MAGMA_POOLS.forEach(pl => {
+      const s = proj([pl.x, 0.013, pl.z]);
+      const e = proj([pl.x + pl.r, 0.013, pl.z]);
+      const r = Math.hypot(e.x - s.x, e.y - s.y);
+      const pulse = 0.6 + 0.4 * Math.sin(now / 900 + pl.ph);
+      const g = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, r);
+      g.addColorStop(0, `rgba(255,208,110,${0.85 * pulse})`);
+      g.addColorStop(0.45, `rgba(255,110,40,${0.6 * pulse})`);
+      g.addColorStop(1, 'rgba(180,50,20,0)');
+      ctx.beginPath(); ctx.ellipse(s.x, s.y, r, r * 0.72, 0, 0, TAU);
+      ctx.fillStyle = g; ctx.fill();
+    });
+    // the chains that were meant to bind
+    MAGMA_CHAINS.forEach(ch => {
+      const sA = proj([ch.a[0], 0.05, ch.a[1]]), sB = proj([ch.b[0], 0.05, ch.b[1]]);
+      const L = Math.hypot(sB.x - sA.x, sB.y - sA.y);
+      const links = Math.max(6, Math.round(L / 17));
+      const ang = Math.atan2(sB.y - sA.y, sB.x - sA.x);
+      for (let k = 0; k <= links; k++) {
+        const u = k / links;
+        const x = lerp(sA.x, sB.x, u), y = lerp(sA.y, sB.y, u) + Math.sin(u * Math.PI) * 3;
+        const flat = k % 2 === 0;
+        ctx.save();
+        ctx.translate(x, y); ctx.rotate(ang);
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 8.5, flat ? 5.2 : 2.2, 0, 0, TAU);
+        ctx.strokeStyle = 'rgba(30,30,36,0.9)'; ctx.lineWidth = 3.4; ctx.stroke();
+        ctx.beginPath();
+        ctx.ellipse(0, -0.7, 8.5, flat ? 5.2 : 2.2, 0, Math.PI * 1.05, Math.PI * 1.95);
+        ctx.strokeStyle = 'rgba(196,186,196,0.28)'; ctx.lineWidth = 1.3; ctx.stroke();
+        // magma-light licking the underside of every link
+        ctx.beginPath();
+        ctx.ellipse(0, 0.8, 8.5, flat ? 5.2 : 2.2, 0, Math.PI * 0.1, Math.PI * 0.9);
+        ctx.strokeStyle = `rgba(255,120,50,${0.16 + 0.1 * Math.sin(now / 950 + k)})`; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.restore();
+      }
+    });
+    // sparks on the updraft
+    MAGMA_SPARKS.forEach(sp => {
+      const cycle = (now / (2600 / sp.sp) + sp.ph) % 1;
+      const h = 0.05 + cycle * 1.9;
+      const x = sp.x + 0.22 * Math.sin(now / 600 + sp.ph * 4);
+      const s = proj([x, h, sp.z]);
+      const a = (1 - cycle) * 0.75 * Math.min(1, cycle * 9);
+      if (a <= 0.02) return;
+      ctx.beginPath(); ctx.arc(s.x, s.y, 1.3 + (1 - cycle), 0, TAU);
+      ctx.fillStyle = `rgba(255,${Math.round(150 + 60 * cycle)},70,${a})`;
+      ctx.fill();
+    });
+    ctx.restore();
+  }
+
   /* ---------- ripples (the Rising Tide) ---------- */
   function spawnRipple(x, z, strength) {
     stage.ripples.push({ x, z, t0: performance.now(), s: clamp(strength, 0.3, 1.2) });
@@ -1054,6 +1266,41 @@ export function createDiceStage(canvas, initial) {
         ctx.stroke();
       });
     });
+  }
+
+  /* the water that left the die, spreading across the tray */
+  function drawTidePuddle(d, now) {
+    if (!d.tidefx || d.tidefx.kind !== 'drain' || now < d.tidefx.t0) return;
+    const p = clamp((now - d.tidefx.t0) / 1600, 0, 1);
+    const e = easeOutCubic(p);
+    const R = d.geo.R;
+    const alpha = 0.42 * (1 - smooth(0.78, 1, p) * 0.5) * d.alpha;
+    if (alpha <= 0.02) return;
+    const rad = R * (0.5 + 2.3 * e);
+    ctx.beginPath();
+    for (let i = 0; i <= 24; i++) {
+      const a = i / 24 * TAU;
+      const wob = 1 + 0.08 * Math.sin(a * 3 + now / 800) + 0.05 * Math.sin(a * 5 - now / 620);
+      const s = proj([d.pos[0] + Math.cos(a) * rad * wob, 0.016, d.pos[2] + Math.sin(a) * rad * 0.9 * wob]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    }
+    ctx.closePath();
+    ctx.fillStyle = `rgba(36,110,132,${alpha})`;
+    ctx.fill();
+    ctx.strokeStyle = `rgba(250,255,252,${alpha * 0.9})`;
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+    // the first spill, streaming down the near face
+    if (p < 0.5) {
+      const ta = (1 - p / 0.5) * 0.55 * d.alpha;
+      for (let k = -1; k <= 1; k++) {
+        const s0 = proj([d.pos[0] + k * R * 0.24, Math.max(0.05, d.pos[1] - R * 0.1), d.pos[2] + R * 0.5]);
+        const s1 = proj([d.pos[0] + k * R * 0.3, 0.02, d.pos[2] + R * (0.62 + 0.2 * Math.abs(k))]);
+        ctx.strokeStyle = `rgba(120,205,205,${ta})`;
+        ctx.lineWidth = 2 - Math.abs(k) * 0.6;
+        ctx.beginPath(); ctx.moveTo(s0.x, s0.y); ctx.lineTo(s1.x, s1.y); ctx.stroke();
+      }
+    }
   }
 
   function drawFrontRim() {
@@ -1153,14 +1400,23 @@ export function createDiceStage(canvas, initial) {
     const special = color && color.special;
     const tide = special === 'tide';
     const pearl = tide && die.pearl;
-    const glassy = tide && !pearl && !die.cracked && die.slosh;
+    const glassy = tide && !die.cracked && die.slosh; // the pearl is nacre-glass too — the tide lives in her
     const sig = !!die.sig;
     let ink, numColor;
     if (tide) { ink = pearl ? TIDE.pearlInk : TIDE.ink; numColor = TIDE.num; }
     else if (special === 'hoard') { ink = sig ? HOARD.gildInk : HOARD.ink; numColor = sig ? HOARD.gildNum : HOARD.num; }
     else if (special === 'works') { ink = sig ? WORKS.protoInk : WORKS.ink; numColor = sig ? WORKS.protoNum : WORKS.num; }
     else if (special === 'moon') { ink = sig ? MOON.moonInk : MOON.ink; numColor = sig ? MOON.moonNum : MOON.num; }
+    else if (special === 'ash') { ink = sig ? ASH.bopInk : ASH.ink; numColor = sig ? ASH.bopNum : ASH.num; }
+    else if (special === 'cinder') { ink = sig ? CINDER.moltenInk : CINDER.ink; numColor = sig ? CINDER.moltenNum : CINDER.num; }
     else { ink = color.light ? '#4A3B24' : '#241A0E'; numColor = color.light ? '#2C2417' : '#FBF6E9'; }
+    // the tide's fated moments: glowing water on a 20, water draining out on a 1
+    let glowK = 0, drainK = 0;
+    if (die.tidefx) {
+      const fp = clamp(((now || performance.now()) - die.tidefx.t0) / 1400, 0, 1);
+      if (die.tidefx.kind === 'glow') glowK = smooth(0, 0.4, fp);
+      if (die.tidefx.kind === 'drain') drainK = fp;
+    }
     ctx.globalAlpha = die.alpha;
     const wv = geo.verts.map(v => vAdd(qRotate(v, die.quat), die.pos));
     const sv = wv.map(proj);
@@ -1182,9 +1438,17 @@ export function createDiceStage(canvas, initial) {
       const back = allFaces.filter(o => !facing(o));
       const glassTint = (o, a) => {
         const d = vDot(o.nW, LIGHT);
+        if (pearl) {
+          const irid = mixHex(mixHex('#EBD9D6', '#DAE8DC', (o.nW[0] + 1) / 2), '#DAE1EE', (o.nW[2] + 1) / 2);
+          return hexRgba(shadeHex(mixHex(TIDE.pearlBase, irid, 0.6), lerp(-0.04, 0.22, (d + 1) / 2)), a * 2.1);
+        }
         const h = clamp((o.cW[1] - die.pos[1]) / geo.R, -1, 1);
         return hexRgba(shadeHex(mixHex(TIDE.abyss, TIDE.teal, (h + 1) / 2), lerp(-0.08, 0.30, (d + 1) / 2)), a);
       };
+      // the water's colours, lifted toward light when the tide favors you
+      const wBack = `rgba(${Math.round(lerp(22, 96, glowK))},${Math.round(lerp(74, 216, glowK))},${Math.round(lerp(104, 198, glowK))},0.42)`;
+      const wFront = `rgba(${Math.round(lerp(16, 120, glowK))},${Math.round(lerp(62, 232, glowK))},${Math.round(lerp(96, 210, glowK))},${0.34 + 0.2 * glowK})`;
+      const wSurf = `rgba(${Math.round(lerp(150, 205, glowK))},${Math.round(lerp(225, 252, glowK))},${Math.round(lerp(215, 238, glowK))},${0.36 + 0.24 * glowK})`;
       const crossings = [];
       // the far wall of the glass, seen through the body
       back.forEach(o => { facePath(o.f); ctx.fillStyle = glassTint(o, 0.16); ctx.fill(); });
@@ -1195,7 +1459,7 @@ export function createDiceStage(canvas, initial) {
           ctx.beginPath();
           cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
           ctx.closePath();
-          ctx.fillStyle = 'rgba(22,74,104,0.42)'; ctx.fill();
+          ctx.fillStyle = wBack; ctx.fill();
         }
         cut.edge.forEach(p => crossings.push(p));
       });
@@ -1209,7 +1473,7 @@ export function createDiceStage(canvas, initial) {
         ctx.beginPath();
         pts.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
         ctx.closePath();
-        ctx.fillStyle = 'rgba(150,225,215,0.36)'; ctx.fill();
+        ctx.fillStyle = wSurf; ctx.fill();
       }
       // water against the near glass
       frontCuts.forEach(cut => {
@@ -1217,8 +1481,23 @@ export function createDiceStage(canvas, initial) {
         ctx.beginPath();
         cut.below.forEach((p, i) => { const s = proj(p); i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y); });
         ctx.closePath();
-        ctx.fillStyle = 'rgba(16,62,96,0.34)'; ctx.fill();
+        ctx.fillStyle = wFront; ctx.fill();
       });
+      // luminous water throws its light out through the glass
+      if (glowK > 0.02) {
+        const c = proj(die.pos);
+        const e = proj(vAdd(die.pos, [geo.R, 0, 0]));
+        const gr = Math.hypot(e.x - c.x, e.y - c.y) * (1.8 + 0.6 * glowK);
+        const gg = ctx.createRadialGradient(c.x, c.y, gr * 0.2, c.x, c.y, gr);
+        const pulse = 0.8 + 0.2 * Math.sin((now || 0) / 260);
+        gg.addColorStop(0, `rgba(150,255,232,${0.34 * glowK * pulse * die.alpha})`);
+        gg.addColorStop(1, 'rgba(150,255,232,0)');
+        ctx.save();
+        ctx.globalCompositeOperation = 'lighter';
+        ctx.fillStyle = gg;
+        ctx.fillRect(c.x - gr, c.y - gr, gr * 2, gr * 2);
+        ctx.restore();
+      }
       // the near glass itself — a breath of tint, like the bottle
       faces.forEach(o => { facePath(o.f); ctx.fillStyle = glassTint(o, 0.13); ctx.fill(); });
       // sun through glass: a soft sheen on the face turned to the light
@@ -1247,8 +1526,20 @@ export function createDiceStage(canvas, initial) {
       return;
     }
 
-    /* ---- opaque pipeline: the pearl, the character sets, and every plain colour ---- */
+    /* ---- opaque pipeline: the character sets and every plain colour ---- */
     const t = now || performance.now();
+    // Bop glows ahead of himself — a warm little halo
+    if (special === 'ash' && sig && !die.cracked) {
+      const c = proj(die.pos);
+      const e = proj(vAdd(die.pos, [geo.R, 0, 0]));
+      const hr = Math.hypot(e.x - c.x, e.y - c.y) * 2.1;
+      const hg = ctx.createRadialGradient(c.x, c.y, hr * 0.25, c.x, c.y, hr);
+      const ha = 0.15 + 0.06 * Math.sin(t / 620);
+      hg.addColorStop(0, `rgba(255,178,106,${ha * die.alpha})`);
+      hg.addColorStop(1, 'rgba(255,178,106,0)');
+      ctx.fillStyle = hg;
+      ctx.fillRect(c.x - hr, c.y - hr, hr * 2, hr * 2);
+    }
     // the Moon die rises with its own halo
     if (special === 'moon' && sig && !die.cracked) {
       const c = proj(die.pos);
@@ -1290,6 +1581,17 @@ export function createDiceStage(canvas, initial) {
           const base = mixHex(die._tint || MOON.tints[0], '#8E8AA8', 0.10 + 0.14 * shimmer);
           fill = shadeHex(base, lerp(-0.20, 0.24, ld));
         }
+      } else if (special === 'ash') {
+        // a banked coal: dark crust, warmth breathing beneath it
+        const breathe = 0.5 + 0.5 * Math.sin(t / (sig ? 620 : 980) + (die._ph || 0) * 2);
+        const base = mixHex(sig ? ASH.bop : ASH.base, '#B4542A', (sig ? 0.24 : 0.10) + (sig ? 0.22 : 0.12) * breathe);
+        fill = shadeHex(base, lerp(-0.18, 0.26, ld));
+      } else if (special === 'cinder') {
+        // black crust over living magma
+        const surge = 0.5 + 0.5 * Math.sin(t / 760 + (die._ph || 0) * 3);
+        const base = sig ? mixHex(CINDER.molten, '#E4491F', 0.3 + 0.3 * surge)
+                         : mixHex(CINDER.base, '#7A2E14', 0.10 + 0.10 * surge);
+        fill = shadeHex(base, lerp(-0.26, 0.32, ld));
       } else {
         fill = shadeHex(color.body, lerp(-0.24, 0.26, ld));
       }
@@ -1331,6 +1633,43 @@ export function createDiceStage(canvas, initial) {
           ctx.lineWidth = 1.8;
           facePath(f); ctx.stroke();
         }
+      }
+      if (special === 'ash' && !die.cracked) {
+        // the ember at the heart of each facet
+        const fi = geo.faces.indexOf(f);
+        const cS = proj(vAdd(qRotate(f.c, die.quat), die.pos));
+        const eS = proj(vAdd(vAdd(qRotate(f.c, die.quat), die.pos), [f.r * 0.7, 0, 0]));
+        const rr = Math.max(3, Math.hypot(eS.x - cS.x, eS.y - cS.y));
+        const gl = (sig ? 0.34 : 0.20) * (0.55 + 0.45 * Math.sin(t / 840 + fi * 1.9 + (die._ph || 0) * 2));
+        const eg = ctx.createRadialGradient(cS.x, cS.y, 0, cS.x, cS.y, rr);
+        eg.addColorStop(0, `rgba(255,150,70,${gl * die.alpha})`);
+        eg.addColorStop(1, 'rgba(255,150,70,0)');
+        ctx.fillStyle = eg;
+        ctx.fillRect(cS.x - rr, cS.y - rr, rr * 2, rr * 2);
+      }
+      if (special === 'cinder') {
+        // scales laid row over row, magma light in the gaps
+        if (f.r > 0.45 && !die.cracked) {
+          const cW2 = vAdd(qRotate(vAdd(f.c, vScale(f.n, 0.015)), die.quat), die.pos);
+          withSurface(cW2, vScale(qRotate(f.tR, die.quat), f.r), vScale(qRotate(f.tU, die.quat), -f.r), () => {
+            const surge = 0.35 + 0.3 * Math.sin(t / 700 + (die._ph || 0) * 2);
+            for (let row = -1; row <= 1; row++) {
+              for (let col = -1; col <= 1; col++) {
+                const sx = col * 13 + (row % 2 ? 6.5 : 0), sy = row * 11 + 6;
+                ctx.beginPath(); ctx.arc(sx, sy, 7, Math.PI, TAU);
+                ctx.strokeStyle = `rgba(255,110,45,${surge * (sig ? 0.5 : 0.3)})`;
+                ctx.lineWidth = 2.2; ctx.stroke();
+                ctx.beginPath(); ctx.arc(sx, sy - 1.2, 7, Math.PI, TAU);
+                ctx.strokeStyle = 'rgba(14,8,5,0.55)'; ctx.lineWidth = 1.6; ctx.stroke();
+              }
+            }
+          });
+        }
+        // seams of heat between the plates
+        const seam = 0.22 + 0.18 * Math.sin(t / 640 + (die._ph || 0) * 3);
+        ctx.strokeStyle = `rgba(255,96,36,${(sig ? seam * 1.7 : seam) * die.alpha})`;
+        ctx.lineWidth = sig ? 2.6 : 1.8;
+        facePath(f); ctx.stroke();
       }
     });
     drawDieLabels(faces, geo, die, sv, wv, numColor);
@@ -1401,6 +1740,8 @@ export function createDiceStage(canvas, initial) {
       : g.color === 'arc' ? (g.strong ? '175,235,255' : '110,205,250')
       : g.color === 'moonlit' ? (g.strong ? '242,242,255' : '212,214,242')
       : g.color === 'newmoon' ? '92,82,140'
+      : g.color === 'ember' ? (g.strong ? '255,190,110' : '255,140,70')
+      : g.color === 'ashen' ? '150,140,130'
       : (g.strong ? '255,214,120' : '214,168,74');
     const grad = ctx.createRadialGradient(c.x, c.y, R * 0.3, c.x, c.y, R * (g.strong ? 3 : 2.4));
     grad.addColorStop(0, `rgba(${gold},${0.5 * a})`);
@@ -1417,6 +1758,8 @@ export function createDiceStage(canvas, initial) {
         : g.color === 'arc' ? `rgba(190,240,255,${0.3 * a})`
         : g.color === 'moonlit' ? `rgba(238,238,255,${0.3 * a})`
         : g.color === 'newmoon' ? `rgba(150,140,200,${0.3 * a})`
+        : g.color === 'ember' ? `rgba(255,196,130,${0.3 * a})`
+        : g.color === 'ashen' ? `rgba(190,182,172,${0.3 * a})`
         : `rgba(255,232,160,${0.3 * a})`;
       ctx.fill();
       ctx.save();
@@ -1657,7 +2000,8 @@ export function createDiceStage(canvas, initial) {
 
   /* ---------- roll ---------- */
   function buildOutcome(spec, results) {
-    const out = { type: spec.type, values: [], dice: [], total: 0, crit: null, ghostText: '' };
+    const mod = spec.type === 'coin' ? 0 : Math.round(spec.mod || 0);
+    const out = { type: spec.type, values: [], dice: [], total: 0, natural: 0, mod, crit: null, ghostText: '' };
     if (spec.type === 'coin') {
       const heads = results[0].value === 1;
       out.total = heads ? 'Heads' : 'Tails';
@@ -1676,15 +2020,18 @@ export function createDiceStage(canvas, initial) {
         out.values.push(v);
         sum += v;
       }
-      out.total = sum;
-      out.ghostText = String(sum);
+      out.natural = sum;
+      out.total = sum + mod;
+      out.ghostText = String(out.total);
       return out;
     }
     out.values = results.map(r => r.value);
     out.dice = results.map(r => ({ value: r.value }));
-    out.total = out.values.reduce((a, b) => a + b, 0);
+    out.natural = out.values.reduce((a, b) => a + b, 0);
+    out.total = out.natural + mod;
     out.ghostText = String(out.total);
     if (spec.type === 'd20') {
+      // fate reads the die, not the arithmetic
       if (out.values.includes(20)) out.crit = 'nat20';
       else if (out.values.includes(1)) out.crit = 'nat1';
     }
@@ -1761,8 +2108,9 @@ export function createDiceStage(canvas, initial) {
       const val = a.results[i] ? a.results[i].value : null;
       const isD20 = d.geo.type === 'd20';
       const sp = d.color && d.color.special;
-      const settleColor = sp === 'tide' ? 'tide' : sp === 'works' ? 'arc' : sp === 'moon' ? 'moonlit' : 'gold';
-      const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : 'red';
+      const settleColor = sp === 'tide' ? 'tide' : sp === 'works' ? 'arc' : sp === 'moon' ? 'moonlit'
+        : (sp === 'ash' || sp === 'cinder') ? 'ember' : 'gold';
+      const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : sp === 'ash' ? 'ashen' : 'red';
       d.glow = {
         t0: now, dur: 1150,
         color: isD20 && val === 1 ? failColor : settleColor,
@@ -1770,12 +2118,25 @@ export function createDiceStage(canvas, initial) {
       };
       if (sp === 'tide') spawnRipple(d.pos[0], d.pos[2], 0.9);
       if (isD20 && val === 20) {
-        a.effects.push(makeFlash(d, now + 140));
-        done = Math.max(done, 140 + 900);
+        if (sp === 'tide') {
+          // the water in the die begins to glow
+          d.tidefx = { kind: 'glow', t0: now + 150 };
+          done = Math.max(done, 2400);
+        } else {
+          a.effects.push(makeFlash(d, now + 140));
+          done = Math.max(done, 140 + 900);
+        }
       }
       if (isD20 && val === 1) {
-        d.crack = { t0: now, burstAt: now + 560, lines: null, shards: null, lastT: now };
-        done = Math.max(done, 560 + 1350);
+        if (sp === 'tide') {
+          // the water flows out of the die and across the tray
+          d.tidefx = { kind: 'drain', t0: now + 320 };
+          spawnRipple(d.pos[0], d.pos[2], 1.1);
+          done = Math.max(done, 2600);
+        } else {
+          d.crack = { t0: now, burstAt: now + 560, lines: null, shards: null, lastT: now };
+          done = Math.max(done, 560 + 1350);
+        }
       }
     });
     if (!a.spec.keepDice) done = Math.max(done, 2400 + 800);
@@ -1817,6 +2178,7 @@ export function createDiceStage(canvas, initial) {
     const F = Math.min((now - a.firstTick) / 1000 * 60 * a.speed, a.frames.length - 1);
     const i0 = Math.floor(F), i1 = Math.min(i0 + 1, a.frames.length - 1), ft = F - i0;
     const f0 = a.frames[i0], f1 = a.frames[i1];
+    if (!f0 || !f1) { schedule(); return; }
     a.dice.forEach((d, i) => {
       d.hidden = d.cracked;
       const p0 = [f0[i * 7], f0[i * 7 + 1], f0[i * 7 + 2]];
@@ -1852,7 +2214,14 @@ export function createDiceStage(canvas, initial) {
         sl.vz += (-K * (sl.tz - restz) - C * sl.vz - DRIVE * az) * dt;
         sl.tx = clamp(sl.tx + sl.vx * dt, -0.6, 0.6);
         sl.tz = clamp(sl.tz + sl.vz * dt, -0.6, 0.6);
-        sl.lvl = clamp(-0.04 + 0.035 * Math.sin(now / 640 + sl.phase) - 0.0022 * ay, -0.16, 0.10);
+        if (d.tidefx && d.tidefx.kind === 'drain' && now >= d.tidefx.t0) {
+          // the tide going out: the level falls with the clock, not the framerate
+          const el = (now - d.tidefx.t0) / 1000;
+          sl.lvl = Math.max(-1.7, -0.05 - 1.25 * el);
+          sl.tx *= 0.85; sl.tz *= 0.85;
+        } else {
+          sl.lvl = clamp(-0.04 + 0.035 * Math.sin(now / 640 + sl.phase) - 0.0022 * ay, -0.16, 0.10);
+        }
       });
     }
     if (!a.settled && F >= a.settleFrame) { a.settled = true; a.tSettle = now; onSettle(a, now); }
@@ -1876,6 +2245,7 @@ export function createDiceStage(canvas, initial) {
     ctx.translate(shakeX, shakeY);
     drawTable(now);
     drawRipples(now);
+    a.dice.forEach(d => drawTidePuddle(d, now));
     drawDiceList(a.dice, now);
     drawFrontRim();
     if (a.settled) {
