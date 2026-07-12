@@ -6,15 +6,15 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.announcements = [
   {
-    date: "2026-07-02",
-    title: "Here's the website!",
-    text: "Hope you enjoy — poke around, roll some dice, and leave feedback on Discord or right here on the site (Messages tab).",
+    date: "2026-07-04",
+    title: "Session rescheduled",
+    text: "July 12 is off — new date coming very soon (watch here and Discord). The lightning will wait. It's patient like that.",
     banner: true,
   },
   {
     date: "2026-07-02",
-    title: "Next session — Sunday, July 12",
-    text: "The Chronicle left off mid-lightning. Come find out how that goes.",
+    title: "Here's the website!",
+    text: "Hope you enjoy — poke around, roll some dice, and leave feedback on Discord or right here on the site (Messages tab).",
   },
   {
     date: "2026-07-02",
