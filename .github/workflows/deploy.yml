@@ -18,6 +18,17 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
+      - name: Stamp asset versions with the commit id
+        run: |
+          STAMP="${GITHUB_SHA::8}"
+          find . -name '*.html' -not -path './.git/*' -print0 | while IFS= read -r -d '' f; do
+            sed -i \
+              -e "s#\(content/[a-z0-9-]*\.js\)#\1?v=$STAMP#g" \
+              -e "s#\(js/cannon\.js\)\(?v=[0-9a-z]*\)\{0,1\}#\1?v=$STAMP#g" \
+              -e "s#\(js/dice-engine\.js\)\(?v=[0-9a-z]*\)\{0,1\}#\1?v=$STAMP#g" \
+              "$f"
+          done
+          grep -o 'content/site\.js[^"]*' index.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
