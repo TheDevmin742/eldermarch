@@ -1891,20 +1891,29 @@ export function createDiceStage(canvas, initial) {
       const surfAlpha = 1 - smooth(0.28, 0.62, churn);
       const fillAlpha = 1 - smooth(0.45, 0.8, churn);
       const blobAlpha = smooth(0.45, 0.8, churn) * (die.tidefx && die.tidefx.kind === 'drain' ? 0 : 1);
-      // the surface: a spring-column heightfield (Hooke's law + neighbor
-      // spread), sampled in world space so the swell wraps every face
+      // the surface, closed-form: one wave travelling the way the water
+      // swings, splash rings spreading from real impact points, and the
+      // faintest ambient lap. Direction-true — no fixed axes.
       const drainMute = die.tidefx && die.tidefx.kind === 'drain' ? 0.35 : 1;
-      const hfN = sl.hf ? sl.hf.length : 0;
+      const R = geo.R;
+      const swingAmp = R * Math.min(0.15, 0.06 + 0.28 * (sl.swing || 0)) * Math.min(1, (sl.energy || 0.2) + 0.25);
       const waveAt = p => {
-        let h = 0;
-        if (hfN) {
-          const u = clamp((p[0] - px) / geo.R, -1, 1);
-          const xf = (u + 1) / 2 * (hfN - 1);
-          const i0 = Math.min(hfN - 2, Math.floor(xf));
-          h = geo.R * 0.5 * lerp(sl.hf[i0], sl.hf[i0 + 1], xf - i0);
+        const dx = p[0] - px, dz = p[2] - pz;
+        // the slosh wave, riding the swing direction
+        const u = dx * (sl.dirx || 1) + dz * (sl.dirz || 0);
+        let h = swingAmp * Math.sin(u / R * 4.6 - (sl.wph || 0));
+        // splash rings from the die's landings
+        const sps = sl.splashes || [];
+        for (let i = 0; i < sps.length; i++) {
+          const s = sps[i];
+          const age = (tw - s.t0) / 1000;
+          if (age < 0) continue;
+          const rr = Math.hypot(dx - s.lx, dz - s.lz);
+          h += R * s.amp * Math.exp(-age * 1.7) * Math.exp(-rr / (R * 1.1))
+             * Math.sin(rr / R * 7.5 - age * 11);
         }
         // the faintest ambient lap so still water still breathes
-        h += geo.R * 0.016 * Math.sin((p[0] - px) * 2.6 + (p[2] - pz) * 1.9 + tw / 900 + (sl.phase || 0) * 2);
+        h += R * 0.014 * Math.sin(dx * 2.6 + dz * 1.9 + tw / 900 + (sl.phase || 0) * 2);
         return h * drainMute;
       };
       const projWave = p => proj([p[0], p[1] + waveAt(p), p[2]]);
@@ -2645,7 +2654,9 @@ export function createDiceStage(canvas, initial) {
         pearl: isTide && t === 'd20',
         slosh: isTide ? {
           tx: 0.07 * Math.sin((now || 0) / 1150 + i), tz: 0.055 * Math.cos((now || 0) / 990 + i),
-          lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i, energy: 0.28
+          lvl: -0.04 + 0.035 * Math.sin((now || 0) / 640 + i), phase: i, energy: 0.28,
+          splashes: [], dirx: Math.cos((now || 0) / 2300 + i), dirz: Math.sin((now || 0) / 2300 + i),
+          wph: (now || 0) / 480 + i * 2.1, swing: 0.12, churn: 0
         } : null,
         _tint: (color && color.special) === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
         _ph: i * 1.37
@@ -2677,10 +2688,11 @@ export function createDiceStage(canvas, initial) {
       || (stage.scene.mode === 'keep' && (stage.scene.keptDice || []).some(d => d.color && d.color.special));
     return !!(th.animated || specialShown);
   }
-  function idleTick(t) {
+  function idleTick() {
     stage.idleRaf = null;
     if (!needsIdle()) return;
     // the idle surf runs at ~30fps — easy on school laptops
+    const t = performance.now();
     if (t - (stage._idleLast || 0) >= 32) { drawStatic(); stage._idleLast = t; }
     stage.idleRaf = requestAnimationFrame(idleTick);
   }
@@ -2777,7 +2789,7 @@ export function createDiceStage(canvas, initial) {
       pearl: isTide && spec.type === 'd20' && i === 0,
       slosh: isTide ? {
         tx: 0, tz: 0, vx: 0, vz: 0, lvl: -0.04, phase: i * 1.9, energy: 1.2,
-        hf: new Array(14).fill(0), hv: new Array(14).fill(0)
+        splashes: [], dirx: 1, dirz: 0, wph: i * 2.1, swing: 0, churn: 0
       } : null,
       _tint: special === 'moon' ? MOON.tints[i % MOON.tints.length] : null,
       _ph: i * 1.37
@@ -2849,14 +2861,18 @@ export function createDiceStage(canvas, initial) {
     clearTimeout(stage.tmo);
     stage.tmo = setTimeout(onTmo, starved ? 40 : 400);
   }
-  function onRaf(t) { starved = false; stage.raf = null; tick(t); }
+  function onRaf() { starved = false; stage.raf = null; tick(); }
   function onTmo() {
     // rAF is being starved (hidden/offscreen iframe) — drive frames with timers
     starved = true;
     if (stage.raf != null) { cancelAnimationFrame(stage.raf); stage.raf = null; }
-    tick(performance.now());
+    tick();
   }
-  function tick(now) {
+  function tick() {
+    // ONE clock for everything. rAF timestamps are frame-start times that can
+    // sit behind (or, quantized, equal) performance.now(); mixing the two made
+    // dt collapse to zero and silently starved the physics.
+    const now = performance.now();
     clearTimeout(stage.tmo);
     try { tickInner(now); if (stage.anim) stage.anim.failures = 0; }
     catch (e) {
@@ -2891,7 +2907,9 @@ export function createDiceStage(canvas, initial) {
     {
       const dtms = a._slNow == null ? 0 : now - a._slNow;
       a._slNow = now;
-      const dt = clamp(dtms / 1000, 0, 0.05);
+      // throttled tabs deliver time in big lumps — integrate it all (substepped)
+      // rather than discarding it, so the water never runs slow
+      const dt = clamp(dtms / 1000, 0, 0.35);
       if (dt > 0) a.dice.forEach(d => {
         const sl = d.slosh;
         const prev = d._pp || d.pos;
@@ -2899,73 +2917,76 @@ export function createDiceStage(canvas, initial) {
         const pv = d._pv || vel;
         const acc = vScale(vSub(vel, pv), 1 / dt);
         d._pp = d.pos.slice(); d._pv = vel;
-        // ripples where a watery die strikes the tray — and a splash inside it
+        // a tray impact: a ripple on the mat, and a splash rung inside the die
         if (sl && d._pvy != null && d._pvy < -3 && vel[1] > -0.4 && d.pos[1] < 1.1) {
           spawnRipple(d.pos[0], d.pos[2], clamp(Math.abs(d._pvy) / 9, 0.35, 1.2));
           sl.energy = Math.min(1.4, (sl.energy || 0) + Math.abs(d._pvy) / 7);
-          // the landing slaps the water: a splash at one side of the field
-          if (sl.hf) {
-            const N = sl.hf.length;
-            const idx = 1 + (Math.floor(now / 17) + (sl.phase | 0) * 3) % (N - 2);
-            const kick = clamp(Math.abs(d._pvy) / 26, 0.08, 0.4);
-            sl.hv[idx] -= kick;
-            if (idx > 0) sl.hv[idx - 1] -= kick * 0.5;
-            if (idx < N - 1) sl.hv[idx + 1] -= kick * 0.5;
-          }
+          // the splash starts where the die met the tray: offset toward travel
+          const sp = Math.hypot(vel[0], vel[2]) || 1;
+          sl.splashes.push({
+            lx: clamp(vel[0] / sp, -1, 1) * d.geo.R * 0.45,
+            lz: clamp(vel[2] / sp, -1, 1) * d.geo.R * 0.45,
+            t0: now, amp: clamp(Math.abs(d._pvy) / 22, 0.05, 0.22)
+          });
+          if (sl.splashes.length > 3) sl.splashes.shift();
         }
         d._pvy = vel[1];
         if (!sl) return;
-        // a heavy, slow pendulum — water sways, it doesn't snap
-        const K = 15, C = 3.6, DRIVE = 0.020;
+        /* THE WATER, one body:
+           a damped pendulum carries the bulk (it swings, overshoots, and
+           rings down over seconds), a single wave travels the direction the
+           water is actually swinging, and splashes ring outward from where
+           the die was struck. No fixed axes anywhere. */
+        const K = 22, C = 1.4, DRIVE = 0.030;
         const ax = clamp(acc[0], -80, 80), az = clamp(acc[2], -80, 80), ay = clamp(acc[1], -80, 80);
-        const restx = 0.05 * Math.sin(now / 1150 + sl.phase);
-        const restz = 0.04 * Math.cos(now / 990 + sl.phase);
-        sl.vx += (-K * (sl.tx - restx) - C * sl.vx - DRIVE * ax) * dt;
-        sl.vz += (-K * (sl.tz - restz) - C * sl.vz - DRIVE * az) * dt;
-        sl.tx = clamp(sl.tx + sl.vx * dt, -0.5, 0.5);
-        sl.tz = clamp(sl.tz + sl.vz * dt, -0.5, 0.5);
-        // the surface's wave energy: fed by motion, spent over time
-        sl.energy = Math.min(1.4, (sl.energy || 0.2) * Math.exp(-1.15 * dt)
-          + (Math.abs(ax) + Math.abs(az)) * dt * 0.012
-          + (Math.abs(sl.vx) + Math.abs(sl.vz)) * dt * 0.55);
-        // churn: while the die tumbles fast, the water has no clean surface —
-        // it's a spinning mass. Measure rotation rate and blend smoothly.
+        // substep the pendulum so coarse frames stay numerically stable
+        const steps = Math.max(1, Math.ceil(dt / 0.02));
+        const h = dt / steps;
+        for (let s2 = 0; s2 < steps; s2++) {
+          sl.vx += (-K * sl.tx - C * sl.vx - DRIVE * ax) * h;
+          sl.vz += (-K * sl.tz - C * sl.vz - DRIVE * az) * h;
+          sl.tx = clamp(sl.tx + sl.vx * h, -0.45, 0.45);
+          sl.tz = clamp(sl.tz + sl.vz * h, -0.45, 0.45);
+        }
+        // which way is the water swinging? (smoothed, so the wave doesn't twitch)
+        const sw = Math.hypot(sl.vx, sl.vz);
+        if (sw > 0.02) {
+          const mix = Math.min(1, dt * 5);
+          sl.dirx = (sl.dirx || 1) * (1 - mix) + (sl.vx / sw) * mix;
+          sl.dirz = (sl.dirz || 0) * (1 - mix) + (sl.vz / sw) * mix;
+          const dn = Math.hypot(sl.dirx, sl.dirz) || 1;
+          sl.dirx /= dn; sl.dirz /= dn;
+        }
+        sl.swing = (sl.swing || 0) + (sw - (sl.swing || 0)) * Math.min(1, dt * 4);
+        // the travelling wave's phase rolls on, faster when the swing is hard
+        sl.wph = (sl.wph || 0) + (2.4 + 5 * Math.min(1, sw)) * dt;
+        // wave energy: fed by motion, spent over seconds
+        sl.energy = Math.min(1.4, (sl.energy || 0.2) * Math.exp(-0.9 * dt)
+          + (Math.abs(ax) + Math.abs(az)) * dt * 0.012 + sw * dt * 0.5);
+        // cull spent splashes
+        sl.splashes = (sl.splashes || []).filter(s => now - s.t0 < 2600);
+        // churn: while the die tumbles fast, the water has no clean surface
         if (d._pq) {
           const qd = clamp(Math.abs(d.quat[0] * d._pq[0] + d.quat[1] * d._pq[1] + d.quat[2] * d._pq[2] + d.quat[3] * d._pq[3]), 0, 1);
           const spinRate = 2 * Math.acos(qd) / dt; // rad/s
           const hVel = Math.hypot(vel[0], vel[2]);
           const target = clamp(spinRate / 13 + hVel / 11, 0, 1);
+          const wasChurning = (sl.churn || 0) > 0.6;
           sl.churn = (sl.churn || 0) + (target - (sl.churn || 0)) * Math.min(1, dt * 7);
+          // the lurch: the moment the tumble ends, the water arrives late —
+          // it slams toward where the die was headed and swings back
+          if (wasChurning && sl.churn <= 0.6 && !sl._lurched) {
+            sl._lurched = true;
+            const lv = Math.hypot(pv[0], pv[2]);
+            if (lv > 0.5) {
+              sl.vx += clamp(pv[0] / lv, -1, 1) * 1.3;
+              sl.vz += clamp(pv[2] / lv, -1, 1) * 1.3;
+            }
+            sl.splashes.push({ lx: 0, lz: 0, t0: now, amp: 0.14 });
+            sl.energy = Math.min(1.4, sl.energy + 0.5);
+          }
         }
         d._pq = d.quat.slice();
-        // the surface heightfield: spring columns with neighbor spread —
-        // the classic 2D water algorithm, framerate-normalized
-        if (sl.hf) {
-          const N = sl.hf.length;
-          const dt60 = Math.min(2.5, dt * 60);
-          const TENSION = 0.028, DAMP = 0.05, SPREAD = 0.16;
-          // horizontal acceleration heaves the water toward the trailing side
-          const heave = clamp(-ax * 0.0011, -0.045, 0.045) * dt60;
-          for (let ci = 0; ci < N; ci++) {
-            const u = ci / (N - 1) * 2 - 1;
-            sl.hv[ci] += heave * u;
-            sl.hv[ci] += (-TENSION * sl.hf[ci] - DAMP * sl.hv[ci]) * dt60;
-            sl.hf[ci] = clamp(sl.hf[ci] + sl.hv[ci] * dt60, -0.55, 0.55);
-          }
-          // waves pull their neighbors after them — several passes so they travel
-          for (let pass = 0; pass < 3; pass++) {
-            for (let ci = 0; ci < N; ci++) {
-              if (ci > 0) {
-                const dlt = SPREAD * (sl.hf[ci] - sl.hf[ci - 1]) * dt60;
-                sl.hv[ci - 1] += dlt; sl.hf[ci - 1] += dlt;
-              }
-              if (ci < N - 1) {
-                const dlt = SPREAD * (sl.hf[ci] - sl.hf[ci + 1]) * dt60;
-                sl.hv[ci + 1] += dlt; sl.hf[ci + 1] += dlt;
-              }
-            }
-          }
-        }
         if (d.tidefx && d.tidefx.kind === 'drain' && now >= d.tidefx.t0) {
           // the tide going out: the level falls with the clock, not the framerate
           const el = (now - d.tidefx.t0) / 1000;
