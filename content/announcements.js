@@ -6,10 +6,15 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.announcements = [
   {
+    date: "2026-07-17",
+    title: "Next session — TOMORROW, Saturday July 18",
+    text: "The wait is over: we return to the mountain tomorrow at 10:00. The lightning has been very patient. It would like a word.",
+    banner: true,
+  },
+  {
     date: "2026-07-04",
     title: "Session rescheduled",
     text: "July 12 is off — new date coming very soon (watch here and Discord). The lightning will wait. It's patient like that.",
-    banner: true,
   },
   {
     date: "2026-07-02",

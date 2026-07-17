@@ -8,10 +8,10 @@ window.ELDERMARCH.site = {
   // Paste your Roll20 game link between the quotes:
   roll20Url: "https://app.roll20.net/join/20642258/Z_pl-A",
   // Shown under the Roll20 button. Leave "" to hide.
-  nextSession: "TBD — new date coming soon. The mountain still has you.",
+  nextSession: "Saturday, July 18 at 10:00 — the mountain still has you.",
   // When the next session starts (local time). Powers the live countdown.
   // Leave "" to turn the countdown off.
-  nextSessionAt: "",
+  nextSessionAt: "2026-07-18T10:00:00",
   footer: "Kept by the DM. Ember checks the margins.",
   // Where the Messages tab delivers feedback (via formsubmit.co).
   // This is the DM's FormSubmit alias — it forwards to her inbox without
