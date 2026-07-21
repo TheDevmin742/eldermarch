@@ -6,10 +6,15 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.announcements = [
   {
-    date: "2026-07-17",
-    title: "Next session — TOMORROW, Saturday July 18",
-    text: "The wait is over: we return to the mountain tomorrow at 10:00. The lightning has been very patient. It would like a word.",
+    date: "2026-07-21",
+    title: "Volume Three is up — and the company is five",
+    text: "Out of the Mountains is on the Recaps tab: the fall, the river, the road of introductions, and Mirewatch. Welcome LLOYD to The Company — card, tip sheet, and battle card all live. Someone owes the Tablet of Vigor a thank-you note.",
     banner: true,
+  },
+  {
+    date: "2026-07-17",
+    title: "Next session — Saturday July 18",
+    text: "The wait is over: we return to the mountain at 10:00. The lightning has been very patient. It would like a word.",
   },
   {
     date: "2026-07-04",

@@ -304,7 +304,8 @@ const THEMES = {
   shrine:   { felt: '#4A2E3C', shrine: true, animated: true, noStitch: true },
   reeds:    { felt: '#7B7A4E', reeds: true, animated: true, noStitch: true },
   cave:     { felt: '#2A2734', cave: true, animated: true, noStitch: true },
-  lair:     { felt: '#26221E', lair: true, animated: true, noStitch: true }
+  lair:     { felt: '#26221E', lair: true, animated: true, noStitch: true },
+  platform: { felt: '#33303C', platform: true, animated: true, noStitch: true }
 };
 const RUNES = ['ᚠ', 'ᚱ', 'ᚦ', 'ᚨ', 'ᚷ', 'ᚹ', 'ᛁ', 'ᛟ', 'ᛏ', 'ᛒ', 'ᛗ', 'ᛚ'];
 
@@ -395,6 +396,11 @@ const CRYSTAL = { // the deep roads — living crystal
 const BEHIR = { // Skathrix — the Chain of Thunder
   base: '#28405C', ink: '#0E1826', num: '#DCE8FA',
   storm: '#1A2A40', stormInk: '#080E18', stormNum: '#EAF4FF'
+};
+const HEIR = { // Vaelthundrax — the Heir of the Tempest
+  base: '#2A2450', ink: '#100C24', num: '#F2E6C2',
+  heir: '#17132E', heirInk: '#080614', heirNum: '#FFE9A8',
+  gold: '255,222,140'
 };
 
 /* deterministic scatter for the character mats */
@@ -592,6 +598,34 @@ const LAIR_BONES = (() => {
     r: 0.35 + rand() * 0.45, rot: rand() * TAU
   });
   return items;
+})();
+
+/* the storm platform: a jagged rim between stone and the drop */
+const PLATFORM_RIM = (() => {
+  const rand = lcg(8887);
+  const pts = [];
+  const N = 46;
+  for (let i = 0; i <= N; i++) {
+    const a = i / N * TAU;
+    pts.push({ a, jag: 0.78 + rand() * 0.14 - (rand() < 0.14 ? 0.09 : 0) });
+  }
+  pts[N] = pts[0];
+  return pts;
+})();
+const PLATFORM_LASHES = (() => {
+  const rand = lcg(4231);
+  return Array.from({ length: 4 }, () => ({
+    x: -TABLE.INW * 0.6 + rand() * TABLE.INW * 1.2,
+    z: -TABLE.IND * 0.6 + rand() * TABLE.IND * 1.2,
+    period: 3600 + rand() * 3200, ph: rand() * TAU
+  }));
+})();
+const PLATFORM_GUSTS = (() => {
+  const rand = lcg(6673);
+  return Array.from({ length: 6 }, () => ({
+    z: -TABLE.IND * 0.7 + rand() * TABLE.IND * 1.4,
+    sp: 1.6 + rand() * 1.8, len: 1.2 + rand() * 1.4, ph: rand() * 12
+  }));
 })();
 
 /* the animated waterline of the surf (world z for a given x) */
@@ -933,6 +967,7 @@ export function createDiceStage(canvas, initial) {
     if (th.reeds) drawReeds(now);
     if (th.cave) drawCave(now);
     if (th.lair) drawLair(now);
+    if (th.platform) drawPlatform(now);
     // theme decorations
     if (th.candle) {
       const fl = stage.anim ? (0.05 * Math.sin(now / 160) + 0.03 * Math.sin(now / 47)) : 0;
@@ -1669,6 +1704,119 @@ export function createDiceStage(canvas, initial) {
     ctx.restore();
   }
 
+  /* ---------- the storm platform (Vaelthundrax) ---------- */
+  function rimPoint(p) {
+    return [Math.cos(p.a) * TABLE.INW * p.jag, Math.sin(p.a) * TABLE.IND * p.jag];
+  }
+  function drawPlatform(now) {
+    ctx.save();
+    pathW(tablePaths().innerBase); ctx.clip();
+    // the drop: everything beyond the rim is storm and void
+    pathW(tablePaths().innerBase);
+    ctx.fillStyle = 'rgba(10,9,16,0.88)'; ctx.fill();
+    // storm swirl down in the dark, and its occasional lightning glow
+    for (let ring = 0; ring < 3; ring++) {
+      ctx.beginPath();
+      for (let i = 0; i <= 40; i++) {
+        const a = i / 40 * TAU + now / (5200 + ring * 2100) * (ring % 2 ? 1 : -1);
+        const rr = 0.95 + ring * 0.05;
+        const s = proj([Math.cos(a) * TABLE.INW * rr, 0.012, Math.sin(a) * TABLE.IND * rr]);
+        i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+      }
+      ctx.strokeStyle = `rgba(120,130,180,${0.10 + 0.04 * Math.sin(now / 900 + ring * 2)})`;
+      ctx.lineWidth = 5 - ring;
+      ctx.stroke();
+    }
+    const under = Math.max(0, Math.sin(now / 4100 + 2.2)) ** 18;
+    if (under > 0.05) {
+      pathW(tablePaths().innerBase);
+      ctx.fillStyle = `rgba(150,170,255,${0.12 * under})`;
+      ctx.fill();
+    }
+    // the platform itself — jagged stone, edge crumbling
+    ctx.beginPath();
+    PLATFORM_RIM.forEach((p, i) => {
+      const [x, z] = rimPoint(p);
+      const s = proj([x, 0.02, z]);
+      i === 0 ? ctx.moveTo(s.x, s.y) : ctx.lineTo(s.x, s.y);
+    });
+    ctx.closePath();
+    ctx.fillStyle = '#33303C'; ctx.fill();
+    ctx.strokeStyle = 'rgba(14,12,20,0.9)'; ctx.lineWidth = 2.4; ctx.stroke();
+    // stone cracks radiating from the platform's punished center
+    let cs2 = 3319;
+    const cr2 = () => (cs2 = (cs2 * 48271) % 2147483647) / 2147483647;
+    for (let k = 0; k < 7; k++) {
+      const a = cr2() * TAU;
+      let x = Math.cos(a) * 0.5, z = Math.sin(a) * 0.4, ang = a;
+      ctx.beginPath();
+      let s = proj([x, 0.022, z]); ctx.moveTo(s.x, s.y);
+      for (let seg = 0; seg < 4; seg++) {
+        ang += (cr2() - 0.5) * 1.1;
+        x += Math.cos(ang) * (0.5 + cr2() * 0.5);
+        z += Math.sin(ang) * (0.4 + cr2() * 0.4);
+        s = proj([x, 0.022, z]); ctx.lineTo(s.x, s.y);
+      }
+      ctx.strokeStyle = 'rgba(16,14,22,0.5)'; ctx.lineWidth = 1.4; ctx.stroke();
+    }
+    // gusts howling across the stone
+    PLATFORM_GUSTS.forEach(g => {
+      const cyc = ((now / 1000 * g.sp + g.ph) % 14) - 7;
+      if (Math.abs(cyc) > TABLE.INW + 1.5) return;
+      const s0 = proj([cyc - g.len / 2, 0.05, g.z]);
+      const s1 = proj([cyc + g.len / 2, 0.05, g.z + 0.08]);
+      const grad = ctx.createLinearGradient(s0.x, s0.y, s1.x, s1.y);
+      grad.addColorStop(0, 'rgba(200,205,235,0)');
+      grad.addColorStop(0.6, 'rgba(200,205,235,0.16)');
+      grad.addColorStop(1, 'rgba(200,205,235,0)');
+      ctx.strokeStyle = grad; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.moveTo(s0.x, s0.y);
+      ctx.quadraticCurveTo((s0.x + s1.x) / 2, s0.y - 5, s1.x, s1.y);
+      ctx.stroke();
+    });
+    // lightning lash — the domain hazard, striking its remembered spots
+    PLATFORM_LASHES.forEach(l => {
+      const ph = ((now + l.ph * 1000) % l.period) / l.period;
+      const strike = ph < 0.05 ? Math.sin(ph / 0.05 * Math.PI) : 0;
+      const scorchAge = ph < 0.4 ? ph : 0;
+      const s = proj([l.x, 0.02, l.z]);
+      if (scorchAge > 0) {
+        ctx.beginPath(); ctx.ellipse(s.x, s.y, 9, 5.5, 0, 0, TAU);
+        ctx.fillStyle = `rgba(150,170,255,${0.22 * (1 - scorchAge / 0.4)})`;
+        ctx.fill();
+      }
+      if (strike > 0.05) {
+        const top = proj([l.x, 2.6, l.z]);
+        let bs3 = Math.floor(now / 60) * 17 + 3;
+        const br3 = () => (bs3 = (bs3 * 48271) % 2147483647) / 2147483647 - 0.5;
+        ctx.beginPath(); ctx.moveTo(top.x, top.y);
+        for (let seg = 1; seg <= 4; seg++) {
+          ctx.lineTo(lerp(top.x, s.x, seg / 4) + br3() * 10, lerp(top.y, s.y, seg / 4) + br3() * 4);
+        }
+        ctx.strokeStyle = `rgba(226,236,255,${0.9 * strike})`;
+        ctx.lineWidth = 2.4; ctx.stroke();
+        const fl = ctx.createRadialGradient(s.x, s.y, 1, s.x, s.y, 34);
+        fl.addColorStop(0, `rgba(200,215,255,${0.5 * strike})`);
+        fl.addColorStop(1, 'rgba(200,215,255,0)');
+        ctx.fillStyle = fl;
+        ctx.fillRect(s.x - 34, s.y - 34, 68, 68);
+      }
+    });
+    // and every little while, a vast wing-shadow crosses the stone
+    const sweep = ((now / 9000) % 1);
+    if (sweep < 0.22) {
+      const sx = lerp(-TABLE.INW - 3, TABLE.INW + 3, sweep / 0.22);
+      const c = proj([sx, 0.03, 0]);
+      const e = proj([sx + 3.4, 0.03, 0]);
+      const rw = Math.abs(e.x - c.x);
+      ctx.beginPath();
+      ctx.ellipse(c.x, c.y, rw, rw * 0.42, -0.3, 0, TAU);
+      ctx.fillStyle = 'rgba(8,7,14,0.30)';
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
   /* ---------- ripples (the Rising Tide) ---------- */
   function spawnRipple(x, z, strength) {
     stage.ripples.push({ x, z, t0: performance.now(), s: clamp(strength, 0.3, 1.2) });
@@ -1843,6 +1991,7 @@ export function createDiceStage(canvas, initial) {
     else if (special === 'displacer') { ink = sig ? DISP.beastInk : DISP.ink; numColor = sig ? DISP.beastNum : DISP.num; }
     else if (special === 'crystal') { ink = sig ? CRYSTAL.geodeInk : CRYSTAL.ink; numColor = sig ? CRYSTAL.geodeNum : CRYSTAL.num; }
     else if (special === 'behir') { ink = sig ? BEHIR.stormInk : BEHIR.ink; numColor = sig ? BEHIR.stormNum : BEHIR.num; }
+    else if (special === 'heir') { ink = sig ? HEIR.heirInk : HEIR.ink; numColor = sig ? HEIR.heirNum : HEIR.num; }
     else { ink = color.light ? '#4A3B24' : '#241A0E'; numColor = color.light ? '#2C2417' : '#FBF6E9'; }
     // the tide's fated moments: glowing water on a 20, water draining out on a 1
     let glowK = 0, drainK = 0;
@@ -2206,6 +2355,10 @@ export function createDiceStage(canvas, initial) {
         // storm-blue plates, darkening before the flash
         const brood = 0.5 + 0.5 * Math.sin(t / 1900 + (die._ph || 0));
         fill = shadeHex(mixHex(sig ? BEHIR.storm : BEHIR.base, '#0E1A2C', 0.12 * brood), lerp(-0.26, 0.3, ld));
+      } else if (special === 'heir') {
+        // royal tempest-indigo, gathering dark like a held breath
+        const brood = 0.5 + 0.5 * Math.sin(t / 2300 + (die._ph || 0));
+        fill = shadeHex(mixHex(sig ? HEIR.heir : HEIR.base, '#0A0820', 0.14 * brood), lerp(-0.24, 0.3, ld));
       } else {
         fill = shadeHex(color.body, lerp(-0.24, 0.26, ld));
       }
@@ -2367,6 +2520,32 @@ export function createDiceStage(canvas, initial) {
           ctx.stroke();
         }
       }
+      if (special === 'heir') {
+        // gold seams — royalty even in the plates
+        const seam = 0.18 + 0.14 * Math.sin(t / 900 + (die._ph || 0) * 2);
+        ctx.strokeStyle = `rgba(${HEIR.gold},${(sig ? seam * 2 : seam) * die.alpha})`;
+        ctx.lineWidth = sig ? 2.2 : 1.6;
+        facePath(f); ctx.stroke();
+        // and now and then, the heir's own lightning — in gold
+        if (!die.cracked && f.idx.length >= 3) {
+          const fi = geo.faces.indexOf(f);
+          const flick = Math.max(0, Math.sin(t / (sig ? 560 : 950) + fi * 2.9 + (die._ph || 0) * 3)) ** (sig ? 12 : 22);
+          if (flick > 0.08) {
+            const a0 = sv[f.idx[0]], a1 = sv[f.idx[Math.floor(f.idx.length / 2)]];
+            let js = fi * 173 + Math.floor(t / 120);
+            const jr = () => { js = (js * 48271) % 2147483647; return js / 2147483647 - 0.5; };
+            ctx.beginPath();
+            ctx.moveTo(a0.x, a0.y);
+            for (let k2 = 1; k2 < 4; k2++) {
+              ctx.lineTo(lerp(a0.x, a1.x, k2 / 4) + jr() * 6, lerp(a0.y, a1.y, k2 / 4) + jr() * 6);
+            }
+            ctx.lineTo(a1.x, a1.y);
+            ctx.strokeStyle = `rgba(${HEIR.gold},${0.8 * flick * die.alpha})`;
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+          }
+        }
+      }
     });
     drawDieLabels(faces, geo, die, sv, wv, numColor);
     ctx.globalAlpha = 1;
@@ -2441,6 +2620,7 @@ export function createDiceStage(canvas, initial) {
       : g.color === 'shimmer' ? (g.strong ? '210,200,255' : '176,160,255')
       : g.color === 'crystal' ? (g.strong ? '224,240,255' : '186,214,255')
       : g.color === 'storm' ? (g.strong ? '234,244,255' : '196,216,255')
+      : g.color === 'goldstorm' ? (g.strong ? '255,236,180' : '255,222,140')
       : (g.strong ? '255,214,120' : '214,168,74');
     const grad = ctx.createRadialGradient(c.x, c.y, R * 0.3, c.x, c.y, R * (g.strong ? 3 : 2.4));
     grad.addColorStop(0, `rgba(${gold},${0.5 * a})`);
@@ -2462,6 +2642,7 @@ export function createDiceStage(canvas, initial) {
         : g.color === 'shimmer' ? `rgba(206,196,255,${0.3 * a})`
         : g.color === 'crystal' ? `rgba(224,240,255,${0.3 * a})`
         : g.color === 'storm' ? `rgba(226,240,255,${0.3 * a})`
+        : g.color === 'goldstorm' ? `rgba(255,238,190,${0.3 * a})`
         : `rgba(255,232,160,${0.3 * a})`;
       ctx.fill();
       ctx.save();
@@ -2507,6 +2688,113 @@ export function createDiceStage(canvas, initial) {
         // whole-table wash
         ctx.fillStyle = `rgba(255,244,214,${0.2 * env})`;
         ctx.fillRect(0, 0, LOG_W, LOG_H);
+      }
+    };
+  }
+  /* the sky answers a storm die's twenty: a bolt (or three) from above */
+  function makeBoltStrike(die, t0, gold, count) {
+    return {
+      until: t0 + 350 * count + 700,
+      draw(now) {
+        const col = gold ? HEIR.gold : '216,232,255';
+        for (let b = 0; b < count; b++) {
+          const bt0 = t0 + b * 330;
+          const t = (now - bt0) / 300;
+          if (t < 0 || t > 1) continue;
+          const env = t < 0.25 ? t / 0.25 : 1 - smooth(0.25, 1, t);
+          const c = proj(die.pos);
+          const topX = c.x + (b - (count - 1) / 2) * 26;
+          let js = Math.floor(bt0) * 7 + b;
+          const jr = () => { js = (js * 48271) % 2147483647; return js / 2147483647 - 0.5; };
+          ctx.save();
+          ctx.beginPath();
+          ctx.moveTo(topX, 8);
+          for (let seg = 1; seg <= 6; seg++) {
+            ctx.lineTo(lerp(topX, c.x, seg / 6) + jr() * 16 * (1 - seg / 6), lerp(8, c.y, seg / 6));
+          }
+          ctx.strokeStyle = `rgba(${col},${0.95 * env})`;
+          ctx.lineWidth = 3.2;
+          ctx.shadowColor = `rgba(${col},${0.8 * env})`;
+          ctx.shadowBlur = 14;
+          ctx.stroke();
+          ctx.restore();
+          const g = ctx.createRadialGradient(c.x, c.y, 1, c.x, c.y, 60);
+          g.addColorStop(0, `rgba(${col},${0.55 * env})`);
+          g.addColorStop(1, `rgba(${col},0)`);
+          ctx.fillStyle = g;
+          ctx.fillRect(c.x - 60, c.y - 60, 120, 120);
+          // whole-table flash on the first bolt
+          if (b === 0) {
+            ctx.fillStyle = `rgba(${col},${0.10 * env})`;
+            ctx.fillRect(0, 0, LOG_W, LOG_H);
+          }
+        }
+      }
+    };
+  }
+  /* Skathrix's one: the dark leans in — 'the devourer hunts even us' */
+  function makeDevourerDark(die, t0) {
+    return {
+      until: t0 + 1500,
+      draw(now) {
+        const t = (now - t0) / 1500;
+        if (t < 0 || t > 1) return;
+        const env = Math.sin(t * Math.PI);
+        const c = proj(die.pos);
+        const rr = lerp(520, 120, smooth(0, 0.55, t)) + lerp(0, 400, smooth(0.55, 1, t));
+        const g = ctx.createRadialGradient(c.x, c.y, rr * 0.5, c.x, c.y, rr);
+        g.addColorStop(0, 'rgba(4,6,12,0)');
+        g.addColorStop(1, `rgba(4,6,12,${0.62 * env})`);
+        ctx.fillStyle = g;
+        ctx.fillRect(0, 0, LOG_W, LOG_H);
+      }
+    };
+  }
+  /* the Heir's one: the stone gives way beneath the failed die */
+  function makeCrumble(die, t0) {
+    let cracks = null;
+    return {
+      until: t0 + 1500,
+      draw(now) {
+        const t = (now - t0) / 1400;
+        if (t < 0 || t > 1) return;
+        const c = proj(die.pos);
+        if (!cracks) {
+          let js = Math.floor(t0) * 13 + 5;
+          const jr = () => { js = (js * 48271) % 2147483647; return js / 2147483647; };
+          cracks = Array.from({ length: 6 }, (_, k) => {
+            const a = k / 6 * TAU + jr() * 0.8;
+            const segs = [];
+            let x = c.x, y = c.y, ang = a;
+            for (let seg2 = 0; seg2 < 4; seg2++) {
+              ang += (jr() - 0.5) * 0.9;
+              x += Math.cos(ang) * (14 + jr() * 14);
+              y += Math.sin(ang) * (9 + jr() * 9);
+              segs.push([x, y]);
+            }
+            return segs;
+          });
+        }
+        const grow = smooth(0, 0.5, t);
+        const fade = 1 - smooth(0.7, 1, t);
+        cracks.forEach(segs => {
+          ctx.beginPath();
+          ctx.moveTo(c.x, c.y);
+          const n = Math.max(1, Math.ceil(segs.length * grow));
+          segs.slice(0, n).forEach(p2 => ctx.lineTo(p2[0], p2[1]));
+          ctx.strokeStyle = `rgba(12,10,18,${0.75 * fade})`;
+          ctx.lineWidth = 2.2;
+          ctx.stroke();
+        });
+        // dust shaken loose
+        for (let k = 0; k < 5; k++) {
+          const dp = (t * 1.4 + k * 0.17) % 1;
+          if (dp > 0.9) continue;
+          ctx.beginPath();
+          ctx.arc(c.x + (k - 2) * 14 + Math.sin(k * 5 + t * 9) * 4, c.y - dp * 26, 1.6 + k % 2, 0, TAU);
+          ctx.fillStyle = `rgba(150,145,160,${0.4 * (1 - dp) * fade})`;
+          ctx.fill();
+        }
       }
     };
   }
@@ -2818,10 +3106,11 @@ export function createDiceStage(canvas, initial) {
       const sp = d.color && d.color.special;
       const settleColor = sp === 'tide' ? 'tide' : sp === 'works' ? 'arc' : sp === 'moon' ? 'moonlit'
         : (sp === 'ash' || sp === 'cinder' || sp === 'ember') ? 'ember'
-        : sp === 'displacer' ? 'shimmer' : sp === 'crystal' ? 'crystal' : sp === 'behir' ? 'storm' : 'gold';
+        : sp === 'displacer' ? 'shimmer' : sp === 'crystal' ? 'crystal' : sp === 'behir' ? 'storm'
+        : sp === 'heir' ? 'goldstorm' : 'gold';
       const failColor = sp === 'tide' ? 'ebb' : sp === 'moon' ? 'newmoon' : sp === 'ash' ? 'ashen'
         : sp === 'ember' ? 'ember' // her fortunes are true either way
-        : sp === 'displacer' ? 'newmoon' : sp === 'crystal' ? 'newmoon' : sp === 'behir' ? 'ebb' : 'red';
+        : sp === 'displacer' ? 'newmoon' : sp === 'crystal' ? 'newmoon' : (sp === 'behir' || sp === 'heir') ? 'ebb' : 'red';
       d.glow = {
         t0: now, dur: 1150,
         color: isD20 && val === 1 ? failColor : settleColor,
@@ -2833,6 +3122,14 @@ export function createDiceStage(canvas, initial) {
           // the water in the die begins to glow
           d.tidefx = { kind: 'glow', t0: now + 150 };
           done = Math.max(done, 2400);
+        } else if (sp === 'behir') {
+          // the sky answers: one great bolt finds the die
+          a.effects.push(makeBoltStrike(d, now + 200, false, 1));
+          done = Math.max(done, 200 + 1100);
+        } else if (sp === 'heir') {
+          // the heir answers in triplicate, and in gold
+          a.effects.push(makeBoltStrike(d, now + 200, true, 3));
+          done = Math.max(done, 200 + 1800);
         } else {
           a.effects.push(makeFlash(d, now + 140));
           done = Math.max(done, 140 + 900);
@@ -2847,6 +3144,16 @@ export function createDiceStage(canvas, initial) {
         } else {
           d.crack = { t0: now, burstAt: now + 560, lines: null, shards: null, lastT: now };
           done = Math.max(done, 560 + 1350);
+          if (sp === 'behir') {
+            // '…the devourer hunts even us' — the dark leans in
+            a.effects.push(makeDevourerDark(d, now + 300));
+            done = Math.max(done, 300 + 1600);
+          }
+          if (sp === 'heir') {
+            // '…the edge crumbles' — the stone gives way beneath it
+            a.effects.push(makeCrumble(d, now + 250));
+            done = Math.max(done, 250 + 1600);
+          }
         }
       }
     });
