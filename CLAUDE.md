@@ -27,8 +27,8 @@ This site is read by PLAYERS. Never add content from the campaign's `DM Notes` f
 - Jane's tone preference: concise, warm, in-world flavor welcome ("a new page has appeared").
 - Never call the character Thalasstheos "Thal" anywhere, ever.
 
-## When Lloyd debuts
-Flip `hidden: false` in `content/characters.js`, AND: convert his tip sheet (`Player Notes/Tip Sheets/Lloyd — Tip Sheet.docx`) to `docs/tips-lloyd.html`, and add his card to `docs/battle-cards.html` (both were deliberately held back to avoid leaking him).
+## Lloyd
+Debuted in Volume Three (2026) — card visible, tips-lloyd.html live, battle card added, appendix spells/items in. Still pending: his Casting Table dice set.
 
 ## The Messages tab (feedback)
 The Courier's Desk form posts to formsubmit.co using `feedbackEmail` in `content/site.js`. It needs one-time activation: submit the form once on the live site, then click the link in FormSubmit's activation email. After activation, FormSubmit offers a random alias string — swap it into `feedbackEmail` so Jane's address isn't in the public repo.

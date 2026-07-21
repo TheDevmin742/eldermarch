@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Volume Three — Out of the Mountains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#3b2a1a; --ink-soft:#5d4633; --crimson:#7c2d12; --crimson2:#9a3412;
+  --gold:#9a6b1f; --gold-bright:#b8860b; --sea:#1d4e5f; --edge:#c9b48a;
+  --parch1:#f6ecd2; --parch2:#efe1bf; --parch3:#e7d4a8;
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  font-family:'EB Garamond',Georgia,'Times New Roman',serif;
+  color:var(--ink); line-height:1.72; font-size:19px;
+  background:
+    radial-gradient(120% 80% at 50% -10%, #efe2c2 0%, rgba(239,226,194,0) 55%),
+    repeating-radial-gradient(circle at 20% 30%, rgba(150,110,60,.05) 0 2px, rgba(0,0,0,0) 2px 5px),
+    repeating-radial-gradient(circle at 80% 70%, rgba(120,80,40,.045) 0 2px, rgba(0,0,0,0) 2px 6px),
+    linear-gradient(160deg,var(--parch1),var(--parch2) 55%,var(--parch3));
+  background-attachment:fixed;
+}
+.page{max-width:820px;margin:0 auto;padding:46px 30px 90px;}
+
+.frontis{text-align:center;padding:28px 0 10px;}
+.vol-eyebrow{font-family:'Cinzel',serif;letter-spacing:.55em;text-transform:uppercase;
+  color:var(--gold);font-size:14px;margin-bottom:6px;padding-left:.55em;}
+.vol-title{font-family:'UnifrakturMaguntia',serif;font-size:74px;line-height:1.02;
+  color:var(--crimson);text-shadow:1px 1px 0 #e9cf9b, 3px 3px 6px rgba(60,30,10,.28);margin:4px 0 2px;}
+.vol-sub{font-family:'Cinzel',serif;font-size:21px;letter-spacing:.06em;color:var(--ink-soft);margin:8px 0 4px;}
+.vol-meta{font-style:italic;color:var(--gold);font-size:16px;letter-spacing:.04em;}
+.frontis pre.flourish{color:var(--crimson);font-size:15px;line-height:1.1;margin:18px 0 6px;
+  text-shadow:1px 1px 0 #e9cf9b;}
+
+.dramatis{margin:26px auto 6px;max-width:740px;}
+.dramatis h4{font-family:'Cinzel',serif;text-align:center;letter-spacing:.3em;color:var(--gold);
+  text-transform:uppercase;font-size:15px;margin:18px 0 14px;}
+.cast-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cast-card{border:1px solid var(--edge);border-radius:10px;padding:13px 16px;
+  background:linear-gradient(160deg,rgba(255,250,235,.6),rgba(231,212,168,.35));
+  box-shadow:0 2px 6px rgba(80,50,20,.10), inset 0 0 0 1px rgba(255,255,255,.25);}
+.cast-name{font-family:'Cinzel',serif;font-weight:600;color:var(--crimson);font-size:18px;}
+.cast-role{font-style:italic;color:var(--sea);font-size:15px;margin:1px 0 6px;}
+.cast-desc{font-size:16px;color:var(--ink-soft);line-height:1.55;}
+
+.divider-major{text-align:center;color:var(--gold-bright);font-size:20px;letter-spacing:.4em;margin:34px 0 6px;}
+
+.chapter{margin-top:30px;}
+.scrollwrap{text-align:center;margin:48px 0 22px;}
+.ch-flourish{color:var(--gold-bright);font-size:22px;letter-spacing:.08em;margin-bottom:6px;
+  text-shadow:1px 1px 0 #efdcae;}
+.ch-eyebrow{font-family:'Cinzel',serif;letter-spacing:.5em;text-transform:uppercase;
+  color:var(--gold);font-size:13px;margin-top:14px;padding-left:.5em;}
+.ch-title{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;color:var(--crimson);
+  font-size:31px;line-height:1.15;margin:4px auto 6px;max-width:680px;
+  text-shadow:1px 1px 0 #ecd09a;}
+.ch-rule{color:var(--crimson2);font-size:15px;letter-spacing:.05em;opacity:.85;}
+
+.scene-head{text-align:center;font-family:'Cinzel',serif;font-weight:600;color:var(--sea);
+  font-size:20px;margin:30px 0 10px;letter-spacing:.02em;}
+.sh-orn{color:var(--gold-bright);margin:0 .5em;font-size:16px;vertical-align:.08em;}
+.scene{text-align:center;font-family:'Cinzel',serif;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--crimson);font-size:15px;margin:26px 0 4px;}
+.scene-orn{color:var(--gold-bright);margin:0 .7em;}
+.scene-aside{text-align:center;font-style:italic;color:var(--gold);font-size:14px;margin:0 0 10px;letter-spacing:.02em;}
+
+p.para{margin:0 0 14px;text-align:justify;hyphens:auto;}
+p.first::first-letter{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:900;
+  float:left;font-size:62px;line-height:.78;padding:6px 10px 2px 0;color:var(--crimson);
+  text-shadow:1px 1px 0 #ecd09a;}
+.say{font-style:italic;color:var(--sea);}
+p.beat{text-align:center;font-family:'Cinzel',serif;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--crimson2);font-size:15px;margin:14px 0;opacity:.9;}
+
+.finis{text-align:center;margin:54px 0 10px;}
+.finis-orn{color:var(--gold-bright);font-size:24px;letter-spacing:.3em;}
+.finis-text{font-family:'Cinzel Decorative','Cinzel',serif;font-weight:700;color:var(--crimson);
+  font-size:26px;margin-top:10px;text-shadow:1px 1px 0 #ecd09a;}
+
+@media (max-width:640px){
+  body{font-size:17px;}
+  .vol-title{font-size:50px;}
+  .cast-grid{grid-template-columns:1fr;}
+  pre.scroll{font-size:8px;}
+  .ch-title{font-size:24px;}
+}
+@media print{
+  body{background:var(--parch1);}
+  .chapter{page-break-inside:auto;}
+  .scrollwrap{page-break-after:avoid;}
+}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="frontis">
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+    <div class="vol-eyebrow">The Chronicles of the Ember Road</div>
+    <div class="vol-title">Volume Three</div>
+    <div class="vol-sub">Out of the Mountains</div>
+    <div class="vol-meta">— the story so far · a tale still unfolding —</div>
+    <pre class="flourish">✶ ⚜ ════════════════════════════ ⚜ ✶</pre>
+
+    <div class="dramatis">
+      <h4>✦ Dramatis Personae ✦</h4>
+      <div class="cast-grid">
+        <div class="cast-card"><div class="cast-name">Wilhelm Thorne</div><div class="cast-role">Human artificer &amp; tinkerer</div><div class="cast-desc">Slept through the dragon; woke to carry the consequences. Now checks the healer&rsquo;s pulse when he thinks no one is looking, and fidgets brass into half-living gadgets.</div></div><div class="cast-card"><div class="cast-name">Kree</div><div class="cast-role">Aarakocra rogue</div><div class="cast-desc">Scout, lockpick, keeper of a black blade that has started to shake on its own. Commissioning dragon claws. Finally got asked to pick a lock and will never recover.</div></div><div class="cast-card"><div class="cast-name">Thalasstheos</div><div class="cast-role">Water genasi, Druid of the Circle of the Sea</div><div class="cast-desc">Died on the mountain. Got better. A &ldquo;wandering healer&rdquo; with a sea she doesn&rsquo;t talk about, walking smaller and stubborner than ever at the party&rsquo;s center.</div></div><div class="cast-card"><div class="cast-name">Kenra</div><div class="cast-role">Kenku, Druid of the Circle of the Moon</div><div class="cast-desc">The wolf from the cliff, currently perched on the new guy. Now carries two dormant moon-sickles that feel like a held breath &mdash; and a bundle of very good mushrooms.</div></div><div class="cast-card"><div class="cast-name">Lloyd</div><div class="cast-role">Orc Paladin of Aurys</div><div class="cast-desc">Hired off a job board to save five strangers; stayed to become the sixth. Guilt-tripped a behir to death. Recently traded his plate armor for a magic shovel and regrets nothing.</div></div>
+      </div>
+    </div>
+    <div class="divider-major">✦&nbsp;&nbsp;⚜&nbsp;&nbsp;✦</div>
+  </div>
+
+  <section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter One</div><h2 class="ch-title">The Road of Introductions</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The road away from the mountain is long, wet, and — for the first time in what feels like a lifetime — <em>boring</em>, and the company falls on that boredom like a feast.</p>
+<p class="para">It starts with formality. At the first rest stop Lloyd plants his shovel in the mud, straightens to his full height, and bows.</p>
+<p class="para"><span class="say">“Lloyd. Paladin of Aurys, sworn to the deed and the debt. Lately of every battlefield that would have me and none that would keep me.”</span> A pause. <span class="say">“A halfling farmer paid my posting fee off a Phandalin job board. I was hired to save five strangers.”</span> He looks around the fire at the four of them and the healer bundled in every spare layer the party owns. <span class="say">“The work is done. The introduction seemed… overdue.”</span></p>
+<p class="para">Silence. It&rsquo;s a very good bow. Nobody knows what to do with it.</p>
+<p class="para"><span class="say">“…We don&rsquo;t really <em>do</em> that,”</span> Kree offers finally, from a boulder.</p>
+<p class="para"><span class="say">“You could start,”</span> says Lloyd.</p>
+<p class="para"><span class="say">“We absolutely could not,”</span> says Kree.</p>
+<p class="para">It&rsquo;s Thalasstheos who draws his story out, later, walking beside him — thread by thread, the way she draws fever from a wound. <span class="say">“A god of honest work. I&rsquo;ve heard priests preach harvest and storm and gold. Never <em>work</em>.”</span></p>
+<p class="para"><span class="say">“Aurys doesn&rsquo;t want worship.”</span> Lloyd&rsquo;s thumb moves along the shovel&rsquo;s haft, over an old carving. <span class="say">“He wants the ditch dug. The wall raised. The oath kept — especially the ones nobody&rsquo;s watching. The spade was my father&rsquo;s.”</span></p>
+<p class="para"><span class="say">“And the wars?”</span></p>
+<p class="para"><span class="say">“Somebody has to fill the graves in after,”</span> he says, and it doesn&rsquo;t come out grim; it comes out like a man describing honest work. She looks at him for a while after that, and files something away where she keeps her good opinions of people.</p>
+<p class="para">Kree, riding pace on a boulder above them, has been waiting the whole conversation for his opening.</p>
+<p class="para"><span class="say">“Ask him about the behir. Ask him what he did to the behir.”</span></p>
+<p class="para"><span class="say">“I spoke with it,”</span> says Lloyd.</p>
+<p class="para"><span class="say">“He made it feel <em>bad for us</em>,”</span> Kree announces to the road at large. <span class="say">“I watched it happen. A snake the size of a bridge, teeth like fence posts — and this man leans on his shovel and goes, in his church voice, <em>&lsquo;look at them. Look what you&rsquo;ve done to them. Are you proud?&rsquo;</em> — and the behir. Got. <em>Sad.</em>”</span></p>
+<p class="para"><span class="say">“It worked,”</span> Lloyd says mildly.</p>
+<p class="para"><span class="say">“It <em>worked!</em>”</span> Kree wheezes sideways off the boulder. <span class="say">“That&rsquo;s the worst part! I watched a monster get guilt-tripped to death and it <em>worked!</em> What did it <em>cost</em> you? Is there a spell? Disappointed Father, third level?”</span></p>
+<p class="para"><span class="say">“Fifth,”</span> says Lloyd, absolutely deadpan, and Kree makes a sound like a kettle and has to be helped down.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Catching Wilhelm Up</span><span class="sh-orn">✦</span></h3>
+<p class="para">Wilhelm gets the missing night in pieces, gently, around the second fire — Thalasstheos and Kree trading the telling between them.</p>
+<p class="para"><span class="say">“The wall before dawn,”</span> Kree says. <span class="say">“You were there for that. Then the ravine. Then the cocoon — you were <em>technically</em> there for that—”</span></p>
+<p class="para"><span class="say">“I was <em>unconscious</em> for that.”</span></p>
+<p class="para"><span class="say">“You were unconscious for a lot of load-bearing plot,”</span> Kree agrees. <span class="say">“The Warden dragged Thalasstheos to the ceiling by his teeth. Twice. Then Lloyd arrived, then the Verdict — that&rsquo;s the guilt thing — then the cliff.”</span> He stops. The fire pops. <span class="say">“Then the dragon.”</span></p>
+<p class="para">Wilhelm looks at Thalasstheos. <span class="say">“And that&rsquo;s when—”</span> He doesn&rsquo;t finish it. Nobody has actually said it out loud yet, the thing that happened on the cliff and at the river; the whole party has been walking around the word.</p>
+<p class="para"><span class="say">“A rock was thrown at Kenra,”</span> Thalasstheos says, quiet, to the fire. <span class="say">“It was faster to be in front of it than to argue.”</span></p>
+<p class="para"><span class="say">“You were <em>dead</em>,”</span> Wilhelm says. <span class="say">“I held — Thalasstheos. You were <em>dead.</em>”</span></p>
+<p class="para"><span class="say">“And you took the spike out and put the tablet on true north,”</span> she says, and reaches over and closes his hand in both of hers, the way she does when a patient won&rsquo;t stop looking at their own wound. <span class="say">“So between us, we make one very complete healer.”</span></p>
+<p class="para">Wilhelm says very little for the rest of that night. But after it he finds a great many small artificer&rsquo;s reasons to walk beside her, and the pack with Skathrix&rsquo;s horns gets its straps checked more than any luggage in history.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Wolf</span><span class="sh-orn">✦</span></h3>
+<p class="para">The introductions turn back on the newcomer by accident, on the third morning, when Lloyd finally asks the question he&rsquo;s been carrying since the cliff.</p>
+<p class="para"><span class="say">“The wolf. In the battle. The great grey one that took the dragon by the throat — I never saw where it went. Whose beast was that?”</span></p>
+<p class="para">The kenku girl walking at his knee doesn&rsquo;t even look up.</p>
+<p class="para"><span class="say">“That was me,”</span> Kenra chirps.</p>
+<p class="para"><span class="say">“…The <em>wolf.</em>”</span></p>
+<p class="para"><span class="say">“That was me,”</span> she says again, patiently, in exactly the same chirp — and then, taking his stunned stillness as an invitation, she hops — knee, elbow, up — and settles onto his pauldron like it was installed for her, tucking her talons in, comfortable as a figurehead.</p>
+<p class="para">Lloyd stands very still, the way you do when a bird lands on you. He looks at Kree. Kree shrugs the shrug of a man who stopped asking questions a year ago.</p>
+<p class="para"><span class="say">“She likes the tall ones. You&rsquo;re the tallest thing she&rsquo;s ever perched on. Congratulations.”</span></p>
+<p class="para">She stays there, on and off, for the next three days. Nobody explains further. He stops needing them to.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Story Circle</span><span class="sh-orn">✦</span></h3>
+<p class="para">And then, because the road is long and Lloyd has paid his joining fee in javelins, the company gives him the whole saga — five voices, three days, constant corrections.</p>
+<p class="para">Kree goes first. <span class="say">“Flock scout. Best eyes on the north road, ask anyone. I was doing fine alone — good money, no attachments, nobody <em>humming</em>—”</span> he casts a look at Wilhelm, <span class="say">“—and then one day there&rsquo;s a wagon in a ditch, brass everywhere, all of it <em>humming</em>, and this one standing on the axle like the ditch had personally insulted him—”</span></p>
+<p class="para"><span class="say">“That is <em>not</em> where my story starts,”</span> Wilhelm says, and takes the narration clean out of his beak mid-sentence. <span class="say">“It starts three years earlier, in a workshop, with a theory about quintessence that my instructors called — I&rsquo;m quoting — <em>&lsquo;a fast way to lose both hands.&rsquo;</em> I still have both hands.”</span> He waggles them. <span class="say">“So. The wagon. The ditch. The bird shows up, robs me—”</span></p>
+<p class="para"><span class="say">“<em>Appraised</em> you—”</span></p>
+<p class="para"><span class="say">“—robbed me <em>slowly</em>, and then didn&rsquo;t leave. And we did the north road together after that, which went beautifully until the night it didn&rsquo;t.”</span> Wilhelm&rsquo;s voice shifts down a gear. <span class="say">“Bandits. Six of them, out of the dark, and my best trick already spent. And then the rain — this is true, he&rsquo;ll tell you — the rain <em>turned sideways.</em>”</span></p>
+<p class="para"><span class="say">“It did,”</span> Kree says. <span class="say">“The rain turned sideways.”</span></p>
+<p class="para"><span class="say">“And out of it walks a woman with water moving around her like it was on her payroll,”</span> Wilhelm says, <span class="say">“and the bandits are suddenly very wet and very unconscious, and she checks <em>our</em> wounds first. First! Before the men who attacked us! I said to her, madam, they were <em>robbing</em> us, and she said—”</span></p>
+<p class="para"><span class="say">“They were <em>bleeding</em>,”</span> Thalasstheos says, from the middle of the column, in the tone of someone who has defended this position many times and lost zero of the arguments.</p>
+<p class="para">Lloyd looks at her — the opening any storyteller would take. <span class="say">“And before that night? Where does a healer like that walk in from?”</span></p>
+<p class="para">The pause is small. Later, he&rsquo;ll remember that it was there.</p>
+<p class="para"><span class="say">“I&rsquo;m a wandering healer,”</span> she says, pleasantly, closing a door with it. <span class="say">“I wander. I heal. The interesting parts are other people&rsquo;s.”</span> And she pays the toll for the deflection in <em>good</em> stories instead — the manor, the burning heart, forty gentle fire-spirits with ember eyes. The ashlings — and the whole party goes soft at once, all talking over each other: the little ones that watched over their sleep under the tree in the rain, the gifts at parting—</p>
+<p class="para">Kree, however, is a scout, and scouts notice doors. <span class="say">“Yes, yes, the ashlings were wonderful — but <em>before</em> the wandering. You walked out of the rain from <em>somewhere</em>. Nobody learns water like that in a—”</span></p>
+<p class="para">Which is exactly when Kenra dive-bombs the conversation.</p>
+<p class="para">She launches off Lloyd&rsquo;s shoulder, lands in the dead center of the circle, and declares: <span class="say">“<em>I fell out of the sky.</em>”</span> And the door Kree was working on swings shut behind the best entrance in company history, because it&rsquo;s true and it&rsquo;s better: how the company&rsquo;s first week ended with a kenku dropping out of a stormcloud onto their camp — <span class="say">“onto the <em>stew</em>,”</span> Wilhelm corrects — <span class="say">“<em>near</em> the stew,”</span> Kenra corrects back — and how proper introductions never got finished because a troll arrived mid-handshake, and the first thing the party ever learned about Kenra was what she turns into when something big threatens something small.</p>
+<p class="para">Lloyd sits through all of it, feeding the fire, asking exactly the right questions in exactly the wrong places. <span class="say">“The salamander was <em>how</em> chained?”</span> — and gets the boss fight in the boss room, told in stereo. <span class="say">“The amulet — that one? At your chest?”</span> — and Kree holds up the fire amulet, glowing its low ember glow, and tells the ashlings&rsquo; parting gifts one by one. <span class="say">“And the potion?”</span> — <span class="say">“<em>Orange</em>,”</span> says Kenra, with immense pride, <span class="say">“I glowed for a <em>day</em>,”</span> and refuses to elaborate, and the entire party in unison says <span class="say">“she glowed for a day.”</span> The long walk to Phandalin and the guild signup and the stamped forms. The robbery — Pib Tealeaf&rsquo;s name pronounced by four people in four different tones of grudge — and what the record gently files as <em>Thalasstheos&rsquo;s little escapade</em>, which no one is brave enough to expand on in front of her.</p>
+<p class="para">And then the climb, and the wall, and the caves — stories Lloyd half-knows the ends of, because he walked into their final chapter with a shovel — and by the time the fires burn down on the third night, he knows them. That&rsquo;s the thing about the road: it&rsquo;s the cheapest place in the world to become family.</p>
+</section>
+<section class="chapter"><div class="scrollwrap"><div class="ch-flourish">✦&thinsp;════════&thinsp;⚜&thinsp;════════&thinsp;✦</div><div class="ch-eyebrow">Chapter Two</div><h2 class="ch-title">Mirewatch</h2><div class="ch-rule">✦&thinsp;═══════════&thinsp;❖&thinsp;═══════════&thinsp;✦</div></div>
+<p class="para first">The trees thin, the road tips downward, and Mirewatch comes into view — and the stories stop.</p>
+<p class="para">It is a dreary place under a bruised sky. The dragon has been here — that is the only way to read it: the palisade scorched and half-rebuilt in raw yellow timber; roofs patched with sailcloth; a burnt watchtower standing like a snuffed candle over streets gone grey with ash-mud. Chimney smoke rises thin and careful, as if the town is trying not to be noticed by something that might come back. The marsh mist lies along the walls like it&rsquo;s been hired to mourn.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Gate</span><span class="sh-orn">✦</span></h3>
+<p class="para">The halberd comes down across the road, and the guard behind it — young, hollow-cheeked, helmet slightly too big — plants his feet like a man who has recently learned the hard way what comes down roads.</p>
+<p class="para"><span class="say">“Hold. State your business in Mirewatch.”</span></p>
+<p class="para">Lloyd steps forward into his full height, which is considerable, and lets the shovel rest on his shoulder in the manner of a siege weapon. <span class="say">“Our business is our own. Five armed veterans, off the mountain that&rsquo;s still smoking. You could count our weapons, or you could open the gate. I&rsquo;d choose quickly.”</span></p>
+<p class="para">The halberd wobbles. The guard swallows. And a door bangs open somewhere behind the palisade.</p>
+<p class="para">The woman who comes out is thirty at most, sleeves rolled, dark hair yanked back tight, and she walks straight past the halberd like it isn&rsquo;t there and up to Lloyd like <em>he</em> isn&rsquo;t either. Stern doesn&rsquo;t cover it. She has a face like a ledger — young, and already balanced against worse than orcs.</p>
+<p class="para"><span class="say">“That&rsquo;s enough of that. What do you <em>need?</em>”</span></p>
+<p class="para"><span class="say">“Rest,”</span> Wilhelm offers from the back, helpful and exhausted. <span class="say">“Food, beds — honestly at this point a dry patch of dirt. We&rsquo;re struggling a little—”</span></p>
+<p class="para">The temperature drops. The woman turns on him slowly.</p>
+<p class="para"><span class="say">“<em>Struggling.</em>”</span> She says the word the way you&rsquo;d pick a bone out of soup. <span class="say">“Sir. Half this town sleeps under sailcloth. My farmers till ash. Don&rsquo;t come down my road with your trophies and your swords and tell <em>Mirewatch</em> about struggling.”</span></p>
+<p class="para">Lloyd, misreading the room heroically, tries again: <span class="say">“Madam, I don&rsquo;t think you understand who—”</span></p>
+<p class="para"><span class="say">“I understand you&rsquo;re the second-loudest thing to arrive at that gate this season,”</span> she says flatly, <span class="say">“and I chased off the first one with a <em>bell rope.</em>”</span></p>
+<p class="para">Silence. The halberd guard stares straight ahead with the expression of a man witnessing his commander eat travelers alive and enjoying it enormously.</p>
+<p class="para">Thalasstheos steps through the middle of all of it, small and windburnt, and bows her head. <span class="say">“Forgive us. We&rsquo;ve been on the road since the mountain fell, and our manners fell off it somewhere. We&rsquo;re able-bodied, we can pay, and we have a healer.”</span> A pause. <span class="say">“Me. I&rsquo;m the healer.”</span></p>
+<p class="para">The woman looks at her for a long moment — at the torn blue robe under the borrowed layers, at the party behind her that has clearly bled recently and together — and something in the ledger-face closes its accounts.</p>
+<p class="para"><span class="say">“Maren Salt. I keep this town, inasmuch as it&rsquo;s kept. Gate stays open till dusk. Don&rsquo;t make me regret the daylight.”</span> And, turning, over her shoulder: <span class="say">“<em>Podrick!</em> Walk them. If the orc intimidates anyone else, bill him.”</span></p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Podrick&rsquo;s Tour</span><span class="sh-orn">✦</span></h3>
+<p class="para">Podrick turns out to be the halberd guard, who is eighteen at the outside and delighted to have a duty that isn&rsquo;t the gate.</p>
+<p class="para">Lloyd, falling in beside him, produces questions the way other men produce coin — and one of them stops the whole party mid-street.</p>
+<p class="para"><span class="say">“Your bank. Where is it?”</span></p>
+<p class="para"><span class="say">“…Our <em>what?</em>”</span></p>
+<p class="para"><span class="say">“Bank. Counting house. Vault. Where the people keep their money safe.”</span></p>
+<p class="para">The party exchanges the look of four people who have collectively slept in ditches for a year. <span class="say">“Why,”</span> Kree asks, with genuine anthropological interest, <span class="say">“would you give your money to a <em>building?</em>”</span></p>
+<p class="para"><span class="say">“So it doesn&rsquo;t burn,”</span> Lloyd says, <span class="say">“in, for instance, a dragon attack,”</span> and there&rsquo;s a small silence, because that lands differently here.</p>
+<p class="para"><span class="say">“There&rsquo;s the old strong-house,”</span> Podrick offers, pointing vaguely. <span class="say">“Lock-boxes, from the mining days. Nobody&rsquo;s opened it since… well. Since.”</span></p>
+<p class="para">The tour goes on through streets that are trying. That&rsquo;s the word for Mirewatch: <em>trying.</em> Farmers tilling a field half-gone to grey ash, turning it under with a patience that hurts to watch. Children playing knights-and-dragon between the sailcloth roofs — one of them wearing a pot helm, roaring, the others shrieking — and the game is joy and the game is also, unmistakably, <em>practice</em>, and the whole street carries its melancholy like weather.</p>
+<p class="para">Then the ring of a hammer, and Kenra&rsquo;s head comes up like a hound&rsquo;s. The smithy is half-open to the street, all heat-shimmer and sparks, and Kenra and Kree drift toward it with the synchronized gravitation of two people who love sharp objects. Podrick glances over — <span class="say">“that&rsquo;s Master Hult, he&rsquo;s — oh, hang on—”</span> — and gets pulled away by a woman with an urgent fence problem, leaving the party unsupervised in the middle of town.</p>
+<p class="beat">This has consequences.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Smithy</span><span class="sh-orn">✦</span></h3>
+<p class="para">Kenra gets there first, hops onto a barrel, and opens with the important question:</p>
+<p class="para"><span class="say">“Is there good food here?”</span></p>
+<p class="para">The blacksmith looks at the small kenku, hammer mid-swing — and <em>bellows</em>. It&rsquo;s laughter the size of the forge. <span class="say">“HA! Straight to it! Not <em>here</em>, little bird — anything I cook comes out like my ingots.”</span> He points down the lane with his tongs. <span class="say">“Marsh-hen. Widow Brann&rsquo;s counter. Tell her Hult sent you and she&rsquo;ll charge you double for it.”</span></p>
+<p class="para">Kenra commits the location to memory with visible ceremony. Then Kree steps up, sets one foot on the barrel, and produces the pitch he has clearly been drafting since the boss room.</p>
+<p class="para"><span class="say">“Blacksmith. I require claws.”</span> A pause for effect. <span class="say">“Not tools. Not hooks. <em>Claws.</em> Extremely cool ones. Edgy. Frightening. Like — like the <em>dragon&rsquo;s</em>. When people see them I want them to feel the way I felt, which was terrified.”</span></p>
+<p class="para">Hult looks him over with a professional eye. <span class="say">“Show me your hands, then.”</span></p>
+<p class="para">Kree presents his arms. There is a pause while everyone regards the situation: the long flight feathers, the wing-limbs, the distinctly non-standard anatomy of an aarakocra asking for gauntlet-work.</p>
+<p class="para"><span class="say">“…Those&rsquo;re wings,”</span> Hult says.</p>
+<p class="para"><span class="say">“They&rsquo;re <em>arms</em>,”</span> Kree says.</p>
+<p class="para"><span class="say">“They&rsquo;re arm-<em>ish</em>. Fitted claw-work&rsquo;s made for a man&rsquo;s wrist. Yours bends wrong in three places and it&rsquo;s got <em>plumage.</em>”</span></p>
+<p class="para">Kree looks at his own arms as if seeing them for the first time. Then he leans in, eyes bright, and does the thing he does — the voice that has talked the party past guards and out of debts: <span class="say">“Master Hult. Every smith in every town makes wrist-claws for men. <em>Nobody</em> has made them for wings. You wouldn&rsquo;t be fitting an order. You&rsquo;d be <em>inventing a field.</em>”</span></p>
+<p class="para">Hult stands there a moment, tongs slack. You can <em>watch</em> the craftsman-brain catch fire. <span class="say">“…I&rsquo;d have to mount off the forearm ridge. Strap around the — hm. Leather bed, so the feathers lie flat—”</span> He points the tongs at Kree. <span class="say">“Leave me measurements. No promises. Come back in some days.”</span></p>
+<p class="para">And that is when the sword starts shaking.</p>
+<p class="para">Not rattling — <em>shaking</em>, the black blade at Kree&rsquo;s belt trembling against its scabbard with a low bone-hum, like something waking up hungry in a room full of hammers and hot metal. The forge fire flattens. Hult takes one step back from his own anvil.</p>
+<p class="para"><span class="say">“…What is <em>that.</em>”</span></p>
+<p class="para"><span class="say">“Nothing,”</span> Kree says quickly, backing out of the smithy with a hand clamped over the hilt. <span class="say">“It does that. It&rsquo;s fine. It likes — actually I don&rsquo;t know what it likes. I&rsquo;m going to stand over there.”</span></p>
+<p class="para">He stands over there. The sword quiets, slowly, like a growl winding down. Nobody comments, in the way that parties don&rsquo;t comment on things they&rsquo;ve silently agreed to worry about later.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Strong-House</span><span class="sh-orn">✦</span></h3>
+<p class="para">Lloyd finds the strong-house on the town&rsquo;s east side — squat, stone, soot-streaked but standing, the only building in Mirewatch that looks like it argued with the dragon and drew. The door is iron-banded oak. The door is also, very thoroughly, locked.</p>
+<p class="para">He rattles it once. Frowns. Leans in. And mutters, entirely to himself, <span class="say">“Now what I&rsquo;d need is someone who could pick a lock—”</span></p>
+<p class="para">He does not get to finish the sentence. There is a <em>whoosh</em> of displaced air, and Kree is simply <em>there</em>, at his elbow, lit up like the fire amulet.</p>
+<p class="para"><span class="say">“Say it again. Say the thing you need.”</span></p>
+<p class="para"><span class="say">“…Someone who could—”</span></p>
+<p class="para"><span class="say">“<em>I</em> can pick a lock.”</span> He is already kneeling, already unrolling a little cloth of picks with the reverence of a priest laying out relics. <span class="say">“I want you to know that I have waited an entire <em>year</em> for someone in this party to say those words in that order. Kenra asks me to open jars. <em>Jars</em>, Lloyd.”</span></p>
+<p class="para">The lock is old and honest and lasts eleven seconds. Kree stands, puffs out his chest to approximately double volume, and holds the door for the paladin with a butler&rsquo;s flourish. The two of them slip inside — into cold stone dark, rows of little iron lockers, dust like grey snow — and begin, professionally, to search.</p>
+<p class="para">They get through perhaps four lockers before the door bangs open behind them.</p>
+<p class="para"><span class="say">“<em>Kree.</em>”</span></p>
+<p class="para">Thalasstheos stands in the doorway with the light behind her and her arms folded, and the temperature of the strong-house, already cold, drops further. <span class="say">“We do not <em>take things.</em> We talked about this. We had a whole conversation, you cried a little—”</span></p>
+<p class="para"><span class="say">“I did not—”</span></p>
+<p class="para"><span class="say">“—and now I leave you alone for <em>five minutes</em> in a grieving town and you&rsquo;re elbow-deep in its <em>bank.</em>”</span></p>
+<p class="para"><span class="say">“The paladin asked me to!”</span> Kree says, with the joy of a man who has never before in his life gotten to say that sentence.</p>
+<p class="para"><span class="say">“They&rsquo;re old lockers,”</span> Lloyd says, reasonably, not pausing his search. <span class="say">“Pre-dragon. Unclaimed. If the owners needed them, they&rsquo;d have come back for—”</span></p>
+<p class="para"><span class="say">“<em>That is not how belongings work—</em>”</span></p>
+<p class="para">Kree points.</p>
+<p class="para">He doesn&rsquo;t say anything. He just points, past both of them, at the doorway, where a town guard is now standing — not Podrick, an older one — staring at the three of them among the opened lockers with his lantern raised.</p>
+<p class="para"><span class="say">“…You lot need to leave,”</span> the guard says.</p>
+<p class="para">Lloyd straightens to his full paladin bearing, dusts off his hands, and says with the perfect, weaponized sincerity of a man who has guilt-tripped a behir: <span class="say">“Of course. Terrible state of security, incidentally — the door was simply <em>unlocked.</em> We came in to check on it. You&rsquo;ll want that seen to.”</span></p>
+<p class="para">The guard looks at the door. The famous door. The door whose key has been on Maren Salt&rsquo;s belt for eleven years. <span class="say">“It was… unlocked,”</span> he repeats, in the voice of a man doing arithmetic that will not resolve, and stands aside as the three of them file out with dignity.</p>
+<p class="para">Then his lantern-light falls on the doorstep, where a lockpick is lying in plain view.</p>
+<p class="para">The guard looks at the pick. He looks down the street at the departing heroes of the mountain. He lets out a sigh that seems to come up from his boots, picks it up, and closes the door.</p>
+<p class="para">And up the lane, on the porch of the keeper&rsquo;s house, Maren Salt sits with a cup of something, watching all of it — the smithy, the sword, the strong-house, the sigh — with an expression that is no longer stern so much as <em>interested</em>, like a woman reading a ledger that has finally gotten good.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">The Boy</span><span class="sh-orn">✦</span></h3>
+<p class="para">Kree finds the kid — or the kid finds Kree; it&rsquo;s never clear with kids and kenku — sitting on a char-marked wall, and within minutes is perched beside him, listening.</p>
+<p class="para"><span class="say">“That one was ours,”</span> the boy says, pointing at a sailcloth roof over black beams. <span class="say">“The lightning went right down through it. Da got me out the window.”</span> He says it the way kids say enormous things, simply, kicking his heels against the wall. <span class="say">“He&rsquo;s working the tills now. Extra shifts. He says by frost we&rsquo;ll have real beams again. He works <em>really</em> hard.”</span></p>
+<p class="para"><span class="say">“What&rsquo;s your da&rsquo;s name?”</span> Kree asks.</p>
+<p class="para"><span class="say">“Emmet.”</span></p>
+<p class="para"><span class="say">“Emmet,”</span> Kree repeats, like he&rsquo;s filing it — and he is.</p>
+<p class="para">Thalasstheos settles on the boy&rsquo;s other side, and between the two of them — the healer&rsquo;s gentle questions, the scout&rsquo;s easy jokes — they get the shape of it: the dragon came at dusk, one pass, lightning and fire, and was gone before the bell finished ringing. No demands. No hoard-talk. As if the town were simply <em>in the way</em> of something. Six houses, the tower, the eastern fields. Everyone works; nobody says the dragon&rsquo;s name; children play knights-and-dragon because children always play the thing they fear until it fits in a game.</p>
+<p class="para"><span class="say">“You&rsquo;ll have your beams,”</span> Thalasstheos tells him, and it isn&rsquo;t a platitude; she says it like a diagnosis. <span class="say">“And your da has strong hands. But even strong hands need soup. Tell him the healer at the inn mends work-sores for free. Frost comes faster than he thinks.”</span></p>
+<p class="para">Meanwhile, across the lane, Wilhelm has poured himself onto a bench like an abandoned marionette. Too tired to walk, too Wilhelm to be still, his hands have gone on without him: a little brass gadget turning over and over in his fingers, clicking open, clicking shut, fidgeted into half-life out of pure boredom while his eyes track his party around the square. It hums a small warm hum. He doesn&rsquo;t notice he&rsquo;s smiling.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Mother Sedge</span><span class="sh-orn">✦</span></h3>
+<p class="para">It&rsquo;s Kenra who feels it — mid-square, head snapping around like a weathervane: a <em>prickle</em>, green and old and interesting, from a crooked shack at the marsh-edge of town that everyone&rsquo;s eyes seem to slide off of. She doesn&rsquo;t explain. She grabs whoever&rsquo;s nearest — which is everyone, one at a time, by the sleeve — and <em>tows.</em></p>
+<p class="para">The shack leans. The shack is covered in drying herbs and wind-chimes made of bird bones. The shack is, unmistakably, humming with the same low green prickle, and the party files in through a door built for someone shorter than any of them.</p>
+<p class="para">Inside: bundles and bottles floor to ceiling, a stuffed heron wearing a hat, a cauldron at a lazy simmer — and a tiny ancient woman in nine shawls, who looks up at five armed strangers filling her shop and beams like it&rsquo;s a birthday.</p>
+<p class="para"><span class="say">“VISITORS!”</span> she announces, at enormous volume.</p>
+<p class="para"><span class="say">“Good afternoon,”</span> says Lloyd. <span class="say">“We were wondering what you—”</span></p>
+<p class="para"><span class="say">“WHAT?”</span></p>
+<p class="para"><span class="say">“I said good <em>afternoon</em>, we were wondering—”</span></p>
+<p class="para"><span class="say">“YOU&rsquo;LL HAVE TO SPEAK UP, DEAR. MARSH TOOK MY EARS YEARS AGO.”</span></p>
+<p class="para">There is a moment where the party watches the most dignified member of the company inflate his paladin lungs.</p>
+<p class="para"><span class="say">“<em>WHAT DO YOU HAVE FOR SALE,</em>”</span> Lloyd bellows, rattling the bottles.</p>
+<p class="para"><span class="say">“WELL WHY DIDN&rsquo;T YOU SAY SO,”</span> says Mother Sedge, delighted.</p>
+<p class="para">What she has is everything. Potions in colors that don&rsquo;t have names, charms against seven kinds of damp, a jar labeled DO NOT, oddities that make Wilhelm&rsquo;s fingers twitch and Thalasstheos&rsquo;s eyebrows climb. She moves through it all half-blind and unerring — and then she stops. She&rsquo;s looking at Kenra. She looks at Kenra for a long, strange moment, the way you look at a letter you&rsquo;d stopped waiting for.</p>
+<p class="para"><span class="say">“…There you are,”</span> she says — quietly, which from her is remarkable.</p>
+<p class="para">From under the counter, wrapped in oilcloth gone stiff with age, she brings out a pair of sickles. Curved like new moons. Silvered, dark-handled, cold-looking even in the lamplight — and dormant, somehow; anyone in the room can feel that they are <em>off</em>, the way a held breath is off. She sets them in front of the kenku girl.</p>
+<p class="para"><span class="say">“Moon-blades. Been in that cloth since before this town had a wall. I was told — back when I could still be told things — that they&rsquo;d wake for the right hands. Wild hands.”</span> She folds Kenra&rsquo;s talons around the grips, and smiles with every wrinkle at once. <span class="say">“I did wonder if you&rsquo;d come before I went.”</span></p>
+<p class="para">Kenra holds the sickles and, for once in her chattering mimic life, has absolutely nothing to say. The sickles say nothing back. <em>Yet</em> hangs in the room, unspoken and loud.</p>
+<p class="para">After that it becomes a market day. Lloyd hauls out the behir trophies — horns and teeth thump onto the counter — and Mother Sedge haggles like a woman who can hear <em>numbers</em> perfectly well, brewing him a potion on the spot while gold changes hands. The party browses and boggles. And somewhere in the back, between the crone and the paladin, a longer negotiation happens in shouts the rest of them try not to hear —</p>
+<p class="para">— because when they finally squeeze out the crooked door into the dusk, Lloyd emerges lighter. Specifically: <em>plateless.</em> The armor is gone, traded across that counter along with most of his behir-gold, and in his hands, where a knight&rsquo;s fortune used to hang on his back, is a shovel. Not his father&rsquo;s spade — that stays on his belt, always. A new one. Old wood black with age, blade silvered like the sickles, faintly warm, and <em>humming</em> to Wilhelm&rsquo;s fidget-gadget when they pass too close.</p>
+<p class="para"><span class="say">“You traded your <em>armor</em>,”</span> Wilhelm says, <span class="say">“for a <em>shovel.</em>”</span></p>
+<p class="para"><span class="say">“A <em>magic</em> shovel,”</span> says Lloyd, with the serenity of a man whose god smiles on exactly this kind of decision.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">Widow Brann&rsquo;s</span><span class="sh-orn">✦</span></h3>
+<p class="para">They end where all true quests end: at food.</p>
+<p class="para">Widow Brann&rsquo;s counter is six stools and a smell that reorganizes the party&rsquo;s priorities from the end of the street — marsh-hen and butter and something baked. Kenra is vibrating. She has been saving this since the smithy; she leads them in like a general entering a surrendered city, hops onto a stool, and — before anyone can reach for coin — produces her trophy-hide bundle and unrolls it on the counter with ceremony.</p>
+<p class="para">The mushrooms. Fat, cream-capped, three days lovingly foraged.</p>
+<p class="para">The woman behind the counter picks one up, turns it in the light, and her whole tired face comes alive. <span class="say">“Marsh-caps! Where did you — I haven&rsquo;t had good marsh-caps since the east fields burned—”</span> She sweeps the bundle behind the counter like treasure and plants both hands. <span class="say">“Full meals. All five. And stew tomorrow if you&rsquo;re still breathing.”</span></p>
+<p class="para">They are still breathing. That&rsquo;s the thing — that&rsquo;s the whole warm, impossible thing, and it lands on them somewhere in the middle of the meal, between the marsh-hen and the second round: they are five people who fell off a mountain, <em>eating dinner.</em> Kree retells the guilt-tripping of the behir with full voices and Lloyd corrects the theology. Wilhelm laughs until he has to put his fork down. Kenra sits with the dormant sickles across her knees like sleeping cats and her beak full of everything. Thalasstheos — dead three days ago, warm now, firelight on her face — laughs quietly at all of them and lets Widow Brann refill her bowl without arguing, which everyone privately notes and no one dares mention.</p>
+<p class="para">Outside, Mirewatch pulls its sailcloth roofs tight against the dusk. Inside, the company that should not exist eats, and drinks, and laughs at death — not because it&rsquo;s funny, but because they&rsquo;re <em>here</em> to laugh at it.</p>
+<p class="beat">They survived the mountain. All five.</p>
+<p class="beat">The road can have them tomorrow.</p>
+<h3 class="scene-head"><span class="sh-orn">✦</span><span class="sh-text">To Be Continued</span><span class="sh-orn">✦</span></h3></section>
+
+
+<div class="finis"><div class="finis-orn">✦ ⚜ ✦</div><div class="finis-text">The Tale Continues&hellip;</div></div>
+
+</div>
+</body>
+</html>

@@ -479,7 +479,7 @@ document.getElementById('apx-items-list').innerHTML = (APX.items || []).map(it =
   </div>`).join("");
 
 /* spellbook — grouped by level */
-const CASTER_COLORS = { Wilhelm:'#8a6d3b', Kenra:'#5e3b86', Thalasstheos:'#6f8aa3' };
+const CASTER_COLORS = { Wilhelm:'#8a6d3b', Kenra:'#5e3b86', Thalasstheos:'#6f8aa3', Lloyd:'#b8860b' };
 const levels = [];
 (APX.spells || []).forEach(s => { if (!levels.includes(s.level)) levels.push(s.level); });
 document.getElementById('apx-spells').innerHTML = levels.map(lv => {

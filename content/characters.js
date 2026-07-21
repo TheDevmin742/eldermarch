@@ -46,13 +46,14 @@ window.ELDERMARCH.characters = [
     ],
   },
   {
-    /* Flip hidden to false when Lloyd makes his entrance!
-       (His tip sheet & battle card get added to the site then too.) */
-    hidden: true,
+    /* Debuted in Volume Three — the bow on the road of introductions. */
     name: "Lloyd",
     tags: ["Orc", "Paladin — Devotion"],
     color: "#b8860b",
-    blurb: "A silver-tongued aristocrat of exactly no remaining fortune, sworn to the god of honest coin. New in town — ask him about rates.",
-    links: [{ label: "Hearthsheet", href: "sheets/lloyd.html" }],
+    blurb: "A silver-tongued aristocrat of exactly no remaining fortune, sworn to the god of honest coin. Traded his armor's shine for a shovel and never looked more dignified.",
+    links: [
+      { label: "Hearthsheet", href: "sheets/lloyd.html" },
+      { label: "Tip Sheet", href: "docs/tips-lloyd.html" },
+    ],
   },
 ];
