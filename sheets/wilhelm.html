@@ -125,10 +125,10 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
       <div class="left">
         <div class="eyebrow">Character</div>
         <div class="cname">Wilhelm</div>
-        <div class="tags"><span class="tag race">Human</span><span class="tag cls">Artificer 5</span><span class="tag bg">Tinker</span></div>
+        <div class="tags"><span class="tag race">Human</span><span class="tag cls">Artificer 5 (Artillerist)</span><span class="tag bg">Tinker</span></div>
       </div>
       <div class="right">
-        <div class="field"><div class="v">Artificer 5</div><div class="l">Class &amp; Level</div></div>
+        <div class="field"><div class="v">Artificer 5 (Artillerist)</div><div class="l">Class &amp; Level</div></div>
         <div class="field"><div class="v">Tinker</div><div class="l">Background</div></div>
         <div class="field"><div class="v istarwrap" style="text-align:center;letter-spacing:3px;font-size:15px;"><span class="istar"></span><span class="istar"></span><span class="istar"></span></div><div class="l">Inspiration</div></div>
         <div class="field"><div class="v">True Neutral</div><div class="l">Alignment</div></div>
@@ -206,6 +206,9 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
             <tr><td>Spear <span class="note">(Returning Weapon)</span></td><td class="c">+6</td><td>1d6+3 piercing · returns when thrown</td></tr>
             <tr><td>Short sword</td><td class="c">+5</td><td>1d6+2 slashing</td></tr>
             <tr><td>Ray of Frost <span class="note">(cantrip)</span></td><td class="c">+4</td><td>1d8 cold · speed −10</td></tr>
+            <tr><td>Eldritch Cannon: Force Ballista <span class="note">(bonus action)</span></td><td class="c">+4</td><td>2d8 force · 120 ft · push 5 ft</td></tr>
+            <tr><td>Eldritch Cannon: Flamethrower <span class="note">(bonus action)</span></td><td class="c">DC 14</td><td>2d8 fire · 15-ft cone · Dex save, half on success</td></tr>
+            <tr><td>Eldritch Cannon: Protector <span class="note">(bonus action)</span></td><td class="c">—</td><td>1d8+3 temp HP to allies within 10 ft</td></tr>
           </table>
           <div class="kv" style="margin-top:6px;"><b>Spell save DC</b> 14 &nbsp;·&nbsp; <b>Spell atk</b> +4 &nbsp;·&nbsp; <b>Ability</b> INT</div>
         </div></div>
@@ -221,6 +224,8 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
         </div></div>
         <div class="panel"><div class="phead">Resources &amp; Uses</div><div class="pbody">
           <div class="kv"><b>Spell slots</b> — 1st ×4 · 2nd ×2 (see spell page).</div>
+          <div class="kv"><b>Eldritch Cannon</b> — 1 free per long rest; more by spending a 1st-level+ slot. AC 18 · 25 HP · lasts 1 hour.</div>
+          <div class="kv"><b>Arcane Firearm</b> — +1d8 to one damage roll of each artificer spell cast through the flintlock.</div>
           <div class="kv"><b>Infuse Item</b> — Enhanced Weapon · Repeating Shot · Returning Weapon · Replicate Magic Item.</div>
           <div class="kv"><b>Magical Tinkering</b> — imbue tiny objects with minor magic.</div>
           <div class="kv"><b>The Right Tool for the Job</b> · <b>Tool Expertise</b> (double prof with tools).</div>
@@ -239,7 +244,7 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
           <div class="feat"><b>Magical Tinkering.</b> Imbue tiny objects with light, sound, scent, or a recorded message.</div>
           <div class="feat"><b>Spellcasting (INT) &amp; Ritual Casting.</b> Casts through his tools as a focus.</div>
           <div class="feat"><b>Infuse Item.</b> Enhanced Weapon, Repeating Shot, Returning Weapon, Replicate Magic Item.</div>
-          <div class="feat"><b>Replicate Magic Item.</b> Pot of Alchemy · Goggles of Night.</div><div class="feat" style="color:#a23b22;"><b>⚠ Choose your Artificer Specialist.</b> Pick Battle Smith / Artillerist / Alchemist / Armorer (level 3) — grants a major feature (Steel Defender · Eldritch Cannon · Experimental Elixirs · Arcane Armor) and bonus prepared spells. <em>Not yet selected.</em></div>
+          <div class="feat"><b>Replicate Magic Item.</b> Pot of Alchemy · Goggles of Night.</div><div class="feat"><b>Artillerist Specialist.</b> Proficient with woodcarver's tools. <b>Eldritch Cannon</b> (action): conjure a Tiny or Small cannon within 5 ft (AC 18, 25 HP, 1 hr); bonus action to activate it as a Flamethrower (15-ft cone, DC 14 Dex, 2d8 fire), Force Ballista (ranged spell attack +4, 120 ft, 2d8 force, push 5 ft) or Protector (1d8+3 temp HP to allies within 10 ft). One free per long rest; a spell slot buys another. <b>Arcane Firearm</b>: the flintlock is his spellcasting focus; one damage roll per artificer spell gains +1d8. Always prepared: Shield, Thunderwave, Scorching Ray, Shatter.</div>
           <div class="feat"><b>The Right Tool for the Job · Tool Expertise.</b> Conjures tools; doubles proficiency with them.</div>
           <div class="feat"><b>Tinkering Ideas (homebrew).</b> Smokebomb (cracked pot), Flame Sword (thermal), the Telecom.</div>
           <div class="feat"><b>Weapon Crafting · Mimic Tear (homebrew).</b> His stranger creations.</div>
@@ -247,7 +252,7 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
         <div class="panel"><div class="phead">Proficiencies &amp; Languages</div><div class="pbody">
           <div class="kv"><b>Armor.</b> Light, medium, shields</div>
           <div class="kv"><b>Weapons.</b> Simple &amp; martial weapons</div>
-          <div class="kv"><b>Tools.</b> Tinker's tools, Smith's tools, thieves' tools</div>
+          <div class="kv"><b>Tools.</b> Tinker's tools, Smith's tools, thieves' tools, woodcarver's tools</div>
           <div class="kv"><b>Languages.</b> Common, Thieves' Cant</div>
         </div></div>
         <div class="panel"><div class="phead">Attunement <span class="note" style="font-size:9px;">max 3</span></div><div class="pbody">
@@ -265,7 +270,7 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
       <div class="left"><div class="eyebrow">Character</div><div class="cname" style="font-size:24px;">Wilhelm</div></div>
       <div class="right" style="grid-template-columns:repeat(3,1fr);">
         <div class="field"><div class="v">Human</div><div class="l">Race</div></div>
-        <div class="field"><div class="v">Artificer 5</div><div class="l">Class</div></div>
+        <div class="field"><div class="v">Artificer 5 (Artillerist)</div><div class="l">Class</div></div>
         <div class="field"><div class="v">True Neutral</div><div class="l">Alignment</div></div>
       </div>
     </div>
@@ -286,7 +291,7 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
         <div class="panel"><div class="phead">Portrait</div><div class="portrait">paste / draw Wilhelm here</div></div>
         <div class="panel"><div class="phead">Allies &amp; Organizations</div><div class="pbody">
           <div class="kv"><b>The Academy of Artifice.</b> Where he teaches primary school in Brindlewick.</div>
-          <div class="kv"><b>The Company.</b> Kree, Kenra &amp; Thalasstheos — the road-family he didn't plan for.</div>
+          <div class="kv"><b>The Company.</b> Kree, Kenra, Thalasstheos &amp; Lloyd — the road-family he didn't plan for.</div>
           <div class="kv"><b>His pupils.</b> The small class he holds dear.</div>
           <div class="kv"><b>Marta Brin.</b> The merchant whose caravan job started it all.</div>
           <div class="kv"><b>His late mother.</b> Held very dear.</div>
@@ -345,9 +350,9 @@ td.c{text-align:center;width:42px;font-weight:600;color:var(--num);}
           <div class="kv">Ray of Frost</div><div class="kv">Mending</div>
         </div></div>
         <div class="panel"><div class="phead">Level 1 <span class="note" style="font-size:9px;">4 slots</span></div><div class="pbody bigbody" style="min-height:120px;">
-          <div class="kv">Arcane Weapon</div><div class="kv">Snare</div><div class="kv">Heroism</div><div class="kv">Shield</div>
+          <div class="kv">Faerie Fire</div><div class="kv">Arcane Weapon</div><div class="kv">Cure Wounds</div><div class="kv">Shield <span class="note">(Artillerist, always prepared)</span></div><div class="kv">Thunderwave <span class="note">(Artillerist, always prepared)</span></div>
         </div></div>
-        <div class="panel"><div class="phead">Level 2 <span class="note" style="font-size:9px;">2 slots</span></div><div class="pbody bigbody" style="min-height:120px;"><div class="kv note" style="color:#a23b22;">⚠ choose 2nd-level spells — e.g. Web, Heat Metal, Enhance Ability, Lesser Restoration</div></div></div>
+        <div class="panel"><div class="phead">Level 2 <span class="note" style="font-size:9px;">2 slots</span></div><div class="pbody bigbody" style="min-height:120px;"><div class="kv">Web</div><div class="kv">Heat Metal</div><div class="kv">Scorching Ray <span class="note">(Artillerist, always prepared)</span></div><div class="kv">Shatter <span class="note">(Artillerist, always prepared)</span></div><div class="kv note">Prepares 5 (INT +3 and half level) plus the four Artillerist spells; may swap after a long rest (Snare, Heroism, Lesser Restoration, Enlarge/Reduce are good alternates).</div></div></div>
         <div class="panel"><div class="phead">Infusions Known</div><div class="pbody bigbody" style="min-height:120px;">
           <div class="kv">Repeating Shot <span class="note">→ flintlock</span></div><div class="kv">Returning Weapon <span class="note">→ spear</span></div><div class="kv">Replicate Magic Item <span class="note">→ Goggles of Night, Pot of Alchemy</span></div><div class="kv">Enhanced Weapon</div>
         </div></div>

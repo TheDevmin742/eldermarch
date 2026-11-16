@@ -4,6 +4,12 @@
 window.ELDERMARCH = window.ELDERMARCH || {};
 window.ELDERMARCH.recaps = [
   {
+    title: "Where the Road Stands: Before Session (Nov 21)",
+    cover: "img/story.png",
+    blurb: "The short version: what happened on the mountain and at the river, what Mirewatch has been like, where each hero stands, and the homework for Saturday. Read this one first.",
+    href: "docs/where-we-are.html",
+  },
+  {
     title: "Volume Three — Out of the Mountains",
     cover: "img/vol2.png",
     blurb: "The road of introductions: a paladin's bow, a wolf revealed, a story circle three days long — and Mirewatch, ash-grey and unbowed, where moon-sickles wait and a paladin trades his armor for a shovel.",

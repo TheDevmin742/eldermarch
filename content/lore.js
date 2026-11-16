@@ -11,7 +11,7 @@ window.ELDERMARCH.lore = [
   },
   {
     title: "The Eldermarch Compendium — the Book Itself",
-    blurb: "The full text of the worn tome Ember pressed on Kree, as far as it has written itself: the Skywrights, Cinderhearth, Phandalin's founding houses, and the mountain the storm took. Margin notes included.",
+    blurb: "The full text of the worn tome Ember pressed on Kree, as far as it has written itself: the Skywrights, Cinderhearth, Phandalin's founding houses, the mountain the storm took, the dragon who wears the storm, the gods of the road, and the town that watches the water. Margin notes included.",
     href: "docs/compendium.html",
   },
   {
